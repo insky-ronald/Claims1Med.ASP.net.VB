@@ -1,0 +1,22 @@
+.grid-service-items tr[x-breakdown] {
+	color: green;
+}
+
+.grid-service-items tr[x-exclusion] {
+	color: red;
+	font-style: italic;
+}
+
+.grid-service-items tr[x-novalidate] {
+	color: blue;
+}
+
+.grid-service-items  table[grid-sec="headers"] th[colspan] {
+	text-align: center !important;
+	font-size: 110%;
+}
+
+.grid-service-items table[grid-sec="headers"] thead[grid-sec="header"] th[command="notes"] svg,
+.grid-service-items table[grid-sec="content"] tbody td[command="notes"] svg:hover {
+	fill: goldenrod;
+}

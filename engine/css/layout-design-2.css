@@ -1,0 +1,280 @@
+##const
+	desktop-width=1280px
+	desktop-border-color=dimgray
+	desktop-header-height=90px
+	desktop-footer-height=45px
+	navigator-width=150px
+##endconst
+
+html, body, form {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	max-height: 100%; 
+	overflow-y: hidden;
+##version=ie8	
+	overflow-x: auto;
+##else
+	overflow-x: hidden;
+##endif	
+}
+
+body {
+	background: whitesmoke;
+}
+
+#desktop-container {
+	display: flex;
+	flex-flow: column;
+	/* position: relative; */
+	height: 100%;
+	overflow: hidden;
+	background: white;
+	/* box-sizing: border-box; */
+/* ##version=ie8 */
+	margin: auto;
+	width: [desktop-width]; 
+/* ##endif */
+}
+
+#desktop-header-container {	
+	/* display: flex; */
+	flex-shrink: 0;
+	height: [desktop-header-height];
+	width: 100%;
+	/* box-sizing: border-box; */
+}
+
+#desktop-header-container > .user-info {	
+    display: flex;
+	flex-flow: row;
+    float: left;
+    height: 100%;
+	font: 14px Arial;
+}
+
+#desktop-header-container > .user-info > .user-photo {
+	display: flex;
+	flex-grow: 1;
+	margin-left: 16px;
+}
+
+#desktop-header-container > .user-info > .user-photo img {
+	margin: auto;
+	border-radius: 50%;
+}
+
+#desktop-header-container > .user-info > .user-detail {	
+    flex-grow: 1;
+	display: flex;
+	flex-flow: column;
+	padding-left: 10px;
+}
+
+#desktop-header-container > .user-info > .user-detail > .user-name {
+	margin: auto;
+}
+
+#desktop-header-container > .user-info > .user-detail > .user-name div[x-sec="name"] {
+	font-weight: bold;
+	color: black;
+}
+
+#desktop-header-container > .user-info > .user-detail > .user-name div[x-sec="role"] {
+	font-size: 95%;
+}
+
+#desktop-header-container .toolbar-container {	
+	float:right;
+	height: 100%;
+	width: auto;
+}
+
+#desktop-data-container {
+	display: flex;
+	flex-grow: 1;
+	/* position: relative; */
+	width: 100%; 
+	/*height: calc(100% - [desktop-header-height]);*/
+	height: 100%;
+	/* top: 0px; */
+	/* bottom: [desktop-header-height];	 */
+	/* box-sizing: border-box; */
+}
+
+#data-container {
+	/* position: absolute; */
+	/* top: 0px; */
+	/* left: 0px; */
+	/* bottom: [desktop-footer-height]; */
+	/* padding-bottom: [desktop-header-height] !important; */
+	/* xbottom: 180px; */
+	display: flex;
+	width: 100%; 
+	height: 100%; 
+	overflow: hidden;
+	/* box-sizing: border-box; */
+}
+
+#inner-data-container {
+	display: flex;
+	flex-flow: row;
+	width: 100%;
+	height: 100%;
+}
+
+#inner-data-container div[x-sec="splitter"] {
+	flex-shrink: 0;
+    width: 6px;
+    height: 100%;
+	border: 1px #696969;
+    border-style: none solid none none;
+    background: white;
+    cursor: col-resize;
+}
+
+#navigator-container {
+	/*float: left;*/
+	display: flex;
+	/* flex-flow: row; */
+	flex-shrink: 0;
+	/* position: relative; */
+	width: [navigator-width];
+	/* min-width: [navigator-width]; */
+	height: 100%;
+	/* box-sizing: border-box; */
+	overflow-x: hidden;
+}
+
+#sub-data-container {
+	/* position: relative; */
+	/* display: table-cell; */
+	/* display: flex; */
+	flex-grow: 1;
+    display: flex;
+    flex-flow: column;
+	width: 100%;
+	/*left: Calc([navigator-width] + 6px);*/
+	/*width: Calc(100% - [navigator-width] - 6px);*/
+	
+	height: 100%;
+	/* box-sizing: border-box; */
+}
+
+#parent-sub-header {
+	flex-shrink: 1;
+	/* position: absolute; */
+	/* top: 0; */
+	width: 100%;
+	/* height: 49px; */
+	/* line-height: 49px; */
+	background: white;
+	padding: 4px 0 4px 10px;
+	/*border: 1px #DDDDDD;*/
+	/*border-style: none none solid;*/
+	/* box-sizing: border-box; */
+	font-family: Calibri;
+	font-size: 2em;
+	box-sizing: border-box;
+}	
+
+#parent-sub-header label[x-sec="icon"]{
+	
+}
+
+#parent-sub-header label[x-sec="title"]{
+	/* padding-left: 10px; */
+	color: black;
+	text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;
+}
+
+#parent-sub-header label[x-sec="sub-title"]{
+	padding-left: 4px;
+	font-size: 75%;
+	color: dimgray;
+	text-shadow: rgba(0, 0, 0, 0.1) 1px 1px 1px;
+}
+
+#parent-sub-header label[x-sec="quo"]{
+	padding-left: 4px;
+	color: goldenrod;
+	font-size: 90%;
+	/*margin: 0px 2px 0px 2px;*/
+}
+
+#parent-sub-container {
+	flex-grow: 1;
+	position: relative;
+	/* position: absolute; */
+	width: 100%;
+	/*height: 100%;*/
+	/* top: 49px; */
+	/* height: Calc(100% - 49px); */
+	/*height: 100%;*/
+	/* box-sizing: border-box; */
+}
+
+#desktop-footer-container {	
+	flex-shrink: 0;
+	/* position: relative; */
+	width: 100%;
+	/* box-sizing: border-box; */
+}
+
+#footer-container {	
+	/* position: absolute; */
+	width: 100%;
+	height: [desktop-footer-height];
+	/* bottom: [desktop-header-height]; */
+	/* box-sizing: border-box; */
+}
+
+.sub-container {
+	/*absolute, relative position seems have different effect under Chrome and IE*/
+##version=ie10
+	xposition: relative;
+##endif	
+
+##version=internetexplorer11
+	position: relative;
+##else	
+	position: absolute;
+##endif
+	top: 0px;
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+@media (max-width: [desktop-width]) {
+	#desktop-container {
+		margin: 0;
+		width: 100%; 
+	}
+}
+
+@media (min-width: [desktop-width]) and (max-width: 2880px) {
+	#desktop-container {
+		margin: auto;
+		width: [desktop-width]; 
+	}
+}
+
+#tools-container {
+	/*position: relative;*/
+	flex-shrink: 0;
+	/* display: table-cell; */
+	height: 100%;
+	width: 250px;
+	/* min-width: 250px; */
+	background: #666666;
+	border: 1px black;
+	border-style: none none none solid;
+	overflow-y: auto;
+}
+
+#tools-container div[tool-sec="menu"] {
+	width: 100%;
+	height: 100%;
+}

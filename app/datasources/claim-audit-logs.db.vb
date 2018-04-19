@@ -1,0 +1,11 @@
+With DBConnection.NewCommand("GetAuditLogs", "GetAuditLogs", CommandType.StoredProcedure)
+    .AddParameter("claim_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("service_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 

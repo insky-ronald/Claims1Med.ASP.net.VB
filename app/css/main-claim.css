@@ -1,0 +1,80 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 04-OCT-2017 */
+/*****************************************************************************************************/
+##const
+	info-color=slategray
+##endconst
+
+#page-custom-header {
+	font-family: Arial;
+	font-size: 9pt;
+	display: flex;
+	flex-flow: column;
+	/* padding: 4px; */
+	/* height: 45px; */
+	border: 1px silver;
+	border-style: dotted none none none;
+	/* background: #FFFFE0; */
+	box-sizing: border-box;
+}
+
+#page-custom-header > .notifications {
+	padding: 4px 4px 4px 10px;
+}
+
+#page-custom-header > .notifications > .nofification-info {
+	display: inline-flex;
+    flex-flow: row;
+	padding-right: 3px;
+    background: white;
+	border: 1px solid;
+	margin-right: 4px;
+}
+
+#page-custom-header > .notifications > .nofification-info > .nofification-info-label {
+	margin: auto;
+	padding-left: 4px;
+}
+
+#page-custom-header > .notifications > .nofification-info > .nofification-info-icon {
+	fill: white;
+}
+
+#page-custom-header > .information {
+	padding: 4px 4px 4px 10px;
+	background: lightyellow;
+	border-width: 1px;
+	border-color: #B0CEE3;
+	border-style: solid none solid none;
+}
+
+#page-custom-header > .information > .claim-info {
+	display: inline-flex;
+    flex-flow: row;
+	/* padding-right: 3px; */
+	/* padding: 6px 3px 3px 0; */
+    /* background: white; */
+	/* border: 1px solid [info-color]; */
+	/* margin-top: 4px; */
+	margin-right: 4px;
+}
+
+#page-custom-header > .information > .claim-info > .claim-info-caption {
+	/* background: [info-color]; */
+	/* color: white; */
+	color: [info-color];
+	padding: 4px 2px 4px 0;
+	/* margin-right: 4px; */
+}
+
+#page-custom-header > .information > .claim-info > .claim-info-caption:after {
+	content: ":";
+}
+
+#page-custom-header > .information > .claim-info > .claim-info-description {
+	/* color: dodgerblue; */
+	padding: 4px 4px 4px 0;
+	color: black;
+	font-weight: bold;
+}

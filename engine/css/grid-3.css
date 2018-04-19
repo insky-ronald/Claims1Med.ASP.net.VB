@@ -1,0 +1,405 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 07-MAR-2017 */
+/*****************************************************************************************************/
+.grid3 {
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-flow: column;
+}
+
+.grid3 div[section] {
+}
+
+.grid3 .header {
+	height: auto;
+	width: 100%;
+	flex-shrink: 0;
+	order: 1;
+}
+
+	.grid3 > .header .section {
+	}
+
+	.grid3 > .header .toolbar {
+		height: 34px;
+		width: 100%;
+	}
+	
+	.grid3 > .header .custom-header {
+		display: flex;
+	}
+	
+.grid3 .footer {
+	height: auto;
+	width: 100%;
+	flex-shrink: 0;
+	order: 3;
+}
+	.grid3 > .footer .section {
+	}
+		
+	.grid3 > .footer .pager {
+		width: 100%;
+	}
+		
+/* COMMON TO FOOTER AND HEADER */		
+
+	/* all sections footer, content, header*/
+	.grid3 .section {
+		display: flex;
+		flex-flow: row;
+		width: 100%;
+		overflow: hidden;
+	}
+	
+	/* all sections left, content & right */
+	.grid3 .section div[section] { 
+		display: flex;
+	}
+
+	.grid3 .section div[section="left"], 
+	.grid3 .section div[section="right"] {
+		flex-shrink: 0;
+	}
+	
+	.grid3 .section div[section="content"] {
+		display: flex;
+		flex-flow: row;
+		flex-grow: 1;
+		overflow: hidden;
+	}
+	
+/* BAND */	
+.grid3 .band {
+	flex-shrink: 0;
+}
+
+.grid3 .band-filler {
+	flex: 1 1 auto;
+}
+	
+.grid3 .left-content-filler {
+	flex-shrink: 0;
+}
+	
+.grid3 .right-content-filler {
+	flex-shrink: 0;
+}
+
+.grid3 > .header .left-section .band,
+.grid3 > .footer .left-section .band,
+.grid3 > .content > .overlay .fixed-left .band {
+##if(@browser=chrome)
+	/* padding-right: 1px; */
+##endif
+}
+
+/* .grid3 div[section="content"] { */
+.grid3 > .content {
+	position: relative;
+	display: flex;
+	flex-flow: row;
+	height: 100%;
+	width: 100%;
+	/* background: whitesmoke; */
+	background: white;
+	flex-grow: 1;
+	order: 2;
+	overflow-y: scroll;
+	overflow-x: auto;
+}
+
+.grid3 .temp-container {
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+	pointer-events: none;
+}
+
+.grid3 .overlay {
+	/* position: absolute; */
+	position: absolute;
+	display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* height: 100%; */
+    height: auto;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+	.grid3 .overlay .fixed-left,
+	.grid3 .overlay .fixed-right {
+		display: flex;
+		flex-shrink: 0;
+		pointer-events: all;
+	}
+	
+	.grid3 .overlay .fixed-left {
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.grid3 .overlay .filler {
+		width: 100%;
+		height: 100%;
+	}
+
+	.grid3 .overlay .fixed-right {
+		/* width: 100px; */
+		height: 100%;
+		overflow: hidden;
+	}
+	
+/* THE TABLE */	
+.grid3 table[table-sec="main"] {	
+	table-layout: fixed;
+	/* border-collapse: collapse; */
+	/* font-family: Arial; */
+	/* font-size: 12px; */
+	font-weight: normal;
+	white-space: nowrap;	
+	background: white;
+}
+
+.grid3 div[grid-sec="main-footer"] table { 
+	text-align: right;
+}
+
+.grid3 div[grid-sec="main-header"] table {
+	text-align: left;
+}
+
+.xgrid3 table thead[grid-sec="inner-header"] th {
+	border: 0;
+    padding: 0;
+	box-sizing: border-box;
+}
+
+.grid3 table td[grid-sec="band-header"] {
+	text-align: center;
+}
+
+.grid3 table[table-sec="main"] td[command] {
+	text-align: center;
+}
+
+.xgrid3 table[band-sec="content"] td[command] {
+	cursor: pointer;
+}
+
+.grid3 table td[command] svg {
+	width: 18px;
+	height: 18px;
+	pointer-events: none;
+}
+
+.grid3 table[band-sec="header"] td[command] svg {
+	fill: orange;
+}
+
+.xgrid3 table[band-sec="content"] td[command] {
+	position: relative;
+	padding: 0 !important;
+}
+
+	.grid3 table[band-sec="content"] td[command] a {
+		display: flex;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.grid3 table[band-sec="content"] td[command] svg {
+		margin: auto;
+		fill: #666666;
+	}
+
+	.grid3 table[band-sec="content"] td[command]:hover svg {
+		fill: orange;
+	}
+
+.grid3 table[band-sec="header"] td[command="select"] svg {
+	cursor: pointer;
+}
+
+	.grid3 table[band-sec="content"] td[command="select"][is-selected="1"] svg {
+		fill: orange;
+	}
+
+.grid3 table[band-sec="content"] td[command="open"]:hover svg,
+.grid3 table[band-sec="header"] td[command="open"] svg {
+	fill: #1CA8DD;
+}
+
+.grid3 table[band-sec="content"] td[command="edit"]:hover svg,
+.grid3 table[band-sec="header"] td[command="edit"] svg {
+	fill: #1CA8DD;
+}
+
+.grid3 table[band-sec="content"] td[command="delete"]:hover svg,
+.grid3 table[band-sec="header"] td[command="delete"] svg {
+	fill: firebrick;
+}
+
+	.grid3 table[band-sec="content"] td[command]:active svg {
+		fill: black;
+	}
+
+.grid3 div[grid-sec="main-content"] table td div[grid-sec="content"],
+.grid3 div[grid-sec="main-footer"] table td div[grid-sec="content"],
+.grid3 div[grid-sec="main-header"] table td div[grid-sec="content"] {
+	display: table;
+	width: 100%;
+	/* box-sizing: border-box; */
+}
+
+.grid3 .cell-link > a {
+	color: inherit;
+}
+
+.grid3 .cell-numeric  {
+	text-align: right;
+}
+
+/* the tree view column must be on the left fixed column */
+.grid3 table[table-sec="main"] > tr[grid-sec="row"] > td[tree-view] {
+	padding: 0;
+}
+
+	.grid3 > .content .data-table tr[grid-sec="row"][row-visible="0"],
+	.grid3 > .content > .overlay .fixed-left .data-table tr[grid-sec="row"][row-visible="0"],
+	.grid3 > .content > .overlay .fixed-right .data-table tr[grid-sec="row"][row-visible="0"] {
+		display: none;
+	}
+	
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] {
+		display: flex;
+		width: 100%;
+		height: 100%;
+	}
+
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="icon"],
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="command"],
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="filler"],
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="btn"]{
+		display: flex;
+		flex-shrink: 0;
+		width: 21px;
+	}
+
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="icon"] svg,
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="command"] svg,
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="btn"] svg {
+		margin: auto;
+		width: 18px;
+		height: 18px;
+		fill: black;
+	}
+	
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="command"] svg,
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="btn"] svg {
+		cursor: pointer;
+	}
+
+	.grid3 .data-table tr[grid-sec="row"] td[tree-view] div[tree-sec="container"] div[tree-sec="label"]{
+		flex-grow: 1;
+		width: 100%;
+		padding: 5px 3px 5px 3px;
+		/* background: rgba(0,0,0,0.1); */
+	}
+
+/* PREVIEW ROW*/
+.grid3 .data-table .preview-row > td {
+	position: relative;
+	border: 1px #DBDEE1;
+	border-style: solid none solid none;
+	overflow: inherit;
+}
+
+.grid3 .data-table .preview-row > td:last-child {
+	border-right: 1px solid silver;
+}
+
+.grid3 .overlay > div[fixed-band="left"] > div[grid-sec="band"] > table[table-sec="main"] .preview-row > td:last-child {
+	border-right: 1px solid dimgray !important;
+}
+
+.grid3 > .content > .overlay > div[fixed-band="left"] > div[grid-sec="band"] > table[table-sec="main"] .preview-row > td {
+	
+}
+
+/* MASTER DETAIL */
+.grid3 > .content > .overlay > div[fixed-band="left"] > div[grid-sec="band"] > table[table-sec="main"] .master-detail-row > td,
+.grid3 > .content > .overlay > div[fixed-band="right"] > div[grid-sec="band"] > table[table-sec="main"] .master-detail-row > td,
+.grid3 > .content > div[grid-sec="band"] > table[table-sec="main"] .master-detail-row > td {
+	position: relative;
+	/* height: 100%; */
+	height: 100px;
+	border: 1px silver;
+	border-style: solid none solid none;
+	overflow: inherit;
+}
+
+.grid3 .master-detail-main {
+	position: absolute;
+	top: 0;
+	left: 0;
+	/* width: 800px; */
+	height: 100%;
+	padding: 6px 0 6px 0;
+	box-sizing: border-box;
+}
+
+.grid3 .master-detail-container {
+	width: 100%;
+	height: 100%;
+	/* background: rgba(0,0,0,0.1); */
+    box-sizing: border-box;
+}
+
+/* TOOLBAR */
+.grid3 .toolbar {
+	/* flex-grow: 1; */
+}
+
+.grid3 div[grid-sec="toolbar"] {
+	/* display: flex; */
+	/* flex-flow: row; */
+}
+
+.grid3 .basic-search {
+	float: right;
+    height: 100%;
+    width: auto;
+    padding-top: 5px;
+    padding-right: 4px;
+    box-sizing: border-box;
+}
+
+.grid3 .basic-search div[search-rec="inner"] {
+	border-color: rgba(0,0,0,0.2);
+	border: 1px solid;
+    box-sizing: border-box;
+}
+
+.grid3 .basic-search div[search-rec="btn"] {
+}
+
+.grid3 .basic-search input {
+	border: 0;
+    font-family: Arial;
+    font-size: 9pt;
+    width: 150px;
+    height: 18px;
+    outline: none;
+    padding-left: 4px;
+}

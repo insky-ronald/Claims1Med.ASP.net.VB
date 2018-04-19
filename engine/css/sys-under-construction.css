@@ -1,0 +1,20 @@
+##const
+##endconst
+
+.under-construction {
+	padding-left: 10px;
+	overflow-y: auto;
+}
+
+.under-construction h1 {
+	font-family: Calibri;
+    font-size: 1.5em;
+	/*color: #1E90FF;*/
+	color: firebrick;
+    /*text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;*/
+}
+
+.under-construction ul {
+	font-family: Calibri;
+    font-size: 1em;
+}

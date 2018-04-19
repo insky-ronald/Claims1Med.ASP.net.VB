@@ -1,0 +1,375 @@
+##template
+##endtemplate=engine\navtree
+
+##template
+	theme=default
+	svg-margin-top=-4px
+	svg-size=24px
+##endtemplate=engine\navtree-theme
+
+##template
+	theme=links
+	font-color=silver
+	font-color-hover=gainsboro
+	font-color-active=white
+	font-color-selected=white
+	icon-color=silver
+	icon-color-hover=gainsboro
+	icon-color-active=white
+	icon-color-selected=white
+	background-color=#666666
+	background-color-hover=rgba(0,0,0,0.2)	
+	background-color-active=#49CD81	
+	background-color-selected=#27AE60
+	branch-separator=none
+	svg-margin-top=-4px
+	svg-size=24px
+##endtemplate=engine\navtree-theme
+
+##template
+	theme=grid-menu
+	font-size=10.5pt
+	font-color=dimgray
+	font-color-hover=black
+	font-color-active=white
+	font-color-selected=white
+	icon-color=dimgray
+	icon-color-hover=orange
+	icon-color-active=white
+	icon-color-selected=white
+	background-color=white
+	background-color-hover=rgba(0,0,0,0.1)	
+	background-color-active=orange
+	background-color-selected=#27AE60
+	branch-separator=none
+	svg-margin-top=-4px
+	svg-size=18px
+	main-padding=3px 0 2px 0
+	main-line-height=24px
+	item-padding=3px 0 2px 27px
+	item-line-height=24px
+##endtemplate=engine\navtree-theme
+
+##template
+	theme=light
+	font-size=13.5px
+	font-color=dimgray
+	font-color-hover=#1AB394
+	font-color-active=#1AB394
+	font-color-selected=white
+	icon-color=dimgray
+	icon-color-hover=#1AB394
+	icon-color-active=#1AB394
+	icon-color-selected=white
+	background-color=white
+	background-color-hover=whitesmoke
+	background-color-active=rgba(0,0,0,0.1)
+	background-color-selected=#1AB394
+	branch-separator=none
+	svg-margin-top=-4px
+	svg-size=18px
+	main-padding=3px 0 2px 0
+	main-line-height=24px
+	item-padding=3px 0 2px 27px
+	item-line-height=24px
+##endtemplate=engine\navtree-theme
+
+##template
+	theme=dark
+	
+	font-size=13.5px
+	font-color=rgba(255,255,255,0.6)
+	font-color-hover=white
+	font-color-active=#1AB394
+	font-color-selected=white
+	
+	icon-color=rgba(255,255,255,0.6)
+	icon-color-hover=white
+	icon-color-active=#1AB394
+	icon-color-selected=white
+	
+	background-color=transparent
+	background-color-hover=rgba(0,0,0,0.2)
+	background-color-active=rgba(0,0,0,0.5)
+	background-color-selected=#1AB394
+	
+	branch-separator=none
+	svg-margin-top=-4px
+	svg-size=20px
+	main-padding=3px 0 2px 0
+	main-line-height=24px
+	item-padding=3px 0 2px 27px
+	item-line-height=24px
+##endtemplate=engine\navtree-theme
+
+##template
+##endtemplate=engine\navigator
+
+##template
+##endtemplate=engine\toolbar
+
+##template
+	theme=default
+##endtemplate=engine\toolbar-theme
+
+##template 
+	theme=svg
+	button-top-margin=2px
+	border-width=1px
+	border-color=#B0CEE3
+	background-color=whitesmoke
+	button-border-width=0
+	button-border-color-hover=none
+	button-border-style-hover=none
+	button-background-hover=none
+	button-drop-down-border-style-hover=none
+	button-background-active=none
+	button-background-shadow-active=none
+	svg-fill-active=black
+	svg-fill-hover=#FF802B
+	ss-background-color=white
+	ss-border-color=rgba(0,0,0,0.2)
+	ss-border-color-hover=#FF802B
+	ss-box-shadow=rgba(0,0,0,0.3) 1px 0px 2px	
+##endtemplate=engine\toolbar-theme
+
+##template
+	theme=main
+	svg-fill=gainsboro
+	svg-fill-hover=goldenrod
+	svg-fill-active=white
+	background-color=none
+	border-width=0
+	button-border-width=0
+	button-background-active=rgba(0,0,0,0.1)
+	button-background-hover=rgba(255,255,255,0.1)
+	button-background-shadow-active=none
+##endtemplate=engine\toolbar-theme 
+
+##template
+##endtemplate=engine\dialog
+
+##template
+##endtemplate=engine\hints
+
+##template
+##endtemplate=engine\dialog-editor
+
+##includetemplate
+	@name=editor
+##endinclude=engine\editor
+
+##template
+##endtemplate=engine\form-edit
+
+##template
+	theme=default
+##endtemplate=engine\editor-theme
+
+##template
+	theme=table
+##endtemplate=engine\editor-theme
+
+##template
+##endtemplate=engine\datepicker
+
+##template
+##endtemplate=engine\splitter
+
+##template
+##endtemplate=engine\buttons
+
+##template
+##endtemplate=engine\pg
+
+##template
+##endtemplate=engine\pg-theme
+
+##template
+	theme=main
+	margin-top=6px
+	font-family=Calibri
+	font-size=14pt
+	focused-font-size=100%
+##endtemplate=engine\pg-theme
+
+##template
+	theme=data-entry
+	margin-top=6px
+	font-family=Calibri
+	font-size=12pt
+	focused-font-size=100%
+##endtemplate=engine\pg-theme
+
+// use for data entry edit in datatables
+##template
+	theme=table
+	margin-top=6px
+	font-family=Calibri
+	font-size=12.5pt
+	focused-font-size=100%
+##endtemplate=engine\pg-theme
+
+##template
+##endtemplate=engine\grid
+
+##template
+##endtemplate=engine\pager
+
+##template
+	@name=open
+	svg-color=green
+	header-image=/engine/images/data-open.png
+	cell-image=/engine/images/record-open.png
+##endtemplate=engine\grid-commands
+
+##template
+	@name=edit
+	svg-color=#3879D9
+	header-image=/engine/images/data-edit.png
+	cell-image=/engine/images/record-edit.png
+##endtemplate=engine\grid-commands
+
+##template
+	@name=delete
+	svg-color=firebrick
+	header-image=/engine/images/data-delete.png
+	cell-image=/engine/images/record-delete.png
+##endtemplate=engine\grid-commands
+
+##template
+	@name=select
+	svg-color=orange
+	header-image=/engine/images/ui-unchecked.png
+	cell-image=/engine/images/ui-unchecked.png
+##endtemplate=engine\grid-commands
+
+##template
+##endtemplate=engine\grid-select
+
+##template
+   color-name=green
+   color=#759C00
+   color-lite=#94C700
+   color-dark=#4C6500
+   text-color=black
+   text-color-dis=darkgray
+   text-color-hover=white
+   text-color-active=white
+##endtemplate=engine\buttons-template
+
+##template
+   color-name=red
+   color=red
+   color-lite=IndianRed
+   color-dark=darkred
+   text-color=black
+   text-color-dis=darkgray
+   text-color-hover=white
+   text-color-active=white
+##endtemplate=engine\buttons-template
+
+##template
+   color-name=blue
+   color=#3079ED
+   color-lite=#70A5FC
+   color-dark=#0754D0
+   text-color=whitesmoke
+   text-color-dis=darkgray
+   text-color-hover=white
+   text-color-active=white
+##endtemplate=engine\buttons-template
+
+##template
+   color-name=silver
+   color=#C4C4C7
+   color-lite=whitesmoke
+   color-dark=#4E4E50
+   text-color=dimgray
+   text-color-dis=darkgray
+   text-color-hover=black
+   text-color-active=white
+##endtemplate=engine\buttons-template
+
+// ##includetemplate
+	// header-height=0px
+	// footer-height=0px
+// ##endinclude=app\sub-page
+
+##template
+// NEW
+##endtemplate=engine\grid-2
+
+##template
+##endtemplate=engine\grid-3
+
+##template
+##endtemplate=engine\grid-theme-3
+
+##template
+##endtemplate=engine\pager-2
+
+##template
+##endtemplate=engine\html-editor
+
+##template
+##endtemplate=engine\upload-files
+
+##template
+##endtemplate=engine\pg-2
+
+##template	
+##endtemplate=engine\pg-theme-2
+
+##template
+	theme=main
+	font=11pt Arial
+	// header-background=white
+##endtemplate=engine\pg-theme-2
+
+##template
+	theme=search
+	font=10.1pt Arial
+	header-background=white
+##endtemplate=engine\pg-theme-2
+
+##template
+	theme=side-menu
+	font=10.1pt Arial
+	default-border-color=slategray
+	header-background=whitesmoke
+	// header-background=transparent
+	tab-padding-top=0
+	tab-margin=2px
+	tab-active-font-color=black
+	tab-active-font-weight=normal
+	tab-active-border-color=slategray
+	tab-active-background-color=whitesmoke
+	tab-normal-font-color=dimgray
+	tab-normal-border-color=silver
+	tab-normal-background-color=white
+##endtemplate=engine\pg-theme-2
+
+##template
+##endtemplate=engine\splitter-2
+
+##template
+##endtemplate=engine\splitter-theme-2
+
+##template
+	theme=white-green-dark
+	
+	sizer-border-width=1px
+	sizer-border-color=#263949
+	sizer-border-style-v=none solid none solid
+	sizer-border-style-h=solid none solid none
+	
+	sizer-panel-border-width=1px
+	sizer-panel-border-color=#1AB394
+	sizer-panel-border-style=solid
+	sizer-panel-background=#1AB394
+	sizer-panel-opacity=1
+##endtemplate=engine\splitter-theme-2
+
+// ##template
+// ##endtemplate=engine\editor-2

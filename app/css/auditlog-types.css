@@ -1,0 +1,3 @@
+.grid3.auditlog-types .data-table .row[x-status="false"] {
+	color: red;
+}

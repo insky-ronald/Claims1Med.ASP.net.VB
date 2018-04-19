@@ -1,0 +1,182 @@
+﻿##const
+	main=1
+##endconst
+
+html, body, form {
+##if(main=1)
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	max-height: 100%;
+	overflow-y: hidden;
+	overflow-x: hidden;
+##endif
+}
+
+body {
+##if(main=1)
+	background: url(/engine/images/b-002.png);
+##endif
+}
+
+.content {
+##if(main=1)
+	margin: auto;
+	height: 100%;
+	padding: 40px;
+	xwidth: 1014px; 
+	width: 600px;
+	overflow: hidden;
+	background: url(/images/brush/black-wash-30.png);
+	background: whitesmoke;
+	border-width: 1px;
+	border-color: #203C5F;
+	border-style: none solid none solid;
+	box-sizing: border-box;
+##endif	
+}
+
+.logo {
+	
+}
+
+.login {
+	font-family: "Open Sans", Calibri;
+	margin-top: 20px;
+	padding: 10px;
+	height: auto;
+	border: 1px solid gray;	
+	border-radius: 6px;
+	background: white;
+	box-shadow: dimgray 1px 1px 6px;
+	box-sizing: border-box;
+}
+
+.login div[xsec="title"] {
+	height: 40px;	
+	font-size: 14pt;
+	font-weight: bold;
+	color: black;
+	box-sizing: border-box;
+}
+
+.login div[xsec="title"] a {	
+	font-weight: normal;
+	color: gray;
+}
+
+.login div[xsec="login"] {
+	width: 100%;
+	height: 200px;
+	zbackground: wheat;
+	box-sizing: border-box;
+}
+
+.login div[xsec="login-left"],
+.login div[xsec="login-right"] {
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.login div[xsec="login-left"] {
+	float: left;
+	width: 55%;
+}
+
+.login div[xsec="login-right"] {
+	float: right;
+	width: 45%;
+	padding-left: 10px;
+}
+
+.login div[xsec="login-right"] a {
+	font-size: 9pt;
+	font-weight: bold;
+	color: blue;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.login div[xsec="login-footer"]  {
+	width: 100%;
+	height: 40px;
+	box-sizing: border-box;
+}
+
+.login-btn {
+	float: right;
+	width: 100px;
+	/*height: 100%;*/
+	margin-top: 20px;
+	xwidth: 100%;
+	height: 40px;
+	font-size: 11pt;
+	font-weight: bold;
+	color: rgba(255, 255, 255, 0.75);
+	border: 1px solid rgb(204, 134, 0);
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	background-color: rgb(255, 168, 0);
+	background-image: -webkit-linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
+	cursor: pointer;
+	text-align: center;
+	xline-height: 40px;	
+	xmargin-top: 10px;
+}
+
+.login-btn:hover {
+	background-color: rgb(242, 160, 0);
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 2px;
+}
+
+.login-btn:active {
+	color: rgba(255, 255, 255, 0.9);
+	box-shadow: none;
+	background-image: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.error-message {
+	font-family: "Open Sans", Calibri;
+	font-size: 10pt;
+	font-weight: bold;
+	xtext-align: center;
+	padding-top: 10px;
+	border: 1px firebrick;
+	border-style: dotted none none none;
+	color: firebrick;
+}
+
+#login-form {
+	width: 100%;
+}
+
+#login-form label {
+	font-family: "Open Sans", Calibri;
+	display: block;
+	width: 100%;
+	height: auto;
+	font-size: 10pt;
+	xfont-weight: bold;
+	color: gray;	
+	padding-bottom: 4px;
+}
+
+#login-form input[type="text"],
+#login-form input[type="password"] {
+	width: 100%;
+	xheight: 40px;
+	font-size: 12pt;
+	font-weight: bold;
+	xcolor: rgb(102, 102, 102);
+	padding: 4px;
+	box-sizing: border-box;
+	outline: none;
+	border: 1px solid silver;	
+}
+
+#login-form input[type="text"] {
+	margin-bottom: 20px;
+}

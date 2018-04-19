@@ -1,0 +1,68 @@
+﻿<%@ Master Language="VB"  CodeFile="master-design-2.master.vb" Inherits="BaseMasterPage"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+		<title></title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="description" content="" /> 
+		<meta name="keywords" content="" />
+		<link rel="SHORTCUT ICON" href="<% =AppUtils.Settings.AsString("ApplicationIcon") %>?v=2" />
+		<input type="hidden" id="__ver" value="3">
+		<input type="hidden" id="__UID" value="<% =AuthKey %>">
+		<input type="hidden" id="__callback" value="<% =DataCallback %>">
+		<% If CssName <> "" %>
+		<link href="<% =CssName %>" rel="stylesheet" type="text/css">
+		<% End if %>
+		<asp:ContentPlaceHolder ID="Content_OtherCss" runat="server">		
+		</asp:ContentPlaceHolder>
+    </head>
+	<body>
+		<div id="desktop-container">
+			<div id="desktop-header-container">
+				<asp:ContentPlaceHolder ID="Content_Header" runat="server">
+				
+				</asp:ContentPlaceHolder>
+			</div>
+			<div id="desktop-data-container">
+				<div id="data-container">
+					<div id="inner-data-container">
+						<div id="navigator-container">
+							<asp:ContentPlaceHolder ID="Content_Navigator" runat="server">
+							
+							</asp:ContentPlaceHolder>
+						</div>
+						<div id="sub-data-container">
+							<asp:ContentPlaceHolder ID="Content_Content" runat="server">
+							
+							</asp:ContentPlaceHolder>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="desktop-footer-container">
+				<div id="footer-container">
+					<asp:ContentPlaceHolder ID="Content_Footer" runat="server">
+					
+					</asp:ContentPlaceHolder>
+				</div>
+			</div>
+		</div>
+	</body> 
+</html>
+<!-- <script type="text/javascript" charset="utf-8" src="/loadscript/scripts/iscroll.js"></script> -->
+<asp:ContentPlaceHolder ID="Content_ScriptLibraries" runat="server">
+</asp:ContentPlaceHolder>
+<% If jQuery <> "" %>
+<script type="text/javascript" charset="utf-8" src="<% =jQuery %>"></script>
+<% End if %>	
+<% If ScriptName <> "" %>
+<script type="text/javascript" charset="utf-8" src="<% =ScriptName %>"></script>
+<% End if %>
+<asp:ContentPlaceHolder ID="Content_Script" runat="server">
+</asp:ContentPlaceHolder>
+<script>
+	$(document).ready(function() {
+		desktop = new MainPage({ID:"<% =Request.Params("pid") %>"})
+	});
+</script>	
+<g id="svg-collection" style="display:none"></g>

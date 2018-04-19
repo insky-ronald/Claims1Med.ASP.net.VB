@@ -1,0 +1,9 @@
+.grid3.hospitals .row[x-status="X"] .data-cell,
+.grid3.doctors .row[x-status="X"] .data-cell {
+	color: red !important;
+}
+
+.xgrid3.doctors .header-cell.command-cell[command="open"] svg,
+.xgrid3.doctors .data-cell.command-cell[command="open"]:hover svg {
+	fill: #1CA8DD !important;
+}

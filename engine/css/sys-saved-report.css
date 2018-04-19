@@ -1,0 +1,78 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 26-SEP-2017 */
+/*****************************************************************************************************/
+/* .grid3.report .header .band .data-table .row[grid-sec="row"] { */
+	/* height: 54px;	 */
+	/* max-height: 54px;	 */
+/* } */
+
+.grid3.report .header-table .header-label {
+	white-space: normal;
+}
+
+.grid3.report .custom-header {
+	display: flex;
+	font: 10pt Arial;
+	padding: 4px 4px 4px 10px;
+	border: 1px rgba(0,0,0,0.2);
+	border-style: solid none solid none;
+	/* background: lightyellow; */
+	background: lightyellow;
+}
+
+.grid3.report .custom-header > .query-container {
+	display: flex;
+}
+
+.grid3.report .custom-header > .query-container > div:first-child {
+	flex-shrink: 0;
+	padding: 3px;
+    /* border-radius: 50%; */
+    border-radius: 4px;
+    /* background: #315B8F; */
+    background: forestgreen;
+	margin-right: 4px;
+	opacity: 0.75;
+}
+
+.grid3.report .custom-header > .query-container > div:last-child {
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+	padding-left: 4px;
+}
+
+.grid3.report .custom-header > .query-container > div:last-child > div {
+	position: relative;
+    /* top: -4px; */
+}
+
+.grid3.report .custom-header svg[x-icon="info"] {
+	/* fill: dodgerblue; */
+	/* fill: #315B8F; */
+	fill: white;
+}
+
+.grid3.report .custom-header span[x-sec="item"] {
+	margin-right: 4px;
+}
+
+.grid3.report .custom-header a[x-sec="name"] {
+	color: black;
+	font-weight: bold;
+}
+
+.grid3.report .custom-header a[x-sec="value"] {
+	color: dodgerblue;
+}
+
+.grid3.report .custom-header a[x-sec="operator"] {
+	color: gray;
+	/* font-weight: bold; */
+}
+
+.grid3.report .custom-header a[x-sec="operator2"] {
+	color: silver;
+	font-weight: bold;
+}

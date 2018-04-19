@@ -1,0 +1,5 @@
+##includetemplate
+	--desktop-width=1280px
+	desktop-width=100%
+	navigator-width=45px
+##endinclude=app\claim1med

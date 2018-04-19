@@ -1,0 +1,4 @@
+.grid-claim-services table[grid-sec="headers"] thead[grid-sec="header"] tr th[colspan] {
+	text-align: center;
+	font-size: 110%;
+}

@@ -1,0 +1,52 @@
+##const
+	desktop-width=1280px
+	desktop-border-width=1px
+	desktop-border-color=red
+	desktop-border-style=none none solid none
+	navigator-background=whitesmoke
+	content-background=white
+	padding-test=4px
+##endconst
+
+#desktop-header-container {
+	border: [desktop-border-width] [desktop-border-color];
+	border-style: [desktop-border-style];
+	background: linear-gradient(to right, #6DCBF7 0%, #2477AB 100%);
+##version=ie8
+	background: #6DCBF7;
+##endif	
+##version=ie9
+	background: #6DCBF7;
+##endif	
+}
+
+#navigator-container {
+	background: [navigator-background];
+	/*box-shadow: rgba(0,0,0,0.3) 1px 0px 2px;*/
+	border: 1px [desktop-border-color];
+	border-style: none solid none none;
+	z-index: 1002;
+}
+
+#sub-data-container {
+	background: [content-background];
+	z-index: 1001;
+}
+
+#footer-container {
+	display: hidden;
+}
+
+@media (max-width: [desktop-width]) {
+	#desktop-container {
+		border: 0;
+	}
+}
+
+@media (min-width: [desktop-width]) and (max-width: 2880px) {
+	#desktop-container {
+		border-width: 1px;
+		border-color: [desktop-border-color];
+		border-style: none solid none solid;
+	}
+}

@@ -1,0 +1,20 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 07-MAR-2017 */
+/*****************************************************************************************************/
+.grid-sys-roles tbody tr[x-status="0"] {
+	color: firebrick;
+}
+
+.grid-sys-roles tbody tr[x-status="10"] {
+	/*color: #2C80B3;*/
+	/*color: #27AE60;*/
+}
+
+.grid-sys-roles table[grid-sec="headers"] thead[grid-sec="header"] th[command="permission"] svg {
+    fill: #FFA500;
+}
+
+.grid-sys-roles table[grid-sec="content"] tbody td[command="permission"] svg:hover {
+    fill: #FFA500;
+}

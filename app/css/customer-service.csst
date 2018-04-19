@@ -1,0 +1,49 @@
+##template
+##endtemplate=app\customer-service
+
+##template
+##endtemplate=app\members-search
+
+##template	
+	theme=customer-service-search
+	font=10pt Arial
+	header-background=white
+	// tab-active-font-size=130%
+	// tab-active-border-color=dimgray
+	// tab-active-background-color=white
+	// tab-normal-border-color=silver
+	// tab-normal-background-color=whitesmoke
+##endtemplate=engine\pg-theme-2
+
+##template	
+	theme=customer-service-view
+	font=11pt Arial
+	// header-background=white
+	// tab-active-font-size=130%
+	// tab-active-border-color=dimgray
+	// tab-active-background-color=white
+	// tab-normal-border-color=silver
+	// tab-normal-background-color=whitesmoke
+##endtemplate=engine\pg-theme-2
+
+##template	
+	theme=member-claims
+	font=10pt Arial
+	// header-background=white
+	// tab-active-font-size=130%
+	// tab-active-border-color=dimgray
+	// tab-active-background-color=white
+	// tab-normal-border-color=silver
+	// tab-normal-background-color=whitesmoke
+##endtemplate=engine\pg-theme-2
+
+##template	
+	theme=claim-services
+	font=10pt Arial
+	header-background=white
+	// tab-active-font-size=130%
+	tab-active-border-color=dimgray
+	tab-active-background-color=white
+	tab-normal-border-color=silver
+	tab-normal-background-color=whitesmoke
+##endtemplate=engine\pg-theme-2

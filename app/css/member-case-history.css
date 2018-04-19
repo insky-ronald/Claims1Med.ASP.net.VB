@@ -1,0 +1,17 @@
+.grid3.case-history .data-cell.procedure span,
+.grid3.case-history .data-cell.diagnosis span {
+    margin-right: 4px;
+    padding: 2px 4px 2px 4px;
+    cursor: pointer;
+    color: white;
+}
+
+.grid3.case-history .data-cell.diagnosis span {
+    background: #1AB394;
+}
+
+
+.grid3.case-history .data-cell.procedure span {
+    background: #4169E1;
+}
+

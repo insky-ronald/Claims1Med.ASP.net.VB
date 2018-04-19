@@ -1,0 +1,172 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 07-MAR-2017 */
+/*****************************************************************************************************/
+##const
+	font-family=Arial
+	font-size=12px
+	/* font-size=11px */
+	cell-padding=5px 3px 5px 3px
+	data-cell-border=1px #DBDEE1
+	//data-cell-border=1px red
+	data-cell-border-style=none solid none none
+	header-cell-border=1px #B0CEE3
+	//header-cell-border=1px maroon
+	header-cell-border-style=none solid solid none
+	footer-cell-border=1px #B0CEE3
+	//footer-cell-border=1px maroon
+	footer-cell-border-style=solid solid none none
+##endconst
+
+.grid3 {
+	font-family: [font-family];
+	font-size: [font-size];
+}
+	
+.grid3 .row {
+	height: 27px;
+}
+
+.grid3 .row.odd {
+	/* background: #F9F9F9; */
+	background: rgba(0,0,0,0.025);
+}
+
+.grid3 .row[hover="1"] {
+	background: #FAF2D1;
+}
+
+.grid3 .row[focused="1"] {
+	background: #FAEDB0;
+}
+
+.grid3 .cell {
+	/* color: #666666 !important; */
+	padding: [cell-padding] !important;
+	white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    box-sizing: border-box !important;
+}
+
+.grid3 .cell-link > a:hover {
+	color: dodgerblue;
+}
+
+.grid3 .command-cell{
+	position: relative;
+	padding: 0px !important;
+	cursor: pointer;
+}
+
+.grid3 .tree-cell {
+	padding: 0px 3px 0px 3px !important;
+}
+
+.grid3 .data-cell {
+	border: [data-cell-border];
+	/* border-width: 1px; */
+    /* border-color: #DBDEE1; */
+    border-style: [data-cell-border-style];
+}
+
+.grid3 .band-cell,
+.grid3 .header-cell {
+	font-weight: bold;
+	background: #D2E3EF;
+    /* border-width: 1px; */
+    /* border-color: #B0CEE3; */
+	border: [header-cell-border];
+    border-style: [header-cell-border-style];
+}
+
+.grid3 .footer-cell {
+	background: #D2E3EF;
+    /* border-width: 1px; */
+    /* border-color: #B0CEE3; */
+	border: [footer-cell-border];
+    border-style: [footer-cell-border-style];
+}
+
+.grid3 .content .row .cell:last-child,
+.grid3 .content-section .row .cell:last-child {
+	border-right: 1px solid silver !important;
+}
+
+.grid3 .left-section .row .cell:last-child,
+.grid3 .fixed-left .row .cell:last-child {
+	border-right: 1px solid dimgray !important;
+	
+}
+
+.grid3 .right-section .row .cell:first-child,
+.grid3 .fixed-right .row .cell:first-child {
+	border-left: 1px solid dimgray !important;
+	
+}
+
+/* We have to use the > selection to avoid styling down to master/detail table */
+.grid3 div.fixed-left > div.band > table.data-table > tbody > tr.row:last-child > td.cell,
+.grid3 div.fixed-right > div.band > table.data-table > tbody > tr.row:last-child > td.cell,
+.grid3 div.content > div.band > table.data-table > tbody > tr.row:last-child > td.cell {
+	border-bottom: 1px solid silver;
+}
+
+/* HEADER CELL */	
+.grid3 .header-table {	
+	table-layout: fixed;
+	width: 100%;
+	border-collapse: collapse;
+	white-space: nowrap;	
+	background: transparent;
+}
+
+	.grid3 .header-table td {
+		padding: 0;
+		border: none;
+		overflow: hidden;
+	}
+
+	.grid3 .header-table .header-label {
+		text-overflow: ellipsis;
+	}
+
+	.grid3 .header-table .header-icon {
+		width: 16px;
+		border: 1px solid transparent;
+		text-align: center;
+	}
+		
+		.grid3 .header-table .header-icon svg {
+			width: 14px;
+			height: 14px;
+			fill: #6DB2E3;
+			cursor: pointer;
+		}
+
+		.grid3 .header-table .header-icon:hover {
+			border-color: white !important;
+			background: #6DB2E3 !important;
+		}
+
+		.grid3 .header-table .header-icon:hover svg {
+			fill: white !important;
+			/* background: #6DB2E3; */
+		}
+
+		.grid3 .header-table .header-icon:active {
+			background: rgba(0,0,0,0.75) !important;
+		}
+
+		.grid3 .header-table .header-icon:active svg {
+			fill: white;
+			/* background: rgba(0,0,0,0.25); */
+		}
+			
+			.grid3 .header-table .header-icon[grid-sec="sort"][sorted="1"] {
+				fill: #6DB2E3;
+				border: 1px solid #6DB2E3;
+				background: rgba(255,255,255,0.5);
+			}
+
+

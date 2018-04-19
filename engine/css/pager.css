@@ -1,0 +1,399 @@
+/*20-FEB-2015 1.0.0.6 added new sprite /engine/images/pager.png*/ 
+##const
+	background=whitesmoke
+	border-color=#FF7F50
+	height=21px
+	xfont=12pt Calibri
+	font=9pt Arial
+##endconst
+
+#footer-container {
+	/* height: 33px; */
+}
+
+.pager-container {
+	/*height: 34px;*/
+}
+
+.search-lookup-pager-container {
+	overflow: hidden;
+	width: 100%;
+	xheight: 33px;
+	background: whitesmoke;
+	border: 1px #BFBFBF;
+	border-style: solid none none none;
+	box-sizing: border-box;
+}
+
+.pager-container {
+	width: 100%;
+	height: 34px;
+	/*position: absolute;*/
+	/*bottom: 0;*/
+	/*z-index: 3;*/
+	border: 1px #2F2E2E;
+	border-style: solid none none none;
+	box-sizing: border-box;
+}
+
+.pager {
+	font: 11px Verdana;
+	color: black;
+	padding: 2px 5px 2px 5px;
+	float: left;
+	box-sizing: border-box; 
+}
+
+.pager div[dsec="title"],
+.pager div[dsec="sep"],
+.pager div[dsec="button"],
+.pager div[dsec="page"],
+.pager div[dsec="ellipse"] 
+{
+	float: left;
+}
+
+.pager div[dsec="title"] {
+	height: 29px;
+	line-height: 29px;
+	padding-right: 4px;
+}
+
+.pager div[dsec="title"] a {
+}
+
+.pager div[dsec="sep"] {
+	height: 21px;
+	margin-top: 5px;
+}
+
+.pager div[dsec="button"],
+.pager div[dsec="page"],
+.pager div[dsec="ellipse"] 
+{
+	height: 21px;
+	margin-top: 4px;
+}
+
+.pager div[dsec="sep"] {
+	width: 1px;
+	background: #c9c9c9 none;
+}
+
+.pager div[dsec="button"] {
+	width: 21px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.pager div[bsec="prev"][bstate="disabled"] {
+	background: url(/engine/images/control-left-gray.png) no-repeat center;
+	xbackground: url(/engine/images/pager.png) no-repeat;
+	xbackground-position: -19px 1px;
+	xwidth: 19px;
+}
+
+.pager div[bsec="prev"][bstate="enabled"] {
+	background: url(/engine/images/control-left-orange.png) no-repeat center;
+	xbackground: url(/engine/images/pager.png) no-repeat;
+	xbackground-position: -0px 1px;
+	xwidth: 19px;
+	cursor: pointer;
+}
+
+.pager div[fsec][bstate="enabled"] {
+	cursor: pointer;
+}
+
+.pager div[bsec="next"][bstate="disabled"] {
+	background: url(/engine/images/control-right-gray.png) no-repeat center;
+	xbackground: url(/engine/images/pager.png) no-repeat;
+	xbackground-position: -57px 1px;
+	xwidth: 19px;
+}
+
+.pager div[bsec="next"][bstate="enabled"] {
+	background: url(/engine/images/control-right-orange.png) no-repeat center;
+	xbackground: url(/engine/images/pager.png) no-repeat;
+	xbackground-position: -38px 1px;
+	xwidth: 19px;
+	cursor: pointer;
+}
+
+.pager div[fsec] {
+	fill: silver;
+}
+
+.pager div[fsec][bstate="enabled"] {
+	fill: #315B8F;
+}
+
+.pager div[fsec][bstate="enabled"]:hover {
+	fill: #FF7F50;
+}
+
+.pager div[fsec][bstate="enabled"]:active {
+	fill: black;
+}
+
+.pager div[fsec="next"][bstate="enabled"] {
+	cursor: pointer;
+}
+
+.pager div[dsec="page"] {
+	line-height: 21px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.pager div[dsec="page"][pstate="num"] {
+	cursor: pointer;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.pager div[dsec="page"][pstate="num"]:hover {
+	text-decoration: underline;
+}
+
+.pager div[dsec="page"][pstate="current"] {
+	height: 23px;
+	margin-top: 2px;
+	font-weight: bold;
+	background-color: #FEE085;
+	border: 1px solid #C27F31;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.pager div[dsec="ellipse"] {
+	color: dimgray;
+	font-size: 8pt;
+	font-weight: normal;
+	line-height: 18px;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+/*FLAT PAGER*/
+.xpager-container[flat="1"] {
+	border-color: [border-color];
+	background: [background] !Important;
+}
+
+.pager[flat="1"] {
+	font: [font];
+	padding-left: 2px;
+}
+
+.pager[flat="1"] div[dsec="button"] svg {
+	width: 24px;
+	height: 24px;
+	fill: #C27F31;
+}
+
+.pager[flat="1"] div[dsec="button"][bstate="enabled"]:hover svg {
+	fill: #FFA500;
+}
+
+.pager[flat="1"] div[dsec="button"][bstate="enabled"]:active svg {
+	fill: black;
+}
+
+.pager[flat="1"] div[dsec="button"][bstate="disabled"] svg {
+	fill: silver;
+}
+
+.pager[flat="1"] div[dsec="button"][fsec="next"] {
+	/*background: url(/engine/images/control-right-orange.png) no-repeat center;*/
+}
+
+.pager[flat="1"] div[dsec="button"][fsec="next"][bstate="disabled"] {
+	/*background: url(/engine/images/control-right-gray.png) no-repeat center;*/
+}
+
+.pager[flat="1"] div[dsec="button"][fsec="prev"] {
+	/*background: url(/engine/images/control-left-orange.png) no-repeat center;*/
+}
+
+.pager[flat="1"] div[dsec="button"][fsec="prev"][bstate="disabled"] {
+	/*background: url(/engine/images/control-left-gray.png) no-repeat center;*/
+}
+
+.pager[flat="1"][xsec="right"]{
+	float: right !important;
+	padding-right: 2px;
+}
+
+.pager div[dsec="title"][flat="1"] {
+	padding-left: 4px;
+}
+
+.pager div[dsec="title"][flat="1"][page] {
+	background: white;
+	color: dimgray;
+	border: 1px solid silver;
+	height: [height];
+	line-height: [height];
+	margin-right: 2px;
+	margin-top: 3px;
+	cursor: pointer;
+}
+
+.pager div[dsec="title"][flat="1"][page][active="1"] {
+	color: black;
+	border-color: #C27F31;
+	background: #FEE085;
+	cursor: default;
+}
+
+.pager div[dsec="title"][flat="1"][page][active="0"]:hover {
+	color: #FF7F50;
+	border-color: #FF7F50;
+}
+
+.pager div[dsec="title"][flat="1"][page][active="0"]:active {
+	color: white;
+	border-color: dimgray;
+	background-color: silver;
+}
+
+.pager  a[dsec="pageno"] {
+	position: relative;
+	float: left;
+	font-weight: bold;
+	height: 29px;
+	line-height: 29px;
+	padding-left: 4px;
+	cursor: pointer;
+}
+
+.pager  a[dsec="pageno"]:before {
+	content: "Page ";
+	font-weight: normal;
+}
+
+.pager  a[dsec="pageno"]:hover,
+.pager  a[dsec="pageno"]:active {
+	color: #FF7F50;
+	xborder: 1px solid #FF7F50;
+	xheight: 21px;
+	xline-height: 21px;
+	xmargin-left: 3px;
+	xmargin-top: 3px;
+	xpadding-right: 4px;
+}
+
+.pager  a[dsec="pageno"]:active {
+	color: black;
+	background: #FEE085;
+}
+
+.pager input  {
+	float: left;
+	outline: none;
+	text-align: right;
+	height: 18px;
+	line-height: 18px;
+	padding-right: 4px;
+	margin-top: 3px;
+	margin-left: 3px;
+	border: 1px solid gainsboro;
+}
+
+.pager input:hover,
+.pager input:focus  {
+	border-color: #C27F31;
+}
+
+.pager input:focus  {
+	background: #FEE085;
+	max-width: 40px;
+}
+
+.page-dialog  {
+	font-family: Arial;
+	font-size: 9pt;
+}
+
+.page-dialog div[xsec="content"] {
+	padding: 4px;
+	background: #F8ECD5;
+	border: 1px #92846A solid;
+	box-shadow: silver 1px 1px 2px;
+}
+
+.page-dialog input {
+	margin-left: 2px;
+	width: 75px;
+	outline: none;	
+	xtext-align: right;
+	padding-left: 2px;
+	border: 1px solid #92846A;
+}
+
+.page-dialog div[xsec="goto"] a {
+	font-weight: bold;
+}
+
+.page-dialog input:focus,
+.page-dialog input:hover {
+	border-color: #C27F31;
+}
+
+.page-selection {
+	xbackground: whitesmoke;
+	height: 26px;
+	box-sizing: border-box;
+	padding-bottom: 3px;
+	margin-bottom: 3px;
+	border: 1px #C27F31;
+	border-style: none none dotted none;
+}
+
+.page-selection div[dsec="page"] {
+	display: inline-block;
+	height: 100%;
+	line-height: 23px;
+	xmargin-left: 2px;
+	xmargin-right: 2px;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+
+.page-selection div[dsec="page"][pstate="num"] {
+	cursor: pointer;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.page-selection div[dsec="page"][pstate="num"]:hover {
+	text-decoration: underline;
+}
+
+.page-selection div[dsec="page"][pstate="current"] {
+	xdisplay: inline-block;
+	xheight: 23px;
+	line-height: 21px;
+	xmargin-top: 2px;
+	font-weight: bold;
+	background-color: #FEE085;
+	border: 1px solid #C27F31;
+	padding-left: 8px;
+	padding-right: 8px;
+	vertical-align: middle;
+}
+
+.page-selection div[dsec="ellipse"] {
+	display: inline-block;
+	color: dimgray;
+	font-size: 8pt;
+	font-weight: normal;
+	line-height: 18px;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding-left: 2px;
+	padding-right: 2px;
+}

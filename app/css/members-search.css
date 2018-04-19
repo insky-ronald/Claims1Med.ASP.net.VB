@@ -1,0 +1,20 @@
+.grid3.members .data-table .row[x-status="0"] {
+	color: red;
+}
+
+.grid3.member-claims .data-cell.diagnosis span {
+	margin-right: 4px;
+	padding: 2px 4px 2px 4px;
+	cursor: pointer;
+}
+
+.grid3.member-claims .data-cell.diagnosis span[x-status="1"] {
+	color: white;
+	background: #1AB394;
+}
+
+.grid3.member-claims .data-cell.diagnosis span[x-status="0"] {
+	color: white;
+	background: firebrick;
+}
+

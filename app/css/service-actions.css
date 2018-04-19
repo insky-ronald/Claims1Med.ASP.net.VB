@@ -1,0 +1,223 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 11-SEP-2017 */
+/*****************************************************************************************************/
+##const
+	cancel-background=#ED5565
+	complete-background=#1C84C6 
+	open-background=slategray
+	cancel-color=slategray
+	complete-color=slategray
+	open-color=slategray
+##endconst
+
+.grid3.cardview.service-actions .content {
+	display: flex;
+	flex-flow: column;
+	box-sizing: border-box;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.grid3.cardview.service-actions .card {
+	padding: 6px;
+	/* border: 1px gainsboro; */
+	/* border-style: none none solid none; */
+	background: white;
+	box-sizing: border-box;
+	border-width: 1px;
+}
+
+.grid3.cardview.service-actions .card:hover {
+	background: #FAFAFA;
+}
+
+.grid3.cardview.service-actions .card .card-content {
+	display: flex;
+	flex-flow: row;
+	box-sizing: border-box;
+}
+
+.grid3.cardview.service-actions .card[x-status="X"] {
+	color: [cancel-background];
+	border-color: [cancel-color];
+	border-color: [cancel-color];
+}
+
+.grid3.cardview.service-actions .card[x-status="D"] {
+	color: [complete-background];
+	border-color: [complete-color];
+}
+
+.grid3.cardview.service-actions .card[x-status="N"] {
+	color: [open-background];
+	border-color: [open-color];
+}
+
+.grid3.cardview.service-actions .card > .action-section > div {
+	/* width: 50%; */
+	padding: 4px;
+	/* color: inherit; */
+	/* border-width: 1px; */
+	/* border-color: inherit; */
+}
+
+.grid3.cardview.service-actions .card > .action {
+	color: inherit;
+	border-color: inherit;
+	box-sizing: border-box;
+}
+
+.grid3.cardview.service-actions .card > .other {
+	display: flex;
+	flex-flow: row;
+	/* color: inherit; */
+	color: black;
+	border-color: inherit;
+	border-width: 1px;
+	border-style: none solid solid solid;
+	box-sizing: border-box;
+}
+
+.grid3.cardview.service-actions .card > .other > div:before {
+	margin-right: 2px;
+	color: slategray;
+	text-transform: lowercase;
+	width: 75px;
+}
+
+/* .grid3.cardview.service-actions .card > .other > .owner, */
+/* .grid3.cardview.service-actions .card > .other > .due-date { */
+.grid3.cardview.service-actions .card > .other > div {
+	width: 50%;
+	padding: 4px;
+	/* color: black; */
+	border-width: 1px;
+	border-color: inherit;
+}
+
+.grid3.cardview.service-actions .card > .other.close {
+	color: [complete-background];
+}
+
+.grid3.cardview.service-actions .card > .other.cancel {
+	color: [cancel-background];
+}
+
+.grid3.cardview.service-actions .card > .action-notes {
+	color: black;
+    margin: 0;
+    padding: 4px;
+    border-width: 1px;
+    border-color: inherit;
+    border-style: none solid solid solid;
+	background: lightyellow;
+}
+
+.grid3.cardview.service-actions .card > .other > .due-date:before {
+	content: "Due on:";
+}
+
+.grid3.cardview.service-actions .card > .other > .owner:before {
+	content: "Owned by:";
+}
+
+.grid3.cardview.service-actions .card > .other > .create-user:before {
+	content: "Created by:";
+}
+
+.grid3.cardview.service-actions .card > .other > .create-date:before {
+	content: "Created on:";
+}
+
+.grid3.cardview.service-actions .card > .other > .close-user:before {
+	content: "Closed by:";
+}
+
+.grid3.cardview.service-actions .card > .other > .close-date:before {
+	content: "Closed on:";
+}
+
+.grid3.cardview.service-actions .card > .other > .cancel-user:before {
+	content: "Canceled by:";
+}
+
+.grid3.cardview.service-actions .card > .other > .cancel-date:before {
+	content: "Canceled on:";
+}
+
+.grid3.cardview.service-actions .card > .action {
+	display: flex;
+	flex-flow: row;
+	border: 1px solid;
+}
+
+.grid3.cardview.service-actions .card > .action-section > .task {
+	width: 100%;
+}
+
+.grid3.cardview.service-actions .card > .action-section > .task > .type {
+	font-weight: bold;
+}
+
+.grid3.cardview.service-actions .card > .action-section > .task > .sub-type:before {
+	content: "/";
+	margin: 0 3px 0 3px;
+	color: black;
+}
+
+.grid3.cardview.service-actions .card > .action-section > .status {
+	width: 100px;
+	color: white;
+}
+
+.grid3.cardview.service-actions .card > .action-section > div:first-child {
+	border-style: none solid none none;
+}
+
+.grid3.cardview.service-actions .card > .action > div {
+}
+
+.grid3.cardview.service-actions .card > .action > .code {
+	width: 32px;
+	font-weight: bold;
+	border-style: none solid none none;
+}
+
+.grid3.cardview.service-actions .card > .action > .task {
+	color: inherit;
+	text-transform: capitalize;
+}
+
+.grid3.cardview.service-actions .card[x-status="D"] > .action-section > .status {
+	background: [complete-background];
+}
+
+.grid3.cardview.service-actions .card[x-status="X"] > .action-section > .status {
+	background: [cancel-background];
+}
+
+.grid3.cardview.service-actions .card[x-status="N"] > .action-section > .status {
+	background: [open-background];
+}
+
+.grid3.cardview.service-actions .card > .other > .user {
+	display: flex;
+	flex-flow: row;
+}
+
+.grid3.cardview.service-actions .card > .other > .user > div:first-child {
+	width: 110px;
+	color: slategray;
+	text-align: right;
+	padding-right: 4px;
+}
+
+.grid3.cardview.service-actions .card > .other > .user > div:first-child:after {
+	content:":";
+}
+
+.grid3.cardview.service-actions .card > .other > .user > div:last-child {
+	width: 100%;
+}
+

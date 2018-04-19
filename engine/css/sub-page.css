@@ -1,0 +1,42 @@
+##const
+	header-height=40px
+	footer-height=0px
+##endconst
+
+.sub-page-inner-container {
+##version=internetexplorer11
+	position: absolute;
+##else
+	position: relative;
+##endif	
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box; 
+}
+
+.sub-page-header {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: [header-height];
+	/*background: rgba(0,0,0,0.1);*/
+	box-sizing: border-box;
+}
+
+.sub-page-content {
+	position: relative;
+	top: [header-height];
+	height: calc(100% - [header-height] - [footer-height]);
+	width: 100%;
+	/*background: rgba(0,0,0,0.2);*/
+	box-sizing: border-box;
+}
+
+.sub-page-footer {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	height: [footer-height];
+	/*background: rgba(0,0,0,0.3);*/
+	box-sizing: border-box;
+}

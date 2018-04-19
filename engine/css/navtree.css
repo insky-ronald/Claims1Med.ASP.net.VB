@@ -1,0 +1,132 @@
+##const
+##endconst
+
+.navtree{
+	/* position: absolute; */
+	/* top: 0; */
+	/* flex-shrink: 0; */
+	width: 100%;
+	color: #666;
+}
+
+.navtree div[x-sec="branch"] {
+	width:100%;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.navtree div[x-sec="main"] {
+	width:100%;
+	box-sizing: border-box;
+	cursor: pointer;
+	background: whitesmoke;
+}
+
+.navtree a[x-sec="item"]:hover,
+.navtree div[x-sec="item"]:hover,
+.navtree div[x-sec="main"]:hover {
+	background: gainsboro;
+	color: black !important;
+}
+
+.navtree a[x-sec="item"]:hover svg,
+.navtree div[x-sec="item"]:hover svg,
+.navtree div[x-sec="main"]:hover svg {
+	fill: black !important;
+}
+
+.navtree a[x-sec="item"]:active,
+.navtree div[x-sec="item"]:active,
+.navtree div[x-sec="main"]:active{
+	background: #49CD81;
+	color: white !important;
+}
+
+.navtree a[x-sec="item"]:active svg,
+.navtree div[x-sec="item"]:active svg,
+.navtree div[x-sec="main"]:active svg {
+	fill: white !important;
+}
+
+.navtree a[x-sec="item"][data-selected="1"],
+.navtree div[x-sec="item"][data-selected="1"] {
+	background: #27AE60;
+	color: white !important;
+}
+
+.navtree a[x-sec="item"][data-selected="1"] svg,
+.navtree div[x-sec="item"][data-selected="1"] svg {
+	fill: white !important;
+}
+
+.navtree span[x-sec="icon"] svg {
+	vertical-align: middle;
+	fill: #666;
+	pointer-events: none;
+}
+
+.navtree a[x-sec="item"] span[x-sec="icon"],
+.navtree div[x-sec="item"] span[x-sec="icon"],
+.navtree div[x-sec="main"] span[x-sec="icon"] {
+	/*font-family: FontAwesome;*/
+	/*font-style: normal;*/
+	/*font-size: 20px;*/
+    /*font-weight: 400;*/
+    /*line-height: 1;*/
+    /*-webkit-font-smoothing: antialiased;*/
+    /*-moz-osx-font-smoothing: grayscale;*/
+    /*transform: translate(0,0);	*/
+	/*margin:0;*/
+	/*padding:1px;*/
+	/*width:38px;*/
+	/*min-width:38px;*/
+	/*text-align: center;*/
+	pointer-events: none;
+}
+
+.navtree div[x-sec="main"] span[x-sec="icon"] {
+	color: #F19B60;
+	padding-left:12px;
+	white-space: nowrap;
+}
+
+.navtree a[x-sec="item"] span[x-sec="icon"],
+.navtree div[x-sec="item"] span[x-sec="icon"] {
+	padding-left:12px;
+	white-space: nowrap;
+}
+
+.navtree a[x-sec="item"] span[x-sec="label"],
+.navtree div[x-sec="item"] span[x-sec="label"],
+.navtree div[x-sec="main"] span[x-sec="label"] {
+	padding-left: 12px;
+	pointer-events: none;
+	white-space: nowrap;
+}
+
+.navtree div[x-sec="main"] span[x-sec="label"] {
+	font-size: 100%;
+}
+
+.navtree a[x-sec="item"] span[x-sec="label"],
+.navtree div[x-sec="item"] span[x-sec="label"] {
+	/*font-size: 95%;*/
+}
+
+.navtree div[x-sec="items"] {
+	width:100%;
+}
+
+.navtree a[x-sec="item"],
+.navtree div[x-sec="item"] {
+	width:100%;
+	/*padding: 3px 0 2px 25px;*/
+	/*line-height: 30px;*/
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.navtree a[x-sec="item"] {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+}

@@ -1,0 +1,100 @@
+##const
+	color-s=#3388BB
+	/*color-n=#27AE60*/
+	color-n=goldenrod
+	color-p=#27AE60
+	color-d=firebrick
+##endconst
+
+.grid-service-status div[grid-sec="card"] {
+	float: none;
+	height: auto;
+}
+
+.grid-service-status div[status-sec="header"][status="N"] {
+	color: [color-n];
+}
+
+.grid-service-status div[status-sec="header"][status="P"] {
+	color: [color-p];
+}
+
+.grid-service-status div[status-sec="header"][status="E"] {
+	color: #2F84B7;
+}
+
+.grid-service-status div[status-sec="header"][status="S"] {
+	color: [color-s];
+}
+
+.grid-service-status div[status-sec="header"][status="D"] {
+	color: [color-d];
+}
+
+.grid-service-status div[header-sec="status"],
+.grid-service-status div[header-sec="sub-status"] {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.grid-service-status div[header-sec="status"] {
+	width: 70%;
+	font-size: 105%;
+	font-weight: bold;
+}
+
+.grid-service-status div[header-sec="sub-status"] {
+	width: 30%;
+	text-align: right;
+	/*color: dimgray;*/
+}
+
+.grid-service-status div[header-sec="sub-status-name"] {
+	float:left;
+	padding: 2px;
+}
+
+.grid-service-status div[header-sec="sub-status-code"] {
+	float:left;
+	width: 33px;
+	padding: 2px;
+	margin-right: 4px;
+	text-align: center;
+	color: white;
+}
+
+.grid-service-status div[status-sec="header"][status="N"] div[header-sec="sub-status-code"] {
+	background-color: [color-n];
+}
+
+.grid-service-status div[status-sec="header"][status="P"] div[header-sec="sub-status-code"] {
+	background-color: [color-p];
+}
+
+.grid-service-status div[status-sec="header"][status="D"] div[header-sec="sub-status-code"] {
+	background-color: [color-d];
+}
+
+.grid-service-status div[status-sec="header"][status="S"] div[header-sec="sub-status-code"] {
+	background-color: [color-s];
+}
+
+.grid-service-status div[audit-panel] {
+	padding-top: 8px;
+}
+
+.grid-service-status div[audit-panel] span[audit-item]{
+	color: #2F84B7;
+}
+
+.grid-service-status span[audit-item]:before {
+	color: dimgray;
+}
+
+.grid-service-status div[audit-panel="create"] span[audit-item="user"]:before {
+	content: "Created by ";
+}
+
+.grid-service-status span[audit-item="date"]:before {
+	content: " on ";
+}

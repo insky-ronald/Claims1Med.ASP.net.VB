@@ -1,0 +1,196 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 11-SEP-2017 */
+/*****************************************************************************************************/
+##const
+	approved-color=#1C84C6
+	settled-color=black
+	posted-color=#1C84C6
+	pending-color=#1AB394
+	decline-color=#ED5565
+	new-color=#F8AC59
+##endconst
+
+.grid3.service-status .row[service-status="d"] {
+	color: red;
+}
+
+.grid3.service-status .row[service-status="s"] {
+	color: blue;
+}
+
+.grid3.service-status .row[service-status="p"] {
+	color: green;
+}
+
+/* CARD VIEW */
+.grid3.cardview.service-status .content {
+	display: flex;
+	flex-flow: column;
+	box-sizing: border-box;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.grid3.cardview.service-status .card {
+	padding: 6px;
+	/* border: 1px gainsboro; */
+	/* border-style: none none solid none; */
+	background: white;
+	box-sizing: border-box;
+}
+
+.grid3.cardview.service-status .card:hover {
+	background: #FAFAFA;
+}
+
+.grid3.cardview.service-status .card .card-content {
+	display: flex;
+	flex-flow: row;
+	box-sizing: border-box;
+}
+
+.grid3.cardview.service-status .card[x-status="S"] {
+	color: [posted-color];
+	border-color: [posted-color];
+}
+
+.grid3.cardview.service-status .card[x-status="P"] {
+	color: [pending-color];
+	border-color: [pending-color];
+}
+
+.grid3.cardview.service-status .card[x-status="D"] {
+	color: [decline-color];
+	border-color: [decline-color];
+}
+
+.grid3.cardview.service-status .card[x-status="N"] {
+	color: [new-color];
+	border-color: [new-color];
+}
+
+.grid3.cardview.service-status .card[x-status="E"] {
+	color: [approved-color];
+	border-color: [approved-color];
+}
+
+.grid3.cardview.service-status .card[x-status="A"] {
+	color: [settled-color];
+	border-color: [settled-color];
+}
+
+.grid3.cardview.service-status .card > .status {
+	color: inherit;
+	border-color: inherit;
+}
+
+.grid3.cardview.service-status .card > .log {
+	color: black;
+	border-color: inherit;
+}
+
+.grid3.cardview.service-status .card > .status {
+	display: flex;
+	flex-flow: row;
+	border: 1px solid;
+}
+
+.grid3.cardview.service-status .card > .status > div {
+	padding: 4px;
+	border: 1px;
+	color: inherit;
+	border-color: inherit;
+}
+
+.grid3.cardview.service-status .card > .status > .code {
+	width: 32px;
+	font-weight: bold;
+	border-style: none solid none none;
+}
+
+.grid3.cardview.service-status .card > .status > .name {
+	color: white;
+	width: 100px;
+	border-style: none solid none none;
+}
+
+.grid3.cardview.service-status .card > .status > .desc {
+	color: black;
+}
+
+.grid3.cardview.service-status .card[x-status="S"] > .status > .name {
+	background: [posted-color];
+}
+
+.grid3.cardview.service-status .card[x-status="P"] > .status > .name {
+	background: [pending-color];
+}
+
+.grid3.cardview.service-status .card[x-status="D"] > .status > .name {
+	background: [decline-color];
+}
+
+.grid3.cardview.service-status .card[x-status="N"] > .status > .name {
+	background: [new-color];
+}
+
+.grid3.cardview.service-status .card[x-status="E"] > .status > .name {
+	background: [approved-color];
+}
+
+.grid3.cardview.service-status .card[x-status="A"] > .status > .name {
+	background: [settled-color];
+}
+
+.grid3.cardview.service-status .card > .log {
+	display: flex;
+	flex-flow: row;
+	border-width: 1px;
+	border-style: none solid solid solid;
+	/* border-color: inherit; */
+}
+
+.grid3.cardview.service-status .card > .log > div {
+	width: 50%;	
+	padding: 4px;
+}
+
+.grid3.cardview.service-status .card > .log > .name {
+	border-width: 1px;
+	border-color: inherit;
+	border-right-style: solid;
+}
+
+.grid3.cardview.service-status .card > .log > .name:before {
+	content: "Created by";
+	margin-right: 2px;
+	color: silver;
+}
+
+.grid3.cardview.service-status .card > .log > .date:before {
+	content: "on";
+	margin-right: 2px;
+	color: silver;
+}
+
+.grid3.cardview.service-status .card > .log > .user {
+	display: flex;
+	flex-flow: row;
+}
+
+.grid3.cardview.service-status .card > .log > .user > div:first-child {
+	width: 110px;
+	color: slategray;
+	text-align: right;
+	padding-right: 4px;
+}
+
+.grid3.cardview.service-status .card > .log > .user > div:first-child:after {
+	content:":";
+}
+
+.grid3.cardview.service-status .card > .log > .user > div:last-child {
+	width: 100%;
+}
+

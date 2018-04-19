@@ -1,0 +1,48 @@
+{
+	"status":0,
+	"message":"",
+	"pid":"home",
+	"page_title":"Test Engine V4",
+	"window_title":"Engine V4",
+	"menu_items":[{
+		"id":"calendar-week",
+		"title":"Calendar",
+		"description":"Calendar",
+		"enabled":true,
+		"frame":false,
+		"url":"app/calendar/callback?_a_=admin",
+		"icon":""
+	},{
+		"id":"clients",
+		"title":"Clients",
+		"description":"Clients",
+		"enabled":true,
+		"frame":false,
+		"url":"app/clients/callback?_a_=admin",
+		"icon":""
+	},{
+		"id":"policies",
+		"title":"Policies",
+		"description":"Policies",
+		"enabled":true,
+		"frame":false,
+		"url":"app/masterpolicies/callback?_a_=insurance",
+		"icon":""
+	},{
+		"id":"brokers",
+		"title":"Brokers",
+		"description":"Brokers",
+		"enabled":true,
+		"frame":false,
+		"url":"app/brokers/callback?_a_=admin",
+		"icon":""
+	},{
+		"id":"reports",
+		"title":"Reports",
+		"description":"Reports",
+		"enabled":true,
+		"frame":false,
+		"url":"app/reports/callback?_a_=clmreports",
+		"icon":""
+	}]
+}

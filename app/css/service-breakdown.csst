@@ -1,0 +1,17 @@
+// *****************************************************************************************************
+// Last modified on
+// 12:20 PM Friday, October 6, 2017
+// *****************************************************************************************************
+##template
+##endtemplate=app\service-breakdown
+
+##template	
+	theme=service-breakdown
+	font=10pt Arial
+	// header-background=lightyellow
+	tab-active-font-color=black
+	// tab-active-font-weight=normal
+	tab-normal-font-color=dimgray
+	// tab-padding=8px 5px 8px 4px
+	// tab-icon-indent=2px
+##endtemplate=engine\pg-theme-2

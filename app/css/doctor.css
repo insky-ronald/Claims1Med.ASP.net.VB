@@ -1,0 +1,81 @@
+##const
+	toolbar-height=34px
+##endconst
+
+.doctor div[x-sec="tab"]{
+	/*border: 1px solid #92846A;*/
+	border: 1px solid red;
+	overflow-x: auto;
+}
+
+.doctor {
+	/*background: #F4F4F4;*/
+	background: white;
+}
+
+.doctor div[x-sec="toolbar"] {
+	height: [toolbar-height];
+	/*border: 1px #B0CEE3;*/
+	/*border: 1px #B0CEE3;*/
+	/*border-style: none none solid;*/
+	/*background: #F5F5F5;*/
+	box-sizing: border-box;
+}
+
+.doctor div[x-sec="content"] {
+	width: 100%;
+	height: 100%;
+	/*height: Calc(100% - [toolbar-height]);*/
+	/*background: wheat;*/
+	/*overflow-y: auto;*/
+	box-sizing: border-box;
+}
+
+.doctor div[x-sec="content-left"],
+.doctor div[x-sec="content-right"] {
+	width: 50%;
+	height: 100%;
+	/*height: auto;*/
+	display: inline-block;
+	float: left;
+	/*display: table-cell;*/
+	padding: 4px;
+	box-sizing: border-box;	
+}
+
+.xdoctor div[x-sec="content-left"] {
+	border: 1px #B0CEE3;
+	border-style: none solid none none;
+}
+
+.doctor div[x-sec="doctor"] {
+	width: 100%;
+	height: auto;
+	background: white;
+}
+
+.doctor div[x-sec="claim-custom"] {
+	width: 100%;
+	height: auto;
+	background: white;
+	margin-top: 4px;
+}
+
+.doctor div[x-sec="claim-doctor"] {
+	width: 100%;
+	height: auto;
+	background: white;
+}
+
+.doctor div[x-sec="claim-doctor-1"] {
+	width: 100%;
+	height: auto;
+	background: white;
+}
+
+.doctor div[x-sec="claim-doctor-2"] {
+	width: 100%;
+	height: auto;
+	background: white;
+	margin-top: 4px;
+}

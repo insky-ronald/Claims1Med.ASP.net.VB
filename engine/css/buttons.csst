@@ -1,0 +1,43 @@
+﻿##template
+	color-name=green
+	color=#759C00
+	color-lite=#94C700
+	color-dark=#4C6500
+	text-color=black
+	text-color-dis=darkgray
+	text-color-hover=white
+	text-color-active=white
+##endtemplate=engine\buttons-template
+
+##template
+	color-name=red
+	color=red
+	color-lite=IndianRed
+	color-dark=darkred
+	text-color=black
+	text-color-dis=darkgray
+	text-color-hover=white
+	text-color-active=white
+##endtemplate=engine\buttons-template
+
+##template
+	color-name=blue
+	color=#3079ED
+	color-lite=#70A5FC
+	color-dark=#0754D0
+	text-color=whitesmoke
+	text-color-dis=darkgray
+	text-color-hover=white
+	text-color-active=white
+##endtemplate=engine\buttons-template
+
+##template
+	color-name=silver
+	color=#C4C4C7
+	color-lite=whitesmoke
+	color-dark=#4E4E50
+	text-color=dimgray
+	text-color-dis=darkgray
+	text-color-hover=black
+	text-color-active=white
+##endtemplate=engine\buttons-template

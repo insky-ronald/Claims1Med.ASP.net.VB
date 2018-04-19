@@ -1,0 +1,23 @@
+.grid table[grid-sec="headers"] th[command="select"]  {
+	cursor: pointer;
+}
+
+.grid div[grid-sec="card"][row-selected="1"] li[command="select"],
+.grid table[grid-sec="content"] tr[row-selected="1"] td[command="select"] a  {
+	background: url(/engine/images/ui-checked.png) no-repeat center;
+}
+
+.grid table[grid-sec="headers"] thead[grid-sec="header"] th[command="select"][has-selections="some"] a {
+  background: url(/engine/images/ui-check-gray.png) no-repeat center;
+}
+
+.grid table[grid-sec="headers"] thead[grid-sec="header"] th[command="select"][has-selections="all"] a {
+  background: url(/engine/images/ui-checked.png) no-repeat center;
+}
+
+/** TEMP **/
+.grid table[grid-sec="headers"] th table[grid-sec="column-header-table"]{
+	table-layout: fixed;
+	width: 100%;
+	height: 100%;
+}

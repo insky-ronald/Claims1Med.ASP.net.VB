@@ -1,0 +1,42 @@
+﻿##const
+	theme=default
+	font-family=Arial
+	font-size=9pt
+	
+	container-border-width=1px
+	container-background-color=#CFD2D5
+	
+	gutter-width=25px
+	gutter-background-color=#E7EBEF
+	gutter-border-width=1px
+	gutter-border-color=#CFD2D5
+	gutter-border-style=none solid none none
+##endconst
+
+.editor-tab-container {
+	border: [container-border-width] [container-background-color];
+	border-style: solid;
+}
+
+.editor-tab-container-full {
+	height: 100%;
+	border: [container-border-width] [container-background-color];
+	border-style: solid;
+}
+
+.edit-theme-[theme] {
+	font-family: [font-family];
+	font-size: [font-size];
+}
+
+.edit-theme-[theme] table[edit-sec="table"] thead th[cat-sec="gutter"] {
+	width: [gutter-width];
+	min-width: [gutter-width];
+}
+
+.edit-theme-[theme] table[edit-sec="table"] tbody td[cat-sec="gutter"] {
+	background: [gutter-background-color];
+	border-width: [gutter-border-width];
+	border-color: [gutter-border-color];
+	border-style: [gutter-border-style];
+}

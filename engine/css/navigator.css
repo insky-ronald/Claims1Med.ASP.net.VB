@@ -1,0 +1,71 @@
+##const
+##endconst
+
+#navigator {
+	list-style-type: none;
+	font-family: Calibri;
+	font-size: 14pt;
+	font-weight: normal;
+	text-shadow: 1px 1px 2px dimgray;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+#navigator li {
+	display: block;
+	box-sizing: border-box;
+}
+
+#navigator a {
+	display: block;
+	padding: 6px 4px 6px 4px;
+	cursor: pointer;
+	height: auto;
+	text-decoration: none;
+	color: black;
+}
+
+#navigator a[data-selected="1"]{
+	cursor: default;
+	background: rgba(0,0,0,0.1);
+}
+
+#navigator a[data-selected="1"] img {
+	opacity: 1;
+}
+
+#navigator a[data-selected="0"] img {
+	opacity: 0.5;
+}
+
+#navigator a  img{
+	vertical-align: middle;
+	margin-right: 4px;
+	margin-bottom: 2px;
+	border: 0;
+}
+
+#navigator a[data-selected="0"]:hover {
+##version=ie8
+	background: silver;
+##else
+	background: rgba(0,0,0,0.05);
+##endif
+}
+
+#navigator a[data-selected="0"]:active{
+	color: white;
+	text-shadow: none;
+	background: rgba(0,0,0,0.1);
+}
+
+#navigator a[data-selected="0"]:hover img {
+	opacity: 0.75;
+}
+
+#navigator a[data-selected="0"]:active img {
+	opacity: 1;
+}

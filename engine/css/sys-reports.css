@@ -1,0 +1,29 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 25-OCT-2014 ihms.0.0.1.3 */
+/*****************************************************************************************************/
+.grid3.reports .cell[x-sec="id"] {
+	text-align: left !important;
+}
+
+.grid3.reports .cell[x-sec="name"] {
+	/* font-size: 120%; */
+	/* font-weight: bold; */
+}
+
+.grid3.reports .row[x-status="0"] {
+	color: silver;
+}
+
+.grid3.reports .row[x-status="11"] {
+	color: dodgerblue;
+}
+
+.grid3.reports .master-detail-container {
+	background: white;
+	border: 1px solid silver;
+}
+
+.grid3.reports .cell.command-cell[command="run"] svg {
+	fill: forestgreen;
+}

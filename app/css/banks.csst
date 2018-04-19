@@ -1,0 +1,7 @@
+##template
+	sub-name=@
+##endtemplate=engine\grid-card
+
+##template
+	sub-name=@
+##endtemplate=app\banks

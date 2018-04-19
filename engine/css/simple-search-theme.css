@@ -1,0 +1,23 @@
+##const
+	theme=default
+##endconst
+
+.ss-thems[theme] {
+}
+
+.ss-thems[theme][ss-size="24"] div[ss-sec="search"] {
+	border: 1px solid rgba(0,0,0,0.2);
+}
+
+.ss-thems[theme][ss-size="24"] div[ss-sec="search"][ss-focused] {
+	box-shadow: rgba(0,0,0,0.3) 1px 0px 2px;
+}
+
+.ss-thems[theme][ss-size="24"] div[ss-sec="search"][ss-focused],
+.ss-thems[theme][ss-size="24"] div[ss-sec="search"]:hover {
+	border-color: rgba(0,0,0,0.4);
+}
+
+.ss-thems[theme] div[ss-sec="button"] {
+	background: whitesmoke;
+}

@@ -1,0 +1,112 @@
+##const
+	card-height=100px
+	card-min-height=100px
+	card-max-height=100px
+##endconst
+
+.grid div[grid-sec="card"] {
+	float: left;
+	/*width: Calc(100% / 3);*/
+	box-sizing: border-box;
+	padding: 0px 6px 6px 0px;
+}
+
+.grid[opt-view="card"] div[grid-sec="content"] {
+	padding: 6px 0px 0px 6px;
+}
+
+.grid[opt-view="card"] ul[card-sec="toolbar"] {
+	/*position: absolute;*/
+	/*top: 0;*/
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.grid[opt-view="card"] ul[card-sec="toolbar"] li {
+	/*padding: 4px 0px 0px 4px;*/
+	height: 22px;
+	opacity: 0.75;
+	cursor: pointer;
+}
+
+.grid[opt-view="card"] ul[card-sec="toolbar"] li:hover {
+	opacity: 1;
+	background-color: rgba(0,0,0,0.05);
+}
+
+.xgrid-banks div[grid-sec="card1"] {
+	padding: 6px;
+	box-sizing: border-box;
+	border: 1px	gainsboro;
+	border-style: none none dotted none;
+}
+
+.xgrid-banks div[grid-sec="card2"] {
+	float: left;
+	width: 400px;
+	margin: 8px 0px 0px 8px;
+	box-sizing: border-box;
+	border: 1px	gainsboro solid;
+	background: whitesmoke;
+	box-shadow: rgba(0,0,0,0.1) 0px 0px 3px;
+}
+
+.grid div[grid-sec="card"] div[card-sec="inner"] {
+	box-sizing: border-box;
+	border: 1px	gainsboro;
+	border-style: solid solid solid solid;
+	background: whitesmoke;
+	box-shadow: rgba(0,0,0,0.05) 1px 1px 2px;
+}
+
+.grid div[grid-sec="card"] div[card-sec="inner"] {
+	height: 100%;
+	overflow: hidden;
+}
+
+.grid div[grid-sec="card"] div[card-sec="inner"]:hover {
+	border-color: silver;
+	box-shadow: rgba(0,0,0,0.1) 1px 1px 2px;
+}
+
+.grid div[grid-sec="card"][row-selected="1"]  div[card-sec="inner"]:hover {
+	border-color: #DD8F36;
+}
+
+.grid div[grid-sec="card"][row-selected="1"]  div[card-sec="inner"]{
+	border-color: #FDA43E;
+}
+
+.grid div[grid-sec="card"] div[card-sec="command-bar"] {
+	/*position: relative;*/
+	/*display: inline-block;*/
+	float: left;
+	width: 24px;
+	height: 100%;
+	background: whitesmoke;
+}
+
+.grid div[grid-sec="card"] div[card-sec="content"] {
+	position: relative;
+	padding: 6px;
+	display: inline-block;
+	width: Calc(100% - 24px);
+	height: 100%;
+	box-sizing: border-box;
+	background: white;
+}
+
+.xxgrid-banks div[grid-sec="card"] div[card-sec="data-left"] {
+	float: left;
+	position: relative;
+	height: 100%;
+	width: 60%;
+	padding-right: 4px;
+	border: 4px rgba(0,0,0,0);
+	border-style: none solid none none;
+	box-sizing: border-box;
+	/*background: rgba(0,0,0,0.1);*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

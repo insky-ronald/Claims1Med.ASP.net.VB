@@ -1,0 +1,108 @@
+##const
+	splitter-width=6px
+	splitter-border-color=#696969
+	splitter-background-color=white
+##endconst
+
+body.resizing-vert {
+	cursor: col-resize;
+}
+
+body.resizing-horz {
+	cursor: row-resize;
+}
+
+.splitter2 {
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+.splitter2[orientation="vert"] {
+	flex-flow: row;
+}
+
+.splitter2[orientation="horz"] {
+	flex-flow: column;
+}
+
+.splitter2 > .pane1 {
+	flex-shrink: 0;
+}
+
+.splitter2 > .pane2 {
+	flex-grow: 1;
+}
+
+/* This is a work-around for Chrome, "Chrome flex item percentage height broken" */
+/* https://github.com/philipwalton/flexbugs/issues/84 */
+.splitter2[orientation="horz"] > .pane2 {
+	height: 100%;
+}
+
+.splitter2[orientation="vert"] > .pane2 {
+	width: 100%;
+}
+
+.splitter2 > .sizer {
+	display: flex;
+	flex-shrink: 0;
+	flex-basis: 7px;
+	/* overflow: hidden; */
+	align-items: center;
+	/* background: gainsboro; */
+}
+
+.splitter2[orientation="vert"] > .sizer {
+	flex-flow: row;
+	cursor: col-resize;
+}
+
+.splitter2[orientation="horz"] > .sizer {
+	flex-flow: column;
+	cursor: row-resize;
+}
+
+.splitter2 > .sizer .sizer-panel {
+	margin: 1px;
+	/* border: 1px dotted dimgray; */
+	/* background: silver; */
+	opacity: 0.25;
+	pointer-events: none;
+	box-sizing: border-box;
+	transition: height 0.1s ease-in-out, width 0.1s ease-in-out;
+}
+
+.splitter2[orientation="vert"] > .sizer .sizer-panel {
+	width: 100%;
+	height: 10%;
+}
+
+.splitter2[orientation="horz"] > .sizer .sizer-panel {
+	width: 10%;
+	height: 100%;
+}
+
+.splitter2 > .sizer:hover .sizer-panel {
+	opacity: 0.5;
+}
+
+.splitter2 > .sizer:active .sizer-panel {
+	opacity: 0.75;
+}
+
+.splitter2[orientation="vert"] > .sizer:hover .sizer-panel {
+	height: 75%;
+}
+
+.splitter2[orientation="vert"] > .sizer:active .sizer-panel {
+	height: 100%;
+}
+
+.splitter2[orientation="horz"] > .sizer:hover .sizer-panel {
+	width: 75%;
+}
+
+.splitter2[orientation="horz"] > .sizer:active .sizer-panel {
+	width: 100%;
+}

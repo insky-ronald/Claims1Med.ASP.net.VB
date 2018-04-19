@@ -1,0 +1,23 @@
+.member-medical-notes {
+	display: flex;
+	flex-flow: column;
+    /* border: 1px dimgray; */
+    /* border-style: solid none none solid; */
+}
+
+.member-medical-notes .toolbar-container {
+	height: 34px;
+}
+
+.member-medical-notes .medical-notes {
+    font: 10pt Consolas;
+    background: lightyellow;
+    padding: 6px;
+    height: 100%;
+    width: 100%;
+    tab-size: 4;
+    overflow: auto;
+    margin: 0;
+    box-sizing: border-box;
+	outline: none;
+}

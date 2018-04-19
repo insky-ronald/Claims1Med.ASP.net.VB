@@ -1,0 +1,81 @@
+.grid3.claim-diagnosis {
+	/* border: 1px dimgray; */
+	/* border-style: solid solid none none; */
+	box-sizing: border-box;
+}
+
+.grid3.claim-diagnosis .content {
+	display: block;
+	overflow-y: auto;
+}
+
+.grid3.claim-diagnosis .card {
+	/* height: 50px; */
+	display: flex;
+	flex-flow: row;
+	width: 100%;
+	border: 1px gainsboro;
+	box-sizing: border-box;
+	/* background: white; */
+}
+
+.grid3.claim-diagnosis .card:hover {
+	background: whitesmoke !important;
+}
+
+.grid3.claim-diagnosis .card .code {
+	flex-shrink: 0;
+	width: 32px;
+}
+
+.grid3.claim-diagnosis .card.child .code,
+.grid3.claim-diagnosis .card.parent .code {
+	display: flex;
+	align-items: center;
+    justify-content: center;
+	text-align: center;
+	border-radius: 3px;
+    padding: 4px 0 4px 0;
+}
+
+.grid3.claim-diagnosis .card.parent .code {
+	font-weight: bold;
+	background: #1C84C6;
+	color: white;
+    margin-right: 10px;
+}
+
+.grid3.claim-diagnosis .card.parent .name {
+	font-weight: bold;
+	padding: 4px 0 4px 0;
+}
+
+.grid3.claim-diagnosis .card.child .code {
+	background: #23C6C8;
+	color: white;
+    margin-right: 10px;
+}
+
+.grid3.claim-diagnosis .card.child .name {
+	padding: 4px 0 4px 0;
+}
+
+.grid3.claim-diagnosis .card.parent {
+	background: white;
+	border-style: solid none none none;
+	border-bottom-style: dotted;
+	padding: 10px;
+}
+
+.grid3.claim-diagnosis .card.child {
+	background: white;
+	padding: 4px 4px 4px 52px;
+}
+
+.grid3.claim-diagnosis .content > div:first-child {
+	border-top-style: none;
+}
+
+.grid3.claim-diagnosis .content > div:last-child {
+	border-bottom-style: solid;
+}

@@ -1,0 +1,20 @@
+##const
+	sub-name=default
+	header-height=0px
+	footer-height=0px
+##endconst
+
+#sub-[sub-name] .sub-page-header {
+	height: [header-height];
+	line-height: [header-height];
+}
+
+#sub-[sub-name] .sub-page-content {
+	top: [header-height];
+	height: calc(100% - [header-height] - [footer-height]);
+}
+
+#sub-[sub-name] .sub-page-footer {
+	height: [footer-height];
+	line-height: [footer-height];
+}

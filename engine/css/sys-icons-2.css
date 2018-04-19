@@ -1,0 +1,53 @@
+##const
+	icon-margin=8px
+	container-size=64px
+	icon-size=50%
+	icon-color=#666666
+##endconst
+
+.system-icons {
+	overflow-y:scroll;
+	padding-top: [icon-margin];
+	padding-left: [icon-margin];
+}
+
+.system-icons .icon {
+	float: left;
+	width: [container-size];
+	height: [container-size];
+	border: 1px solid;
+	margin-right: [icon-margin];
+	margin-bottom: [icon-margin];
+}
+
+.system-icons .icon[clone="0"] {
+	border-color: gainsboro;
+	fill: [icon-color];
+}
+
+.system-icons .icon[clone="1"] {
+	border-color: #51ABDA;
+	fill: #51ABDA;
+}
+
+.system-icons .icon svg {
+	display: block;
+	margin-top: 25%;
+	margin-left: 25%;
+	width: [icon-size];
+	height: [icon-size];
+}
+
+.system-icons .icon:hover {
+	background: [icon-color];
+}
+
+.system-icons .icon:hover  svg {
+	fill: white;
+}
+
+.hint .clone {
+	margin-top: 3px;
+	border: 1px dimgray;
+	border-style: dotted none none none;
+}

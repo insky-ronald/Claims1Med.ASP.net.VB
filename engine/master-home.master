@@ -1,0 +1,25 @@
+﻿<%@ Master Language="VB" AutoEventWireup="true" MasterPageFile="master-design-1.master" Inherits="MainPage"%>
+
+<asp:Content ContentPlaceHolderID="Content_Css" runat="Server">
+	<link href='/engine/csst/home' rel='stylesheet' type='text/css'>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="Content_Header" runat="Server">
+	<!-- <div style="height:100%; width:100%; background: wheat"></div> -->
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="Content_Navigator" runat="Server">
+	<!-- <div style="height:100%; width:100%; background: wheat"></div> -->
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="Content_Content" runat="Server">
+	<!-- <div style="height:100%; width:100%; background: wheat"></div> -->
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="Content_Footer" runat="Server">
+	<!-- <div style="height:100%; width:100%; background: wheat"></div> -->
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="Content_Script" runat="Server">
+	
+</asp:Content>

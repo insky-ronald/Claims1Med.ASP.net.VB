@@ -1,0 +1,40 @@
+##const
+	desktop-width=@
+	desktop-header-height=@
+	desktop-footer-height=@
+	navigator-width=@
+##endconst
+
+##template
+	desktop-width=@
+	desktop-header-height=@
+	desktop-footer-height=@
+	navigator-width=@
+##endtemplate=engine\layout-design-2
+
+##template
+	desktop-width=@
+	desktop-header-height=@
+	desktop-footer-height=@
+	navigator-width=@
+##endtemplate=engine\layout-design-5
+
+##template
+	desktop-width=@
+	desktop-header-height=@
+	desktop-footer-height=@
+	navigator-width=@
+##endtemplate=engine\layout-design-5-theme
+
+##template
+	desktop-width=@
+	desktop-border-color=dimgray
+	desktop-border-width=0
+	navigator-background=#F1F1F1
+##endtemplate=app\claim1med
+
+##includetemplate	
+##endinclude=engine\common-controls
+
+##includetemplate	
+##endinclude=engine\system

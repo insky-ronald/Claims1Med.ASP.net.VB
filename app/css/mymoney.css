@@ -1,0 +1,44 @@
+.grid-mymoney thead tr th {
+	text-align: center !important; 
+}
+
+.grid-mymoney tbody tr[data-row="bold"] {
+	font-weight: bold;
+}
+
+.grid-mymoney table[grid-sec="content"] tr[data-type="sub"][focused="1"] td,
+.grid-mymoney table[grid-sec="content"] tr[data-type="sub"] td {
+	border-style: solid solid solid none;
+	border-color: #9BBB59;
+	background: #C2D69A !important;
+}
+
+.grid-mymoney table[grid-sec="content"] tr[data-type="total"][focused="1"] td,
+.grid-mymoney table[grid-sec="content"] tr[data-type="total"] td {
+	border-style: none solid solid none;
+	border-color: #F79646;
+	background: #FAC090 !important;
+}
+
+.grid-mymoney table[grid-sec="content"] tr[data-type="running"][focused="1"],
+.grid-mymoney table[grid-sec="content"] tr[data-type="running"] td {
+	border-style: none solid solid none;
+	border-color: #4F81BD;
+	background: #95B3D7 !important;
+}
+
+.grid-mymoney tbody td[x-type="actual"] {
+	color: blue;
+}
+
+.grid-mymoney tbody td[x-type="budget"] {
+	/*color: dimgray;*/
+}
+
+.grid-mymoney div[grid-sec="fixed-header"] table tr th[lband="1"],
+.grid-mymoney div[grid-sec="fixed-header"] table tr th:last-child,
+.grid-mymoney div[grid-sec="fixed-content"] table tr td:last-child {
+	border-right-color: dimgray !important;
+	/*border-right-width: [fixed-content-separator-border-width];*/
+	/*border-style: none solid solid none;*/
+}

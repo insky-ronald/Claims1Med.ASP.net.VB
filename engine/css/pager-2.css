@@ -1,0 +1,124 @@
+/*20-FEB-2015 1.0.0.6 added new sprite /engine/images/pager.png*/ 
+##const
+	background=whitesmoke
+	border-color=#FF7F50
+	height=21px
+	font=9pt Arial
+##endconst
+
+.pager2 {
+	font: 9pt Arial;
+	width: 100%;
+	height: 34px;
+	padding: 0 5px 0 5px;
+	border: 1px #2F2E2E;
+	border-style: solid none none none;
+	box-sizing: border-box;
+	background: whitesmoke;
+}
+
+.pager2 div[pager-sec="pages-container"] {
+	display: flex;
+    float: right;
+	height: 100%;
+    box-sizing: border-box;
+}
+
+.pager2 div[pager-sec="pages-container"] label {
+	align-self: center;
+	margin-left: 4px;
+}
+
+.pager2 div[pager-sec="pages-container"] div[page-sec="page-count"] {
+	float: right;
+	align-self: center;
+	padding: 4px 4px 4px 4px;
+	margin-right: 2px;
+	border: 1px solid silver;
+}
+
+	.pager2 div[pager-sec="pages-container"] div[page-sec="page-count"][active="0"] {
+		color: dimgray;
+		cursor: pointer;
+		background: white;
+	}
+	
+	.pager2 div[pager-sec="pages-container"] div[page-sec="page-count"][active="1"] {
+		color: black;
+		background: #FEE085;
+		border-color: #C27F31;
+		cursor: default;
+	}
+
+	.pager2 div[pager-sec="pages-container"] div[page-sec="page-count"][active="0"]:hover {
+		color: #FF7F50;
+		border-color: #FF7F50;
+	}
+	
+.pager2 div[pager-sec="button-container"] {
+    float: left;
+	height: 100%;
+    /* padding: 0 0 0 5px; */
+    box-sizing: border-box;
+}
+
+	.pager2 div[button-sec="prev"],
+	.pager2 div[button-sec="next"] {
+		display: flex;
+		align-items: center;
+		float: left;
+		height: 100%;
+		margin-right: 2px;
+		box-sizing: border-box;
+	}
+
+	.pager2 div[pager-sec="button-container"] svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	.pager2 div[pager-sec="button-container"] svg[active="on"] {
+		fill: #C27F31;
+		cursor: pointer;
+	}
+
+	.pager2 div[pager-sec="button-container"] svg[active="off"] {
+		fill: silver;
+		cursor: default;
+	}
+
+	.pager2 div[pager-sec="button-container"] svg[active="on"]:hover {
+		fill: #FFA500;
+	}
+
+	.pager2 div[pager-sec="button-container"] svg[active="on"]:active {
+		fill: black;
+	}
+
+.pager2 div[pager-sec="page-label-container"] {
+	display: flex;
+    float: left;
+	height: 100%;
+    padding: 0 5px 0 5px;
+    box-sizing: border-box;
+}
+
+.pager2 label[pager-sec="page-label-1"] {
+	align-self: center;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.pager2 label[pager-sec="page-label-1"]:before {
+	content: "Page ";
+	font-weight: normal;
+}
+
+.pager2 label[pager-sec="page-label-1"]:hover {
+	color: #FFA500;
+}
+	
+.pager2 label[pager-sec="page-label-2"] {
+	align-self: center;
+	margin-left: 4px;
+}

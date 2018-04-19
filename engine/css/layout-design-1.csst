@@ -1,0 +1,13 @@
+##usetemplate=engine/css/layout-design-1
+	desktop-width=1014px
+	navigator-width=200px
+##endtemplate
+
+##template
+	desktop-width=1014px
+	navigator-width=200px
+##endtemplate=engine\layout-design-1 
+
+##template
+	desktop-border-color=black
+##endtemplate=engine\layout-design-1-test

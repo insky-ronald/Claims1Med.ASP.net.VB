@@ -1,0 +1,96 @@
+##const
+	hint-color=black
+##endconst
+
+.hint {
+	/*border-radius: 4px;*/
+	text-align: center;
+}
+
+	.hint div[dlg-sec="container"] {
+		/*border: 0 !important;*/
+		border-color: [hint-color] !important;
+		border-radius: 3px;
+	}
+
+	.hint div[dlg-sec="content"] {
+		color: white;
+		font-weight: normal;
+		background: [hint-color];
+	}
+
+	.hint[dlg-snap="top"] div[dlg-sec="shape"] {
+		border-top-color: [hint-color] !important;
+	}
+
+	.hint[dlg-snap="bottom"] div[dlg-sec="shape"] {
+		border-bottom-color: [hint-color] !important;
+	}
+
+.busy {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;	
+}
+	
+	.busy div[x-sec="inner-1"] {
+		position: relative;
+		width: 30%;
+		height: 100%;
+		margin: auto;
+	}
+
+		.busy div[x-sec="inner-2"] {
+			position: relative;
+			height: 30%;
+			top: Calc((100% - 30%) / 2);	
+			/* animation: spin 1s linear infinite; */
+		}
+
+			.busy div[x-sec="inner-2"] svg {
+				/* position: absolute; */
+				display: block;
+				margin: auto;
+				width: 100%;
+				height: 100%;
+				fill: rgba(39,174,96, 0.75);
+				animation: spin 1s linear infinite;
+			}
+
+.busy2 {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+	.busy2 svg {
+		width: 30%;
+		height: 30%;
+		fill: rgba(39,174,96, 0.75);
+		-webkit-animation:spin 1s linear infinite;
+		animation: spin 1s linear infinite;
+	}
+
+/* not used renamed from .busy to .x-busy*/
+.x-busy {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+	padding-top: 30%;
+	padding-left: 35%;
+}
+
+.x-busy svg {
+	margin: auto;
+	width: 25%;
+	height: 25%;
+	fill: rgba(39,174,96, 0.75);
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin { 100% { -webkit-transform: rotate(0deg); transform:rotate(360deg); } }

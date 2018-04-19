@@ -1,0 +1,36 @@
+##const
+	svg-color=#666666
+##endconst
+
+.grid table[grid-sec="headers"] thead[grid-sec="header"] th[command="[@name]"] svg {
+	fill: [svg-color];
+}
+
+.grid table[grid-sec="headers"] thead[grid-sec="header"] th[command="[@name]"] a  {
+	background: url([header-image]) no-repeat center;
+}
+
+.grid div[grid-sec="card"] li[command="[@name]"],
+.grid div[grid-sec="fixed-content"] table td[command="[@name]"] a ,
+.grid div[grid-sec="content"] table td[command="[@name]"] a  {
+	background: url([cell-image]) no-repeat center;
+}
+
+.grid table[grid-sec="content"] tbody tr[row-selected] td[command="select"] svg {
+	fill: orange;
+	cursor: pointer;
+}
+
+.grid table[grid-sec="content"] tbody td[command="[@name]"] svg:hover {
+	fill: [svg-color];
+}
+
+.xgrid table[grid-sec="content"] tbody td[command="[@name]"] svg:active {
+	fill: black;
+}
+
+.xgrid table[grid-sec="content"] tbody td[command="[@name]"] svg {
+	/*fill: #C0C0C0;*/
+	fill: #918D8C;
+	cursor: pointer;
+}

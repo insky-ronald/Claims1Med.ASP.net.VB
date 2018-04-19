@@ -1,0 +1,4 @@
+﻿<%@ Master Language="VB" EnableViewState="false" CodeFile="exportxls.master.vb" Inherits="Export.Content" %>
+
+	<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+

@@ -1,0 +1,48 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 07-MAR-2017 */
+/*****************************************************************************************************/
+.grid-sys-permissions tbody tr[x-status="0"] {
+	color: firebrick;
+}
+
+.grid-sys-permissions tbody tr[x-status="10"] {
+	/*color: #2C80B3;*/
+	/*color: #27AE60;*/
+}
+
+.grid-sys-permissions tbody tr[x-type="10"] {
+	color: #2C80B3;
+	/*color: #27AE60;*/
+}
+
+.grid-sys-permissions tbody td ul[x-rights="1"] {
+	margin: 0;
+    padding: 0;
+    height: 100%;
+    list-style-type: none;
+}
+
+.grid-sys-permissions tbody td ul[x-rights="1"] li {
+	display: inline;
+    width: auto;
+    height: 100%;
+	margin-right: 4px;
+    padding: 4px 6px 4px 6px;
+    cursor: default;
+    box-sizing: border-box;
+}
+
+.grid-sys-permissions tbody td ul[x-rights="1"] li[x-active="1"] {
+	border: 1px solid rgba(0,0,0,0.20);
+	background-color: #3879D9;
+	color: white;
+	box-shadow: darkgrey 1px 1px 2px;
+}
+
+.grid-sys-permissions tbody td ul[x-rights="1"] li[x-active="0"] {
+	border: 1px solid rgba(0,0,0,0.25);
+	background-color: #F0F0F0;
+	color: dimgray;
+	box-shadow: gainsboro 1px 1px 2px;
+}

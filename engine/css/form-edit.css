@@ -1,0 +1,44 @@
+##const
+##endconst
+
+.form-edit {
+	display: flex;
+    flex-flow: column;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.form-edit div[x-sec="toolbar-container"] {
+	flex-shrink: 0;
+	height: 34px;
+	background: wheat;
+}
+
+/*height: 100% does not work in Chrome, must be Calc(100% - 34px); */
+.form-edit div[x-sec="sub-container"] {
+	flex-grow: 1;
+	/* height: 100%; does not work in Chrome*/
+	height: Calc(100% - 34px); 
+}
+
+.form-edit div[x-sec="edit-container"] {
+	width: 100%;
+	height: 100%;
+	/*padding: 10px;*/
+	border: 1px #696969;
+	/*border-style: solid none none none;*/
+	box-sizing: border-box;
+}
+
+.form-edit div[x-sec="edit-sub-container"] {
+	width: 100%;
+	height: 100%;
+	/* border: 1px solid silver; */
+	border: 1px solid #2F2E2E;
+	box-sizing: border-box;
+}
+
+.form-edit div[x-sec="edit-sub-container"][x-fill] table[edit-sec="table"] tbody tr:last-child td{
+	border-bottom-style: none !important;
+}

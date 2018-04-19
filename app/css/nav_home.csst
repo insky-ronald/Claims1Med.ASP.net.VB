@@ -1,0 +1,8 @@
+##includetemplate
+	--desktop-width=1200px
+	--desktop-width=1280px	
+	desktop-width=100%
+	desktop-header-height=56px
+	desktop-footer-height=0px
+	navigator-width=150px
+##endinclude=app\claim1med

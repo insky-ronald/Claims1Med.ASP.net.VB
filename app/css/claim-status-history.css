@@ -1,0 +1,112 @@
+##const
+	new-color=#F8AC59
+	closed-color=black
+	reopened-color=#1AB394
+	declined-color=#ED5565
+##endconst
+
+.grid3.claim-status {
+	/* font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif; */
+	/* border: 1px dimgray; */
+	/* border-style: solid none none solid; */
+	box-sizing: border-box;
+}
+
+.grid3.claim-status .content {
+	display: block;
+	overflow-y: auto;
+}
+
+.grid3.claim-status .card {
+	display: flex;
+	flex-flow: row;
+	width: 100%;
+	/* border: 1px gainsboro; */
+	box-sizing: border-box;
+	/* border: 1px solver; */
+	/* border-style: none none dotted none; */
+	background: white;
+	padding: 6px;
+}
+
+.grid3.claim-status .card .card-row {
+	display: flex;
+	flex-flow: row;
+	width: 100%;
+	border-width: 1px;
+	border-style: solid none solid solid;
+}
+
+.grid3.claim-status .card[x-status="N"] .card-row {
+	color: [new-color];
+	border-color: [new-color];
+	background: [new-color];
+}
+
+.grid3.claim-status .card[x-status="C"] .card-row {
+	color: [closed-color];
+	border-color: [closed-color];
+	background: [closed-color];
+}
+
+.grid3.claim-status .card[x-status="O"] .card-row {
+	color: [reopened-color];
+	border-color: [reopened-color];
+	background: [reopened-color];
+}
+
+.grid3.claim-status .card[x-status="D"] .card-row {
+	color: [declined-color];
+	border-color: [declined-color];
+	background: [declined-color];
+}
+
+.grid3.claim-status .card .card-row > div {
+	/* padding: 4px; */
+	border-width: 1px;
+	border-color: inherit;
+	background: white;
+}
+
+.grid3.claim-status .card .card-row > .status {
+	flex-shrink: 0;
+	width: 100px;
+	padding: 4px;
+	border-style: solid;
+	color: white;
+	background: inherit;
+	box-sizing: border-box;
+}
+
+.grid3.claim-status .card .card-row > .log {
+	display: flex;
+	flex-flow: row;
+	width: 50%;
+}
+
+.grid3.claim-status .card .card-row > .log {
+	border-style: none solid none none;
+}
+
+.grid3.claim-status .card .card-row > .log > div {
+	padding: 6px;
+}
+
+.grid3.claim-status .card .card-row > .log > div:first-child {
+	flex-shrink: 0;
+	width: 75px;
+	color: slategray;
+	text-align: right;
+	/* padding-right: 2px; */
+	box-sizing: border-box;
+	/* width: 50%; */
+}
+
+.grid3.claim-status .card .card-row > .log > div:last-child {
+	flex-grow: 1;
+	color: black;
+	/* font-weight: bold; */
+}
+
+.x-grid3.claim-status .card:hover {
+}

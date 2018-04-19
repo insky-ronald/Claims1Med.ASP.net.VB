@@ -1,0 +1,131 @@
+##const
+	desktop-width=100%
+	// desktop-width=1014px
+	desktop-header-height=56px
+	desktop-footer-height=0px
+	navigator-width=200px
+##endconst
+
+##template
+	desktop-width=@
+	desktop-header-height=@
+	desktop-footer-height=@
+	navigator-width=@
+##endtemplate=engine\layout-design-2
+
+##template
+	desktop-width=@
+	desktop-border-color=dimgray
+	navigator-background=#F1F1F1
+##endtemplate=app\claim1med
+
+##template
+##endtemplate=app\navtree
+
+##template
+##endtemplate=engine\navigator
+
+##template
+##endtemplate=engine\toolbar
+
+##template
+##endtemplate=engine\dialog-editor
+
+##includetemplate
+	@name=editor
+##endinclude=engine\editor
+
+##template
+##endtemplate=engine\dialog
+
+##includetemplate
+	header-height=0px
+	footer-height=0px
+##endinclude=app\sub-page
+
+##template
+##endtemplate=engine\datepicker
+
+##template
+##endtemplate=engine\buttons
+
+##template
+##endtemplate=engine\pg
+
+##template
+##endtemplate=engine\grid
+
+##template
+##endtemplate=engine\pager
+
+##template
+	@name=open
+	header-image=/engine/images/data-open.png
+	cell-image=/engine/images/record-open.png
+##endtemplate=engine\grid-commands
+
+##template
+	@name=edit
+	header-image=/engine/images/data-edit.png
+	cell-image=/engine/images/record-edit.png
+##endtemplate=engine\grid-commands
+
+##template
+	@name=delete
+	header-image=/engine/images/data-delete.png
+	cell-image=/engine/images/record-delete.png
+##endtemplate=engine\grid-commands
+
+##template
+	@name=select
+	header-image=/engine/images/ui-unchecked.png
+	cell-image=/engine/images/ui-unchecked.png
+##endtemplate=engine\grid-commands
+
+##template
+##endtemplate=engine\grid-select
+
+##template
+   color-name=green
+   color=#759C00
+   color-lite=#94C700
+   color-dark=#4C6500
+   text-color=black
+   text-color-dis=darkgray
+   text-color-hover=white
+   text-color-active=white
+##endtemplate=engine\buttons-template
+
+##template
+   color-name=red
+   color=red
+   color-lite=IndianRed
+   color-dark=darkred
+   text-color=black
+   text-color-dis=darkgray
+   text-color-hover=white
+   text-color-active=white
+##endtemplate=engine\buttons-template
+
+##template
+   color-name=blue
+   color=#3079ED
+   color-lite=#70A5FC
+   color-dark=#0754D0
+   text-color=whitesmoke
+   text-color-dis=darkgray
+   text-color-hover=white
+   text-color-active=white
+##endtemplate=engine\buttons-template
+
+##template
+   color-name=silver
+   color=#C4C4C7
+   color-lite=whitesmoke
+   color-dark=#4E4E50
+   text-color=dimgray
+   text-color-dis=darkgray
+   text-color-hover=black
+   text-color-active=white
+##endtemplate=engine\buttons-template
+

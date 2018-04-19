@@ -1,0 +1,8 @@
+.grid3.gop-types .data-table .row[x-status="false"] {
+	color: firebrick;
+}
+
+/* .grid-gop-types tbody tr[x-status="true"] { */
+	/* /*color: #2C80B3;*/ */
+	/* /*color: #27AE60;*/ */
+/* } */

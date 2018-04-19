@@ -1,0 +1,112 @@
+##const
+	theme=default
+	font-family=Arial
+	font-size=15px
+	font-color=#666
+	font-color-hover=black
+	font-color-active=white
+	font-color-selected=white
+	icon-color=#666666
+	icon-color-hover=black
+	icon-color-active=white
+	icon-color-selected=white
+	background-color=whitesmoke	
+	background-color-hover=gainsboro	
+	background-color-active=#49CD81	
+	background-color-selected=#27AE60
+	branch-separator=1px solid #e5e5e5
+	svg-margin-top=0
+	svg-size=24px
+	svg-size-main=18px
+	main-padding=5px 0 4px 0
+	main-line-height=40px
+	item-padding=3px 0 2px 25px
+	item-line-height=30px
+##endconst
+
+.navtree[theme="[theme]"] {
+	font-family: [font-family];
+	font-size: [font-size];
+	color: [font-color];
+	overflow-y: auto;
+}
+
+.navtree[theme="[theme]"] div[x-sec="branch"] {
+	border-bottom: [branch-separator];
+}
+
+.navtree[theme="[theme]"] div[x-sec="main"] {
+	background: [background-color];
+	padding: [main-padding];
+	line-height: [main-line-height];
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"],
+.navtree[theme="[theme]"] div[x-sec="item"] {
+	padding: [item-padding];
+	line-height: [item-line-height];
+	white-space: nowrap;
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"]:hover,
+.navtree[theme="[theme]"] div[x-sec="main"]:hover {
+	background: [background-color-hover];
+	color: [font-color-hover] !important;
+}
+
+.navtree[theme="[theme]"] div[x-sec="main"] svg {
+	width: [svg-size-main];
+	height: [svg-size-main];
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"] svg {
+	width: [svg-size];
+	height: [svg-size];
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"]:hover svg,
+.navtree[theme="[theme]"] div[x-sec="main"]:hover svg {
+	fill: [icon-color-hover] !important;
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"]:active,
+.navtree[theme="[theme]"] div[x-sec="main"]:active{
+	background: [background-color-active];
+	color: [font-color-active] !important;
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"]:active svg,
+.navtree[theme="[theme]"] div[x-sec="main"]:active svg {
+	fill: [icon-color-active] !important;
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"][data-selected="1"] {
+	background: [background-color-selected];
+	color: [font-color-selected] !important;
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"][data-selected="1"] svg {
+	fill: [icon-color-selected] !important;
+}
+
+.navtree[theme="[theme]"] span[x-sec="icon"] svg {
+	margin-top: [svg-margin-top];
+	fill: [icon-color];
+	pointer-events: none;
+}
+
+.navtree[theme="[theme]"] div[x-sec="main"] span[x-sec="icon"] {
+	/*color: #F19B60;*/
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"] span[x-sec="icon"] {
+	/*color: black;*/
+}
+
+.navtree[theme="[theme]"] div[x-sec="main"] span[x-sec="label"] {
+	font-size: 100%;
+}
+
+.navtree[theme="[theme]"] a[x-sec="item"] span[x-sec="label"] {
+	font-size: 95%;
+}

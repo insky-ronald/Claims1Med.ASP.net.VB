@@ -1,0 +1,45 @@
+##const
+	theme=default	
+	font-family=Arial
+	font-size=10pt
+	focused-font-size=110%
+	header-background-color=whitesmoke
+	tab-border-width=1px
+	tab-border-color=#C0B7A5
+	tab-border-style=solid solid none solid
+	tab-background-color=#F8ECD5
+	tab-border-color-focused=#92846A
+	tab-background-color-focused=#F5DEB3
+	gutter-border-width=1px
+	gutter-border-color=#92846A
+	gutter-border-style=solid none none none
+	gutter-background-color=#F5DEB3
+##endconst
+
+.pg-theme-[theme] {
+	font-family: [font-family];
+	font-size: [font-size]; 
+}
+
+.pg-theme-[theme] div[pg-sec="header"] {
+	padding-top: [margin-top];
+	background: [header-background-color];
+}
+
+.pg-theme-[theme] div[pg-sec="tab"] {
+	border: [tab-border-width] [tab-border-color];
+	border-style: [tab-border-style];
+	background: [tab-background-color];	
+}
+
+.pg-theme-[theme] div[pg-sec="tab"][focused="1"] {
+	border-color: [tab-border-color-focused];
+	background: [tab-background-color-focused];
+	font-size: [focused-font-size];
+}
+
+.pg-theme-[theme] div[pg-sec="gutter"] {
+	border: [gutter-border-width] [gutter-border-color];
+	border-style: [gutter-border-style];
+	background: [gutter-background-color];
+}

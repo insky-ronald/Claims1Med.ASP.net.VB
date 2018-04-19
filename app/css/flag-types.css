@@ -1,0 +1,12 @@
+.grid3 .master-detail-container {
+	background: white;
+	border: 1px solid silver;
+}
+
+.grid3.flag-types .data-table .row[x-status="false"] {
+	color: red;
+}
+
+.grid3.flag-sub-types .data-table .row[x-status="0"] {
+	color: red;
+}

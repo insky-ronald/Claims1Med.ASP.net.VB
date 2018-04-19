@@ -1,0 +1,73 @@
+##const
+	sub-name=default
+##endconst
+
+.grid-[sub-name] tbody tr[x-nopassword] {
+	color: gray;
+}
+
+.grid-[sub-name] tbody tr[x-inactive] {
+	color: red;
+}
+
+#sub-[sub-name] .grid-user-groups tbody tr[row-selected] {
+	color: blue;
+	font-weight: bold;
+	font-size: 120%;
+}
+
+.grid-[sub-name] .sub-page-footer {
+	background: white;
+}
+
+.user-groups-container {
+	height: 100%;
+	width: 100%;
+	border: 3px solid #F19B60;
+	box-sizing: border-box;
+}
+
+.grid-user-groups .toolbar[theme="default"] {
+	background: #F19B60;
+}
+
+.grid-[sub-name] div[grid-sec="card"] div[card-sec="content"] {
+	font-family: Calibri;
+	font-size: 13pt;
+}
+
+.grid-[sub-name] div[grid-sec="card"] div[card-sec="top"] {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.grid-[sub-name] div[grid-sec="card"] div[card-sec="name"] {
+	/*position: relative;*/
+	float: left;
+	/*display: inline-block;*/
+	/*display: table-cell;*/
+	font-size: 120%;
+	width: 70%;
+	/*font-weight: bold;*/
+	color: #3A77B3;
+	white-space: nowrap;
+}
+
+.grid-[sub-name] div[grid-sec="card"] div[card-sec="user_name"] {
+	/*position: relative;*/
+	float: left;
+	/*font-size: 11pt;*/
+	/*font-weight: bold;*/
+	/*display: table-cell;*/
+	width: 30%;
+	color: black;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.grid-[sub-name] div[grid-sec="card"] div[card-sec="phone_no"],
+.grid-[sub-name] div[grid-sec="card"] div[card-sec="designation"] {
+	float: left;
+	width: 100%;
+	color: #666666;
+}

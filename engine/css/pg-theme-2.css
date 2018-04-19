@@ -1,0 +1,84 @@
+##const
+	theme=default
+	font=11pt Arial
+	default-border-color=none
+	header-background=whitesmoke
+	gutter-background=#F5DEB3 
+	tab-active-font-size=100%
+	tab-active-font-weight=bold
+	tab-active-font-color=black
+	tab-active-border-color=#92846A
+	tab-normal-font-color=black
+	tab-active-background-color=#F5DEB3
+	tab-normal-border-color=#C0B7A5
+	tab-normal-background-color=#F8ECD5
+	tab-padding=10px 6px 10px 6px
+	tab-icon-indent=6px
+	tab-padding-top=6px
+	tab-margin=2px
+##endconst
+
+.pg2[theme="[theme]"] {
+	font: [font];
+	border-color: [default-border-color];
+}
+
+.pg2[theme="[theme]"] .pg-header {
+	background: [header-background];
+	padding-top: [tab-padding-top];
+}
+
+.pg2[theme="[theme]"] .pg-gutter {
+    background: [tab-active-background-color];
+}
+
+.pg2[theme="[theme]"] .pg-gutter-border {
+    border: 1px [tab-active-border-color];
+    border-style: solid none none none;
+    background: [tab-active-background-color];
+}
+
+.pg2.pg-full-border[theme="[theme]"] .pg-gutter-border {
+	border-style: solid solid none solid;
+}
+
+.pg2[theme="[theme]"] .pg-tab {
+	color: [tab-normal-font-color];
+    background: [tab-normal-background-color];
+	border: 1px [tab-normal-border-color];
+    border-style: solid solid none solid;
+	margin-right: [tab-margin];
+}
+
+.pg2[theme="[theme]"] .pg-tab:hover {
+	color: [tab-active-font-color];
+	border-color: [tab-active-border-color];
+}
+
+.pg2[theme="[theme]"] .pg-tab:hover svg {
+	opacity: 1;
+}
+
+.pg2[theme="[theme]"] .pg-tab:active{
+	background: [tab-active-background-color];
+}
+
+.pg2[theme="[theme]"] .pg-tab.tab-active {
+	color: [tab-active-font-color];
+	font-size: [tab-active-font-size];
+	font-weight: [tab-active-font-weight];
+	border-color: [tab-active-border-color];
+	background: [tab-active-background-color];
+}
+
+.pg2[theme="[theme]"] .pg-tab-content .pg-content-icon {
+	padding-left: [tab-icon-indent];
+}
+
+.pg2[theme="[theme]"] .pg-tab-content .pg-content-caption {
+	padding: [tab-padding];
+}
+
+.pg2.pg-full-border[theme="[theme]"] .pg-content {
+	border-color: [tab-active-border-color];
+}

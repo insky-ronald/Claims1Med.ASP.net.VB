@@ -1,0 +1,107 @@
+##const
+##endconst
+
+x.grid-service-actions div[grid-sec="content"] {
+	padding: 0 !important;
+}
+
+.grid-service-actions div[grid-sec="card"] {
+	float: none;
+	height: auto;
+	/*padding: 0;*/
+	/*border: 1px silver;*/
+	/*border-style: none none dotted none;*/
+}
+
+.xgrid-service-actions div[card-sec="inner"] {
+	border: 0 !important;
+}
+
+.grid-service-actions div[action-sec="header"][status="D"] {
+	color: #2F84B7;
+}
+
+.grid-service-actions div[action-sec="header"][status="X"] {
+	color: firebrick;
+}
+
+.grid-service-actions div[header-sec="action"],
+.grid-service-actions div[header-sec="action-type"] {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.grid-service-actions div[header-sec="action"] {
+	width: 50%;
+	font-size: 105%;
+	font-weight: bold;
+}
+
+.grid-service-actions div[header-sec="action-type"] {
+	width: 50%;
+	/*color: dimgray;*/
+}
+/************************************************************************************************/
+
+/************************************************************************************************/
+.grid-service-actions div[audit-container="notes"] {
+	padding-top: 4px;
+	color: #2F84B7;
+}
+
+.grid-service-actions div[audit-container="notes"]:before {
+	content: "Notes: ";
+	color: dimgray;
+}
+
+.grid-service-actions div[audit-container="buttons"] {
+	padding-top: 4px;
+}
+
+.grid-service-actions div[audit-container="left"],
+.grid-service-actions div[audit-container="right"] {
+	width: 50%;
+	display: inline-block;
+	vertical-align: top;
+	box-sizing: border-box;
+}
+
+.grid-service-actions div[audit-panel] {
+	padding-top: 4px;
+}
+
+.grid-service-actions div[audit-panel] span[audit-item]{
+	color: #2F84B7;
+}
+
+.grid-service-actions span[audit-item]:before {
+	color: dimgray;
+}
+
+.grid-service-actions div[audit-panel="complete"] span[audit-item="user"]:before {
+	content: "Completed by ";
+}
+
+.grid-service-actions div[audit-panel="cancel"] span[audit-item="user"]:before {
+	content: "Cancelled by ";
+}
+
+.grid-service-actions div[audit-panel="owner"] span[audit-item="user"]:before {
+	content: "Assigned to ";
+}
+
+.grid-service-actions div[audit-panel="create"] span[audit-item="user"]:before {
+	content: "Created by ";
+}
+
+.grid-service-actions div[audit-panel="update"] span[audit-item="user"]:before {
+	content: "Last updated by ";
+}
+
+.grid-service-actions span[audit-item="date"]:before {
+	content: " on ";
+}
+
+.grid-service-actions div[audit-panel="owner"] span[audit-item="date"]:before {
+	content: " due on ";
+}

@@ -1,0 +1,263 @@
+##const
+	balloon-color=rgb(77, 102, 0)
+	baloon-background=white
+	balloon-header-font-color=white;
+	dialog-shadow=rgba(0,0,0,0.3) 2px 2px 2px
+##endconst
+
+.hide-dialog {
+	/*opacity: 0;*/
+	visibility: hidden;
+}
+
+.animate-dialog {
+	/*animation: show-dialog 0.25s ease-out;*/
+	animation: show-dialog 0.25s ease-in-out;
+	/*opacity: 1;*/
+	/*transition: opacity .15s ease-in-out;*/
+}
+
+@keyframes show-dialog {
+	0%   { opacity: 0; }
+	100% { opacity: 1; visibility: visible; }
+}
+
+.dialog {
+	display: none;
+	position: absolute;
+	box-sizing: border-box;
+	font-family: Calibri;
+	font-size: 11pt;
+}
+
+.dialog[dlg-type="simple"]  div[dlg-sec="container"] {
+	background: white;
+	border: 1px solid silver;
+	box-shadow: [dialog-shadow];
+	box-sizing: border-box;
+}
+
+.dialog[dlg-type="balloon"] div[dlg-sec="header"] {
+	background: [balloon-color];
+	padding: 3px 10px 3px 10px;
+	color: [balloon-header-font-color];
+	font-weight: bold;
+	box-sizing: border-box;
+}
+
+.dialog[dlg-type="balloon"] div[dlg-sec="content"] {
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.dialog[dlg-type="balloon"][hint="1"]{
+	font-weight: bold;
+	/*border: 0;*/
+	/*border-radius: 3px;*/
+	/*overflow: hidden;*/
+}
+
+.dialog[dlg-type="balloon"][hint="1"] div[dlg-sec="content"] {
+	padding: 4px 10px;
+	box-sizing: border-box;
+}
+
+.dialog[dlg-type="balloon"] div[dlg-sec="footer"] {
+	padding: 10px 0px 0px 0px;
+	box-sizing: border-box;
+}
+
+.dialog[dlg-type="balloon"] div[dlg-sec="container"] {
+	border: 1px solid [balloon-color];
+	background: [baloon-background];
+	box-shadow: [dialog-shadow];
+	box-sizing: border-box;
+}
+
+.dialog[dlg-type="balloon"][dlg-snap="left"] div[dlg-sec="container"],
+.dialog[dlg-type="balloon"][dlg-snap="right"] div[dlg-sec="container"] {
+	display: inline-block;
+	float: left;
+}
+
+.dialog[dlg-snap="left"] div[dlg-sec="arrow-container"],
+.dialog[dlg-snap="right"] div[dlg-sec="arrow-container"] {
+	height: 100%;
+	width: 10px;
+	float: left;
+	/*background: red;*/
+}
+
+.dialog[dlg-snap="left"][dlg-align=""] div[dlg-sec="arrow"],
+.dialog[dlg-snap="right"][dlg-align=""] div[dlg-sec="arrow"] {
+	width: 10px;
+}
+
+.dialog[dlg-snap="left"] div[dlg-sec="shape"],
+.dialog[dlg-snap="right"] div[dlg-sec="shape"] {
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+}
+
+.dialog[dlg-snap="left"] div[dlg-sec="shape"] {
+	border-left: 10px solid;
+	border-left-color: [balloon-color];
+}
+
+.dialog[dlg-snap="right"] div[dlg-sec="shape"] {
+	border-right: 10px solid;
+	border-right-color: [balloon-color];
+}
+
+.dialog[dlg-snap="top"] div[dlg-sec="arrow-container"],
+.dialog[dlg-snap="bottom"] div[dlg-sec="arrow-container"] {
+	height: 10px;
+	/*background: rgba(0,0,0,0.2);*/
+}
+
+.dialog[dlg-snap="top"][dlg-align=""] div[dlg-sec="arrow"],
+.dialog[dlg-snap="bottom"][dlg-align=""] div[dlg-sec="arrow"] {
+	xwidth: 30px;
+	height: 10px;
+	margin: auto;
+}
+
+.dialog[dlg-snap="top"][dlg-align="left"] div[dlg-sec="arrow"],
+.dialog[dlg-snap="bottom"][dlg-align="left"] div[dlg-sec="arrow"] {
+	xwidth: 30px;
+	height: 10px;
+	float: left;
+}
+
+.dialog[dlg-snap="top"][dlg-align="right"] div[dlg-sec="arrow"],
+.dialog[dlg-snap="bottom"][dlg-align="right"] div[dlg-sec="arrow"] {
+	xwidth: 30px;
+	height: 10px;
+	float: right;
+}
+
+.dialog[dlg-snap="top"] div[dlg-sec="shape"],
+.dialog[dlg-snap="bottom"] div[dlg-sec="shape"] {
+	margin: auto;
+	width: 0;
+	height: 0;
+}
+
+.dialog[dlg-snap="top"] div[dlg-sec="shape"] {
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid;
+	border-top-color: [balloon-color];
+}
+
+.dialog[dlg-snap="bottom"] div[dlg-sec="shape"] {
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid;
+	border-bottom-color: [balloon-color];
+}
+
+.dialog[dlg-type="overlay"] {
+	pointer-events: none;
+}
+
+.dialog[dlg-type="overlay"][dlg-snap="bottom"][dlg-align="right"] {
+	box-shadow: [dialog-shadow];
+}
+
+.dialog[dlg-type="overlay"][dlg-snap="bottom"][dlg-align=""] div[dlg-sec="content"],
+.dialog[dlg-type="overlay"][dlg-snap="bottom"][dlg-align="left"] div[dlg-sec="content"] {
+	box-shadow: [dialog-shadow];
+}
+
+.dialog[dlg-type="overlay"] div[dlg-sec="content"] {
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px silver;
+	border-style: none solid solid solid;
+	background: white;
+	xbox-shadow: [dialog-shadow];
+	pointer-events: auto;
+}
+
+.dialog[dlg-type="overlay"] div[dlg-sec="header"] {
+	box-sizing: border-box;
+	border: 1px silver;
+	border-style: none none solid none;
+	/*background: rgba(0,0,0,0.1);*/
+}
+
+.dialog[dlg-type="overlay"] div[dlg-sec="footer"] {
+	padding-top: 10px;
+	xborder: 1px silver;
+	xborder-style: none solid solid solid;
+	box-sizing: border-box;
+	background: white;
+	pointer-events: auto;
+}
+
+.dialog[dlg-snap="top"] div[dlg-sec="tab-container"],
+.dialog[dlg-snap="bottom"] div[dlg-sec="tab-container"] {
+	height: Calc(100% + 1px);
+	background: white;
+	xbox-shadow: [dialog-shadow];
+	box-sizing: border-box;
+	pointer-events: auto;
+}
+
+.dialog[dlg-snap="bottom"] div[dlg-sec="tab-container"] div[dlg-sec="dropdown"] svg {
+	margin-top: 50%;
+}
+
+.dialog[dlg-snap="bottom"] div[dlg-sec="tab-container"] div[dlg-sec="dropdown"] {
+	float: right;
+	width: 12px;
+	height: 100%;
+	padding-right: 2px;
+	/*xpadding-bottom: -1px;*/
+	margin-top: -1px;
+	/*xborder: 1px transparent;*/
+	/*xborder-style: none none none solid;*/
+	/*background: url(/engine/images/sys-dropdown.png) no-repeat center;*/
+}
+
+.dialog[dlg-snap="bottom"] div[dlg-sec="tab-container"] {
+	padding: 1px 0px 0px 3px;
+}
+
+.dialog[dlg-snap="bottom"] div[dlg-sec="tab-container"] img {
+	margin-top: 2px;
+}
+
+.dialog[dlg-type="overlay"][dlg-snap="bottom"] div[dlg-sec="tab-container"] {
+	border: 1px silver;
+	border-style: solid solid none solid;
+}
+
+.dialog[dlg-type="overlay"][dlg-snap="bottom"][dlg-align=""] div[dlg-sec="tab-container"] {
+	margin: auto;
+}
+
+.dialog[dlg-type="overlay"][dlg-snap="bottom"][dlg-align="left"] div[dlg-sec="tab-container"] {
+	/*display: inline-block;*/
+	float: left;
+}
+
+.dialog[dlg-type="overlay"][dlg-snap="bottom"][dlg-align="right"] div[dlg-sec="tab-container"] {
+	/*display: inline-block;*/
+	float: right;
+}
+
+.required-fields-error {
+}
+
+.required-fields-error div[section='title'] {
+	font-weight: bold;
+	margin-bottom: 2px;
+}
+
+.required-fields-error div[section="item"] {
+	padding-left: 10px;
+}

@@ -1,0 +1,52 @@
+##const
+	splitter-width=6px
+	splitter-border-color=#696969
+	splitter-background-color=white
+##endconst
+
+.splitter {
+}
+
+.splitter[splitter-mode="dynamic"] {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+	.splitter[splitter-mode="dynamic"] div[splitter-sec="target"] {
+		display: table-cell;
+		box-sizing: border-box;
+	}
+
+	.splitter[splitter-mode="dynamic"] div[splitter-sec="target2"] {
+		display: table-cell;
+		box-sizing: border-box;
+	}
+
+	.splitter[splitter-mode="dynamic"] div[splitter-sec="sizer"] {
+		box-sizing: border-box;
+	}
+
+.splitter div[splitter-sec="sizer"]  {
+	/* display: table-cell; */
+	flex-shrink: 0;
+	width: [splitter-width];
+	/* min-width: [splitter-width]; */
+	height: 100%;
+	/* box-sizing: border-box; */
+	cursor: e-resize;
+}
+
+.splitter div[splitter-sec="sizer"] {
+	border: 1px [splitter-border-color];
+	border-style: none solid none none;
+	background: [splitter-background-color];
+}
+
+.splitter div[splitter-sec="sizer"]:hover {
+	background: rgba(0,0,0,0.25);
+}
+
+.splitter div[splitter-sec="sizer"]:active {
+	background: rgba(0,0,0,0.50);
+}

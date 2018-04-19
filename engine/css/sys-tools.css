@@ -1,0 +1,60 @@
+##const
+##endconst
+
+.session-info {
+	overflow-y: auto;	
+}
+
+.session-info div[x-sec="header"] {
+	height: 100px;
+	background: whitesmoke;
+}
+
+.session-info div[x-sec="content"], 
+#sub-tools {
+	font-family: Calibri;
+	padding: 0px 10px 10px 10px;
+	overflow-y: auto;
+	font-family: Calibri;
+    font-size: 12pt;
+}
+
+.session-info div[x-sec="content"] h1,
+#sub-tools h1 {
+    font-size: 16pt;
+	/*color: #1E90FF;*/
+	color: #27AE60;
+	margin-bottom: 0;
+    /*text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;*/
+}
+
+.session-info div[x-sec="content"] ul,
+#sub-tools ul {
+	font-size: 13pt;
+	margin-top: 6px;
+    /*font-size: 1em;*/
+}
+
+.session-info div[x-sec="content"] .session,
+#sub-tools .session {
+    font-size: 12pt;
+	color: dimgray;
+}
+
+.session-info div[x-sec="content"] .session {
+	border-collapse: collapse;
+}
+
+.session-info div[x-sec="content"] .session td {
+	padding: 4px;
+	border: 1px solid silver;
+}
+
+.session-info div[x-sec="content"] .session tr td:first-child {
+	color: dimgray;
+	background: whitesmoke;
+}
+
+.session-info div[x-sec="content"] .session tr td:last-child {
+	color: black;
+}

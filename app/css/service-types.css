@@ -1,0 +1,3 @@
+.grid3.service-types .data-table .row[x-status="false"] {
+	color: firebrick;
+}

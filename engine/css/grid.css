@@ -1,0 +1,334 @@
+##const
+	cell-padding=5px 3px 5px 3px
+	//cell-padding=8px 5px 8px 5px
+	hover-color=#FAF2D1
+	fixed-content-separator-color=#C0C0C0
+	//fixed-content-separator-color=#B0CEE3
+	fixed-content-separator-border-width=2px
+##endconst
+
+/* toolbar is a div, must be inside a div with fixed height */
+.grid {
+	position: relative;
+	font-family: Arial;
+	font-size: 12px;
+	/*font-family: 'PT Sans', Tahoma;*/
+	/*font-size: 15px;*/
+	font-weight: normal;
+	position: relative;
+	height: 100%;
+	width: 100%;	
+	box-sizing: border-box;
+}
+
+.grid div[grid-sec="toolbar-container"] {
+	position: relative;
+	height: 34px;
+}
+
+.grid div[grid-sec="sub-header"] {
+	position: relative;
+	top: 0; left: 0;
+	box-sizing: border-box;
+	xheight: 34px;
+	xbackground: wheat;
+}
+
+.grid div[grid-sec="sub-content"] {
+	position: relative;
+	top: 0; left: 0;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.grid div[grid-sec="sub-footer"] {
+	position: relative;
+	top: 0; left: 0;
+	/*height: 34px;*/
+	box-sizing: border-box;	
+}
+
+.grid div[grid-sec="fixed-left"] {
+	/*overflow: hidden;*/
+}
+
+.grid div[grid-sec="fixed-header"] {
+	position: relative;
+}
+
+.grid div[grid-sec="fixed-content"] {
+	position: relative;
+	overflow: hidden;
+}
+
+.grid div[grid-sec="fixed-footer"] {
+	position: relative;
+	background: green;
+}
+
+.grid div[grid-sec="fixed-header"],
+.grid div[grid-sec="header"] {
+	box-sizing: border-box;
+}
+
+.grid div[grid-sec="headers-container"] {
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.grid table[grid-sec="content"],
+.grid table[grid-sec="headers"] {
+	table-layout: fixed;
+	background: white;
+}
+
+.grid table[grid-sec="content"] thead[grid-sec="inner-header"] tr,
+.grid table[grid-sec="headers"] thead[grid-sec="inner-header"] tr {
+	height: 0px;
+}
+
+.grid table[grid-sec="content"] thead[grid-sec="inner-header"] tr th,
+.grid table[grid-sec="headers"] thead[grid-sec="inner-header"] tr th {
+	border: 0px;
+	padding: 0px;
+}
+
+.grid table[grid-sec="headers"] tr th {
+	border: 0px;
+	padding: 0px;
+	color: #3C3C3C;
+	text-align: left;
+	padding: 5px 3px 5px 3px;
+	background: #D2E3EF;
+	/*background: #E7EBEF url(/engine/images/column-head-bg.png) repeat-x left top;*/
+	border-width: 1px;
+	border-color: #B0CEE3;
+	border-style: none solid solid none;
+	overflow: hidden;
+}
+
+.grid table[grid-sec="headers"] tr td[grid-sec="btn-sort"] svg {	
+	width: 16px;
+	height: 16px;
+	fill: #6DB2E3;
+	cursor: pointer;
+}
+
+.grid table[grid-sec="headers"] tr td[grid-sec="btn-sort"] svg[sorted="asc"],
+.grid table[grid-sec="headers"] tr td[grid-sec="btn-sort"] svg[sorted="desc"],
+.grid table[grid-sec="headers"] tr td[grid-sec="btn-sort"] svg[sorted="1"] {
+	fill: #6DB2E3;
+	border: 1px solid #6DB2E3;
+	background: rgba(255,255,255,0.5);
+	/*background: white;*/
+	/*background: rgba(0,0,0,0.75);*/
+	box-sizing: border-box;
+	/*cursor: default;*/
+}
+
+.grid table[grid-sec="headers"] tr td[grid-sec="btn-sort"]  svg[sorted]:hover,
+.grid table[grid-sec="headers"] tr td[grid-sec="btn-sort"]  svg[sorted="0"]:hover {
+	fill: black;
+	background: rgba(255,255,255,0.75);
+}
+
+.grid table[grid-sec="headers"] tr td[grid-sec="btn-sort"]  svg[sorted]:active,
+.grid table[grid-sec="headers"] tr td[grid-sec="btn-sort"]  svg[sorted="0"]:active {
+	fill: white;
+	background: rgba(0,0,0,0.25);
+}
+
+.grid table[grid-sec="headers"] tr th div[grid-sec="btn-sort"] {
+	float: right;
+	width: 13px;
+	height: 13px;
+	padding: 1px 0px 0px 2px;
+	border: 1px gainsboro;
+	border-style: solid solid;	
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.grid table[grid-sec="headers"] tr th div[grid-sec="btn-sort"]:hover {
+	background: white;
+	border-color: silver;
+}
+
+.grid table[grid-sec="headers"] tr th div[grid-sec="btn-sort"]:active {
+	background: white;
+	border-color: dimgray;
+}
+
+.grid table[grid-sec="headers"] tr th div[grid-sec="btn-sort"] span {
+	display: inline-block;
+	height: 9px;
+	width: 7px;
+	background: url(/engine/images/column-sort.png) no-repeat;
+	background-position: 0px 0px;
+}
+
+.grid table[grid-sec="headers"] tr th div[grid-sec="btn-sort"][sort-order] {
+	/*background-color: #FEF0C7;*/
+	background-color: white;
+}
+
+.grid table[grid-sec="headers"] tr th div[grid-sec="btn-sort"] span[sort-order="asc"] {
+	background-position: -7px 0px;
+}
+
+.grid table[grid-sec="headers"] tr th div[grid-sec="btn-sort"] span[sort-order="desc"] {
+	background-position: -14px 0px;
+}
+
+.grid div[grid-sec="content"] {
+	position: relative;
+	height: 100%;
+	box-sizing: border-box;
+	overflow-y: scroll;
+}
+
+.grid[opt-scroll="1"] div[grid-sec="content"] {
+	overflow-x: scroll;
+}
+
+.grid table[grid-sec="content"] td {
+	padding: [cell-padding];
+	border: 1px #DBDEE1;
+	/*border-style: none solid solid none;*/
+	border-style: none solid none none;
+	overflow: hidden;
+}
+
+.grid div[grid-sec="fixed-content"] table td {
+	background: white;
+}
+
+.grid table[grid-sec="headers"][grid-loc="footer"] th {
+	border-style: solid solid none none;
+}
+
+.grid div[grid-sec="fixed-header"] table tr th[lband="1"],
+.grid div[grid-sec="fixed-header"] table tr th:last-child,
+.grid div[grid-sec="fixed-content"] table tr td:last-child {
+	border-right-color: [fixed-content-separator-color];
+	border-right-width: [fixed-content-separator-border-width];
+	/*border-style: none solid solid none;*/
+}
+
+.grid div[grid-sec="fixed-content"] table tr td {
+	border-style: none solid none;
+}
+
+.grid table[grid-sec="content"] tr td {
+	white-space: nowrap;
+}
+
+.xgrid table[grid-sec="content"] tr:hover td,
+.xgrid div[grid-sec="content"] table tr:hover td {
+	background: [hover-color];
+}
+
+.grid div[grid-sec="fixed-content"] table tr[focused="1"] td ,
+.grid div[grid-sec="content"] table tr[focused="1"] td {
+	background: none;
+}
+
+.grid div[grid-sec="fixed-content"] table tr[focused="1"],
+.grid div[grid-sec="content"] table tr[focused="1"] {
+	background: #FAEDB0;
+}
+
+.grid div[grid-sec="content"] table tr[hover="1"] td,
+.grid div[grid-sec="fixed-content"] table tr[hover="1"] td {
+	background: none;
+}
+
+.grid div[grid-sec="content"] table tr[hover="1"],
+.grid div[grid-sec="fixed-content"] table tr[hover="1"] {
+	background: [hover-color];
+}
+
+.grid table[grid-sec="content"] tr[odd="1"] td {
+	background: rgba(0,0,0,0.025);
+}
+
+.grid table[grid-sec="content"] tr[odd="0"] td {
+	background: white;
+}
+
+.grid div[grid-sec="fixed-content"] tr[odd="1"] td {
+	background: #F9F9F9;
+}
+
+.grid div[grid-sec="fixed-content"] tr[odd="0"] td {
+	background: white;
+}
+
+.grid [grid-sec="fixed-footer"],
+.grid [grid-sec="footer"] {
+	box-sizing: border-box;
+}
+
+.grid [grid-sec="fixed-left"] {
+	position: absolute;
+	top: 0px; 
+	left: 0px;
+	height: 1px; 
+}
+
+.grid div[grid-sec="pager"] {
+	height: 34px;
+	border: 1px #2F2E2E;
+	border-style: solid none none none;
+	background: whitesmoke;
+}
+
+.grid thead tr th[format="numeric"],
+.grid tbody tr td[format="numeric"] {
+    text-align: right;
+}
+
+.grid table[grid-sec="content"] tbody tr:last-child td{
+	border-bottom-style: solid;
+	/*border-color: red;*/
+}
+
+.grid table[grid-sec="content"] td[command] a {
+	cursor: pointer;
+	opacity: 0.75;
+}
+
+.grid table[grid-sec="content"] td[command] a:hover {
+	opacity: 1;
+}
+
+.grid table[grid-sec="headers"] th[command],
+.grid table[grid-sec="content"] td[command] {
+	text-align: center;
+}
+
+.grid table[grid-sec="headers"] th[command] a,
+.grid table[grid-sec="content"] td[command] a {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+
+.grid table[grid-sec="headers"] th[command] svg,
+.grid table[grid-sec="content"] td[command] svg {
+	width: 19px;
+	height: 19px;
+}
+
+.grid div[grid-sec="fixed-content"] table tr td[command] {
+	/*border-style: none none solid none;*/
+}
+
+.grid table[grid-sec="content"] tbody td[command] svg {
+    fill: #918D8C;
+    cursor: pointer;
+}
+
+.grid table[grid-sec="content"] tbody td[command] svg:active {
+	fill: black;
+}

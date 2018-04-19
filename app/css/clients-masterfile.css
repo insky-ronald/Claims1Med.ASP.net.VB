@@ -1,0 +1,14 @@
+.grid-clients-masterfile  table[grid-sec="headers"] th[colspan] {
+	text-align: center !important;
+	font-size: 110%;
+}
+
+.grid-clients-masterfile tbody tr[x-status="A"] {
+	/* color: firebrick; */
+}
+
+.grid-clients-masterfile tbody tr[x-status="X"] {
+	color: red;
+	/*color: #2C80B3;*/
+	/*color: #27AE60;*/
+} 

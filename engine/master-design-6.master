@@ -1,0 +1,36 @@
+﻿<%@ Master Language="VB"  CodeFile="master-design-6.master.vb" Inherits="BaseMasterPage"%>
+<%@ Register Src="~/engine/controls/login.ascx" TagName="Login" TagPrefix="uc" %>
+<%@ Register Src="~/app/controls/soa.ascx" TagName="Document" TagPrefix="uc" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+		<% If Not IsLoggedIn %>
+		<title>Login</title>
+		<% Else %>
+		<title>SOA</title>
+		<% End if %>
+		<link rel="SHORTCUT ICON" href="<% =AppUtils.Settings.AsString("ApplicationIcon") %>">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		
+		<% If IsLoggedIn %>
+		<input type="hidden" id="__ver" value="6">
+		<input type="hidden" id="__UID" value="<% =AuthKey %>">
+		<% End if %>
+		
+		<% If CssName <> "" %>
+		<link href="<% =CssName %>" rel="stylesheet" type="text/css">
+		<% End if %>
+		
+		<% If Not IsLoggedIn %>
+		<link href="/loadcss/engine/css/login?main=1" rel="stylesheet" type="text/css">
+		<% End if %>
+    </head>
+	<body>
+		<% If IsLoggedIn %>
+			<uc:Document runat="server" ID="Document"/>
+		<% Else %>
+			<uc:Login runat="server" ID="LoginForm"/>
+		<% End if %>
+	</body> 
+</html>

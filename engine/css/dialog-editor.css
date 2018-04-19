@@ -1,0 +1,68 @@
+﻿##const
+	edit-color=rgb(77, 102, 0)
+	baloon-background=white
+	edit-header-font-color=whitesmoke;
+	dialog-shadow=rgba(0,0,0,0.3) 2px 2px 2px
+##endconst
+
+.dialog[dlg-type="edit"] {
+	border-width: 10px;
+	border-style: solid;
+	/*border-color: rgba(113,59,0,0.8);*/
+	border-color: rgba(41,76,120,0.8);
+	/*background: white;*/
+	background-color: transparent;
+	box-sizing: border-box;
+}
+
+.dialog[dlg-type="edit"] div[dlg-sec="header"] {
+	display: flex;
+	font-family: Trebuchet MS;
+	/* font-family: Calibri; */
+	font-weight: normal;
+	font-size: 16pt;
+	color: black;
+	text-shadow: rgba(0, 0, 0, 0.5) 0px 1px 2px;
+	background: whitesmoke;
+	padding: 3px 3px 3px 10px;
+	border: 1px #203C5F;
+	border-style: none none solid none;
+	box-sizing: border-box;
+}
+
+.dialog[dlg-type="edit"] div[dlg-sec="header"] label {
+	flex-grow: 1;
+	pointer-events: none;
+}
+
+.dialog[dlg-type="edit"] div[dlg-sec="header"] div[header-sec="icon"] {
+	display: flex;
+	flex-shrink: 0;
+	width: 24px;
+    pointer-events: none;
+}
+
+.dialog[dlg-type="edit"] div[dlg-sec="header"] div[header-sec="icon"] svg {
+	margin: auto;
+	width: 24px;
+    height: 24px;
+	fill: #27AE60;
+	animation: spin 1s linear infinite;
+}
+
+.dialog[dlg-type="edit"] div[dlg-sec="content"] {
+	padding: 10px;
+	background: white;
+	box-sizing: border-box;
+}
+
+.dialog[dlg-type="edit"] div[dlg-sec="edit-container"] {
+	height: 200px;
+	/*border: 1px dotted gainsboro;*/
+	background: whitesmoke;
+}
+
+.dialog[dlg-type="edit"] div[dlg-sec="footer"] {
+	padding-top: 10px;
+	box-sizing: border-box;
+}

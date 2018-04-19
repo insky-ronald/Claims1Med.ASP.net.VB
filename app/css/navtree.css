@@ -1,0 +1,57 @@
+##const
+##endconst
+
+.navtree div[x-sec="branch"] {
+	width:100%;
+}
+
+.navtree div[x-sec="main"] {
+	width:100%;
+	padding: 5px 0 4px 0;
+	line-height: 40px;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.navtree span[x-sec="icon"] svg {
+	vertical-align: middle;
+}
+
+.navtree a[x-sec="item"] {
+	display: block;
+}
+
+.navtree div[x-sec="main"] span[x-sec="icon"],
+.navtree a[x-sec="item"] span[x-sec="icon"],
+.navtree div[x-sec="item"] span[x-sec="icon"] {
+	pointer-events: none;
+}
+
+.navtree div[x-sec="main"] span[x-sec="icon"] {
+	padding-left:12px;
+}
+
+.navtree a[x-sec="item"] span[x-sec="icon"],
+.navtree div[x-sec="item"] span[x-sec="icon"] {
+	padding-left:12px;
+}
+
+.navtree div[x-sec="main"] span[x-sec="label"],
+.navtree a[x-sec="item"] span[x-sec="label"],
+.navtree div[x-sec="item"] span[x-sec="label"] {
+	padding-left: 12px;
+	pointer-events: none;
+}
+
+.navtree div[x-sec="items"] {
+	width:100%;
+}
+
+.navtree a[x-sec="item"],
+.navtree div[x-sec="item"] {
+	width:100%;
+	padding: 3px 0 2px 25px;
+	line-height: 30px;
+	box-sizing: border-box;
+	cursor: pointer;
+}

@@ -1,0 +1,14 @@
+##const
+	toolbar-height=49px
+##endconst
+
+.under-construction {
+	background: #F4F4F4;
+}
+
+.under-construction div[x-sec="toolbar"] {
+	height: [toolbar-height];
+	border: 1px #DDDDDD;
+	border-style: none none solid;
+	background: white;
+}

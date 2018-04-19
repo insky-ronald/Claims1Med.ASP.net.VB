@@ -1,0 +1,7 @@
+##includetemplate
+	desktop-width=100%
+	// desktop-width=1014px
+	desktop-header-height=56px
+	desktop-footer-height=0px
+	navigator-width=250px
+##endinclude=engine\main-engine

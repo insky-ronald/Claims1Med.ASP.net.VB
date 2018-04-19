@@ -1,0 +1,33 @@
+##const
+##endconst
+
+.grid-service-diagnosis tr[x-default] {
+	color: green;
+}
+
+.grid-service-diagnosis span[x-sec="code"] {
+	float:left;
+	margin-left: 4px;
+	min-width: 35px;
+	/*font-weight: bold;*/
+}
+
+.grid-service-diagnosis tr[has-items="1"] {
+	font-size: 105%;
+}
+
+.grid-service-diagnosis tr[has-items="1"] span[x-sec="code"] {
+	font-weight: bold;
+}
+
+.grid table[grid-sec="headers"] thead[grid-sec="header"] th[command="change-group"] svg,
+.grid table[grid-sec="content"] tbody td[command="change-group"] svg:hover {
+	/*fill: #27AE60;*/
+	fill: #B34EE9;
+}
+
+.grid table[grid-sec="headers"] thead[grid-sec="header"] th[command="set-default"] svg,
+.grid table[grid-sec="content"] tbody td[command="set-default"] svg:hover {
+	/*fill: #27AE60;*/
+	fill: green;
+}

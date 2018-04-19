@@ -1,0 +1,27 @@
+##const
+	sub-name=default
+	container-padding=0
+	container-border-size=0
+	container-border-style=none
+	container-border-color=none
+	header-height=0px
+	// footer-height=40%
+	// footer-height=300px
+##endconst
+
+##template
+	sub-name=@
+	container-padding=@
+	container-border-size=@
+	container-border-style=@
+	container-border-color=@
+	header-height=@
+	footer-height=@
+##endtemplate=app\sub-page-normal
+
+##template
+##endtemplate=engine\grid-card
+
+##template
+	sub-name=@
+##endtemplate=app\users

@@ -1,0 +1,14 @@
+##includetemplate=app\app-medics-3
+##include=app\main-service
+##include=engine\edit-custom-view
+
+// ##if(keyid=gop)
+	##include=app\service-details-gop
+	##include=app\edit-service-gop
+	##include=app\edit-service-custom-gop
+// ##elseif(keyid=inv)
+	// ##include=app\service-details-inv
+// ##endif
+
+##include=app\view-service-status-history
+##include=app\view-service-actions

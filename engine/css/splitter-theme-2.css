@@ -1,0 +1,37 @@
+##const
+	theme=default
+	
+	sizer-border-width=1px
+	sizer-border-color=silver
+	sizer-border-style-v=none
+	sizer-border-style-h=none
+	
+	sizer-panel-border-width=1px
+	sizer-panel-border-color=dimgray
+	sizer-panel-border-style=dotted
+	sizer-panel-background=silver
+	sizer-panel-opacity=0.25
+##endconst
+
+.splitter2[theme="[theme]"] > .sizer {
+	border-width: [sizer-border-width];
+	border-color: [sizer-border-color];
+}
+
+.splitter2[theme="[theme]"][orientation="vert"] > .sizer {
+    border-style: [sizer-border-style-v];
+}
+
+.splitter2[theme="[theme]"][orientation="horz"] > .sizer {
+    border-style: [sizer-border-style-h];
+}
+
+.splitter2[theme="[theme]"] > .sizer .sizer-panel {
+	border-width: [sizer-panel-border-width];
+	border-color: [sizer-panel-border-color];
+	border-style: [sizer-panel-border-style];
+	background: [sizer-panel-background];
+	/* border: 1px dotted dimgray; */
+	/* background: silver; */
+	opacity: [sizer-panel-opacity];
+}

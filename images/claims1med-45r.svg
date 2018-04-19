@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="45"
+   height="45"
+   id="svg5015"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="claims1med-45.svg">
+  <defs
+     id="defs5017" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="25.466667"
+     inkscape:cx="22.5"
+     inkscape:cy="22.5"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     showguides="false"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="2409"
+     inkscape:window-height="1304"
+     inkscape:window-x="2063"
+     inkscape:window-y="44"
+     inkscape:window-maximized="1"
+     inkscape:snap-global="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid5023"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="50,50"
+       id="guide5025" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="50,50"
+       id="guide5027" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="50,100"
+       id="guide5029" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="50,75"
+       id="guide5031" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="11,50"
+       id="guide5554" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="39,50"
+       id="guide5570" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="35,50"
+       id="guide5572" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="55,50"
+       id="guide5583" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="66,50"
+       id="guide5591" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="72,50"
+       id="guide5594" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="83,40.203562"
+       id="guide5599" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="89,42.748092"
+       id="guide5601" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5020">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1007.3622)"
+     style="display:inline">
+    <path
+       style="fill:#315b8f;fill-opacity:1;stroke:none"
+       d="m 22.5,1008.3622 -6.45,3.225 0,4.73 1.72,-0.86 c 0,12.3516 0,22.2281 0,33.54 l 4.73,2.365 c 0,-14.7651 0,-30.2583 0,-43 z"
+       id="path5608"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       id="path5034"
+       style="fill:#ff0000;fill-opacity:1;stroke:none"
+       d="m 13.9,1012.6622 -12.9,6.45 0,21.5 15.05,7.525 0,-4.73 -10.32,-5.16 0,-16.77 8.17,-4.085 0,-4.73 z m 10.75,-3.225 c 0,14.5112 0,27.5485 0,40.85 l 4.73,-2.365 c 0,-11.597 0,-20.539 0,-31.39 l 2.58,1.29 c 0,10.5203 0,19.3317 0,28.81 l 4.73,-2.365 c 0,-8.1976 0,-15.5852 0,-24.08 l 2.58,1.29 c 0,7.9345 0,14.0023 0,21.5 l 4.73,-2.365 0,-21.5 z"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path5549"
+       d="m 22.5,1008.3622 -21.5,10.75 21.5,10.75 21.5,-10.75 z"
+       style="fill:#ffffff;fill-opacity:0.58823529;stroke:none;display:inline" />
+  </g>
+</svg>

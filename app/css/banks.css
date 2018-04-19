@@ -1,0 +1,77 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 11-MAR-2015 */
+/*****************************************************************************************************/
+.xgrid-banks div[grid-sec="fixed-content"] table[grid-sec="content"] tbody tr {
+	background: red;
+}
+
+.grid-banks div[grid-sec="fixed-content"] table[grid-sec="content"] tbody td[command] {
+	border-bottom-style: none;
+}
+
+.grid-banks div[grid-sec="content"] table[grid-sec="content"] tbody td {
+	border-bottom-style: none;
+}
+
+.grid-banks div[grid-sec="card"] div[card-sec="name"] {
+	position: absolute;
+	/*height: 20px;*/
+	/*background: rgba(0,0,0,0.1);*/
+}
+
+.grid-banks div[grid-sec="card"] div[card-sec="name"] a {
+	font-size: 10pt;
+	color: #2477AB;
+	white-space: nowrap;
+}
+
+.grid-banks div[grid-sec="card"] div[card-sec="address"] {
+	position: absolute;
+	top: 0;
+	margin-top: 24px;
+	width: 100%;
+	text-overflow: ellipsis;
+}
+
+.grid-banks div[grid-sec="card"] div[card-sec="address"] div {
+	color: dimgray;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.grid-banks div[grid-sec="card"] div[card-sec="data-right"] {
+	float: left;
+	position: relative;
+	/*height: 100%;*/
+	width: 40%;
+	box-sizing: border-box;
+	/*background: rgba(0,0,0,0.05);*/
+}
+
+.grid-banks div[grid-sec="card"] div[card-sec="code"] {
+	/*position: absolute;*/
+	top: 0;	
+	margin-top: 24px;
+}
+
+.grid-banks div[grid-sec="card"] div[card-sec="code"] div[card-sec="cl"] {
+	clear: left;
+	float: left;
+	/*font-size: 95%;*/
+	/*position: relative;*/
+	/*height: 20px;*/
+	width: 50%;
+	box-sizing: border-box;
+	color: dimgray;
+	/*background: rgba(0,0,0,0.1);*/
+}
+
+.grid-banks div[grid-sec="card"] div[card-sec="code"] div[card-sec="cr"] {
+	float: left;
+	/*position: relative;*/
+	/*height: 20px;*/
+	width: 50%;
+	box-sizing: border-box;
+	/*background: rgba(0,0,0,0.15);*/
+}

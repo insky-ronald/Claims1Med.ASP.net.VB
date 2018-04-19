@@ -1,0 +1,120 @@
+##const
+	button-height=100%
+	button-padding=0px 4px 0px 4px
+##endconst
+
+/* toolbar is a div, must be inside a div with fixed height */
+.toolbar {
+	height: 100%;
+	width: 100%;
+	padding: 1px;
+	box-sizing: border-box;
+}
+
+.toolbar ul {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	list-style-type: none;
+}
+
+.toolbar li[control-type="tool-btn"] {
+	display: table-cell;
+	/* display: flex; */
+	width: auto;
+	height: [button-height];
+	padding: [button-padding];
+	cursor: pointer;
+	box-sizing: border-box;
+}
+
+.toolbar li[control-type="tool-btn"][btn-dropdown="1"] {
+	padding-right: 0px;
+}
+
+.toolbar li[control-type="tool-btn"] div[btn-sec="dropdown"] {
+	float: right;
+	width: 14px;
+	/*xheight: Calc(100% + 2px);*/
+	height: 100%;
+	padding-right: 2px;
+	/*margin-left: 0px;*/
+	border: 1px transparent;
+	/*border-style: none none none solid;*/
+	border-style: none;
+	/*background: url(/engine/images/sys-dropdown.png) no-repeat center;*/
+}
+
+.toolbar li[control-type="tool-btn"] div[btn-sec="dropdown"] svg {
+	margin-top:50%;
+}
+
+.toolbar li[control-type="tool-btn"] img {
+	margin-top: 2px;
+	pointer-events: none;
+}
+
+/* SIMPLE SEARCH */
+.simple-search {
+	float: right;
+	height: 100%;
+	width: auto;
+	padding-top: 5px;
+	padding-right: 4px;
+	box-sizing: border-box;
+}
+
+.simple-search[ss-size="24"] div[ss-sec="search"] {
+	border: 1px solid;
+	box-sizing: border-box;
+}
+
+.simple-search[ss-size="24"] div[ss-sec="search"][ss-focused] {
+	box-shadow: rgba(0,0,0,0.3) 1px 0px 2px;
+}
+
+.simple-search[ss-size="24"] div[ss-sec="search"][ss-focused],
+.simple-search[ss-size="24"] div[ss-sec="search"]:hover {
+	/*border-color: #9FB0B0;*/
+	border-color: rgba(0,0,0,0.4);
+}
+
+.simple-search input {
+	border: 0;
+	font-family: Arial;
+	font-size: 9pt;
+	width: 150px;
+	height: 18px;
+	outline: none;
+	padding-left: 4px;
+	/*border: 1px gainsboro;*/
+	/*border: 1px rgba(0,0,0,0.2);*/
+	/*border-style: solid none solid solid;*/
+	/*box-sizing: border-box;*/
+}
+
+.xsimple-search input:hover,
+.xsimple-search input:hover + div {
+	border-color: #9FB0B0;
+}
+.xsimple-search input:focus,
+.xsimple-search input:focus + div {
+	border-color: #9FB0B0;
+	background: #E8F9F9;
+}
+
+.simple-search div[ss-sec="button"] {
+	float: right;
+	width: 24px;
+	height: 20px;
+	/*background: transparent;*/
+	background: whitesmoke;
+	/*border: 1px gainsboro;*/
+	/*border-style: solid solid solid none;*/
+	text-align: center;
+	vertical-align: center;
+}
+
+.simple-search div[ss-sec="button"] img {
+	margin-top: 2px;
+}

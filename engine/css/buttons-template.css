@@ -1,0 +1,39 @@
+﻿.button[btn-color=[color-name]][btn-state=enabled] {
+   color: [text-color];
+   border: 1px solid [color-dark];
+##browser=chrome
+   background-image: linear-gradient(to top, [color], [color-lite]);
+##endif   
+##version=internetexplorer11
+   background-image: linear-gradient(to top, [color], [color-lite]);
+##endif   
+##version=ie10
+   background-image: -ms-linear-gradient(bottom, [color], [color-lite]); 
+##endif   
+##version=ie9
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='[color-lite]', endColorstr='[color]');
+##endif
+##version=ie8
+   background-color: [color-lite];
+##endif   
+}
+
+.button[btn-color=[color-name]][btn-state=disabled] {
+   color: [text-color-dis];
+}
+   
+.button[btn-color=[color-name]][btn-state=enabled]:hover {
+   color: [text-color-hover];
+##version=ie8
+   background-color: [color];
+##endif   
+}
+
+.button[btn-color=[color-name]][btn-state=enabled]:active {
+   color: [text-color-active];
+##version=ie8
+   background-color: [color-dark];
+##else
+   background: [color];
+##endif   
+}

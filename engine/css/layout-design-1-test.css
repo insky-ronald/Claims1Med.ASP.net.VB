@@ -1,0 +1,54 @@
+##const
+	desktop-border-color=red
+	padding-test=0
+##endconst
+
+#desktop-header-container {
+	padding: [padding-test];
+	background: white;
+	border: 1px dimgray;
+	border-style: none none dotted none;
+}
+
+#desktop-data-container {
+	padding: [padding-test];
+	background: rgba(0,0,0,0.1);
+}
+
+#data-container {
+	background: rgba(0,0,0,0.2);
+}
+
+#navigator-container {
+	padding: [padding-test];
+	background: white;
+	border: 1px dimgray;
+	border-style: none dotted dotted none;
+}
+
+#sub-data-container {
+	padding: [padding-test];
+	background: white;
+	border: 1px dimgray;
+	border-style: none none dotted none;
+}
+
+#footer-container {
+	padding: [padding-test];
+	background: white;
+}
+
+@media (max-width: [desktop-width]) {
+	#desktop-container {
+		border: 0;
+	}
+}
+
+@media (min-width: [desktop-width]) and (max-width: 2880px) {
+	#desktop-container {
+		border-width: 1px;
+		border-color: [desktop-border-color];
+		border-style: none dotted none dotted;
+	}
+}
+

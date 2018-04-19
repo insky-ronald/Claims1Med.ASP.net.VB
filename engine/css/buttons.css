@@ -1,0 +1,78 @@
+﻿##const   
+##endconst
+
+.button {
+   font-family: Arial;
+   font-size: 10pt;
+   font-weight: bold;
+   display: inline-block;
+   padding: 3px 6px;
+   margin-right: 4px;
+}
+
+.button img {
+	opacity: 0.5;
+}
+
+.button:hover img {
+	opacity: 0.75;
+}
+
+.button:active img {
+	opacity: 1;
+}
+
+.button-text {
+   display: inline-block;
+   font-family: Arial;
+   font-size: 10pt;
+   /*font-weight: bold;*/
+   /*color: #FF6600;*/
+   /*cursor: pointer;*/
+   /*text-decoration: underline;*/
+}
+
+.button-text a {
+   font-weight: bold;
+   color: #FF6600;
+   cursor: pointer;
+}
+
+.button-text a:hover {
+   text-decoration: underline;
+}
+
+.button-text:before {
+   /*font-weight: normal;*/
+   color: black;
+   content: "or";
+   margin-right: 4px;
+   /*cursor: default;*/
+   /*text-decoration: none;*/
+}
+
+.button[btn-state=enabled] {
+   /*color: black;*/
+##browser=ie
+   box-shadow: darkgray 1px 1px 2px;
+   /*-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";*/
+##else
+   box-shadow: darkgray 1px 1px 2px;
+##endif   
+   cursor: pointer;
+}
+
+.button[btn-state=disabled] {
+   /*color: darkgray;*/
+   background-color: gainsboro;
+   border: 1px solid silver;
+}
+
+.button[btn-state=enabled]:hover {
+   /*color: whitesmoke;*/
+}
+
+.button[btn-state=enabled]:active {
+   /*color: white;*/
+   box-shadow: none;
+}

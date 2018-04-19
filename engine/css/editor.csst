@@ -1,0 +1,24 @@
+﻿##template
+	font-family=Arial
+	font-size=9pt
+
+	label-color=black
+	label-width=100px
+	label-padding=3px 2px 3px 6px
+	label-border=1px #CFD2D5
+	label-border-style=none dotted dotted none
+	label-background=whitesmoke
+
+	button-width=20px
+	button-background=rgba(0,0,0,0.1)
+	
+	data-color=black
+	data-disabled-color=dimgray
+	data-border=1px #CFD2D5
+	data-border-style=none none dotted none
+	data-background=white
+	
+	gutter-width=25px
+	container-full-border-color=#CFD2D5
+##endtemplate=engine\editor
+

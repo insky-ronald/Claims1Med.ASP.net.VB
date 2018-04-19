@@ -1,0 +1,11 @@
+With DBConnection.NewCommand("GetMemberClaims", "GetMemberClaims", CommandType.StoredProcedure)
+    .AddParameter("member_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "claim_no")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 

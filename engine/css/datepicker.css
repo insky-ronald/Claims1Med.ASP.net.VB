@@ -1,0 +1,125 @@
+﻿##const
+	header-height=23
+	nav-button-size=21px
+	nav-button-color=#27AE60
+##endconst
+
+.default-datepicker {
+   width: 260px;
+   background-color: white;
+   color: #1E395B;
+   font-family: Arial;
+   font-size: 10pt;
+   font-weight: normal;
+   /*border: 1px solid #C0C0C0;*/
+   border: 1px solid none;
+   -webkit-user-select: none;  
+   -moz-user-select: none;     
+   -ms-user-select: none;      
+}
+
+.default-datepicker div[dp-section=header] {
+   width: 100%;
+   font-weight: bold;
+   padding: 4px;
+   background-color: #E7EBEF;
+   box-sizing: border-box;
+}
+
+.default-datepicker div[dp-section=header] table {
+   width: 100%;
+   
+   table-layout: fixed;
+}
+
+.default-datepicker div[dp-section=header] table td[dp-btn] {
+   width: 23px;
+   height: 23px;
+   cursor: pointer;
+   /*opacity: 0.75;*/
+   /*background-color: wheat;*/
+}
+
+.default-datepicker div[dp-section=header] table td[dp-btn]:hover svg {
+   fill: orange;
+}
+
+.default-datepicker div[dp-section=header] table td[dp-btn]:active svg {
+   fill: black;
+}
+
+.default-datepicker div[dp-section=header] table td[dp-btn] svg {
+	width: [nav-button-size];
+	height: [nav-button-size];
+	fill: [nav-button-color];
+   /*background: url(/engine/images/control-180.png) no-repeat center;*/
+}
+
+/*.default-datepicker div[dp-section=header] table td[dp-btn=next] {*/
+   /*background: url(/engine/images/control.png) no-repeat center;*/
+/*}*/
+
+.default-datepicker div[dp-section=header] table td[dp-title] {
+   font-weight: bold;
+   text-align: center;
+}
+
+.default-datepicker div[dp-section=footer] {
+   width: 100%;
+   padding-top: 4px;
+   padding-bottom: 4px;
+   text-align: center;
+   border: 1px #CFD2D5;
+   border-style: solid none none none;
+   background-color: #E7EBEF;
+}
+
+.default-datepicker-calendar {
+   width: 100%;
+   table-layout: fixed;
+}
+
+.default-datepicker-calendar thead td,
+.default-datepicker-calendar thead th {
+   font-weight: normal;
+   text-align: center;
+   padding-top: 3px;
+   padding-bottom: 3px;
+}
+
+.default-datepicker-calendar thead th {
+   border: 1px #CFD2D5;
+   border-style: none none solid none;
+   background-color: #F5F5F5;
+}
+
+.default-datepicker-calendar thead td {
+   cursor: pointer;
+}
+
+.default-datepicker-calendar thead td[dt=nm] {
+   color: #1E395B;
+}
+
+.default-datepicker-calendar thead td[dt=wk]:hover,
+.default-datepicker-calendar thead td[dt=nm]:hover {
+   background-color: Khaki;
+}
+
+.default-datepicker-calendar thead td[dt=xx] {
+   color: silver;
+}
+
+.default-datepicker-calendar thead td[dt=wk] {
+   color: #C00000;
+}
+
+.default-datepicker-calendar thead td[today] {
+   font-weight: bold;
+   border: 1px solid #C95C05;
+   background-color: Cornsilk;
+}
+
+.default-datepicker-calendar thead td[current] {
+   background-color: Wheat;
+}

@@ -1,0 +1,395 @@
+/*****************************************************************************************************/
+/*Last modified on*/
+/*27-SEP-2014 ihms.0.0.0.5*/
+/*09-NOV-2014 ihms.0.0.1.6*/
+/*****************************************************************************************************/
+##const
+	font-family=Arial
+	font-size=12pt
+
+	label-color=black
+	label-width=100px
+	label-padding=3px 2px 3px 6px
+	label-border=1px #CFD2D5
+	label-border-style=none dotted dotted none
+	label-background=whitesmoke
+
+	button-width=20px
+	button-background=rgba(0,0,0,0.1)
+	
+	data-color=black
+	data-disabled-color=dimgray
+	data-border=1px #CFD2D5
+	data-border-style=none none dotted none
+	data-background=white
+	
+	sizer-border-style=none dotted none none
+	sizer-background=#E7EBEF
+	
+	container-full-border-color=#CFD2D5
+##endconst
+
+.xeditor-tab-container-full {
+	overflow-y: auto;
+}
+
+.editor {
+	position: relative;
+	width: 100%;
+}
+
+.xeditor-tab-container .editor table[edit-sec="table"] tbody tr:last-child td{
+/*.editor-tab-container .editor table[edit-sec="table"] tbody tr:last-child td {*/
+	border-bottom-style: none;
+}
+
+.xeditor-tab-container-full .editor table[edit-sec="table"] tbody tr:last-child td{
+/*.editor-tab-container .editor table[edit-sec="table"] tbody tr:last-child td {*/
+	/*border-bottom-color: red;*/
+	border-bottom-style: solid;
+}
+
+.editor table[edit-sec="table"] tbody tr:last-child td {
+	border-bottom-color: red;
+	border-bottom-style: solid;
+}
+
+.editor table[edit-sec="table"] tbody tr[cat-sec="category"] {
+	height: 26px;
+}
+
+.editor table[edit-sec="table"] tbody tr[edit-sec="edit-row"] {
+	height: 24px;
+}
+
+/*.editor table[edit-sec="table"] tbody tr[cat-sec="category"] [cat-state="close"]:last-of-type td {*/
+.xeditor table[edit-sec="table"] tbody tr[cat-sec="category"] [cat-state="close"]:last-of-type td {
+	border-bottom-color: blue;
+	border-bottom-style: solid;
+}
+
+.editor table[edit-sec="table"] {
+	width: 100%;
+	table-layout: fixed;
+}
+
+.editor table[edit-sec="table"] tbody td[cat-sec="gutter"] {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.editor table[edit-sec="table"] tbody tr[edit-required="1"] td[cat-sec="gutter"] img {
+	opacity: 0.5;
+}
+
+.editor table[edit-sec="table"]  tbody td[cat-sec="button"] {
+	background: #E7EBEF;
+	cursor: pointer;
+}
+
+.editor table[edit-sec="table"]  tbody  td[cat-sec="button"] {
+	border: 1px #CFD2D5;
+	border-style: none;
+}
+
+.editor table[edit-sec="table"]  tbody tr[edit-required] td[cat-sec="gutter"] svg {
+	width: 10px;
+	height: 10px;
+	margin: auto;
+	display: block;
+	fill: firebrick;
+}
+
+.editor table[edit-sec="table"]  tbody td[cat-sec="button"] svg {
+	width: 18px;
+	height: 18px;
+	margin: auto;
+	display: block;
+	fill: #666666;
+}
+
+.editor table[edit-sec="table"]  tbody td[cat-sec="button"]:hover svg {
+	fill: black;
+}
+
+.editor table[edit-sec="table"]  tbody tr[cat-state="open"] td[cat-sec="button"] {
+	/*background: #E7EBEF url(/engine/images/control-down-silver.png) no-repeat center;*/
+}
+
+.editor table[edit-sec="table"]  tbody tr[cat-state="close"] td[cat-sec="button"] {
+	/*background: #E7EBEF url(/engine/images/control-right-silver.png) no-repeat center;*/
+	border-style: none none solid none;
+}
+
+.editor table[edit-sec="table"]  tbody td[cat-sec="label"] {
+	font-weight: bold;
+	background: #E7EBEF;
+	border: 1px #CFD2D5;
+	border-style: none none solid none;
+	padding: 3px 2px 3px 6px;	
+}
+
+.editor table[edit-sec="table"] thead th[edit-sec="label"] {
+	width: [label-width];
+	min-width: [label-width];
+}
+
+.editor table[edit-sec="table"] thead th[edit-sec="button"] {
+	width: [button-width];
+	min-width: [button-width];
+}
+
+.editor table[edit-sec="table"] thead th[edit-sec="data"] {
+	width: 100%;
+}
+
+.editor table[edit-sec="table"] tbody td[edit-sec="label"] {
+	color: [label-color];
+	width: [label-width];
+	min-width: [label-width];
+	padding: [label-padding];
+	border: [label-border];
+	border-style: [label-border-style];
+	background: [label-background];
+	overflow: hidden;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.editor table[edit-sec="table"] thead th[edit-sec="required"] {
+	width: 10px;
+	min-width: 10px;
+}
+
+.editor table[edit-sec="table"] tbody td[edit-sec="required"] {
+	border: [data-border];
+	border-style: [data-border-style];
+	background: [data-background];
+	box-sizing: border-box;
+}
+
+.editor table[edit-sec="table"]  tbody td[edit-sec="required"] svg {
+	width: 8px;
+	height: 8px;
+	margin: auto;
+	display: block;
+	fill: red;
+}
+
+.editor table[edit-sec="table"] thead th[edit-sec="sizer"] {
+	width: 4px;
+	min-width: 4px;
+}
+
+.editor table[edit-sec="table"] tbody td[edit-sec="sizer"] {
+	border: [data-border];
+	border-style: [sizer-border-style];
+	background: [sizer-background];
+	box-sizing: border-box;
+}
+
+.editor table[edit-sec="table"]  tbody td[edit-sec="sizer"] svg {
+	width: 8px;
+	height: 8px;
+	margin: auto;
+	display: block;
+	fill: red;
+}
+
+.editor table[edit-sec="table"] tbody td[edit-sec="button"] {
+	color: [label-color];
+	width: [button-width];
+	min-width: [button-width];
+	/*padding: [button-padding];*/
+	border: [label-border];
+	border-style: [label-border-style];
+	background: [label-background];
+	text-align: center;
+	cursor: pointer;
+}
+
+.editor table[edit-sec="table"]  tbody td[edit-sec="button"] svg {
+	width: 16px;
+	height: 16px;
+	margin: auto;
+	display: block;
+	fill: #666666;
+	/*fill: whitesmoke;*/
+}
+
+.editor table[edit-sec="table"]  tbody td[edit-sec="button"][button-type="drop-down"] svg {
+	xfill: #27AE60;
+}
+
+.editor table[edit-sec="table"]  tbody td[edit-sec="button"]:hover svg {
+	fill: orange;
+}
+
+.editor table[edit-sec="table"]  tbody td[edit-sec="button"]:active svg {
+	fill: black;
+}
+
+.editor table[edit-sec="table"]  tbody td[button-type="date"]:hover svg {
+	fill: #27AE60;
+}
+
+.editor table[edit-sec="table"] tbody td[edit-sec="button"] img {
+	opacity: 0.5;
+}
+
+.editor table[edit-sec="table"] tbody td[edit-sec="button"] {
+	/*background: #3498DB;*/
+}
+
+.editor table[edit-sec="table"] tbody td[edit-sec="button"]:hover {
+	background: [button-background];
+}
+
+.editor table[edit-sec="table"] tbody td[edit-sec="button"]:hover img {
+	opacity: 1;
+}
+
+.editor table[edit-sec="table"] tbody td[edit-sec="button"]:active  {
+	background: white;
+}
+
+.editor table[edit-sec="table"] tbody  td[edit-sec="data"] {
+	color: [data-color];
+	border: [data-border];
+	padding: 0;
+	border-style: [data-border-style];
+	background: [data-background];
+	box-sizing: border-box;
+}
+
+.editor table[edit-sec="table"] tbody  td[edit-sec="data"] input {
+	font-family: [font-family];
+	font-size: [font-size];
+	color: [data-color];
+	width: 100%;
+	border: 0px;
+	outline: none;
+	box-sizing: border-box;	
+}
+
+.editor table[edit-sec="table"] tbody  td[edit-sec="data"] textarea {
+	font-family: [font-family];
+	font-size: [font-size];
+	color: [data-color];
+	width: 100%;
+	border: 0px;
+	padding-left: 4px;
+	outline: none;
+	height: 75px;
+	resize: none;
+	box-sizing: border-box;
+}
+
+.editor table[edit-sec="table"] tbody  td[edit-sec="data"] input[readonly],
+.editor table[edit-sec="table"] tbody  td[edit-sec="data"] textarea[readonly] {
+	color: dimgray;
+}
+
+/* radio button */
+.editor div[edit-sec="radio"] {
+	outline:none;
+}
+
+.editor div[radio-sec="item"] {
+	/*float: left;*/
+	margin-right: 10px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.editor div[radio-sec="item"]:hover svg { 
+	fill: black;
+}
+
+.editor div[edit-sec="radio"] svg {
+	position: relative;
+	top: 2.5px;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+}
+
+.editor div[edit-sec="radio"] div[radio-sec="item"] svg {
+	fill: #FF5722;
+}
+
+.editor div[edit-sec="radio"] div[radio-sec="item-readonly"] svg {
+	fill: dimgray;
+}
+
+.editor span[radio-sec="label"] {
+	line-height: 16px;
+	margin-left: 2px;
+	white-space: nowrap;
+}
+
+.editor div[radio-sec="item"] span[radio-sec="label"][radio-selected="1"] {
+	font-weight: bold;
+}
+
+/* link */
+.editor a[edit-sec="link"] {
+	text-decoration: none;
+	color: #2C80B3;
+}
+
+.editor a[edit-sec="link"]:hover {
+	text-decoration: underline;	
+}
+
+/* list box */
+.dialog[control-type="dlg"] div[edit-sec="list-box"] {
+	box-sizing: border-box;
+}
+
+.dialog[control-type="dlg"] div[list-sec="item"] {
+	padding: 4px 10px 4px 10px;
+	cursor: pointer;
+}
+
+.editor div[edit-sec="sizer"] {
+	position: absolute;
+	top: 0;
+	width: 6px;
+	height: 100%;
+	cursor: e-resize;
+}
+
+.editor div[edit-sec="sizer"]:hover {
+	background: rgba(0,0,0,0.1);
+}
+
+.editor div[edit-sec="sizer"]:active {
+	background: rgba(0,0,0,0.2);
+}
+
+.dialog[control-type="dlg"] div[list-sec="item"]:hover {
+	background: gainsboro;
+}
+
+.dialog[control-type="dlg"] div[list-sec="item"]:active {
+	background: #27AE60;
+	color: white;
+}
+
+/* datex */
+.editor div[edit-sec="datex"] {
+}
+
+.editor div[edit-sec="datex"] label {
+	/*color: dimgray;*/
+}
+
+.editor div[edit-sec="datex"] span:hover {
+	color: orange;
+}
+
+.editor div[edit-sec="datex"] input {
+	display: inline-block;
+	/*width: 30px !important;*/
+}

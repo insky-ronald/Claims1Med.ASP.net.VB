@@ -1,0 +1,35 @@
+﻿##const   
+##endconst
+
+.grid tbody tr td div[x-sec="main"] {
+    height: 15px;
+    line-height: 15px;
+}
+
+.grid tbody tr td span[x-sec="detail"],
+.grid tbody tr td span[x-sec="parent"] {
+    float: left;
+    width: 16px;
+    height: 100%;
+}
+
+.grid tbody tr td span[x-sec="parent"] {
+    cursor: pointer;
+}
+
+.grid tbody tr td span[x-sec="caption"][x-type="parent"] {
+    font-weight: bold;
+}
+
+.grid tbody tr td span[x-sec="caption"] {
+    /*float: left;*/
+    padding-left: 4px;
+}
+
+.grid tbody tr td span[x-toggle="minus"] {
+    background: url(/engine/images/toggle-small.png) no-repeat center;
+}
+
+.grid tbody tr td span[x-toggle="expand"] {
+    background: url(/engine/images/toggle-small-expand.png) no-repeat center;
+}

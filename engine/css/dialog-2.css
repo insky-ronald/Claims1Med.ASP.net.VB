@@ -1,0 +1,14 @@
+##const
+##endconst
+
+.dialog2 {
+	display: flex;
+}
+
+.dialog2[dlg-align="float"] {
+	position: absolute;
+}
+
+.dialog2[dlg-align="center"] {
+	margin: auto;
+}

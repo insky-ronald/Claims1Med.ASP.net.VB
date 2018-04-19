@@ -1,0 +1,135 @@
+##const
+	desktop-width=1280px
+	desktop-header-height=90px
+	desktop-footer-height=45px
+	navigator-width=150px
+##endconst
+
+.[@pid] {
+}
+
+html, body, form {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	max-height: 100%; 
+	overflow-y: hidden;
+##version=ie8	
+	overflow-x: auto;
+##else
+	overflow-x: hidden;
+##endif	
+}
+
+body {
+	background: whitesmoke;
+}
+
+#desktop-container {
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+	background: white;
+	box-sizing: border-box;
+##version=ie8
+	margin: auto;
+	width: [desktop-width]; 
+##endif
+}
+
+#desktop-header-container {	
+	height: [desktop-header-height];
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#desktop-data-container {
+	position: relative;
+	width: 100%; 
+	/*height: calc(100% - [desktop-header-height]);*/
+	height: 100%;
+	top: 0px;
+	bottom: [desktop-header-height];	
+	box-sizing: border-box;
+}
+
+#data-container {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: [desktop-footer-height];
+	padding-bottom: [desktop-header-height] !important;
+	xbottom: 180px;
+	width: 100%; 
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+#inner-data-container {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+#navigator-container {
+	position: relative;
+	display: table-cell;
+	width: [navigator-width];
+	min-width: [navigator-width];
+	height: 100%;
+	box-sizing: border-box;
+}
+
+#sub-data-container {
+	position: relative;
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+#desktop-footer-container {	
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#footer-container {	
+	position: absolute;
+	width: 100%;
+	height: [desktop-footer-height];
+	bottom: [desktop-header-height];
+	box-sizing: border-box;
+}
+
+.sub-container {
+	/*absolute, relative position seems have different effect under Chrome and IE*/
+##version=ie10
+	xposition: relative;
+##endif	
+
+##version=internetexplorer11
+	position: relative;
+##else	
+	position: absolute;
+##endif
+	top: 0px;
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+@media (max-width: [desktop-width]) {
+	#desktop-container {
+		margin: 0;
+		width: 100%; 
+	}
+}
+
+@media (min-width: [desktop-width]) and (max-width: 2880px) {
+	#desktop-container {
+		margin: auto;
+		width: [desktop-width]; 
+	}
+}

@@ -1,0 +1,92 @@
+##const
+	color-audit=#3388BB
+	color-s=#3388BB
+	/*color-n=#27AE60*/
+	color-n=goldenrod
+	color-p=#27AE60
+	color-d=firebrick
+	status-code-width=36px
+##endconst
+
+.grid-service-status div[grid-sec="card"] {
+	float: none;
+	height: auto;
+}
+
+.grid-service-status table[status-sec="status"] {
+	width: 100%;
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="code"]{
+	width: [status-code-width];
+	min-width: [status-code-width];
+	max-width: [status-code-width];
+	text-align: center;
+	color: white;
+	font-size: 110%;
+	font-weight: bold;
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"]{
+	padding-left: 4px;
+}
+
+.grid-service-status  table[status-sec="status"] td[status-sec="content"] span[status-sec="status-name"]{
+	float: right;
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"] span[status-sec="sub-status-name"] {
+	font-size: 105%;
+	font-weight: bold;
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"][status="N"] {
+	color: [color-n];
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"][status="P"] {
+	color: [color-p];
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"][status="S"] {
+	color: [color-s];
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"][status="D"] {
+	color: [color-d];
+}
+
+.grid-service-status td[status-sec="code"][status="N"] {
+    background-color: [color-n];
+}
+
+.grid-service-status td[status-sec="code"][status="P"] {
+    background-color: [color-p];
+}
+
+.grid-service-status td[status-sec="code"][status="S"] {
+    background-color: [color-s];
+}
+
+.grid-service-status td[status-sec="code"][status="D"] {
+    background-color: [color-d];
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] {
+	margin-top: 6px;
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] span[status-item] {
+	color: [color-audit];
+	font-weight: bold;
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] span[status-item="user"]:before {
+	content: "Created by ";
+	color: dimgray;
+}
+
+.grid-service-status table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] span[status-item="date"]:before {
+	content: " on ";
+	color: dimgray;
+}

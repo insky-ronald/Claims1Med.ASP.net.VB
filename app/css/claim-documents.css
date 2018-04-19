@@ -1,0 +1,186 @@
+##const
+	color-audit=#3388BB
+	color-print=#3388BB
+	color-fax=#B34EE9
+	color-draft=#27AE60
+	color-d=firebrick
+	status-code-width=36px
+##endconst
+
+.grid3.cardview.claim-documents .content {
+	display: flex;
+	flex-flow: column;
+}
+
+.grid3.claim-documents .row[x-status="x"] {
+	color: red;
+}
+
+.grid3.claim-documents .master-detail-main {
+	width: 600px;
+}
+
+.grid3.claim-documents .master-detail-container {
+	font: 10pt Consolas;
+	background: lightyellow;
+	padding: 6px;
+	width: 100% !important;
+	border: 2px solid orange;
+	tab-size: 4;
+	overflow: auto;
+}
+
+.grid3.claim-documents .master-detail-container pre {
+	margin: 0;
+}
+
+.grid3.claim-documents .document {
+	border: 1px silver;
+	border-style: none none solid none;
+	width: 100%;
+	padding: 10px;
+	background: white;
+	box-sizing: border-box;
+}
+
+.grid3.claim-documents .document > .title {
+	/* height: 25px; */
+	display: flex;
+	flex-flow: row;
+}
+
+/******************************************************************************/
+.zgrid-claim-documents-out div[grid-sec="card"] {
+	width: 25% !important;
+}
+
+xx@media (max-width: 2560px) {
+	.grid-claim-documents-out div[grid-sec="card"] {
+		width: 20% !important;
+	}
+}
+
+/*@media all and (min-width: 1920px) and (max-width: 2560px) {*/
+@media all and (max-width: 2560px) and (min-width: 1920px) {
+	.grid-claim-documents-out div[grid-sec="card"] {
+		width: 20% !important;
+	}
+}
+
+@media all and (max-width: 1920px) and (min-width: 1680px) {
+	.grid-claim-documents-out div[grid-sec="card"] {
+		width: 25% !important;
+	}
+}
+
+@media all and (max-width: 1680px) and (min-width: 1360px) {
+	.grid-claim-documents-out div[grid-sec="card"] {
+		width: 33.33% !important;
+	}
+}
+
+@media all and (max-width: 1360px) and (min-width: 1024px) {
+	.grid-claim-documents-out div[grid-sec="card"] {
+		width: 50% !important;
+	}
+}
+
+@media all and (max-width: 1024px) {
+	.grid-claim-documents-out div[grid-sec="card"] {
+		width: 100% !important;
+	}
+}
+
+.grid-claim-documents-out table[status-sec="status"] {
+	width: 100%;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="code"]{
+	width: [status-code-width];
+	min-width: [status-code-width];
+	max-width: [status-code-width];
+	text-align: center;
+	color: white;
+	font-size: 110%;
+	font-weight: bold;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"]{
+	padding-left: 4px;
+}
+
+.grid-claim-documents-out  table[status-sec="status"] td[status-sec="content"] span[status-sec="status-name"]{
+	float: right;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] span[status-sec="sub-status-name"] {
+	font-size: 105%;
+	font-weight: bold;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status="F"] {
+	color: [color-fax];
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status="D"] {
+	color: [color-draft];
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status="P"] {
+	color: [color-print];
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status="XXX"] {
+	color: [color-d];
+}
+
+.grid-claim-documents-out td[status-sec="code"][status="F"] {
+    background-color: [color-fax];
+}
+
+.grid-claim-documents-out td[status-sec="code"][status="D"] {
+    background-color: [color-draft];
+}
+
+.grid-claim-documents-out td[status-sec="code"][status="P"] {
+    background-color: [color-print];
+}
+
+.grid-claim-documents-out td[status-sec="code"][status="XXX"] {
+    background-color: [color-d];
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] {
+	margin-top: 6px;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] div[status-item],
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] span[status-item] {
+	color: [color-audit];
+	font-weight: bold;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] span[status-item="user"]:before {
+	content: "Created by ";
+	color: dimgray;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] span[status-item="date"]:before {
+	content: " on ";
+	color: dimgray;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] div[status-item="recipient"]:before {
+	content: "Sent to ";
+	color: dimgray;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] div[status-item="phone"]:before {
+	content: "Fax/Phone No. ";
+	color: dimgray;
+}
+
+.grid-claim-documents-out table[status-sec="status"] td[status-sec="content"] div[status-sec="audit"] div[status-item="email"]:before {
+	content: "Email ";
+	color: dimgray;
+}

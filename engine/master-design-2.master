@@ -1,0 +1,97 @@
+﻿<%@ Master Language="VB"  CodeFile="master-design-2.master.vb" Inherits="BaseMasterPage"%>
+<%@ Register Src="~/engine/controls/login.ascx" TagName="Login" TagPrefix="uc" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+		<% If Not IsLoggedIn %>
+		<title>Login</title>
+		<% Else %>
+		<title></title>
+		<% End if %>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="description" content="" /> 
+		<meta name="keywords" content="" />
+		<link rel="SHORTCUT ICON" href="<% =AppUtils.Settings.AsString("ApplicationIcon") %>">
+		
+		<% If IsLoggedIn %>
+		<input type="hidden" id="__ver" value="2">
+		<input type="hidden" id="__UID" value="<% =AuthKey %>">
+		<input type="hidden" id="__callback" value="<% =DataCallback %>">
+		<% End if %>
+		
+		<% If CssName <> "" %>
+		<link href="<% =CssName %>" rel="stylesheet" type="text/css">
+		<% End if %>
+		
+		<% If Not IsLoggedIn %>
+		<link href="/loadcss/engine/css/login?main=1" rel="stylesheet" type="text/css">
+		<% End if %>
+		
+		<% If IsLoggedIn and Libraries.Contains("html-editor") %>
+			<link href="https://cdn.quilljs.com/1.0.2/quill.snow.css" rel="stylesheet" type="text/css">
+		<% End if %>
+		
+		<% If IsLoggedIn and Libraries.Contains("use-google-fonts") %>
+			<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400" rel="stylesheet" type="text/css">
+			<link href="http://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet" type="text/css">
+			<link href="http://fonts.googleapis.com/css?family=Average+Sans" rel="stylesheet" type="text/css">
+		<% End if %>
+		
+		<asp:ContentPlaceHolder ID="Content_OtherCss" runat="server"></asp:ContentPlaceHolder>		
+    </head>
+	<body>
+		<% If IsLoggedIn %>
+		<div id="desktop-container">
+			<div id="desktop-header-container">
+				<asp:ContentPlaceHolder ID="Content_Header" runat="server"></asp:ContentPlaceHolder>
+			</div>
+			<div id="desktop-data-container">
+				<div id="data-container">
+					<div id="inner-data-container">
+						<div id="navigator-container">
+							<div id="navigator-menu">
+								<asp:ContentPlaceHolder ID="Content_Navigator" runat="server"></asp:ContentPlaceHolder>
+							</div>
+						</div>
+						<div x-sec="splitter">
+						</div>
+						<div id="sub-data-container">
+							<asp:ContentPlaceHolder ID="Content_Content" runat="server"></asp:ContentPlaceHolder>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="desktop-footer-container">
+				<div id="footer-container">
+					<asp:ContentPlaceHolder ID="Content_Footer" runat="server"></asp:ContentPlaceHolder>
+				</div>
+			</div>	
+		</div>
+		<% Else %>
+			<uc:Login runat="server" ID="LoginForm"/>
+		<% End if %>
+	</body> 
+</html>
+
+<asp:ContentPlaceHolder ID="Content_ScriptLibraries" runat="server"></asp:ContentPlaceHolder>
+
+<% If IsLoggedIn and Libraries.Contains("maps") %>
+	<script type='text/javascript' src='//maps.googleapis.com/maps/api/js?key=AIzaSyBX6yeGDpEHfxjqRrheEailu4BJj4UACv8'></script>
+<% End if %>
+<% If IsLoggedIn and Libraries.Contains("html-editor") %>
+	<script src="https://cdn.quilljs.com/1.0.2/quill.js"></script>
+<% End if %>
+<% If ScriptName <> "" %>
+	<script type="text/javascript" charset="utf-8" src="<% =ScriptName %>"></script>
+<% End if %>
+
+<asp:ContentPlaceHolder ID="Content_Script" runat="server"></asp:ContentPlaceHolder>
+
+<script>
+	$(document).ready(function() {
+		desktop = new MainPage({ID:"<% =Request.Params("pid") %>"})
+	});
+</script>	
+
+<g id="svg-collection" style="display:none"></g>

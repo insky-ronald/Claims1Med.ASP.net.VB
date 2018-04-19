@@ -1,0 +1,17 @@
+.grid3 .master-detail-container {
+	background: white;
+	border: 1px solid silver;
+}
+
+.grid3.service-status-details .data-table .row[x-status="0"] {
+	color: blue;
+}
+
+.grid3.service-status-details .data-table .row[x-active="0"] {
+	color: red;
+}
+
+/* .grid-service-status-codes tbody tr[x-status="1"] { */
+	/* /*color: #2C80B3;*/ */
+	/* /*color: #27AE60;*/ */
+/* } */
