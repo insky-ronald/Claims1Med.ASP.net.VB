@@ -127,14 +127,14 @@ Public Class DataProvider
 				.ID = "medical"
 				.Action = "admin"				
 				.Title = "Medical"
-				' .Icon = "table"
+				.Icon = "hospital"
 			End with
 
 			With Main.SubItems.Add
 				.ID = "travel"
 				.Action = "admin"				
 				.Title = "Travel"
-				' .Icon = "table"
+				.Icon = "airplane"
 			End with
 		
 		Main = MenuItems.AddMain("system", "System")
