@@ -27,8 +27,8 @@ Databases.SetValue("DefaultConnection", "DBSecure")
 
 Databases.SetValue("DBReporting", "CNReporting")
 Databases.SetValue("DBReportingCodeFile", "ReportingCodeFile")
-Databases.SetValue("CNReporting", "data source=DBSERVER01\ISOSDB01;initial catalog=MEDICS51;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
-Databases.SetValue("ReportingCodeFile", "C:\inetpub\wwwroot\EngineV4\engine\DatabaseInitReporting.vb")
+Databases.SetValue("CNReporting", "data source=DBSERVER01\ISOSDB01;initial catalog=MEDICS52;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
+Databases.SetValue("ReportingCodeFile", "C:\inetpub\wwwroot\Claim1MED.NET\engine\DatabaseInitReporting.vb")
 
 REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBSecure
 REM Databases.SetValue("DBSecure", "CNSecure")
@@ -46,10 +46,10 @@ REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBMedics
 Databases.SetValue("DBMedics", "CNMedics")
 Databases.SetValue("DBMedicsCodeFile", "MedicsCodeFile")
 ' Databases.SetValue("CNMedics", "data source=192.168.10.222\DBSERVERISOS01;initial catalog=MEDICS50;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
-Databases.SetValue("CNMedics", "data source=DBSERVER01\ISOSDB01;initial catalog=MEDICS51;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
+Databases.SetValue("CNMedics", "data source=DBSERVER01\ISOSDB01;initial catalog=MEDICS52;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
 ' Databases.SetValue("CNMedics", "data source=ISOSDB01;initial catalog=MEDICS50;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
-Databases.SetValue("MedicsCodeFile", "C:\inetpub\wwwroot\MediCSV5.3\app\DatabaseInitMedics.vb")
-Databases.SetValue("MedicsCodeFile2", "C:\inetpub\wwwroot\MediCSV5.3\app\datasources")
+Databases.SetValue("MedicsCodeFile", "C:\inetpub\wwwroot\Claim1MED.NET\app\DatabaseInitMedics.vb")
+Databases.SetValue("MedicsCodeFile2", "C:\inetpub\wwwroot\Claim1MED.NET\app\datasources")
 
 REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBClaims
 Databases.SetValue("DBClaims", "CNClaims")
