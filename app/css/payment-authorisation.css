@@ -1,0 +1,59 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 08-SEP-2017 */
+/*****************************************************************************************************/
+.grid3.authorisation .header-cell.command-cell[command="block"] svg {
+	fill: firebrick !important;
+}
+
+.grid3.authorisation .data-cell.command-cell[command="block"] svg[x-sec="0"] {
+	fill: forestgreen !important;
+}
+
+.grid3.authorisation .data-cell.command-cell[command="block"] svg[x-sec="1"] {
+	fill: gray !important;
+}
+
+.grid3.authorisation .data-cell.command-cell[command="blocked"] svg,
+.grid3.authorisation .header-cell.command-cell[command="blocked"] svg {
+	fill: dodgerblue !important;
+}
+
+.grid3.authorisation .data-cell.command-cell[command="un-blocked"] svg,
+.grid3.authorisation .header-cell.command-cell[command="un-blocked"] svg {
+	fill: firebrick !important;
+	width: 16px;
+	height: 16px;
+}
+
+.grid3.authorisation .header-cell.command-cell[command="authorise"] svg {
+	fill: dodgerblue !important;
+}
+
+.grid3.authorisation .data-cell.command-cell[command="authorise"] svg[x-sec="0"] {
+	fill: dodgerblue !important;
+}
+
+.grid3.authorisation .data-cell.command-cell[command="authorise"] svg[x-sec="1"] {
+	fill: firebrick !important;
+}
+
+.grid3.authorisation .data-cell.command-cell[command="transfer"] svg,
+.grid3.authorisation .header-cell.command-cell[command="transfer"] svg {
+	fill: purple !important;
+	/* width: 20px; */
+	/* height: 20px; */
+}
+
+.grid3.authorisation .row[x-authorised="1"] {
+	color: blue;
+}
+
+.grid3.authorisation .row[x-select="1"] {
+	/* background: powderblue; */
+	color: forestgreen;
+}
+
+.grid3.authorisation .custom-header .widget.blocked {
+    background: #F08080;
+}

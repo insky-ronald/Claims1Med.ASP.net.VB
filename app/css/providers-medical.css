@@ -1,0 +1,14 @@
+.providers-view-container {
+	border: 1px dimgray;
+	border-style: none none solid none;
+}
+
+.grid3.doctors .row[x-status="X"] .data-cell,
+.grid3.hospitals .row[x-status="X"] .data-cell {
+	color: red !important;
+}
+
+.grid3.doctors .row[x-blacklisted="1"] .data-cell,
+.grid3.hospitals .row[x-blacklisted="1"] .data-cell {
+	color: dimgray !important;
+}

@@ -1,9 +1,9 @@
-##const
-	desktop-width=@
-	desktop-header-height=@
-	desktop-footer-height=@
-	navigator-width=@
-##endconst
+// ##const
+	// desktop-width=@
+	// desktop-header-height=@
+	// desktop-footer-height=@
+	// navigator-width=@
+// ##endconst
 
 ##template
 	desktop-width=@

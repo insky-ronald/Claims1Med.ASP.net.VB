@@ -9,6 +9,12 @@
 	background: #FFFFE0;
 }
 
+.pg-service-detail > .pg-content {
+	/* border: 1px dimgray; */
+	border: 1px #92846A;
+	border-style: solid none none none;
+}
+
 .service-details {
 	background: white;
 }

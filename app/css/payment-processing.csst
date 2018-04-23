@@ -4,16 +4,15 @@
 	container-border-size=0
 	container-border-style=none
 	container-border-color=none
-	/*header-height=49px*/
-	/*footer-height=0px*/
+	// header-height=49px
+	// footer-height=0px
 ##endconst
 
 ##template
-	sub-name=@
-	container-padding=@
-	container-border-size=@
-	container-border-style=@
-	container-border-color=@
-	/*header-height=@*/
-	/*footer-height=@*/
-##endtemplate=app\sub-page-normal
+##endtemplate=app\claims-custom-authorisation
+
+##template
+##endtemplate=app\payment-authorisation
+
+##template
+##endtemplate=app\saved-query

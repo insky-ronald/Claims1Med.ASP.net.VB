@@ -1,8 +1,8 @@
-.grid3.flag-sub-types .data-table .row[x-status="0"] {
+.grid-flag-sub-types tbody tr[x-status="0"] {
 	color: firebrick;
 }
 
-/* .grid-flag-sub-types tbody tr[x-status="1"] { */
-	/* /*color: #2C80B3;*/ */
-	/* /*color: #27AE60;*/ */
-/* } */
+.grid-flag-sub-types tbody tr[x-status="1"] {
+	/*color: #2C80B3;*/
+	/*color: #27AE60;*/
+}

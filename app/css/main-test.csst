@@ -11,9 +11,6 @@
 ##template
 ##endtemplate=app\claim-services
 
-// ##template
-// ##endtemplate=app\main-claim
-
 ##template
 ##endtemplate=app\claim-details
 
@@ -29,16 +26,9 @@
 ##template
 ##endtemplate=app\member-plan-history
 
-##template
-##endtemplate=app\addresses
-
-##template
-##endtemplate=app\contacts
-
 ##template	
 	theme=claim-details
 	font=10pt Arial
-	// header-background=lightyellow
 	tab-active-font-color=black
 	tab-active-font-weight=normal
 	tab-normal-font-color=dimgray

@@ -1,5 +1,5 @@
 ##template	
-	theme=clients-sub-view
+	theme=provider-sub-view
 	font=11pt Arial
 	// header-background=white
 	// tab-active-font-size=130%
@@ -10,4 +10,10 @@
 ##endtemplate=engine\pg-theme-2
 
 ##template
-##endtemplate=app\clients
+##endtemplate=app\providers-medical
+
+##template
+##endtemplate=app\addresses
+
+##template
+##endtemplate=app\contacts

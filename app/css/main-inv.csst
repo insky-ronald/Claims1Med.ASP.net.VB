@@ -1,0 +1,20 @@
+##includetemplate
+	desktop-width=100%
+	desktop-header-height=56px
+	desktop-footer-height=0px
+	navigator-width=250px
+##endinclude=app\claim1med-2
+
+##template	
+	theme=service-details
+	font=10pt Arial
+##endtemplate=engine\pg-theme-2
+
+##template
+##endtemplate=app\service-details
+
+##template
+##endtemplate=app\service-status-history
+
+##template
+##endtemplate=app\service-actions
