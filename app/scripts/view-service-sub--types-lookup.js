@@ -3,17 +3,18 @@
 // 26-SEP-2017
 // ****************************************************************************************************
 //==================================================================================================
-// File name: view-claim-types-lookup.js
+// File name: view-service-sub--types-lookup.js
 //==================================================================================================
-function ClaimTypesLookup(viewParams){
+function ServiceSubTypesLookup(viewParams){
+	// console.log(viewParams);
 	return new jGrid($.extend(viewParams, {
 		paintParams: {
-			css: "claim-types",
+			css: "service-sub-types",
 			toolbar: {theme: "svg"}
 		},
 		init: function(grid, callback) {			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "lookup?name=lookup_claim_types";
+				grid.optionsData.url = "lookup?name=lookup_service_sub_types";
 				
 				grid.options.horzScroll = false;
 				grid.options.allowSort = true;
@@ -25,6 +26,7 @@ function ClaimTypesLookup(viewParams){
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
+						.addColumn("service_type", viewParams.serviceType)
 						.addColumn("sort", "code")
 						.addColumn("order", "asc")
 				});
@@ -32,7 +34,7 @@ function ClaimTypesLookup(viewParams){
 				grid.Events.OnInitData.add(function(grid, data) {
 					data.Columns
 						.setprops("code", {label:"Code", key: true})
-						.setprops("claim_type", {label:"Type"})
+						.setprops("sub_type", {label:"Type"})
 				});
 	
 				grid.methods.add("getCommandIcon", function(grid, column, previous) {
@@ -50,7 +52,7 @@ function ClaimTypesLookup(viewParams){
 				grid.Events.OnInitColumns.add(function(grid) {
 					grid.NewCommand({command:"select"});
 					grid.NewColumn({fname: "code", width: 75, allowSort: true});
-					grid.NewColumn({fname: "claim_type", width: 300, allowSort: true});
+					grid.NewColumn({fname: "sub_type", width: 300, allowSort: true});
 				});
 				
 			});

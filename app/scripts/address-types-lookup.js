@@ -4,21 +4,21 @@ var AddressTypesLookup = function(edit, grid) {
 		return search.test("address_type") || search.test("code");
 	});
 	
-
 	grid.Events.OnInitGrid.add(function(grid) {
 		grid.options.simpleSearch = true;
 		grid.options.simpleSearchField = "filter";
-		grid.optionsData.url = "address-types";
+		// grid.optionsData.url = "address-types";
+		grid.optionsData.url = "lookup?name=lookup_address_types";
 	});
 	
 	grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
-		dataParams
-			.addColumn("lookup", 1)
-			.addColumn("filter", "")
-			.addColumn("sort", "address_type")
-			.addColumn("order", "asc")
-			.addColumn("page", 1)
-			.addColumn("pagesize")
+		// dataParams
+			// .addColumn("lookup", 1)
+			// .addColumn("filter", "")
+			// .addColumn("sort", "address_type")
+			// .addColumn("order", "asc")
+			// .addColumn("page", 1)
+			// .addColumn("pagesize")
 	});
 
 	grid.Events.OnInitData.add(function(grid, data) {
@@ -32,7 +32,7 @@ var AddressTypesLookup = function(edit, grid) {
 	});
 	
 	grid.Events.OnInitColumns.add(function(grid) {
-		grid.NewColumn({fname: "address_type", width: 400, allowSort: true});
-		// grid.NewColumn({fname: "code", width: 75, allowSort: true, fixedWidth:true);
+		grid.NewColumn({fname: "address_type", width: 400, allowSort: false});
+		grid.NewColumn({fname: "code", width: 75, allowSort: false, fixedWidth:true});
 	});
 };

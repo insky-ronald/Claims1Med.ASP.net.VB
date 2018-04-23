@@ -7,7 +7,7 @@ function EditActionTypes(params) {
 		fillContainer: defaultValue(params.fillContainer, true),
 		containerPadding: defaultValue(params.containerPadding, 0),
 		showToolbar: defaultValue(params.showToolbar, false),
-		postBack: "action-types",
+		postBack: "app/action-types",
 		url: ("?code={0}").format(params.code),
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(sender, data) {
@@ -49,7 +49,7 @@ function EditActionSubTypes(params) {
 		containerPadding: defaultValue(params.containerPadding, 0),
 		showToolbar: defaultValue(params.showToolbar, false),
 		url:("?action_type={0}&code={1}").format(params.actionSubType, params.code),
-		postBack: "action-sub-types",
+		postBack: "app/action-sub-types",
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(sender, data) {
 				data.Columns

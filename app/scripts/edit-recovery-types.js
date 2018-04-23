@@ -10,13 +10,13 @@ function RecoveryTypesEdit(params){
 		id: params.id,
 		dialog: params.dialog,
 		container: params.container,
-		labelWidth: 150,
+		// labelWidth: 150,
 		containerPadding: defaultValue(params.containerPadding, 10),
 		pageControlTheme: defaultValue(params.pageControlTheme, "data-entry"),
 		fillContainer: defaultValue(params.fillContainer, true),
 		showToolbar: defaultValue(params.showToolbar, false),
-		postBack: "app/recovery-types",
 		url: ("?code={0}").format(params.code),
+		postBack: "app/recovery-types",
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(sender, data) {
 			data.Columns

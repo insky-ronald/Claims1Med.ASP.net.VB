@@ -14,7 +14,7 @@ function EditNoteTypes(params) {
 		fillContainer: defaultValue(params.fillContainer, true),
 		containerPadding: defaultValue(params.containerPadding, 0),
 		showToolbar: defaultValue(params.showToolbar, false),
-		postBack: "claim-notes-types",
+		postBack: "app/claim-notes-types",
 		url: ("?code={0}").format(params.code),
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(sender, data) {
@@ -45,7 +45,7 @@ function EditNoteSubTypes(params) {
 		containerPadding: defaultValue(params.containerPadding, 0),
 		showToolbar: defaultValue(params.showToolbar, false),
 		url:("?note_type={0}&code={1}").format(params.noteSubType, params.code),
-		postBack: "note-sub-types",
+		postBack: "app/note-sub-types",
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(sender, data) {
 				data.Columns

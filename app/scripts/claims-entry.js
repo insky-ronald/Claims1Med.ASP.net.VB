@@ -83,5 +83,5 @@ function ClaimsEntry(viewParams) {
 				});
 			});
 		}
-	});
+	}));
 };

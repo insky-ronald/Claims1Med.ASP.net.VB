@@ -28,7 +28,7 @@ function CustomerServiceTypesView(params){
 			});
 			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/customer-service-types?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/customer-service-types?";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
@@ -39,7 +39,7 @@ function CustomerServiceTypesView(params){
 				
 				grid.exportData.allow = true;
 				grid.exportData.name = "Customer Service Types";
-				grid.exportData.source = "DBMedics.GetCustomerServiceTypes";
+				grid.exportData.source = "DBApp.GetCustomerServiceTypes";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -66,5 +66,5 @@ function CustomerServiceTypesView(params){
 				}); */
 			});
 		}
-	});	
+	}));	
 };

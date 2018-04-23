@@ -21,7 +21,7 @@ function ClaimTypesView(params){
 		},
 		init: function(grid, callback) {			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/claim-types?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/claim-types";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
@@ -32,7 +32,7 @@ function ClaimTypesView(params){
 				
 				grid.exportData.allow = true;
 				grid.exportData.name = "Claim Types";
-				grid.exportData.source = "DBMedics.GetClaimTypes";
+				grid.exportData.source = "DBApp.GetClaimTypes";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -62,5 +62,5 @@ function ClaimTypesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };

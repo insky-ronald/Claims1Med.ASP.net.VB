@@ -18,7 +18,7 @@ var CountriesLookup = function(edit, grid) {
 			.addColumn("sort", "country")
 			.addColumn("order", "asc")
 			.addColumn("page", 1)
-			.addColumn("pagesize")
+			.addColumn("pagesize", 1000000)
 	});
 
 	grid.Events.OnInitData.add(function(grid, data) {
@@ -33,7 +33,7 @@ var CountriesLookup = function(edit, grid) {
 	
 	grid.Events.OnInitColumns.add(function(grid) {
 		grid.NewColumn({fname: "country", width: 400, allowSort: true});
-		grid.NewColumn({fname: "code", width: 75, allowSort: true, fixedWidth:true);
+		grid.NewColumn({fname: "code", width: 75, allowSort: true, fixedWidth:true});
 	});
 };
 
@@ -57,7 +57,7 @@ var CountriesISOLookup = function(edit, grid) {
 			.addColumn("sort", "country")
 			.addColumn("order", "asc")
 			.addColumn("page", 1)
-			.addColumn("pagesize")
+			.addColumn("pagesize", 1000000)
 	});
 
 	grid.Events.OnInitData.add(function(grid, data) {
@@ -72,6 +72,6 @@ var CountriesISOLookup = function(edit, grid) {
 	
 	grid.Events.OnInitColumns.add(function(grid) {
 		grid.NewColumn({fname: "country", width: 400, allowSort: true});
-		grid.NewColumn({fname: "iso_code", width: 75, allowSort: true, fixedWidth:true);
+		grid.NewColumn({fname: "iso_code", width: 75, allowSort: true, fixedWidth:true});
 	});
 };

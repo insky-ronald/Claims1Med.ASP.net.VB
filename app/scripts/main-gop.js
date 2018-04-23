@@ -10,6 +10,7 @@ MainPage.prototype.AfterPaint = function() {
 	desktop.dbCountries = desktop.LoadCacheData(desktop.customData.countries, "countries", "code");
 	// desktop.dbCurrencies = desktop.LoadCacheData(desktop.customData.currencies, "currencies", "code");
 	
+	// console.log(desktop.customData.data);
 	desktop.dbService = new Dataset(desktop.customData.data);
 	desktop.dbService.Columns
 		.setprops("id", {label:"ID", numeric:true, key: true, readonly:true})
@@ -42,10 +43,11 @@ MainPage.prototype.AfterPaint = function() {
 				}})
 	};
 
-	desktop.dbServiceSubType = new Dataset(desktop.customData.sub_type_data);
-	desktop.dbServiceSubType.Columns
-		.setprops("id", {label:"ID", numeric:true, key: true, readonly:true})
-		.setprops("service_name", {label:"Type", readonly:true});
-		
-	InitializeData(desktop.dbService, desktop.dbServiceSubType);
+	// desktop.dbServiceSubType = new Dataset(desktop.customData.sub_type_data);
+	// desktop.dbServiceSubType.Columns
+		// .setprops("id", {label:"ID", numeric:true, key: true, readonly:true})
+		// .setprops("service_name", {label:"Type", readonly:true});
+	// InitializeData(desktop.dbService, desktop.dbServiceSubType);
+	// desktop.dbServiceSubType = desktop.dbService;
+	InitializeData(desktop.dbService);
 };

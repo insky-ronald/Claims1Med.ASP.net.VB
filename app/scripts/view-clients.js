@@ -3,14 +3,14 @@
 //
 // ****************************************************************************************************
 //==================================================================================================
-// File name: view-doctors.js
+// File name: view-clients.js
 //==================================================================================================
-function DoctorsView(params){
+function ClientsGrid(params){
 	// var providerType = params.providerType;
 
 	return new jGrid($.extend(params, {
 		paintParams: {
-			css: "doctors",
+			css: "clients",
 			toolbar: {theme: "svg"}
 		},
 		editForm: function(id, container, dialog) {
@@ -22,12 +22,12 @@ function DoctorsView(params){
 		},
 		init: function(grid, callback) {
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/doctors"; //+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/clients"; //+ ObjectToRequestParams(params.requestParams);
 
-				// grid.options.editNewPage = true;
+				grid.options.editNewPage = true;
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
-
+				
 				grid.search.visible = true;
 				// grid.search.mode = "advanced";
 				grid.search.mode = "simple";
@@ -46,38 +46,42 @@ function DoctorsView(params){
 				grid.Events.OnInitData.add(function(grid, data) {
 					data.Columns
 					    .setprops("id", {label:"ID", numeric:true, key:true})
-						.setprops("code", {label:"SunCode"})
-						.setprops("spin_id", {label:"SPIN ID"})
+						.setprops("account_code", {label:"SunCode"})
+						.setprops("soa_prefix", {label:"SOA Prefix"})
 						.setprops("name", {label:"Name"})
-						.setprops("full_name", {label:"Full Name"})
-						.setprops("specialisation", {label:"Specialisation"})
-						.setprops("country", {label:"Country"})
-						.setprops("discount_amount", {label:"Amount", numeric:true})
-						.setprops("discount_percent", {label:"Percantage", numeric:true})
-						.setprops("notes", {label:"Notes"})
-						.setprops("discount_type_id", {label:"Discount",
-							getText: function(column, value) {
-								if(value === "1") {
-									return ("{0}% on invoice total").format(column.dataset.get("discount_percent"))
-								} else if(value === "3") {
-									return ("{0}% per invoice item").format(column.dataset.get("discount_percent")) 
-								} else if(value === "4") {
-									return ("IDR {0} per invoice item").format(column.dataset.get("discount_amount"))
-								} else {
-									return "..."
-								}
-							}
-						})
+						// .setprops("full_name", {label:"Full Name"})
+						// .setprops("specialisation", {label:"Specialisation"})
+						.setprops("client_currency_code", {label:"Currency"})
+						// .setprops("discount_amount", {label:"Amount", numeric:true})
+						// .setprops("discount_percent", {label:"Percantage", numeric:true})
+						// .setprops("notes", {label:"Notes"})
+						// .setprops("discount_type_id", {label:"Discount",
+							// getText: function(column, value) {
+								// if(value === "1") {
+									// return ("{0}% on invoice total").format(column.dataset.get("discount_percent"))
+								// } else if(value === "3") {
+									// return ("{0}% per invoice item").format(column.dataset.get("discount_percent")) 
+								// } else if(value === "4") {
+									// return ("IDR {0} per invoice item").format(column.dataset.get("discount_amount"))
+								// } else {
+									// return "..."
+								// }
+							// }
+						// })
 				});
 
 				grid.Events.OnInitRow.add(function(grid, row) {
 					row.attr("x-status", grid.dataset.get("status_code"));
-					row.attr("x-blacklisted", grid.dataset.get("blacklisted"));
+					// row.attr("x-blacklisted", grid.dataset.get("blacklisted"));
 				});
 
-				grid.Methods.add("deleteConfirm", function(grid, id) {
+				grid.methods.add("deleteConfirm", function(grid, id) {
 					grid.dataset.gotoKey(id);
-					return {title: "Delete Doctor", message: ("Please confirm to delete doctor <b>{0}</b>.").format(grid.dataset.get("name"))};
+					return {title: "Delete Client", message: ("Please confirm to delete client <b>{0}</b>.").format(grid.dataset.get("name"))};
+				});
+				
+				grid.methods.add("editPageUrl", function(grid, id) {
+					return __client(id, true)
 				});
 
 				// grid.methods.add("getCommandIcon", function(grid, column) {
@@ -117,14 +121,14 @@ function DoctorsView(params){
 				grid.Events.OnInitColumns.add(function(grid) {
 					grid.NewBand({caption: "General"}, function(band) {
 						band.NewColumn({fname: "id", width: 75, allowSort: true, fixedWidth:true});
-						band.NewColumn({fname: "code", width: 100, allowSort: false, fixedWidth:true});
-						band.NewColumn({fname: "spin_id", width: 100, allowSort: false, fixedWidth:true});
-						band.NewColumn({fname: "name", width: 200, aloowSort: true, fixedWidth:true});
-						band.NewColumn({fname: "full_name", width: 250, aloowSort: true, fixedWidth:true});
-						band.NewColumn({fname: "specialisation", width: 200, allowSort: true, fixedWidth:true});
+						band.NewColumn({fname: "account_code", width: 100, allowSort: false, fixedWidth:true});
+						band.NewColumn({fname: "client_currency_code", width: 100, allowSort: true, fixedWidth:true});
+						band.NewColumn({fname: "name", width: 300, allowSort: true, fixedWidth:true});
+						band.NewColumn({fname: "soa_prefix", width: 100, allowSort: false, fixedWidth:true});
+						// band.NewColumn({fname: "specialisation", width: 200, allowSort: true, fixedWidth:true});
 						// band.NewColumn({fname: "discount", width: 80, allowSort: false, fixedWidth:true});
-						band.NewColumn({fname: "country", width: 200, allowSort: false, fixedWidth:true});
-						band.NewColumn({fname: "discount_type_id", width: 200, allowSort: false, fixedWidth:true});
+						// band.NewColumn({fname: "country", width: 200, allowSort: false, fixedWidth:true});
+						// band.NewColumn({fname: "discount_type_id", width: 200, allowSort: false, fixedWidth:true});
 					})
 				})
 			})

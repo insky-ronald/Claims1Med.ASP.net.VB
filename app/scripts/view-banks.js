@@ -4,59 +4,32 @@
 // 
 // ****************************************************************************************************
 //==================================================================================================
-// uses edit-address.js
+// uses edit-banks.js
 //==================================================================================================
-function BanksView(params){
-	//console.log(params)
-	var name_id = params.requestParams.name_id;;
-	
-	return new JDBGrid({
-		params: params,
-		// container: params.container, 
-		options: {
-			horzScroll: true
-		},
-		toolbarTheme:"svg",
-		Painter: {
-			css: "banks"
+function BanksView(params){	
+	return new jGrid($.extend(params, {
+		paintParams: {
+			css: "banks",
+			toolbar: {theme: "svg"}
 		},
 		editForm: function(id, container, dialog) {
 			BanksEdit({
-				url: ("?id={0}&name_id={1}").format(id, name_id),
+				url: ("?id={0}&name_id={1}").format(id, params.getMasterID()),
 				container: container,
-				containerPadding: 0,
-				showToolbar: false,
-				pageControlTheme: "data-entry",
-				fillContainer: true,
 				dialog: dialog
 			})
 		},
 		init: function(grid) {
-			grid.Events.OnInitGrid.add(function(grid) {
+			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = "banks";
-				grid.options.showToolbar = true;
 				grid.options.horzScroll = true;
-				grid.options.showPager = false;
-				grid.options.showSummary = false;
-				grid.options.cardView = false;
-				grid.options.autoScroll = true;
 				grid.options.allowSort = true;
-				// grid.options.showSelection = true;
-				grid.options.showBand = false;
-				// grid.options.showBand = true;
-				// grid.options.simpleSearch = true;
-				// grid.options.simpleSearchField = "name";
-				// grid.optionsData.editCallback = function(grid, id) {
-					// __masterpolicy(id);
-				// };
-
-				// var parts = this.url.split("?");
-				// if(parts.length > 0
-					// grid.optionsData.requestParams = parts[1];
+				grid.options.showPager = false;
+				grid.search.visible = false;
 							
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
-						.addColumn("name_id", name_id, {numeric:true})
+						.addColumn("name_id", params.getMasterID(), {numeric:true})
 						.addColumn("sort", "bank_name")
 						.addColumn("order", "asc")
 				});
@@ -107,5 +80,5 @@ function BanksView(params){
 				// });
 			});
 		}
-	});	
+	}));	
 };

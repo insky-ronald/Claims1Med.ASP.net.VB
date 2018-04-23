@@ -28,7 +28,7 @@ function GOPTypesView(params){
 			});
 			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/gop-types?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/gop-types";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
@@ -39,7 +39,7 @@ function GOPTypesView(params){
 				
 				grid.exportData.allow = true;
 				grid.exportData.name = "GOP Types";
-				grid.exportData.source = "DBMedics.GetGOPTypes";
+				grid.exportData.source = "DBApp.GetGOPTypes";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -68,5 +68,5 @@ function GOPTypesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };

@@ -65,7 +65,10 @@ function MemberInfoView(viewParams) {
 						});
 						
 						editor.AddGroup("Plan Information", function(editor) {
-							editor.AddEdit({ID: "plan_code"});
+							// editor.AddEdit({ID: "plan_code"});
+							editor.AddLink({ID: "plan_code", link: function(column) {
+								return __plan(column.dataset.get("plan_code"), true);
+							}});
 							editor.AddEdit({ID: "sub_product"});
 						});
 					}

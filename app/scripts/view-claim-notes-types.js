@@ -9,7 +9,7 @@
 function ListNoteTypes(params){
 	return new jGrid($.extend(params, {
 		paintParams: {
-			css: "claim-note-types",
+			css: "note-types",
 			toolbar: {theme: "svg"}
 		},
 		editForm: function(id, container, dialog) {
@@ -24,7 +24,7 @@ function ListNoteTypes(params){
 				grid.Methods.add("deleteConfirm", function(grid, id) {
 					return {
 						title: "Delete Note Type",
-						message: ('Please confirm to delete note type "<b>{0}</b>"').format(grid.dataset.get("note_type"))
+						message: ('Please confirm to delete note type "<b>{0}</b>"').format(grid.dataset.lookup(id, "note_type"))
 					}
 				});
 				
@@ -98,7 +98,7 @@ function ListNoteSubTypes(params){
 				grid.Methods.add("deleteConfirm", function(grid, id) {
 					return {
 						title: "Delete Note Sub-Type",
-						message: ('Please confirm to delete sub-type "<b>{0}</b>"').format(grid.dataset.get("note_sub_type"))
+						message: ('Please confirm to delete sub-type "<b>{0}</b>"').format(grid.dataset.lookup(id, "note_sub_type"))
 					}
 				});
 		

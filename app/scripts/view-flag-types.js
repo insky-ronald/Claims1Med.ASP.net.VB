@@ -75,7 +75,7 @@ function FlagTypesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };
 
 function ListFlagSubTypes(params){
