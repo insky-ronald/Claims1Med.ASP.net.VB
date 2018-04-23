@@ -22,6 +22,8 @@ function PaymentProcessingView(viewParams){
 					color: "dodgerblue"
 				},
 				OnCreate: function(tab) {
+					new jAuthorisationView({container:tab.container, requestParams: {referral:0}});
+					// MembersSearchView($.extend(viewParams, {container:tab.container}))
 					// ClaimDocumentsInView({container:tab.container, requestParams:$.extend(viewParams.requestParams, {source:"I"})});
 					// ClaimDocumentsInView($.extend(viewParams, {container:tab.container}))
 				}

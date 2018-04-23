@@ -28,7 +28,7 @@ function NOCTypesView(params){
 			});
 			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/noc-types?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/noc-types";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
@@ -39,7 +39,7 @@ function NOCTypesView(params){
 				
 				grid.exportData.allow = true;
 				grid.exportData.name = "NOC Types";
-				grid.exportData.source = "DBMedics.GetNOCTypes";
+				grid.exportData.source = "DBApp.GetNOCTypes";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -68,5 +68,5 @@ function NOCTypesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };

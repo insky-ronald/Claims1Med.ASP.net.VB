@@ -59,7 +59,7 @@ function EditFlagSubTypes(params) {
 		containerPadding: defaultValue(params.containerPadding, 0),
 		showToolbar: defaultValue(params.showToolbar, false),
 		url:("?flag_code={0}&code={1}").format(params.flagSubType, params.code),
-		postBack: "flag-sub-types",
+		postBack: "app/flag-sub-types",
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(sender, data) {
 				data.Columns

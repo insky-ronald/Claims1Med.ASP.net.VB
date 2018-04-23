@@ -65,20 +65,22 @@ function ClaimDocumentsInView(viewParams){
 				});
 		
 				grid.methods.add("getCommandHeaderIcon", function(grid, column, defaultValue) {
-					if(column.command === "master-detail")
+					if(column.command === "master-detail") {
 						return "notes"
-					else
+					} else {
 						return defaultValue
-				})
+					}
+				});
 		
 				grid.methods.add("getCommandHint", function(grid, column, defaultValue) {
-					if(column.command === "master-detail")
+					if(column.command === "master-detail") {
 						return "View note"
-					else if(column.command === "delete")
+					} else if(column.command === "delete") {
 						return "Delete document"
-					else
+					} else {
 						return defaultValue
-				})
+					}
+				});
 				
 				grid.Events.OnInitColumns.add(function(grid) {
 					if(!viewParams.requestParams.service_id) {
@@ -94,11 +96,13 @@ function ClaimDocumentsInView(viewParams){
 						band.NewColumn({fname: "source_name", width: 150, allowSort: true, fixedWidth:true});
 						band.NewColumn({fname: "status", width: 150, allowSort: true, fixedWidth:true});
 					});
+					
 					grid.NewBand({caption:"Sender"}, function(band) {
 						band.NewColumn({fname: "recipient", width: 150, allowSort: true, fixedWidth:true});
 						band.NewColumn({fname: "email", width: 150, allowSort: true, fixedWidth:true});
 						band.NewColumn({fname: "phone_no", width: 150, allowSort: true, fixedWidth:true});
 					});
+					
 					grid.NewBand({caption:"Update Log"}, function(band) {
 						band.NewColumn({fname: "create_date", width: 150, allowSort: true, fixedWidth:true});
 						band.NewColumn({fname: "create_user_name", width: 150, allowSort: true, fixedWidth:true});
@@ -108,7 +112,7 @@ function ClaimDocumentsInView(viewParams){
 					
 					grid.NewBand({caption:"", fixed:"right"}, function(band) {
 						band.NewColumn({fname: "document_categories", width: 200, allowSort: true, fixedWidth:true});
-					}
+					})
 				});
 				
 				grid.Events.OnInitCard.add(function(grid, card) {

@@ -30,7 +30,7 @@ function AuditLogTypesView(params){
 			});
 			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/auditlog-types?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/auditlog-types";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
@@ -41,7 +41,7 @@ function AuditLogTypesView(params){
 				
 				grid.exportData.allow = true;
 				grid.exportData.name = "Audit Log Types";
-				grid.exportData.source = "DBMedics.GetAuditlogTypes";
+				grid.exportData.source = "DBApp.GetAuditlogTypes";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -70,5 +70,5 @@ function AuditLogTypesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };

@@ -6,12 +6,12 @@
 
 MainPage.prototype.AfterPaint = function() {
 	MainPage.prototype.parent.prototype.AfterPaint.call(this);
-		
 	desktop.dbCountries = desktop.LoadCacheData(desktop.customData.countries, "countries", "code");
 	// desktop.dbCurrencies = desktop.LoadCacheData(desktop.customData.currencies, "currencies", "code");
-	
+
 	desktop.dbMedicalNotes = new Dataset(desktop.customData.medical_notes);
-	
+	desktop.dbMedicalNotes.Columns.setprops("id", {numeric:true, key: true});
+
 	desktop.dbMember = new Dataset(desktop.customData.member);
 	desktop.dbMember.readonly = true;
 	desktop.dbMember.Columns
@@ -36,7 +36,7 @@ MainPage.prototype.AfterPaint = function() {
 		.setprops("policy_end_date", {label:"Expiry Date", type:"date"})
 
 		.setprops("plan_code", {label:"Plan"})
-		.setprops("sub_product", {label:"Sub-Product"})
+		.setprops("sub_product", {label:"Sub-Product"});
 		// .setprops("policy_status", {label:"Status"})
 		// .setprops("country", {label:"Country"})
 		// .setprops("start_date", {label:"Start Date", type:"date",
@@ -65,16 +65,19 @@ MainPage.prototype.AfterPaint = function() {
 		.setprops("status", {label:"Status", readonly:true})
 		.setprops("notification_date", {label:"Date Notified", type:"date", required:true})
 
+		.setprops("plan_code", {readonly:true})
+		.setprops("plan_code2", {readonly:true})
 		.setprops("sub_product", {label:"Sub-Product", readonly:true})
-		.setprops("hcm_reference", {label:"Assistance Ref. No."})		
+		.setprops("hcm_reference", {label:"Assistance Ref. No."})
 		.setprops("reference_no1", {label:desktop.dbMember.get("claim_reference1")})
 		.setprops("reference_no2", {label:desktop.dbMember.get("claim_reference2")})
 		.setprops("reference_no3", {label:desktop.dbMember.get("claim_reference3")})
-		
+
 		.setprops("status", {label:"Status"})
 		.setprops("expired", {label:"Expired"})
-		.setprops("plan_name", {label:"Type", required:true})
-		
+		.setprops("plan_name", {label:"Type", required:false})
+
+		.setprops("notification_date", {label:"Notification Date", type:"date", required:true})
 		.setprops("country_of_incident", {label:"Country of Incident", required:true, lookupDataset: desktop.dbCountries,
 			getText: function(column, value) {
 				return column.lookupDataset.lookup(value, "country");
@@ -84,11 +87,11 @@ MainPage.prototype.AfterPaint = function() {
 		.setprops("is_accident", {label:"Accident"})
 		.setprops("accident_date", {label:"Date of Accident", type:"date", required:desktop.dbClaim.raw("is_accident")})
 		.setprops("accident_code", {label:"Accident Type", required:desktop.dbClaim.raw("is_accident")})
-		
-		.setprops("is_prexisting", {label:"Pre-Existing"})
+
+		.setprops("is_preexisting", {label:"Pre-Existing"})
 		.setprops("first_symptom_date", {label:"First Symptom", type:"date", required:!desktop.dbClaim.raw("is_accident")})
-		.setprops("first_consultation_date", {label:"First Consultation", type:"date", required:!desktop.dbClaim.raw("is_accident")})
-		
+		.setprops("first_consultation_date", {label:"First Consultation", type:"date", required:!desktop.dbClaim.raw("is_accident")});
+
 		if(desktop.customData.claim_id) {
 			desktop.dbClaim.Columns
 				.setprops("create_user", {label:"User", readonly:true})
@@ -96,63 +99,71 @@ MainPage.prototype.AfterPaint = function() {
 				.setprops("update_user", {label:"User", readonly:true})
 				.setprops("update_date", {label:"Last Update", type:"date", format:"datetime", readonly:true});
 		};
-	
-	if(desktop.customData.newRecord) desktop.dbClaim.edit();
+
+	if(desktop.customData.newRecord) {
+		desktop.dbClaim.edit()
+	};
+
 	desktop.dbClaim.Events.OnCancel.add(function(dataset) {
-		if(desktop.customData.newRecord) window.close();
+		if(desktop.customData.newRecord) {
+			window.close()
+		}
 	});
-	
+
 	var self = this;
 	this.Events.OnPaintCustomHeader.add(function(desktop, container) {
 		self.notificationContainer = CreateElement("div", container, "", "notifications");
 		self.claimInfoContainer = CreateElementEx("div", container, "", "information");
-	
+
 		var statusColor, statusCode = desktop.dbClaim.get("status_code");
-		
-		if(statusCode === "O") 
+
+		if(statusCode === "O") {
 			statusColor = "#1AB394"
-		else if(statusCode === "D") 
+		} else if(statusCode === "D") {
 			statusColor = "#ED5565"
-		else if(statusCode === "N") 
+		} else if(statusCode === "N") {
 			statusColor = "#F8AC59"
-		else
-			statusColor = "black";
-		
+		} else {
+			statusColor = "black"
+		}
+
 		desktop.AddNotification({
 			icon: "history",
 			color: statusColor,
 			description: desktop.dbClaim.get("status")
 		});
-		
-		if(desktop.dbMember.get("is_vip")) 
+
+		if(desktop.dbMember.get("is_vip")) {
 			desktop.AddNotification({
 				icon: "user",
 				color: "royalblue",
 				description: "Member is VIP-"
-			});
+			})
+		}
 
-		if(desktop.dbMember.get("is_blacklisted")) 
+		if(desktop.dbMember.get("is_blacklisted")) {
 			desktop.AddNotification({
 				icon: "user",
 				color: "firebrick",
 				description: "Member is blacklisted"
-			});
-			
+			})
+		}
+
 		desktop.AddClaimInfo({
 			caption: "Member",
 			description: desktop.dbMember.get("member_name")
 		});
-		
+
 		desktop.AddClaimInfo({
 			caption: "Plan",
 			description: desktop.dbMember.get("plan_code")
 		});
-		
+
 		desktop.AddClaimInfo({
 			caption: "Product",
 			description: desktop.dbMember.get("product_name")
 		});
-		
+
 		desktop.AddClaimInfo({
 			caption: "Client",
 			description: desktop.dbMember.get("client_name")
@@ -168,12 +179,12 @@ MainPage.prototype.AddClaimInfo = function(params) {
 			// desktop.svg.draw(icon, params.icon, 20);
 			caption.html(params.caption)
 		}, "claim-info-caption");
-		
+
 		CreateElementEx("span", info, function(description) {
 			description.html(params.description)
 			// description.css("color", params.color)
 		}, "claim-info-description");
-		
+
 	}, "claim-info");
 };
 
@@ -184,11 +195,81 @@ MainPage.prototype.AddNotification = function(params) {
 			icon.css("background", params.color);
 			desktop.svg.draw(icon, params.icon, 20);
 		}, "nofification-info-icon");
-		
+
 		CreateElementEx("span", info, function(description) {
-			description.html(params.description)
-			description.css("color", params.color)
+			description.html(params.description);
+			description.css("color", params.color);
 		}, "nofification-info-label");
-		
+
 	}, "nofification-info");
 };
+
+MainPage.prototype.ValidateActionEx = function(params) {
+	desktop.Ajax(
+		this, 
+		"/app/command/validate-action", 
+		{
+			id: params.id,
+			key_id: params.key_id,
+			string_value: params.string_value
+		}, 
+		function(result) {
+			var message = result.message.replaceAll("\r", "<br>");
+			
+			if (result.status == 1) {
+				ErrorDialog({
+					target: params.e,
+					title: params.title,
+					message: message
+				});
+			} else if (result.status == 2) {
+				InfoDialog({
+				// ErrorDialog({
+					target: params.e,
+					title: defaultValue(result.action_name, "Information"),
+					message: message
+				});
+				// Form.DlgInfo(ActionName, ErrorMessage, [0]);
+			} else {
+				params.callback(result);
+			}
+		}
+	)
+};
+
+MainPage.prototype.CanDeleteClaim = function(params) {
+	desktop.Ajax(
+		this, 
+		"/app/command/can-delete-claim", 
+		{
+			id: params.id,
+			change_plan: params.change_plan
+		}, 
+		function(result) {
+			params.callback(result);
+		}
+	)
+};
+
+// MainPage.prototype.UpdateClaimData = function(params) {
+	// desktop.Ajax(
+		// this, 
+		// "/app/get/update/claim-details", 
+		// {
+			// id: params.id,
+			// mode: "edit",
+			// data: "["+ JSON.stringify(params.data) +"]"
+		// }, 
+		// function(result) {
+			// if (result.status == 0) {
+				// location.reload();
+			// } else {
+				// ErrorDialog({
+					// target: column.element,
+					// title: "Error: " + params.title,
+					// message: result.message
+				// });
+			// }
+		// }
+	// )
+// };

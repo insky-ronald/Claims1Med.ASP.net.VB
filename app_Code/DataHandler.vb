@@ -188,6 +188,7 @@ Namespace DataHandler
 			End if
 			
 			Output.AsJson("table_count") = DataSet.Tables.Count
+			' Output.AsJson("table_count1") = DataSet.Tables.Count
 
 			Dim I As Integer = 0
 			For Each DataTable In DataSet.Tables
@@ -568,11 +569,17 @@ Namespace DataHandler
 			Using DBReport = DBConnections("DBReporting").OpenData("GetReport", {"id","visit_id"}, {SavedReport,Session("VisitorID")}, "")
 				Using QueryData = JsonToDatatable(DBReport.Eval("@query"))
 					QueryData.Rows(0).Item("loaded") = 1
-					Output.AsJson("data_1") = "[]"
-					Output.AsJson("data_2") = DataTableToJson(QueryData)
+					If Output.AsInteger("table_count") = 1
+						Output.AsJson("data_1") = "[]"
+						Output.AsJson("data_2") = DataTableToJson(QueryData)
+						Output.AsInteger("table_count") = Output.AsInteger("table_count") + 2
+					Else
+						Output.AsJson("data_2") = DataTableToJson(QueryData)
+						Output.AsInteger("table_count") = Output.AsInteger("table_count") + 1
+					End if
 				End Using
 				
-				Output.AsInteger("table_count") = Output.AsInteger("table_count") + 2
+				' Output.AsInteger("table_count") = Output.AsInteger("table_count") + 2
 			End Using
 		End Sub
 	End Class

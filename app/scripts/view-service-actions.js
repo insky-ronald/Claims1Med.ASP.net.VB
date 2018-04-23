@@ -24,6 +24,7 @@ function ServiceActionsView(viewParams){
 				grid.options.showBand = false;
 				grid.options.showSummary = false;
 				grid.options.showPager = false;
+				// grid.options.showPager = true;
 				// grid.options.hideHeader = true;
 				
 				grid.search.visible = false;
@@ -41,14 +42,15 @@ function ServiceActionsView(viewParams){
 						.setprops("id", {label:"ID", numeric:true, key: true})
 						.setprops("is_done", {label:"", 
 							getText: function(column, value) {
-								if(value === "D")
+								if(value === "D") {
 									return "Closed"
-								else if(value === "X")
+								} else if(value === "X") {
 									return "Canceled"
-								else if(value === "N")
+								} else if(value === "N") {
 									return "Open"
-								else 
+								} else  {
 									return value
+								}
 							}
 						})
 						.setprops("action_type", {label:"Class", 
@@ -70,7 +72,7 @@ function ServiceActionsView(viewParams){
 					// row.attr("service-status", grid.dataset.get("status_code").toLowerCase())
 				// });	
 				
-				if(grid.options.viewType === "cardview")
+				if(grid.options.viewType === "cardview") {
 					grid.Events.OnInitColumns.add(function(grid) {
 						grid.NewColumn({fname: "action", width: 100, allowSort: true, fixedWidth:true});
 						grid.NewColumn({fname: "action_type", width: 100, allowSort: true, fixedWidth:true});
@@ -79,7 +81,7 @@ function ServiceActionsView(viewParams){
 						grid.NewColumn({fname: "completion_date", width: 125, allowSort: true});
 						grid.NewColumn({fname: "completion_user", width: 125, allowSort: true});
 					})
-				else
+				} else {
 					grid.Events.OnInitColumns.add(function(grid) {
 						grid.NewColumn({fname: "action_type", width: 200, allowSort: true, fixedWidth:true});
 						grid.NewColumn({fname: "action", width: 200, allowSort: true, fixedWidth:true});
@@ -89,73 +91,77 @@ function ServiceActionsView(viewParams){
 						// grid.NewColumn({fname: "completion_date", width: 125, allowSort: true});
 						// grid.NewColumn({fname: "completion_user", width: 125, allowSort: true});
 					})
+				}
 				
 				grid.Events.OnInitCard.add(function(grid, card) {
 					grid.dataset.gotoKey(parseInt(card.attr("row-id")));
 					card.attr("x-status", grid.dataset.raw("is_done"));
 					
 					CreateElementEx("div", card, function(container) {						
-						CreateElement("div", container).addClass("status").html(grid.dataset.text("is_done"))
+						CreateElement("div", container).addClass("status").html(grid.dataset.text("is_done"));
 						CreateElementEx("div", container, function(container) {
-							CreateElement("span", container).addClass("type").html(grid.dataset.text("action_type"))
-							CreateElement("span", container).addClass("sub-type").html(grid.dataset.text("action"))
+							CreateElement("span", container).addClass("type").html(grid.dataset.text("action_type"));
+							CreateElement("span", container).addClass("sub-type").html(grid.dataset.text("action"));
 						}, "task")
 					}, "action-section action");
 						
-					if(grid.dataset.text("notes"))
+					if(grid.dataset.text("notes")) {
 						CreateElementEx("pre", card, function(container) {
-							container.html(grid.dataset.text("notes")
+							container.html(grid.dataset.text("notes"))
 						}, "action-section action-notes")
+					}
 					
 					CreateElementEx("div", card, function(container) {
 						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Owner")
-							CreateElement("div", container).html(grid.dataset.text("action_owner_name"))
+							CreateElement("div", container).html("Owner");
+							CreateElement("div", container).html(grid.dataset.text("action_owner_name"));
 						}, "user");
 						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Due Date")
-							CreateElement("div", container).html(grid.dataset.formatDateTime("due_date", "MMMM d, yyyy"))
+							CreateElement("div", container).html("Due Date");
+							CreateElement("div", container).html(grid.dataset.formatDateTime("due_date", "MMMM d, yyyy"));
 						}, "user");
 						
 					}, "action-section other");
 					
 					CreateElementEx("div", card, function(container) {
 						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Created by")
-							CreateElement("div", container).html(grid.dataset.text("create_user_name"))
+							CreateElement("div", container).html("Created by");
+							CreateElement("div", container).html(grid.dataset.text("create_user_name"));
 						}, "user");
 						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Created on")
-							CreateElement("div", container).html(grid.dataset.formatDateTime("create_date", "MMMM d, yyyy"))
+							CreateElement("div", container).html("Created on");
+							CreateElement("div", container).html(grid.dataset.formatDateTime("create_date", "MMMM d, yyyy"));
 						}, "user");
 					}, "action-section other");
 
-					if(grid.dataset.raw("is_done") === "D")
+					if(grid.dataset.raw("is_done") === "D") {
 						CreateElementEx("div", card, function(container) {
 							// CreateElement("div", container).addClass("close-user").html(grid.dataset.text("complete_user_name"))
 							CreateElementEx("div", container, function(container) {
-								CreateElement("div", container).html("Closed by")
-								CreateElement("div", container).html(grid.dataset.text("complete_user_name"))
+								CreateElement("div", container).html("Closed by");
+								CreateElement("div", container).html(grid.dataset.text("complete_user_name"));
 							}, "user");
 							CreateElementEx("div", container, function(container) {
-								CreateElement("div", container).html("Closed on")
-								CreateElement("div", container).html(grid.dataset.formatDateTime("completion_date", "MMMM d, yyyy"))
+								CreateElement("div", container).html("Closed on");
+								CreateElement("div", container).html(grid.dataset.formatDateTime("completion_date", "MMMM d, yyyy"));
 							}, "user");
 						}, "action-section other close");
+					}
 
-					if(grid.dataset.raw("is_done") === "X")
+					if(grid.dataset.raw("is_done") === "X") {
 						CreateElementEx("div", card, function(container) {
 							// CreateElement("div", container).addClass("cancel-user").html(grid.dataset.text("update_user_name"))
 							CreateElementEx("div", container, function(container) {
-								CreateElement("div", container).html("Canceled by")
-								CreateElement("div", container).html(grid.dataset.text("update_user_name"))
+								CreateElement("div", container).html("Canceled by");
+								CreateElement("div", container).html(grid.dataset.text("update_user_name"));
 							}, "user");
 							CreateElementEx("div", container, function(container) {
-								CreateElement("div", container).html("Canceled on")
-								CreateElement("div", container).html(grid.dataset.formatDateTime("update_date", "MMMM d, yyyy"))
+								CreateElement("div", container).html("Canceled on");
+								CreateElement("div", container).html(grid.dataset.formatDateTime("update_date", "MMMM d, yyyy"));
 							}, "user");
 							// CreateElement("div", container).addClass("cancel-date").html(grid.dataset.formatDateTime("update_date", "MMMM d, yyyy"))
 						}, "action-section other cancel");
+					}
 				});
 				
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {

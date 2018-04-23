@@ -12,13 +12,20 @@ function CreateTestContainer(parent, noScroll) {
 			CreateElement("div", container).html(i);
 		};
 	}, "test-scroll-content");
-	if(!noScroll)
+	
+	if(!noScroll) {
 		new jScroller({
 			target: parent
 		})
+	}
+		
+	// console.log("here")
 };
 
 function CreateTestPageControl(parent) {
+	// var test = new TClass();
+	// console.log(test);
+	
 	new jPageControl({
 		paintParams: {
 			css: "default",
@@ -137,7 +144,7 @@ function TestScrollerView(viewParams) {
 							CreateTestPageControl(container);
 						});
 					}
-				});
+				}));
 			});
 			
 			splitter.events.OnPaintPane2.add(function(splitter, container) {
@@ -160,10 +167,10 @@ function TestScrollerView(viewParams) {
 							CreateTestPageControl(container);
 						});
 					}
-				});
+				}));
 			});
 		}
-	});
+	}));
 };
 
 function TestScrollerView2(viewParams) {	
@@ -198,7 +205,7 @@ function TestScrollerView2(viewParams) {
 							// CreateTestContainer(container);
 						});
 					}
-				});
+				}));
 			});
 			
 			splitter.events.OnPaintPane2.add(function(splitter, container) {
@@ -221,8 +228,8 @@ function TestScrollerView2(viewParams) {
 							CreateTestContainer(container);
 						});
 					}
-				});
-			});
+				}))
+			})
 		}
-	});
+	}))
 };

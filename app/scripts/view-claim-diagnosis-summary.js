@@ -47,21 +47,22 @@ function ClaimDiagnosisSummaryView(params) {
 				});	
 				
 				grid.Events.OnInitCard.add(function(grid, card) {
-					grid.dataset.gotoKey(parseInt(card.attr("row-id")))
+					grid.dataset.gotoKey(parseInt(card.attr("row-id")));
+					card.attr("x-parent", grid.dataset.get("main"));
 					
-					card.attr("x-parent", grid.dataset.get("main"))
-					if(grid.dataset.get("main"))
+					if(grid.dataset.get("main")) {
 						card.addClass("parent")
-					else
+					} else {
 						card.addClass("child")
+					}
 					
 					CreateElement("div", card)
 						.addClass("code")
-						.html(grid.dataset.get("diagnosis_code"))
+						.html(grid.dataset.get("diagnosis_code"));
 					
 					CreateElement("div", card)
 						.addClass("name")
-						.html(grid.dataset.get("diagnosis"))
+						.html(grid.dataset.get("diagnosis"));
 						
 					// card.html(grid.dataset.get("diagnosis_code"))
 				});

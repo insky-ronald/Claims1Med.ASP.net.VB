@@ -120,7 +120,7 @@ function ClaimDocumentsOutView(params){
 							
 							CreateElement("span", eTitle)
 								.attr("status-sec", "sub-status-name")
-								.html(grid.dataset.get("document_name"))
+								.html(grid.dataset.get("document_name"));
 								
 							// CreateElement("span", eTitle)
 								// .attr("status-sec", "status-name")
@@ -130,15 +130,15 @@ function ClaimDocumentsOutView(params){
 							// CreateElement("span", aAudit).attr("status-item", "user").html(grid.dataset.get("recipient"))
 							
 						// if(action == "F")
-						var aRecipient = CreateElement("div", eContent).attr("status-sec", "audit")
-							CreateElement("div", aRecipient).attr("status-item", "recipient").html(grid.dataset.get("recipient"))
-							CreateElement("div", aRecipient).attr("status-item", "phone").html(grid.dataset.get("phone_no"))
-							CreateElement("div", aRecipient).attr("status-item", "email").html(grid.dataset.get("email"))
+						var aRecipient = CreateElement("div", eContent).attr("status-sec", "audit");
+							CreateElement("div", aRecipient).attr("status-item", "recipient").html(grid.dataset.get("recipient"));
+							CreateElement("div", aRecipient).attr("status-item", "phone").html(grid.dataset.get("phone_no"));
+							CreateElement("div", aRecipient).attr("status-item", "email").html(grid.dataset.get("email"));
 							// CreateElement("span", aRecipient).attr("status-item", "date").html(grid.dataset.text("create_date"))
 							
-						var aAudit = CreateElement("div", eContent).attr("status-sec", "audit")
-							CreateElement("span", aAudit).attr("status-item", "user").html(grid.dataset.get("create_user"))
-							CreateElement("span", aAudit).attr("status-item", "date").html(grid.dataset.text("create_date"))
+						var aAudit = CreateElement("div", eContent).attr("status-sec", "audit");
+							CreateElement("span", aAudit).attr("status-item", "user").html(grid.dataset.get("create_user"));
+							CreateElement("span", aAudit).attr("status-item", "date").html(grid.dataset.text("create_date"));
 				});
 				
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {

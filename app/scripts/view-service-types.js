@@ -21,7 +21,7 @@ function ServiceTypesView(params){
 		},
 		init: function(grid, callback) {			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/service-types?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/service-types";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
@@ -32,7 +32,7 @@ function ServiceTypesView(params){
 				
 				grid.exportData.allow = true;
 				grid.exportData.name = "Service Types";
-				grid.exportData.source = "DBMedics.GetInvoiceTypes";
+				grid.exportData.source = "DBApp.GetInvoiceTypes";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -66,5 +66,5 @@ function ServiceTypesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };

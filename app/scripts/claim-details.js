@@ -10,6 +10,7 @@ function ClaimDetailsView(params) {
 	
 	params.container.addClass("claim-details");
 	params.dataset = desktop.dbClaim;
+	// console.log(desktop);
 	
 	return new CustomEditView(params, function(view) { // CustomEditView: refer to engine/edit-custom-view.js
 		view.Events.OnRefresh.add(function(view, data) {
@@ -19,7 +20,6 @@ function ClaimDetailsView(params) {
 		view.Events.OnInitContent.add(function(view, container) {
 			new jSplitContainer($.extend(params, {
 				paintParams: {
-					// css: "sp-claim",
 					theme: "white-green-dark"
 				},
 				container: container,
@@ -40,37 +40,29 @@ function ClaimDetailsView(params) {
 							},
 							container: container,
 							init: function(pg) {
-								// pg.addTab({caption:"Test",
-									// icon: {
-										// name: "user",
-										// color: "dodgerblue"
-									// },
-									// OnCreate: function(tab) {
-										// tab.container.addClass("test-scroll");
-										// CreateElement("div", tab.container).addClass("test-scroll-content");
-										// new jScroller({
-											// target:tab.container
-										// })
-									// }
-								// });
-								pg.addTab({caption:"Claim",
+								// pg.addTab({caption:desktop.dbClaim.get("claim_type_name") + " Claim",
+								pg.addTab({caption:desktop.dbClaim.get("claim_type_name"),
 									icon: {
 										name: "view-list",
 										color: "dodgerblue"
 									},
 									OnCreate: function(tab) {
+										// ClaimDetailsEdit(), refer to edit-claim-details.js
 										ClaimDetailsEdit({container: tab.container});
 									}
 								});
-								pg.addTab({caption:"Diagnosis",
-									icon: {
-										name: "pill",
-										color: "firebrick"
-									},
-									OnCreate: function(tab) {
-										ClaimDiagnosisSummaryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
-									}
-								});
+								
+								if(!desktop.customData.newRecord) {
+									pg.addTab({caption:"Diagnosis",
+										icon: {
+											name: "pill",
+											color: "firebrick"
+										},
+										OnCreate: function(tab) {
+											ClaimDiagnosisSummaryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
+										}
+									})
+								}
 							}
 						});
 					});
@@ -143,7 +135,7 @@ function ClaimDetailsView(params) {
 														init: function(pg) {
 															pg.addTab({caption:"Member's Policy Information",
 																icon: {
-																	name: "user",
+																	name: "info",
 																	color: "dodgerblue"
 																},
 																OnCreate: function(tab) {
@@ -169,25 +161,36 @@ function ClaimDetailsView(params) {
 																	color: "darkgoldenrod"
 																},
 																OnCreate: function(tab) {
+																	// MemberMedicalNotesEdit: refer to edit-member-medical-notes.js
 																	new MemberMedicalNotesEdit({container:tab.container, dataset:desktop.dbMedicalNotes})																	
 																}
 															});
 															pg.addTab({caption:"Address",
 																icon: {
-																	name: "view-list",
+																	name: "addresses",
 																	color: "forestgreen"
 																},
 																OnCreate: function(tab) {
-																	
+																	AddressesView({
+																		getMasterID: function() {
+																			return desktop.dbMember.get("name_id")
+																		},
+																		container: tab.container
+																	});
 																}
 															});
 															pg.addTab({caption:"Contacts",
 																icon: {
-																	name: "view-list",
+																	name: "contacts",
 																	color: "forestgreen"
 																},
 																OnCreate: function(tab) {
-																	
+																	ContactsView({
+																		getMasterID: function() {
+																			return desktop.dbMember.get("name_id")
+																		},
+																		container: tab.container
+																	});
 																}
 															});
 															// pg.addTab({caption:"This is a test",
@@ -224,65 +227,69 @@ function ClaimDetailsView(params) {
 										});
 									}
 								});
-								pg.addTab({caption:"Status History",
-									icon: {
-										name: "claim-status",
-										color: "firebrick"
-									},
-									OnCreate: function(tab) {
-										ClaimStatusHistoryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
-									}
-								});
-								// pg.addTab({caption:"Diagnosis Summary",
-									// icon: {
-										// name: "view-list",
-										// color: "forestgreen"
-									// },
-									// OnCreate: function(tab) {
-										
-									// }
-								// });
-								pg.addTab({caption:"Benefit Utilisation",
-									icon: {
-										name: "view-list",
-										color: "forestgreen"
-									},
-									OnCreate: function(tab) {
-										
-									}
-								});
-								pg.addTab({caption:"This is a test",
-									icon: {
-										name: "view-list",
-										color: "forestgreen"
-									},
-									OnCreate: function(tab) {
-										
-									}
-								});
-								pg.addTab({caption:"John Zapanta",
-									icon: {
-										name: "view-list",
-										color: "forestgreen"
-									},
-									OnCreate: function(tab) {
-										
-									}
-								});
-								pg.addTab({caption:"IBSI",
-									icon: {
-										name: "view-list",
-										color: "forestgreen"
-									},
-									OnCreate: function(tab) {
-										
-									}
-								});
+								
+								if(!desktop.customData.newRecord) {
+									pg.addTab({caption:"Status History",
+										icon: {
+											name: "claim-status",
+											color: "firebrick"
+										},
+										OnCreate: function(tab) {
+											ClaimStatusHistoryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
+										}
+									});
+									// pg.addTab({caption:"Diagnosis Summary",
+										// icon: {
+											// name: "view-list",
+											// color: "forestgreen"
+										// },
+										// OnCreate: function(tab) {
+											
+										// }
+									// });
+									pg.addTab({caption:"Benefit Utilisation",
+										icon: {
+											name: "view-list",
+											color: "forestgreen"
+										},
+										OnCreate: function(tab) {
+											
+										}
+									});
+									// pg.addTab({caption:"This is a test",
+										// icon: {
+											// name: "view-list",
+											// color: "forestgreen"
+										// },
+										// OnCreate: function(tab) {
+											
+										// }
+									// });
+									// pg.addTab({caption:"John Zapanta",
+										// icon: {
+											// name: "view-list",
+											// color: "forestgreen"
+										// },
+										// OnCreate: function(tab) {
+											
+										// }
+									// });
+									// pg.addTab({caption:"IBSI",
+										// icon: {
+											// name: "view-list",
+											// color: "forestgreen"
+										// },
+										// OnCreate: function(tab) {
+											
+										// }
+									// });
+								}
 							}
 						});
 					});
 				}
-			});
+			}));
+			
 			// var left = CreateElement("div", container).attr("x-sec", "content-left");
 				// ClaimDetailsEdit({
 					// claim_id: parseInt(params.requestParams.claim_id),
@@ -317,49 +324,5 @@ function ClaimDetailsView(params) {
 			
 			toolbar.SetVisible("delete", !desktop.dbClaim.editing);
 		});
-	});
-};
-
-function ClaimDetailsView2(params) {
-	// console.log(params)
-	params.container.addClass("claim-details");
-	var memberData = new Dataset(desktop.customData.member_data, "Member");
-	params.dataset = new Dataset(desktop.customData.data, "Claim");
-	desktop.dbCountries = desktop.LoadCacheData(desktop.customData.countries, "countries", "code");
-	desktop.dbUsers = desktop.LoadCacheData(desktop.customData.users, "users", "user_name");
-	desktop.dbClaimTypes = desktop.LoadCacheData([
-		{code:"MED", claim_type:"Medical"},
-		{code:"MEDW", claim_type:"Medical Claims Warranty"},
-		{code:"TRV", claim_type:"Travel"},
-	], "claimtypes", "code");
-	
-	// var claim_id = params.requestParams.claim_id;
-	// var member_id = params.requestParams.member_id;
-	
-	return new CustomEditView(params, function(view) { // CustomEditView: refer to engine/edit-custom-view.js
-		view.Events.OnRefresh.add(function(view, data) {
-			memberData.resetData(data.member_data, "", true);
-		});
-		
-		view.Events.OnInitContent.add(function(view, container) {
-			var left = CreateElement("div", container).attr("x-sec", "content-left");
-				// view.claim = ClaimDetailsEdit({
-				ClaimDetailsEdit({
-					claim_id: parseInt(params.requestParams.claim_id),
-					dataset: params.dataset,
-					container: left
-				})
-			
-			var right = CreateElement("div", container).attr("x-sec", "content-right");
-				// view.member = MemberInfoEdit({
-				MemberInfoEdit({
-					claim_id: parseInt(params.requestParams.claim_id),
-					dataset: memberData,
-					container: right
-				})
-		});
-		
-		// view.Events.OnInitToolbar.add(function(view, toolbar) {
-		// });
 	});
 };

@@ -22,16 +22,11 @@ function ClaimTypesLookup(viewParams){
 				grid.options.showPager = false;
 				
 				grid.search.visible = false;
-				// grid.search.mode = "simple";
-				// grid.search.columnName = "filter";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
-						// .addColumn("filter", "")
 						.addColumn("sort", "code")
 						.addColumn("order", "asc")
-						// .addColumn("module", viewParams.module)
-						// .addColumn("invoice_type_mode", viewParams.mode)
 				});
 				
 				grid.Events.OnInitData.add(function(grid, data) {

@@ -29,6 +29,12 @@
 ##template
 ##endtemplate=app\member-plan-history
 
+##template
+##endtemplate=app\addresses
+
+##template
+##endtemplate=app\contacts
+
 ##template	
 	theme=claim-details
 	font=10pt Arial

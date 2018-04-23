@@ -10,7 +10,7 @@ MainPage.prototype.AfterPaint = function() {
 	desktop.dbCountries = desktop.LoadCacheData(desktop.customData.countries, "countries", "code");
 	// desktop.dbCurrencies = desktop.LoadCacheData(desktop.customData.currencies, "currencies", "code");
 	
-	desktop.dbService = new Dataset(desktop.customData.data)
+	desktop.dbService = new Dataset(desktop.customData.data);
 	desktop.dbService.Columns
 		.setprops("id", {label:"ID", numeric:true, key: true, readonly:true})
 		.setprops("service_no", {label:"Reference No.", readonly:true})
@@ -26,7 +26,7 @@ MainPage.prototype.AfterPaint = function() {
 		.setprops("claim_currency_to_eligibility", {label:("To Eligibility Currrency (<b>{0}</b>)").format(desktop.dbService.get("eligibility_currency_code")), numeric:true, readonly:true})
 		.setprops("discount_type", {label:"Discount Type", numeric:true, type:"money", format:"00"})
 		.setprops("discount_percent", {label:"Percent %", numeric:true, type:"money", format:"00"})
-		.setprops("discount_amount", {label:"Amount", numeric:true})
+		.setprops("discount_amount", {label:"Amount", numeric:true});
 		
 	if(desktop.customData.service_id) {
 		desktop.dbService.Columns
@@ -42,10 +42,10 @@ MainPage.prototype.AfterPaint = function() {
 				}})
 	};
 
-	desktop.dbServiceSubType = new Dataset(desktop.customData.sub_type_data)
+	desktop.dbServiceSubType = new Dataset(desktop.customData.sub_type_data);
 	desktop.dbServiceSubType.Columns
 		.setprops("id", {label:"ID", numeric:true, key: true, readonly:true})
-		.setprops("service_name", {label:"Type", readonly:true})
+		.setprops("service_name", {label:"Type", readonly:true});
 		
 	InitializeData(desktop.dbService, desktop.dbServiceSubType);
 };

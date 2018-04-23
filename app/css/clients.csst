@@ -1,23 +1,13 @@
-##const
-	sub-name=default
-	container-padding=0
-	container-border-size=0
-	container-border-style=none
-	container-border-color=none
-	/*header-height=49px*/
-	/*footer-height=0px*/
-##endconst
+##template	
+	theme=clients-sub-view
+	font=11pt Arial
+	// header-background=white
+	// tab-active-font-size=130%
+	// tab-active-border-color=dimgray
+	// tab-active-background-color=white
+	// tab-normal-border-color=silver
+	// tab-normal-background-color=whitesmoke
+##endtemplate=engine\pg-theme-2
 
 ##template
-	sub-name=@
-	container-padding=@
-	container-border-size=@
-	container-border-style=@
-	container-border-color=@
-	/*header-height=@*/
-	/*footer-height=@*/
-##endtemplate=app\sub-page-normal
-
-.grid-[sub-name] tbody tr[x-pa="true"] {
-	color: blue;
-}
+##endtemplate=app\clients

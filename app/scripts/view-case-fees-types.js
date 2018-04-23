@@ -28,7 +28,7 @@ function CaseFeesTypesView(params){
 			});
 			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/case-fees-types?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/case-fees-types?";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
@@ -39,7 +39,7 @@ function CaseFeesTypesView(params){
 				
 				grid.exportData.allow = true;
 				grid.exportData.name = "Case Fees Types";
-				grid.exportData.source = "DBMedics.GetCaseFeeTypes";
+				grid.exportData.source = "DBApp.GetCaseFeeTypes";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -68,5 +68,5 @@ function CaseFeesTypesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };

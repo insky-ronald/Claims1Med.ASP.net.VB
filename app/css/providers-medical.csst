@@ -1,0 +1,19 @@
+##template	
+	theme=provider-sub-view
+	font=11pt Arial
+	// header-background=white
+	// tab-active-font-size=130%
+	// tab-active-border-color=dimgray
+	// tab-active-background-color=white
+	// tab-normal-border-color=silver
+	// tab-normal-background-color=whitesmoke
+##endtemplate=engine\pg-theme-2
+
+##template
+##endtemplate=app\providers-medical
+
+##template
+##endtemplate=app\addresses
+
+##template
+##endtemplate=app\contacts

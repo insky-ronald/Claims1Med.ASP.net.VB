@@ -18,7 +18,7 @@ function MemberCaseHistoryView(params) {
 				grid.options.horzScroll = true;
 				grid.options.allowSort = false;
 				grid.options.showPager = false;
-				// grid.options.showMasterDetail = true;
+				grid.options.showBand = false;
 				grid.options.editNewPage = true;
 				
 				grid.search.visible = false;
@@ -63,13 +63,14 @@ function MemberCaseHistoryView(params) {
 					} else if(params.column.linkField === "service_id") {
 						return __service(params.id, grid.dataset.get("service_type").toLowerCase(), true)
 					}
-				})
+				});
 				
 				grid.methods.add("editPageUrl", function(grid, id) {
 					return __service(id, grid.dataset.get("service_type").toLowerCase(), true)
-				})
+				});
 				
 				grid.Events.OnInitColumns.add(function(grid) {
+					// grid.NewBand({caption:"Document"}, function(band) {
 					grid.NewColumn({fname: "claim_no", width: 100, fixedWidth:true, allowSort: true, linkField:"claim_id"});
 					grid.NewColumn({fname: "service_type", width: 50, fixedWidth:true});
 					grid.NewColumn({fname: "service_no", width: 150, fixedWidth:true, linkField:"service_id"});
@@ -84,7 +85,8 @@ function MemberCaseHistoryView(params) {
 					grid.NewColumn({fname: "declined_amount", width: 100, fixedWidth:true});
 					grid.NewColumn({fname: "deductible_amount", width: 100, fixedWidth:true});
 					grid.NewColumn({fname: "service_name", width: 250, fixedWidth:true});
-					grid.NewBand({caption: "Test", fixed:"right"} , function(band) {
+					
+					grid.NewBand({caption: "Tags", fixed:"right"} , function(band) {
 						band.NewColumn({fname: "diagnosis_list", width: 200, fixedWidth:true,
 							drawContent: function(cell) {
 								cell.addClass("diagnosis");
@@ -97,6 +99,7 @@ function MemberCaseHistoryView(params) {
 								})
 							}
 						});
+						
 						band.NewColumn({fname: "procedure_list", width: 200, fixedWidth:true,
 							drawContent: function(cell) {
 								cell.addClass("procedure");

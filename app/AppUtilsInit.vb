@@ -1,6 +1,6 @@
 REM http://medics5.insky-inc.com/api/tools/appinit
 
-Settings.SetValue("ApplicationID", "5002")
+Settings.SetValue("ApplicationID", 5002)
 Settings.SetValue("EngineVersion", "5.0")
 Settings.SetValue("EncryptionPassKey", "john@insky-inc.com")
 Settings.SetValue("EncryptionSaltValue", "ibsi")

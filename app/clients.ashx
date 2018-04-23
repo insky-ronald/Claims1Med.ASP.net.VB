@@ -4,15 +4,15 @@ Public Class DataProvider
 	Inherits DataHandler.SubDataHandler
 	
 	Protected Overrides Function ListDataSource As String
-		Return "DBClaims.GetClients"
+		Return "DBMedics.GetClients"
 	End Function
 	
-	Protected Overrides Function ReadDataSource As String
-		Return "DBClaims.GetClient"
-	End Function
+	' Protected Overrides Function ReadDataSource As String
+		' Return "DBClaims.GetClient"
+	' End Function
 
 	Protected Overrides Function UpdateDataSource As String
-		Return "DBClaims.AddClient"
+		Return "DBMedics.AddClient"
 	End Function
 		
 	Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))
@@ -20,23 +20,23 @@ Public Class DataProvider
 		If Cmd = "list"
 			DataParams.Add("visit_id")
 			DataValues.Add(Session("VisitorID"))
-		Else If Cmd = "edit"
-			DataParams.Add("id")
-			DataParams.Add("visit_id")
-			DataValues.Add(Request.Params("id"))
-			DataValues.Add(Session("VisitorID"))
-		Else If Cmd = "new"
-			DataParams.Add("visit_id")
-			DataValues.Add(Session("VisitorID"))
+		' Else If Cmd = "edit"
+			' DataParams.Add("id")
+			' DataParams.Add("visit_id")
+			' DataValues.Add(Request.Params("id"))
+			' DataValues.Add(Session("VisitorID"))
+		' Else If Cmd = "new"
+			' DataParams.Add("visit_id")
+			' DataValues.Add(Session("VisitorID"))
 		End if
 	End Sub
 		
-	Protected Overrides Sub NewRecord(Row As System.Data.DataRow)
-		MyBase.NewRecord(Row)
-		Row.Item("pa_id") = 0
-		Row.Item("country") = ""
-		Row.Item("currency") = ""
-	End Sub		
+	' Protected Overrides Sub NewRecord(Row As System.Data.DataRow)
+		' MyBase.NewRecord(Row)
+		' Row.Item("pa_id") = 0
+		' Row.Item("country") = ""
+		' Row.Item("currency") = ""
+	' End Sub		
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)

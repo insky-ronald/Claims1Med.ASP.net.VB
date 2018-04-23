@@ -2,11 +2,16 @@
 /* Last modified on */
 /* 07-MAR-2017 */
 /*****************************************************************************************************/
-.grid-addresses tbody tr[x-status="0"] {
+.grid3.addresses .data-cell.command-cell[command="default"] svg,
+.grid3.addresses .header-cell.command-cell[command="default"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.addresses tbody tr[x-status="0"] {
 	/* color: firebrick; */
 }
 
-.grid-addresses tbody tr[x-status="1"] {
+.grid3.addresses tbody tr[x-status="1"] {
 	color: #1148c7;
 	/*color: #2C80B3;*/
 	/*color: #27AE60;*/

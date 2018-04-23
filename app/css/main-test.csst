@@ -1,0 +1,40 @@
+##includetemplate
+	desktop-width=100%
+	desktop-header-height=56px
+	desktop-footer-height=0px
+	navigator-width=250px
+##endinclude=app\claim1med-2
+
+##template
+##endtemplate=app\main-claim
+
+##template
+##endtemplate=app\claim-services
+
+##template
+##endtemplate=app\claim-details
+
+##template
+##endtemplate=app\claim-diagnosis-summary
+
+##template
+##endtemplate=app\claim-status-history
+
+##template
+##endtemplate=app\member-medical-notes
+
+##template
+##endtemplate=app\member-plan-history
+
+##template	
+	theme=claim-details
+	font=10pt Arial
+	tab-active-font-color=black
+	tab-active-font-weight=normal
+	tab-normal-font-color=dimgray
+	tab-padding=8px 5px 8px 4px
+	tab-icon-indent=2px
+##endtemplate=engine\pg-theme-2
+
+##template
+##endtemplate=engine\scroller

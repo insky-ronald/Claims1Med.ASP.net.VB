@@ -1,0 +1,30 @@
+.grid3.plan-history .data-cell.command-cell[command="master-detail"] svg,
+.grid3.plan-history .header-cell.command-cell[command="master-detail"] svg {
+	fill: orange !important;
+}
+
+.grid3.plan-history .data-cell.command-cell[command="override1"] svg,
+.grid3.plan-history .header-cell.command-cell[command="override1"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.plan-history .data-cell.command-cell[command="override2"] svg,
+.grid3.plan-history .header-cell.command-cell[command="override2"] svg {
+	fill: dodgerblue !important;
+}
+
+.grid3.plan-history .master-detail-container {
+	font: 10pt Consolas;
+	background: lightyellow;
+	padding: 6px;
+	width: 100% !important;
+	border: 2px solid orange;
+	tab-size: 8;
+	overflow: auto;
+	margin: 0;
+    box-sizing: border-box;
+}
+
+.grid3.plan-history .master-detail-container pre {
+	margin: 0;
+}
