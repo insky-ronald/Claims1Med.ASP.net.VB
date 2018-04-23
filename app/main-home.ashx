@@ -128,6 +128,7 @@ Public Class DataProvider
 				.Action = "admin"				
 				.Title = "Medical"
 				.Icon = "hospital"
+				.URL = "app/medical-providers"
 			End with
 
 			With Main.SubItems.Add
@@ -135,6 +136,7 @@ Public Class DataProvider
 				.Action = "admin"				
 				.Title = "Travel"
 				.Icon = "airplane"
+				.URL = "app/travel-providers"
 			End with
 		
 		Main = MenuItems.AddMain("system", "System")

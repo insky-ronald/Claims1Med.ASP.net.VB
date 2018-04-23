@@ -246,6 +246,7 @@ MasterPolicies.showPager	masterpolicies (backup).js	27;"	method
 MasterPolicies.showSummary	masterpolicies (backup).js	28;"	method
 MasterPolicies.showToolbar	masterpolicies (backup).js	25;"	method
 MasterPolicyEdit	edit-masterpolicy.js	8;"	function
+MedicalProvidersView	medical-providers.js	8;"	function
 MemberCaseHistoryView	view-member-case-history.js	8;"	function
 MemberClaimsView	view-member-claims.js	8;"	function
 MemberEdit	edit-member.js	8;"	function
@@ -340,6 +341,7 @@ SubPageTabs.parent	sub-page-tabs.js	10;"	method
 SubPageTabs.showFooter	sub-page-tabs.js	15;"	method
 SubPageTabs.showHeader	sub-page-tabs.js	14;"	method
 TaskManagerView	view-task-manager.js	1;"	function
+TravelProvidersView	travel-providers.js	8;"	function
 UnderConstruction	under-construction.js	13;"	class
 UnderConstruction	under-construction.js	13;"	function
 UnderConstruction.AfterPaint	under-construction.js	50;"	method
