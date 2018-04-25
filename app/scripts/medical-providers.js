@@ -22,7 +22,7 @@ function MedicalProvidersView(viewParams){
 					color: "forestgreen"
 				},
 				OnCreate: function(tab) {
-					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
+					ProvidersView({container:tab.container, requestParams:$.extend(params.requestParams, {providerType:"H"})})	
 				}
 			});
 			pg.addTab({caption:"Clinics",

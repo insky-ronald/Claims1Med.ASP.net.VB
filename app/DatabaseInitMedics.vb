@@ -496,8 +496,26 @@ With DBConnection.NewCommand("GetProviderDiscount", "GetProviderDiscount", Comma
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
 
-' --------------------System Tables------------------------------
+'-------------------------------------------------------------------'
+'PROVIDERS 2
+'-------------------------------------------------------------------'
+With DBConnection.NewCommand("GetProviders", "GetProviders2", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+	.AddParameter("type", SqlDbType.varchar, ParameterDirection.Input, 5, "")
+	.AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+	.AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 50)
+	.AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+	.AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+End With 
+'--------------------------------------------------------------------------------------'
 
+
+' --------------------System Tables------------------------------
 With DBConnection.NewCommand("GetClients", "GetClients", CommandType.StoredProcedure)
     .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)

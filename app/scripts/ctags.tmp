@@ -282,6 +282,8 @@ ProductView	x product.js	8;"	function
 ProductView2	x product.js	108;"	function
 ProductsView	view-products.js	8;"	function
 ProviderDiscountEdit	edit-provider-discount.js	6;"	function
+ProvidersList	view-providers.js	89;"	function
+ProvidersView	view-providers.js	8;"	function
 RecoveryTypesEdit	edit-recovery-types.js	8;"	function
 ServiceActionsView	x-view-service-actions.js	9;"	function
 ServiceBreakdownContainer	view-service-breakdown.js	10;"	function
