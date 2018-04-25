@@ -1,4 +1,8 @@
 .grid-tasks  table[grid-sec="headers"] th[colspan] {
 	text-align: center !important;
 	font-size: 110%;
+	mobile: [@mobile];
+	browser: [@browser];
+	version: [@version];
+	ver: [@ver];
 }

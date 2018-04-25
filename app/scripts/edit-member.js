@@ -33,7 +33,7 @@ function MemberEdit(params){
 									getText: function(column, value) {
 										return column.lookupDataset.lookup(value, "country");
 									}
-								)
+								})
 								.setprops("nationality_code", {label:"Nationality"})
 
 								.setprops("policy_no", {label:"Policy No.", readonly:true, readonly:true})

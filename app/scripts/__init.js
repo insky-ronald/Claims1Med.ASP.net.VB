@@ -9,10 +9,11 @@
 // Miscellansous functions
 //==================================================================================================
 function __open(url, get) {
-	if(get)
+	if(get) {
 		return url
-	else
+	} else {
 		window.open(url, "");
+	}
 };
 
 function __client(id, get) {
@@ -38,7 +39,15 @@ function __member(id, get) {
 function __service(id, module, get) {
 	// return __open(("/app/service/{1}?type={0}").format(module.toLowerCase(), id), get);
 	// return __open(("/app/service/{1}/{0}").format(module.toLowerCase(), id), get);
-	return __open(("/app/service/{0}/{1}").format(module.toLowerCase(), id), get);
+	// return __open(("/app/service/{0}/{1}").format(module.toLowerCase(), id), get);
+	// return __open(("/app/service/{0}/{1}").format(module, id), get);
+	return __open(("/app/{0}/{1}").format(module.toLowerCase(), id), get);
+};
+
+function __newservice(id, module, type, get) {
+	// return __open(("/app/service/new/{0}/{1}/{2}").format(module.toLowerCase(), type.trim().toLowerCase(), id), get);
+	// return __open(("/app/service/new/{0}/{1}/{2}").format(module, type.trim(), id), get);
+	return __open(("/app/{0}/new/{1}/{2}").format(module.toLowerCase(), type.trim(), id), get);
 };
 
 function __invoice(id, get) {
@@ -82,7 +91,7 @@ function MainPage(Params) {
 
 MainPage.prototype.classID = "MainPage";
 // MainPage.prototype.navigatorTheme = "light";
-MainPage.prototype.navigatorTheme = "dark"; 
+MainPage.prototype.navigatorTheme = "dark";
 MainPage.prototype.themes = {
 	gridEditor: "default",
 	formEditor: "main",
@@ -90,12 +99,12 @@ MainPage.prototype.themes = {
 };
 
 MainPage.prototype.DefaultPainter = function() {
-	return new DesktopPainter5(this);
-}
+	return new DesktopPainter5(this)
+};
 
 MainPage.prototype.InitializeSession = function(data) {
 	MainPage.prototype.parent.prototype.InitializeSession.call(this, data);
-	
+
 	this.Events.OnHeaderToolbar.add(function(desktop, list) {
 		if(list.classID === "JToolbar") {
 			list.NewItem({
@@ -118,15 +127,15 @@ MainPage.prototype.InitializeSession = function(data) {
 			CreateElementEx("li", list, function(home) {
 				home.attr("control-type", "tool-btn")
 					.css("float", "right");
-					
+
 				desktop.GetSvg(home, "phone", 32, {noTopMargin: true})
 					// .css("fill", "firebrick");
 					.css("fill", "white");
-					
+
 				// desktop.GetSvg(home, "new", 16, {noTopMargin: true})
 					// .css("fill", "firebrick");
 					// .css("fill", "red");
-					
+
 				desktop.SetHint(home, function(dialog, container) {
 					container.html("New Call Log");
 				}, "bottom");
@@ -135,26 +144,26 @@ MainPage.prototype.InitializeSession = function(data) {
 			});
 		};
 	});
-	
+
 	this.Events.OnSideMenuPageControl.add(function(desktop, pg) {
 		pg.addTab({caption:"Call Logs",
 			icon: {
-				name: "phone"						
+				name: "phone"
 			},
 			OnCreate: function(tab) {
-				
+
 			}
 		});
 		pg.addTab({caption:"Tasks",
 			icon: {
-				name: "timetable"						
+				name: "timetable"
 			},
 			OnCreate: function(tab) {
-				
+
 			}
 		});
 	});
-	
+
 	this.RegisterSvg("ungroup", 24, '<path d="M2,2H6V3H13V2H17V6H16V9H18V8H22V12H21V18H22V22H18V21H12V22H8V18H9V16H6V17H2V13H3V6H2V2M18,12V11H16V13H17V17H13V16H11V18H12V19H18V18H19V12H18M13,6V5H6V6H5V13H6V14H9V12H8V8H12V9H14V6H13M12,12H11V14H13V13H14V11H12V12Z" />');
 	this.RegisterSvg("checkbox-marked-circle-outline", 24, '<path d="M20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4C12.76,4 13.5,4.11 14.2,4.31L15.77,2.74C14.61,2.26 13.34,2 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z" />');
 	this.RegisterSvg("pinterest-box", 24, '<path d="M13,16.2C12.2,16.2 11.43,15.86 10.88,15.28L9.93,18.5L9.86,18.69L9.83,18.67C9.64,19 9.29,19.2 8.9,19.2C8.29,19.2 7.8,18.71 7.8,18.1C7.8,18.05 7.81,18 7.81,17.95H7.8L7.85,17.77L9.7,12.21C9.7,12.21 9.5,11.59 9.5,10.73C9.5,9 10.42,8.5 11.16,8.5C11.91,8.5 12.58,8.76 12.58,9.81C12.58,11.15 11.69,11.84 11.69,12.81C11.69,13.55 12.29,14.16 13.03,14.16C15.37,14.16 16.2,12.4 16.2,10.75C16.2,8.57 14.32,6.8 12,6.8C9.68,6.8 7.8,8.57 7.8,10.75C7.8,11.42 8,12.09 8.34,12.68C8.43,12.84 8.5,13 8.5,13.2A1,1 0 0,1 7.5,14.2C7.13,14.2 6.79,14 6.62,13.7C6.08,12.81 5.8,11.79 5.8,10.75C5.8,7.47 8.58,4.8 12,4.8C15.42,4.8 18.2,7.47 18.2,10.75C18.2,13.37 16.57,16.2 13,16.2M20,2H4C2.89,2 2,2.89 2,4V20A2,2 0 0,0 4,22H20A2,2 0 0,0 22,20V4C22,2.89 21.1,2 20,2Z" />');
@@ -165,7 +174,7 @@ MainPage.prototype.InitializeSession = function(data) {
 	this.RegisterSvg("currency-usd", 24, '<path d="M11.8,10.9C9.53,10.31 8.8,9.7 8.8,8.75C8.8,7.66 9.81,6.9 11.5,6.9C13.28,6.9 13.94,7.75 14,9H16.21C16.14,7.28 15.09,5.7 13,5.19V3H10V5.16C8.06,5.58 6.5,6.84 6.5,8.77C6.5,11.08 8.41,12.23 11.2,12.9C13.7,13.5 14.2,14.38 14.2,15.31C14.2,16 13.71,17.1 11.5,17.1C9.44,17.1 8.63,16.18 8.5,15H6.32C6.44,17.19 8.08,18.42 10,18.83V21H13V18.85C14.95,18.5 16.5,17.35 16.5,15.3C16.5,12.46 14.07,11.5 11.8,10.9Z" />');
 	this.RegisterSvg("flag", 24, '<path d="M14.4,6L14,4H5V21H7V14H12.6L13,16H20V6H14.4Z" />');
 	this.RegisterSvg("flag-outline", 24, ' <path d="M14.5,6H20V16H13L12.5,14H7V21H5V4H14L14.5,6M7,6V12H13L13.5,14H18V8H14L13.5,6H7Z" />');
-	this.RegisterSvg("contacts", 24, '<path d="M20,0H4V2H20V0M4,24H20V22H4V24M20,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6A2,2 0 0,0 20,4M12,6.75A2.25,2.25 0 0,1 14.25,9A2.25,2.25 0 0,1 12,11.25A2.25,2.25 0 0,1 9.75,9A2.25,2.25 0 0,1 12,6.75M17,17H7V15.5C7,13.83 10.33,13 12,13C13.67,13 17,13.83 17,15.5V17Z" />');
+	// this.RegisterSvg("contacts", 24, '<path d="M20,0H4V2H20V0M4,24H20V22H4V24M20,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6A2,2 0 0,0 20,4M12,6.75A2.25,2.25 0 0,1 14.25,9A2.25,2.25 0 0,1 12,11.25A2.25,2.25 0 0,1 9.75,9A2.25,2.25 0 0,1 12,6.75M17,17H7V15.5C7,13.83 10.33,13 12,13C13.67,13 17,13.83 17,15.5V17Z" />');
 	this.RegisterSvg("doctor", 24, '<path d="M10.171,0.242 C11.104,0.231 12.083,0.270 12.629,0.668 C12.846,1.002 13.063,1.336 13.281,1.670 C13.553,1.883 13.976,1.921 14.183,2.196 C14.855,3.086 14.810,4.932 14.509,6.181 C15.270,6.317 15.041,7.352 14.710,7.785 C14.392,8.002 14.075,8.220 13.757,8.437 C12.729,9.775 12.503,11.488 10.522,11.895 C8.855,12.237 7.526,10.504 6.986,9.564 C6.827,9.180 6.668,8.796 6.510,8.412 C6.327,8.159 5.773,8.117 5.532,7.785 C5.102,7.194 5.040,6.530 5.682,6.131 C5.649,5.354 5.615,4.577 5.582,3.800 C5.868,2.267 6.921,1.272 8.190,0.718 C8.733,0.480 9.650,0.547 10.171,0.242 ZM19.600,24.000 C13.281,24.000 6.960,24.000 0.642,24.000 C0.614,22.203 0.954,20.761 1.243,19.213 C1.540,17.624 1.594,15.844 2.422,14.777 C3.055,13.962 4.416,13.754 5.456,13.349 C5.326,14.198 4.818,15.750 4.955,16.632 C5.147,17.872 5.453,18.838 5.707,19.915 C5.878,20.639 4.971,21.083 5.858,21.744 C6.009,21.858 6.242,22.035 6.535,21.995 C7.114,21.917 7.815,21.420 7.588,20.642 C7.413,20.043 6.649,20.127 6.359,19.664 C5.688,18.592 5.515,14.147 6.384,13.198 C6.566,13.000 7.012,12.888 7.362,12.873 C7.488,13.795 8.681,16.465 9.243,16.882 C9.243,16.866 9.243,16.849 9.243,16.832 C9.343,16.340 9.444,15.847 9.544,15.354 C9.529,15.034 9.266,14.699 9.394,14.351 C9.497,14.071 9.876,13.872 10.121,13.725 C10.363,13.950 10.606,14.176 10.848,14.401 C10.575,15.102 10.823,16.226 11.024,16.832 C11.132,16.732 11.241,16.632 11.350,16.532 C11.475,16.340 11.600,16.147 11.726,15.955 C11.951,15.404 12.177,14.852 12.403,14.301 C12.587,13.817 12.771,13.332 12.955,12.848 C13.318,12.959 13.840,12.980 14.108,13.198 C14.586,13.587 14.331,15.009 14.133,15.504 C12.343,15.496 12.076,16.873 11.575,18.161 C11.350,18.762 11.124,19.364 10.898,19.965 C10.671,20.903 11.160,21.906 12.077,21.719 C12.160,21.644 12.244,21.569 12.328,21.494 C12.336,21.419 12.344,21.343 12.353,21.268 C12.133,21.099 11.673,20.841 11.600,20.541 C11.452,19.927 11.919,19.418 12.077,19.038 C12.515,17.985 12.672,15.754 14.409,16.306 C15.640,16.697 15.472,18.471 15.237,19.815 C15.151,20.305 15.296,20.910 15.086,21.268 C14.819,21.724 14.065,21.377 13.933,22.020 C14.182,22.193 14.612,22.519 15.061,22.321 C15.829,21.983 16.531,18.881 16.290,17.534 C16.105,16.504 15.466,16.312 14.961,15.654 C15.019,14.928 15.078,14.201 15.136,13.474 C16.169,13.868 17.419,14.126 18.020,14.953 C18.530,15.654 18.526,16.727 18.747,17.735 C19.173,19.668 19.598,21.628 19.600,24.000 Z" />');
 	this.RegisterSvg("airplane", 24, '<path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />');
 	this.RegisterSvg("credit-card", 24, '<path d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />');
@@ -184,11 +193,21 @@ MainPage.prototype.InitializeSession = function(data) {
 	this.RegisterSvg("approval", 24, '<path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z" />');
 	this.RegisterSvg("alert-decagram", 24, '<path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M13,17H11V15H13V17M13,13H11V7H13V13Z" />');
 	this.RegisterSvg("attachment", 24, '<path d="M7.5,18A5.5,5.5 0 0,1 2,12.5A5.5,5.5 0 0,1 7.5,7H18A4,4 0 0,1 22,11A4,4 0 0,1 18,15H9.5A2.5,2.5 0 0,1 7,12.5A2.5,2.5 0 0,1 9.5,10H17V11.5H9.5A1,1 0 0,0 8.5,12.5A1,1 0 0,0 9.5,13.5H18A2.5,2.5 0 0,0 20.5,11A2.5,2.5 0 0,0 18,8.5H7.5A4,4 0 0,0 3.5,12.5A4,4 0 0,0 7.5,16.5H17V18H7.5Z" />');
+	this.RegisterSvg("hospital", 24, '<path d="M18,14H14V18H10V14H6V10H10V6H14V10H18M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" />');
+	this.RegisterSvg("plane-shield", 24, '<path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5.68C12.5,5.68 12.95,6.11 12.95,6.63V10.11L18,13.26V14.53L12.95,12.95V16.42L14.21,17.37V18.32L12,17.68L9.79,18.32V17.37L11.05,16.42V12.95L6,14.53V13.26L11.05,10.11V6.63C11.05,6.11 11.5,5.68 12,5.68Z" />');
+	this.RegisterSvg("mailbox", 26, '<path d="M20,6H10V12H8V4H14V0H6V6H4A2,2 0 0,0 2,8V20A2,2 0 0,0 4,22H20A2,2 0 0,0 22,20V8A2,2 0 0,0 20,6Z" />');
+	this.RegisterSvg("account-card-details", 25, '<path d="M2,3H22C23.05,3 24,3.95 24,5V19C24,20.05 23.05,21 22,21H2C0.95,21 0,20.05 0,19V5C0,3.95 0.95,3 2,3M14,6V7H22V6H14M14,8V9H21.5L22,9V8H14M14,10V11H21V10H14M8,13.91C6,13.91 2,15 2,17V18H14V17C14,15 10,13.91 8,13.91M8,6A3,3 0 0,0 5,9A3,3 0 0,0 8,12A3,3 0 0,0 11,9A3,3 0 0,0 8,6Z" />');
+	this.RegisterSvg("information-variant", 24, '<path d="M13.5,4A1.5,1.5 0 0,0 12,5.5A1.5,1.5 0 0,0 13.5,7A1.5,1.5 0 0,0 15,5.5A1.5,1.5 0 0,0 13.5,4M13.14,8.77C11.95,8.87 8.7,11.46 8.7,11.46C8.5,11.61 8.56,11.6 8.72,11.88C8.88,12.15 8.86,12.17 9.05,12.04C9.25,11.91 9.58,11.7 10.13,11.36C12.25,10 10.47,13.14 9.56,18.43C9.2,21.05 11.56,19.7 12.17,19.3C12.77,18.91 14.38,17.8 14.54,17.69C14.76,17.54 14.6,17.42 14.43,17.17C14.31,17 14.19,17.12 14.19,17.12C13.54,17.55 12.35,18.45 12.19,17.88C12,17.31 13.22,13.4 13.89,10.71C14,10.07 14.3,8.67 13.14,8.77Z" />');
+	this.RegisterSvg("close-circle-outline", 25, '<path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />');
 	// this.RegisterSvg("", 24, '');
+
+	this.CloneSvg("info", "information-variant");
+	this.CloneSvg("addresses", "mailbox");
+	this.CloneSvg("contacts", "account-card-details");
 	
 	this.CloneSvg("set-default", "check-circle-outline");
-	this.CloneSvg("claim-status", "history"); 
-	this.CloneSvg("service-status", "history"); 
+	this.CloneSvg("claim-status", "history");
+	this.CloneSvg("service-status", "history");
 	this.CloneSvg("new-action", "account-check");
 	this.CloneSvg("notes", "note-outline");
 	this.CloneSvg("validate", "checkbox-marked-circle-outline");
@@ -196,14 +215,33 @@ MainPage.prototype.InitializeSession = function(data) {
 	this.CloneSvg("customer-service", "phone");
 	this.CloneSvg("claims", "table");
 	this.CloneSvg("discount", "percent");
-	this.CloneSvg("hospitals", "hospital-building");
-	
+
 	this.CloneSvg("call-log", "phone-classic");
 	this.CloneSvg("eligible", "approval");
 	this.CloneSvg("exclusion", "alert-decagram");
 	this.CloneSvg("documents", "folder-multiple-outline");
 	this.CloneSvg("inbox", "attachment");
 	this.CloneSvg("outbox", "file-outline");
-	
+
 	this.CloneSvg("authorisation", "approval");
+	this.CloneSvg("authorise", "thumb-up-outline");
+	this.CloneSvg("un-authorise", "thumb-down-outline");
+	this.CloneSvg("override", "approval");
+	
+	this.CloneSvg("providers", "account-multiple");
+	this.CloneSvg("providers-medical", "hospital");
+	this.CloneSvg("providers-travel", "plane-shield");
+	this.CloneSvg("hospitals", "hospital-building");
+	this.CloneSvg("clients", "earth");
+	this.CloneSvg("clients-policies", "earth");
+	this.CloneSvg("products", "earth");
+	
+	// CLAIM STATUS
+	this.CloneSvg("claim-close", "alert-circle-outline");
+	this.CloneSvg("claim-decline", "close-circle-outline");
+	this.CloneSvg("claim-open", "check-circle-outline");
+	
+	this.CloneSvg("banks", "bank");
+	this.CloneSvg("floats", "table-edit");
+	this.CloneSvg("case-fees", "table-edit");
 };

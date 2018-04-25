@@ -1,8 +1,10 @@
-// ****************************************************************************************************
-// File name: edit-member-medical-notes.js
-// Last modified on
-// 02-OCT-2017
-// ****************************************************************************************************
+/*****************************************************************************************************
+	File name: edit-member-medical-notes.js
+	Last modified on
+	02-OCT-2017
+	
+	Called from claim-details.js
+******************************************************************************************************/
 function MemberMedicalNotesEdit(viewParams) {
 	var self = this;
 	this.dataset = viewParams.dataset;
@@ -27,7 +29,15 @@ function MemberMedicalNotesEdit(viewParams) {
 				button.show(!dataset.editing);
 			},
 			click: function(item) {
-				// grid.Refresh();
+				var params = {
+					id: self.dataset.getKey(), 
+					claim_id: self.dataset.get("claim_id")
+				};
+				
+				desktop.Ajax(self, "/app/get/edit/member-medical-notes", params, function(result) {
+					self.dataset.resetData(result.edit, "", true);
+					self.notes.html(self.dataset.get("medical_history_notes"));
+				})
 			}
 		});
 		
@@ -41,8 +51,19 @@ function MemberMedicalNotesEdit(viewParams) {
 				button.show(dataset.editing);
 			},
 			click: function(item) {
-				// console.log("save")
-				// self.Events.OnPost.trigger();
+				self.dataset.set("medical_history_notes", self.notes.html());
+				
+				var params = {
+					id: self.dataset.getKey(), 
+					mode: "edit",
+					data: "["+ JSON.stringify(self.dataset.data[0]) +"]"
+				};
+
+				desktop.Ajax(self, "/app/get/update/member-medical-notes", params, function(result) {
+					self.dataset.post();
+					// self.dataset.resetData(result.edit, "", true);
+					// self.notes.html(self.dataset.get("medical_history_notes"));
+				})
 			}
 		});
 	
@@ -70,14 +91,16 @@ function MemberMedicalNotesEdit(viewParams) {
 		notes.addClass("medical-notes");
 		notes.attr("spellcheck", false);
 		notes.attr("contenteditable", true);
-		notes.html(desktop.dbMedicalNotes.get("medical_history_notes"));
+		// notes.html(desktop.dbMedicalNotes.get("medical_history_notes"));
+		notes.html(self.dataset.get("medical_history_notes"));
 		notes.on("input", function() {
-			if(!self.dataset.editing)
+			if(!self.dataset.editing) {
 				self.dataset.edit();
+			}
 		});
 		notes.on("keydown", function(e) {
 			if(e.keyCode === 9) { // tab key
-				console.log("here")
+				// console.log("here")
 				e.preventDefault();  // this will prevent us from tabbing out of the editor
 				// document.execCommand('insertHTML', false, '&#009');
 				document.execCommand('insertHTML', false, '\u0009');

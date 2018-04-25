@@ -90,7 +90,8 @@ jCustomSavedQueryView.prototype.OnDrawCustomHeader = function(container) {
 	var self = this;
 	CreateElementEx("div", container, function(queryContainer) {							
 		CreateElementEx("div", queryContainer, function(icon) {							
-			desktop.svg.draw(icon, "filter", 16).attr("x-icon", "info")
+			// desktop.svg.draw(icon, "filter", 16).attr("x-icon", "info")
+			desktop.svg.draw(icon, "magnify", 22).attr("x-icon", "info")
 		});
 		
 		CreateElementEx("div", queryContainer, function(container) {							

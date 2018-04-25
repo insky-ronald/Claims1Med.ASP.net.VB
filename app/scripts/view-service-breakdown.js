@@ -51,7 +51,7 @@ function ServiceBreakdownContainer(params){
 
 function ServiceBreakdownView(params){
 	var serviceID = params.serviceID;
-	
+
 	return new jGrid($.extend(params, {
 		paintParams: {
 			css: "breakdown",
@@ -65,17 +65,17 @@ function ServiceBreakdownView(params){
 				grid.options.allowSort = false;
 				grid.options.showPager = false;
 				grid.options.showBand = true;
-				
+
 				grid.options.viewType = "treeview";
-				grid.options.treeViewSettings.keyColumnName = "id"
-				grid.options.treeViewSettings.parentColumnName = "parent_id"
-				grid.options.treeViewSettings.columnName = "benefit_name"
-							
+				grid.options.treeViewSettings.keyColumnName = "id";
+				grid.options.treeViewSettings.parentColumnName = "parent_id";
+				grid.options.treeViewSettings.columnName = "benefit_name";
+
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
 						.addColumn("id", serviceID, {numeric:true})
 				});
-				
+
 				grid.Events.OnInitData.add(function(grid, data) {
 					data.Columns
 						.setprops("id", {numeric:true, key: true})
@@ -94,14 +94,15 @@ function ServiceBreakdownView(params){
 						.setprops("declined_amount", {label:"Declined", numeric:true, type:"money", format:"00"})
 						.setprops("deductible", {label:"Deductible", numeric:true, type:"money", format:"00"})
 				});
-				
+
 				grid.Events.OnInitSubData.add(function(grid, params) {
 					if(params.index === 1) {
-						if(grid.footerData)
+						if(grid.footerData) {
 							grid.footerData.resetData(params.rawData)
-						else
+						} else {
 							grid.footerData = new Dataset(params.rawData, "Footer Data");
-						
+						}
+
 						grid.footerData.Columns
 							.setprops("estimate", {label:"Estimate", numeric:true, type:"money", format:"00"})
 							.setprops("actual_amount", {label:"Actual", numeric:true, type:"money", format:"00"})
@@ -113,49 +114,51 @@ function ServiceBreakdownView(params){
 					}
 				});
 
-				grid.Events.OnInitRow.add(function(grid, row) {	
-					row.attr("detail", grid.dataset.get("is_detail") ? 1: 0)
-					row.attr("breakdown", grid.dataset.get("is_breakdown") ? 1: 0)
-					row.attr("novalidate", grid.dataset.get("is_novalidate") ? 1: 0)
-					row.attr("recovery", grid.dataset.get("is_recover") ? 1: 0)
-					row.attr("exclusion", grid.dataset.get("is_exclusion") ? 1: 0)
-					row.attr("detail-id", grid.dataset.get("detail_id"))
-					row.attr("status", grid.dataset.get("status_code"))
-				});	
+				grid.Events.OnInitRow.add(function(grid, row) {
+					row.attr("detail", grid.dataset.get("is_detail") ? 1: 0);
+					row.attr("breakdown", grid.dataset.get("is_breakdown") ? 1: 0);
+					row.attr("novalidate", grid.dataset.get("is_novalidate") ? 1: 0);
+					row.attr("recovery", grid.dataset.get("is_recover") ? 1: 0);
+					row.attr("exclusion", grid.dataset.get("is_exclusion") ? 1: 0);
+					row.attr("detail-id", grid.dataset.get("detail_id"));
+					row.attr("status", grid.dataset.get("status_code"));
+				});
 
 				grid.Events.OnTreeViewButtons.add(function(grid, params) {
 					// if(grid.dataset.get("type") === "L") {
 						// params.addIcon({icon:"limit", name:"limit"})
 					// } else
 						// params.addIcon({icon:"folder-outline", name:"benefit"})
-				})
-				
+				});
+
 				grid.Methods.add("deleteConfirm", function(grid, id) {
 					return {
-						title: "Delete Item", 
+						title: "Delete Item",
 						message: ("Please confirm to delete item <b>{0}</b>.").format(grid.dataset.get("benefit_name"))
 					};
 				});
-		
+
 				grid.methods.add("allowCommand", function(grid, column) {
-					if(column.command === "edit")
+					if(column.command === "edit") {
 						return grid.dataset.get("is_detail") && !grid.dataset.get("is_breakdown")
-					else if(column.command === "delete")
+					} else if(column.command === "delete") {
 						return grid.dataset.get("is_detail") && !grid.dataset.get("is_breakdown")
-					else
+					} else {
 						return true
-				})
-				
+					}
+				});
+
 				grid.Events.OnInitColumns.add(function(grid) {
 					grid.NewBand({caption: "Benefit", fixed:"left"}, function(band) {
 						band.NewColumn({fname: "benefit_name", width: 350, allowSort: false, fixedWidth:true});
-					})
+					});
+
 					grid.NewBand({caption: ""}, function(band) {
 						band.NewColumn({fname: "benefit_code", width: 75});
 						band.NewColumn({fname: "diagnosis_code", width: 75});
 						band.NewColumn({fname: "status_code", width: 100});
 					});
-					
+
 					grid.NewBand({caption: "Amounts"}, function(band) {
 						band.NewColumn({fname: "estimate", width: 100, showFooter: true});
 						band.NewColumn({fname: "currency_code", width: 50});
@@ -168,7 +171,7 @@ function ServiceBreakdownView(params){
 						band.NewColumn({fname: "deductible", width: 100, showFooter: true});
 					})
 				});
-				
+
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
 					// toolbar.NewItem({
 						// id: "test",
@@ -198,7 +201,7 @@ function UpdateBreakdownView(params) {
 	var serviceID = params.serviceID;
 	var inlineNavigator;
 	var url = "service-breakdown-update?section="+section;
-	
+
 	return new jGrid($.extend(params, {
 		paintParams: {
 			css: "breakdown-update-"+section,
@@ -206,11 +209,11 @@ function UpdateBreakdownView(params) {
 		},
 		init: function(grid, callback) {
 			inlineNavigator = new InlineEditNavigator({grid:grid});
-			
+
 			grid.Events.OnAfterPaint.add(function(grid) {
 				inlineNavigator.gridReady();
 			});
-			
+
 			grid.Events.OnInit.add(function(grid) {
 				// console.log(grid.painter.mainContainer)
 				grid.optionsData.url = url;
@@ -219,18 +222,18 @@ function UpdateBreakdownView(params) {
 				grid.options.allowSort = false;
 				grid.options.showPager = false;
 				grid.options.showBand = false;
-				
+
 				grid.options.viewType = "treeview";
-				grid.options.treeViewSettings.keyColumnName = "id"
-				grid.options.treeViewSettings.parentColumnName = "parent_id"
-				grid.options.treeViewSettings.columnName = "benefit_name"
-							
+				grid.options.treeViewSettings.keyColumnName = "id";
+				grid.options.treeViewSettings.parentColumnName = "parent_id";
+				grid.options.treeViewSettings.columnName = "benefit_name";
+
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
 						.addColumn("id", serviceID, {numeric:true})
 						.addColumn("section", section, {numeric:true})
 				});
-				
+
 				grid.Events.OnInitData.add(function(grid, data) {
 					data.Columns
 						.setprops("id", {numeric:true, key: true})
@@ -247,23 +250,23 @@ function UpdateBreakdownView(params) {
 						})
 				});
 
-				grid.Events.OnInitRow.add(function(grid, row) {	
-					row.attr("detail", grid.dataset.get("is_detail") ? 1: 0)
-					row.attr("exists", grid.dataset.get("is_include") ? 1: 0)
-					row.attr("units-required", grid.dataset.get("units_required") ? 1: 0)
+				grid.Events.OnInitRow.add(function(grid, row) {
+					row.attr("detail", grid.dataset.get("is_detail") ? 1: 0);
+					row.attr("exists", grid.dataset.get("is_include") ? 1: 0);
+					row.attr("units-required", grid.dataset.get("units_required") ? 1: 0);
 					// row.attr("novalidate", grid.dataset.get("is_novalidate") ? 1: 0)
 					// row.attr("exclusion", grid.dataset.get("is_exclusion") ? 1: 0)
 					// row.attr("detail-id", grid.dataset.get("detail_id"))
 					// row.attr("status", grid.dataset.get("status_code"))
-				});	
+				});
 
 				grid.Events.OnTreeViewButtons.add(function(grid, params) {
 					// if(grid.dataset.get("type") === "L") {
 						// params.addIcon({icon:"limit", name:"limit"})
 					// } else
 						// params.addIcon({icon:"folder-outline", name:"benefit"})
-				})
-		
+				});
+
 				// grid.methods.add("allowCommand", function(grid, column) {
 					// if(column.command === "edit")
 						// return grid.dataset.get("is_detail")
@@ -272,11 +275,12 @@ function UpdateBreakdownView(params) {
 					// else
 						// return true
 				// })
-				
+
 				grid.Events.OnInitColumns.add(function(grid) {
 					grid.NewBand({caption: "Benefit", fixed:"left"}, function(band) {
 						band.NewColumn({fname: "benefit_name", width: 400, allowSort: false, fixedWidth:true});
-					})
+					});
+
 					grid.NewBand({caption: "Details"}, function(band) {
 						band.NewColumn({fname: "amount", width: 150, drawContent: function(cell) {
 								if(grid.dataset.get("is_detail"))  {
@@ -284,9 +288,10 @@ function UpdateBreakdownView(params) {
 								}
 							}
 						});
+
 						band.NewColumn({fname: "currency_code", width: 50});
 						if(section == 0) {
-							band.NewColumn({fname: "units", width: 75, 
+							band.NewColumn({fname: "units", width: 75,
 								drawContent: function(cell) {
 									if(grid.dataset.get("is_detail") && grid.dataset.get("units_required"))  {
 										inlineNavigator.add({cell:cell, field:"units"});
@@ -295,9 +300,9 @@ function UpdateBreakdownView(params) {
 							});
 							band.NewColumn({fname: "unit_name", width: 150});
 						};
-					})					
+					});
 				});
-				
+
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
 					// toolbar.NewItem({
 						// id: "test",
@@ -318,7 +323,7 @@ function UpdateBreakdownView(params) {
 							// grid.refresh(true);
 						// }
 					// });
-					
+
 					toolbar.NewItem({
 						id: "cancel",
 						icon: "db-cancel",
@@ -336,7 +341,7 @@ function UpdateBreakdownView(params) {
 							// console.log(item.dataBind.delta)
 						}
 					});
-	
+
 					toolbar.NewItem({
 						id: "save",
 						// icon: grid.options.toolbarSize == 16 ? "/engine/images/refresh.png": "/engine/images/refresh-24.png",
@@ -355,32 +360,32 @@ function UpdateBreakdownView(params) {
 									for (var prop in rec) {
 										p[prop] = item.dataBind.raw(prop);
 									};
-									
+
 									p.id = parseInt(item.dataBind.raw("item_id"));
 									p.units = parseFloat(item.dataBind.raw("units"));
 									p.amount = parseFloat(item.dataBind.raw("amount"));
-									
+
 									updateData.push(p);
 								};
 							});
-							
+
 							item.dataBind.delta = [];
 							item.dataBind.setEditing(false);
-							
+
 							desktop.Ajax(grid, ("/app/get/update-items/{0}").format(url), {
 								section: section,
 								updateData: JSON.stringify(updateData)
-							}, 
+							},
 							function(data) {
 								grid.refresh(true);
 								serviceBreakdownView.refresh();
 							});
 						}
 					});
-					
+
 					toolbar.SetVisible("cancel", false);
 					toolbar.SetVisible("save", false);
-					
+
 				});
 			})
 		}
@@ -411,7 +416,7 @@ InlineEditNavigator.prototype.hideEditor = function() {
 
 InlineEditNavigator.prototype.add = function(params) {
 	var self = this;
-	
+
 	params.cell
 		.attr("field", params.field)
 		.attr("editing", 0)
@@ -421,27 +426,30 @@ InlineEditNavigator.prototype.add = function(params) {
 		.data("recNo", this.grid.dataset.recNo)
 		.html(this.grid.dataset.text(params.field))
 		.click(function() {
-			if(!parseInt($(this).attr("editing")))
+			if(!parseInt($(this).attr("editing"))) {
 				self.select($(this))
-			else
+			} else {
 				event.preventDefault();
+			}
 		})
 };
 
 InlineEditNavigator.prototype.select = function(cell) {
 	var self = this;
-	if(this.current) this.kill(this.current);
-	
+	if(this.current) {
+		this.kill(this.current);
+	}
+
 	this.current = cell;
 	this.grid.painter.focusRow(cell.parent().attr("row-id"));
-	
+
 	cell
 		.attr("editing", 1)
 		.html("");
-	
+
 	CreateElementEx("input", cell, function(input) {
 		cell.data("input", input);
-		
+
 		input
 			.attr("inline-editor", "1")
 			.data("cell", cell)
@@ -458,7 +466,7 @@ InlineEditNavigator.prototype.select = function(cell) {
 				if(e.keyCode == 40) {
 					self.next();
 					e.preventDefault();
-				} else if(e.keyCode == 38 {
+				} else if(e.keyCode == 38) {
 					self.prev();
 					e.preventDefault();
 				}
@@ -476,19 +484,19 @@ InlineEditNavigator.prototype.kill = function(cell) {
 
 	var val = parseFloat(input.val());
 	if(val !== dataset.get(name, recNo)) {
-		dataset.set(name, val, recNo); 
+		dataset.set(name, val, recNo);
 		if(dataset.get("amount", recNo) || dataset.get("units", recNo))  {
 			dataset.set("is_include", 1, recNo)
-		} else {			
+		} else {
 			dataset.set("is_include", 0, recNo)
 		};
-		
+
 		cell.parent().attr("exists", dataset.get("is_include", recNo) ? 1: 0)
 	};
-	
+
 	cell.attr("editing", 0);
 	cell.html(dataset.text(name, recNo));
-	
+
 	input.remove();
 };
 
@@ -503,7 +511,9 @@ InlineEditNavigator.prototype.next = function() {
 				while(row.is("tr")) {
 					row = row.next("tr");
 					next = row.find(".data-cell[field='amount']");
-					if(next.is("td") break;
+					if(next.is("td")) {
+						break;
+					}
 				};
 			};
 		};
@@ -512,10 +522,11 @@ InlineEditNavigator.prototype.next = function() {
 	};
 
 
-	if(next.is("td")) 
+	if(next.is("td")) {
 		this.select($(next))
-	else 
+	} else {
 		this.hideEditor()
+	}
 };
 
 InlineEditNavigator.prototype.prev = function() {
@@ -529,17 +540,20 @@ InlineEditNavigator.prototype.prev = function() {
 				while(row.is("tr")) {
 					row = row.prev("tr");
 					prev = row.find(".data-cell[field='amount']");
-					if(prev.is("td") break;
+					if(prev.is("td")) {
+						break;
+					}
 				};
 			};
 		};
 	} else {
 		prev = row.find(".data-cell[field='amount']");
 	};
-	
+
 	// if(prev) this.select($(prev));
-	if(prev.is("td")) 
+	if(prev.is("td")) {
 		this.select($(prev))
-	else 
+	} else {
 		this.hideEditor();
+	}
 };

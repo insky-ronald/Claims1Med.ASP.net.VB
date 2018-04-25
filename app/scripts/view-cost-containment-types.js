@@ -28,7 +28,7 @@ function CostContainmentTypesView(params){
 			});
 			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/cost-containment-types?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/cost-containment-types";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
@@ -39,7 +39,7 @@ function CostContainmentTypesView(params){
 				
 				grid.exportData.allow = true;
 				grid.exportData.name = "Cost Containment Types";
-				grid.exportData.source = "DBMedics.GetCostContainmentTypes";
+				grid.exportData.source = "DBApp.GetCostContainmentTypes";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -68,5 +68,5 @@ function CostContainmentTypesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };

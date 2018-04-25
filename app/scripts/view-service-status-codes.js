@@ -6,29 +6,13 @@
 // File name: view-service-status-codes.js
 // uses edit-service-status-codes.js
 //==================================================================================================
-function ServiceStatusCodesView(params){
-	// var name = "app/service-status-codes";
-	
+function ServiceStatusCodesView(params){	
 	return new jGrid($.extend(params, {
 		paintParams: {
 			css: "service-status-codes",
 			toolbar: {theme: "svg"}
 		},
-		// editForm: function(id, container, dialog) {
-			// ServiceStatusCodesEdit({
-				// code: id,
-				// container: container,
-				// dialog: dialog
-			// })
-		// },
 		init: function(grid, callback) {
-			// grid.Methods.add("deleteConfirm", function(grid, id) {
-				// return {
-					// title: "Delete Flag Type",
-					// message: ('Please confirm to delete flag type "<b>{0}</b>"').format(grid.dataset.get("service_description"))
-				// }
-			// });
-			
 			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = "service-status-codes";
 				grid.options.fixedColumnWidths = true;
@@ -38,9 +22,9 @@ function ServiceStatusCodesView(params){
 				grid.options.horzScroll = true;
 				grid.options.showMasterDetail = true;
 				
-				grid.search.visible = true;
-				grid.search.mode = "simple";
-				grid.search.columnName = "filter";
+				grid.search.visible = false;
+				// grid.search.mode = "simple";
+				// grid.search.columnName = "filter";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -71,7 +55,7 @@ function ServiceStatusCodesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };
 
 function ListServiceStatusCodes(params){

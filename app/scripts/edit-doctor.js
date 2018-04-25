@@ -1,6 +1,6 @@
 // ****************************************************************************************************
 // Last modified on
-// 
+//
 // ****************************************************************************************************
 //==================================================================================================
 // File name: edit-doctor.js
@@ -17,7 +17,7 @@ function DoctorEdit(params){
 			pg.NewTab("Doctor Details", {
 				OnCreate: function(tab) {
 					tab.content.css("border", "1px solid #92846A").css("overflow-y", "auto");
-					
+
 					new SimpleEditor({
 						id: "edit_doctor",
 						dataset: params.dataset,
@@ -39,7 +39,7 @@ function DoctorEdit(params){
 										return column.lookupDataset.lookup(value, "country");
 									}
 								})
-								
+
 								.setprops("discount_type_id", {label:"Discount Type"})
 								.setprops("discount_amount", {label:"Discount Amount", numeric:true})
 								.setprops("discount_percent", {label:"Discount Rate %", numeric:true})
@@ -50,13 +50,13 @@ function DoctorEdit(params){
 								editor.AddEdit("code");
 								editor.AddRadioButton("status_code", {key: "id", value: "value", data: [{id: "A", value: "Active"}, {id: "X", value: "Inactive"}]})
 							});
-							
+
 							editor.AddGroup("Doctors Personal Data", function(editor) {
 								editor.AddEdit("name");
 								editor.AddLookup("specialisation_code", {width:400, height:310, disableEdit:true, init:DoctorSpecialisationLookup});
 								editor.AddLookup("country_code", {width:400, height:310, disableEdit:true, init:CountriesLookup});
 							});
-							
+
 							editor.AddGroup("Discount Type", function(editor) {
 								editor.AddListBox("discount_type_id", {
 									key: "id",
@@ -65,28 +65,28 @@ function DoctorEdit(params){
 										{id:"1", value:"No Discount"},
 										{id:"2", value:"Invoice Header by Percentage"},
 										{id:"3", value:"Invoice Line by Percentage"},
-										{id:"4", value:"Invoice Line by Amount"},
+										{id:"4", value:"Invoice Line by Amount"}
 									]
 								});
 							});
-							
+
 							editor.AddGroup("Discount Amount", function(editor) {
 								editor.AddEdit("discount_amount");
 							});
-							
+
 							editor.AddGroup("Percent Discount", function(editor) {
 								editor.AddEdit("discount_percent");
 							});
-							
+
 							editor.AddGroup("Provider Discount Information", function(editor) {
 								editor.AddMemo("notes");
 							});
 						}
 					});
 				}
-			}); 
-			
-			/* pg.NewTab("Discount", { 
+			});
+
+			/* pg.NewTab("Discount", {
 				OnCreate: function(tab) {
 					tab.content.css("border", "1px solid #92846A");
 					DiscountsView({
@@ -119,23 +119,29 @@ function DoctorEdit2(params){
 					.setprops("blacklisted", {label:"Blacklisted"})
 					.setprops("name", {label:"Name", required:true})
 					.setprops("full_name", {label:"Full Name"})
-					.setprops("specialisation_code", {label:"Specialisation", required:true, lookupDataset: desktop.dbDoctorSpecialisation,
+					.setprops("specialisation_code", {label:"Specialisation", required:true,
 						getText: function(column, value) {
-							return column.lookupDataset.lookup(value, "specialisation");
+							return column.dataset.get("specialisation");
+						},
+						onChange: function(column) {
+							column.dataset.set("specialisation", column.lookupDataset.Methods.call("lookupValue"));
 						}
 					})
-					.setprops("country_code", {label:"Country", lookupDataset: desktop.dbCountries,
+					.setprops("country_code", {label:"Country", 
 						getText: function(column, value) {
-							return column.lookupDataset.lookup(value, "country");
+							return column.dataset.get("country");
+						},
+						onChange: function(column) {
+							column.dataset.set("country", column.lookupDataset.Methods.call("lookupValue"));
 						}
 					})
 					.setprops("discount_type_id", {label:"Type"})
 					.setprops("discount_amount", {label:"Amount", numeric:true})
 					.setprops("discount_percent", {label:"Percantage", numeric:true})
 					.setprops("notes", {label:"Notes"})
-					
+
 			});
-			
+
 			editor.Events.OnInitEditor.add(function(sender, editor) {
 
 				editor.NewGroupEdit("General", function(editor, tab) {
@@ -145,19 +151,19 @@ function DoctorEdit2(params){
 						editor.AddLookup("specialisation_code", {width:400, height:310, disableEdit:true, init:DoctorSpecialisationLookup});
 						editor.AddLookup("country_code", {width:400, height:310, disableEdit:true, init:CountriesLookup});
 					});
-						
+
 					editor.AddGroup("Reference Numbers", function(editor) {
 						editor.AddEdit("id");
 						editor.AddEdit("code");
 						editor.AddEdit("spin_id");
 					});
-					
+
 					editor.AddGroup("Status", function(editor) {
-						editor.AddRadioButton("status_code", {key: "id", value: "value", data: [{id: "A", value: "Yes"}, {id: "X", value: "No"}]})
-						editor.AddRadioButton("blacklisted", {key: "id", value: "value", data: [{id: 1, value: "Yes"}, {id: 0, value: "No"}]})
+						editor.AddRadioButton("status_code", {key: "id", value: "value", data: [{id: "A", value: "Yes"}, {id: "X", value: "No"}]});
+						editor.AddRadioButton("blacklisted", {key: "id", value: "value", data: [{id: 1, value: "Yes"}, {id: 0, value: "No"}]});
 					});
-				});								
-				
+				});
+
 				editor.NewGroupEdit("Discount", function(editor, tab) {
 					editor.AddGroup("Discount", function(editor) {
 							editor.AddListBox("discount_type_id", {
@@ -167,7 +173,7 @@ function DoctorEdit2(params){
 									{id:"0", value:"No Discount"},
 									{id:"1", value:"Invoice Header by Percentage"},
 									{id:"3", value:"Invoice Line by Percentage"},
-									{id:"4", value:"Invoice Line by Amount"},
+									{id:"4", value:"Invoice Line by Amount"}
 								]
 							});
 							editor.AddEdit("discount_amount");
@@ -178,29 +184,4 @@ function DoctorEdit2(params){
 			});
 		}
 	});
-}; 
-
-function DoctorEdit3(params){
-	return new SimpleEditor({
-		id: "edit_doctor",
-		dataset: params.dataset,
-		container: params.container,
-		initData: function(editor, data) {
-			data.Columns
-				.setprops("id", {label:"ID", numeric:true, key: true, readonly:true})
-				.setprops("code", {label:"Code", required:false})
-				.setprops("name", {label:"Doctor Name", required:true})
-				.setprops("specialisation", {label:"Specialisation", required:true})
-		},
-		initEditor: function(editor) {
-			editor.AddGroup("General", function(editor) {
-				editor.AddEdit("code");
-			});
-			
-			editor.AddGroup("Doctors Personal Data", function(editor) {
-				editor.AddEdit("name");
-				editor.AddEdit("specialisation");
-			});
-		}
-	});
-}
+};

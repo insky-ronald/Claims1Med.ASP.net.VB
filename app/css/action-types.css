@@ -1,36 +1,3 @@
-/* .grid-service-items tr[x-breakdown] {
-	color: green;
-}
-
-.grid-service-items tr[x-exclusion] {
-	color: red;
-	font-style: italic;
-}
-
-.grid-service-items tr[x-novalidate] {
-	color: blue;
-}
- */
-/* .grid-action-types  table[grid-sec="headers"] th[colspan] { */
-	/* text-align: center !important; */
-	/* font-size: 110%; */
-/* } */
-
-/* .grid-action-types table[grid-sec="headers"] thead[grid-sec="header"] th[command="notes"] svg, */
-/* .grid-action-types table[grid-sec="content"] tbody td[command="notes"] svg:hover { */
-	/* fill: goldenrod; */
-/* } */
-
-/* .grid-action-types tbody tr[x-status="0"] { */
-	/* color: firebrick; */
-/* } */
-
-/* .grid-action-types tbody tr[x-status="1"] { */
-	/* color: blue; */
-	/* /*color: #2C80B3;*/ */
-	/* /*color: #27AE60;*/ */
-/* } */
-
 .grid3 .master-detail-container {
 	background: white;
 	border: 1px solid silver;

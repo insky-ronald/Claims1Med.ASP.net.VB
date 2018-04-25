@@ -146,6 +146,7 @@ Public Class DataProvider
 				.Action = "admin"				
 				.Title = "Clients and Policies"
 				' .Icon = "table"
+				.URL = "app/clients"
 			End with
 
 			With Main.SubItems.Add

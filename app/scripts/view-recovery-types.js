@@ -28,7 +28,7 @@ function RecoveryTypesView(params){
 			});
 			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/recovery-types?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "app/recovery-types";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
@@ -39,7 +39,7 @@ function RecoveryTypesView(params){
 				
 				grid.exportData.allow = true;
 				grid.exportData.name = "Recovery Types";
-				grid.exportData.source = "DBMedics.GetRecoveryTypes";
+				grid.exportData.source = "DBApp.GetRecoveryTypes";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -68,5 +68,5 @@ function RecoveryTypesView(params){
 				});
 			});
 		}
-	});	
+	}));	
 };

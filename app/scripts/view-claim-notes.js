@@ -96,8 +96,9 @@ function ClaimNotesView(viewParams){
 				})
 				
 				grid.Events.OnInitColumns.add(function(grid) {
-					if(viewParams.requestParams.type == "C")
+					if(viewParams.requestParams.type == "C") {
 						grid.NewColumn({fname: "reference_no", width: 150});
+					}
 					
 					grid.NewColumn({fname: "note_type_name", width: 150});
 					grid.NewColumn({fname: "note_sub_type_name", width: 200});

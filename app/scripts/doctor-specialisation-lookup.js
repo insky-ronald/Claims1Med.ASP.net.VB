@@ -17,7 +17,7 @@ var DoctorSpecialisationLookup = function(edit, grid) {
 			.addColumn("sort", "specialisation")
 			.addColumn("order", "asc")
 			.addColumn("page", 1)
-			.addColumn("pagesize")
+			.addColumn("pagesize", 1000000)
 	});
 
 	grid.Events.OnInitData.add(function(grid, data) {
@@ -32,6 +32,6 @@ var DoctorSpecialisationLookup = function(edit, grid) {
 	
 	grid.Events.OnInitColumns.add(function(grid) {
 		grid.NewColumn({fname: "specialisation", width: 400, allowSort: true});
-		grid.NewColumn({fname: "specialisation_code", width: 75, allowSort: true, fixedWidth:true);
+		grid.NewColumn({fname: "specialisation_code", width: 75, allowSort: true, fixedWidth:true});
 	});
 };

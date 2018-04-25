@@ -53,7 +53,7 @@ function ServiceStatusView(viewParams){
 					row.attr("service-status", grid.dataset.get("status_code").toLowerCase())
 				});	
 				
-				if(grid.options.viewType !== "cardview")
+				if(grid.options.viewType !== "cardview") {
 					grid.Events.OnInitColumns.add(function(grid) {
 						grid.NewColumn({fname: "status", width: 150});
 						grid.NewColumn({fname: "sub_status_code", width: 75});
@@ -61,25 +61,26 @@ function ServiceStatusView(viewParams){
 						grid.NewColumn({fname: "create_user", width: 150});
 						grid.NewColumn({fname: "create_date", width: 150});
 					});
+				}
 				
 				grid.Events.OnInitCard.add(function(grid, card) {
 					grid.dataset.gotoKey(parseInt(card.attr("row-id")));
 					card.attr("x-status", grid.dataset.get("status_code"));
 					
 					CreateElementEx("div", card, function(container) {
-						CreateElement("div", container).addClass("name").html(grid.dataset.get("status"))
-						CreateElement("div", container).addClass("code").html(grid.dataset.get("sub_status_code"))
-						CreateElement("div", container).addClass("desc").html(grid.dataset.get("sub_status"))
+						CreateElement("div", container).addClass("name").html(grid.dataset.get("status"));
+						CreateElement("div", container).addClass("code").html(grid.dataset.get("sub_status_code"));
+						CreateElement("div", container).addClass("desc").html(grid.dataset.get("sub_status"));
 					}, "status");
 					
 					CreateElementEx("div", card, function(container) {
 						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Created by")
-							CreateElement("div", container).html(grid.dataset.text("create_user_name"))
+							CreateElement("div", container).html("Created by");
+							CreateElement("div", container).html(grid.dataset.text("create_user_name"));
 						}, "user");
 						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Created on")
-							CreateElement("div", container).html(grid.dataset.formatDateTime("create_date", "MMMM d, yyyy"))
+							CreateElement("div", container).html("Created on");
+							CreateElement("div", container).html(grid.dataset.formatDateTime("create_date", "MMMM d, yyyy"));
 						}, "user");
 						// CreateElement("div", container).addClass("name").html(grid.dataset.get("create_user_name"))
 						// CreateElement("div", container).addClass("date").html(grid.dataset.formatDateTime("create_date", "MMMM d, yyyy"))

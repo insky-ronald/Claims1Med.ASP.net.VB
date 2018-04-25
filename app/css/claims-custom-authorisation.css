@@ -1,0 +1,87 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 09-SEP-2017 */
+/*****************************************************************************************************/
+.grid3.authorisation .header-cell.command-cell[command="select"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.authorisation .data-cell.command-cell[command="select"] svg[x-sec="0"] {
+	fill: gray !important;
+}
+
+.grid3.authorisation .data-cell.command-cell[command="select"] svg[x-sec="1"] {
+	fill: forestgreen !important;
+}
+
+.xgrid3.payment-processing .data-cell.command-cell[command="select"] svg,
+.xgrid3.payment-processing .header-cell.command-cell[command="select"] svg {
+	fill: goldenrod!important;
+}
+
+.grid3.payment-processing .data-cell.command-cell[command="selected"] svg,
+.grid3.payment-processing .header-cell.command-cell[command="selected"] svg {
+	fill: firebrick !important;
+}
+
+.grid3.payment-processing .data-cell.command-cell[command="un-selected"] svg,
+.grid3.payment-processing .header-cell.command-cell[command="un-selected"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.payment-processing .custom-header .dashboard {
+	display: flex;
+	flex-flow: row;
+}
+
+.grid3.payment-processing .custom-header .widget {
+	position: relative;
+    height: 75px;
+    width: 200px;
+    box-sizing: border-box;
+    padding: 10px;
+	margin: 10px 0 10px 10px;
+}
+
+.grid3.payment-processing .custom-header .widget.total {
+    background: #A693EB;
+}
+
+.grid3.payment-processing .custom-header .widget.selected {
+    background: #49CD81;
+}
+
+.grid3.payment-processing .custom-header .widget div[x-sec="title"] {
+    position: absolute;
+    font: 18pt Arial;
+    text-align: right;
+    bottom: 10px;
+    right: 10px;
+}
+
+.grid3.payment-processing .custom-header .widget div[x-sec="title"] h1 {
+	font-size: 100%;
+	margin-top: 0;
+    margin-bottom: 0;
+    color: white;
+}
+
+.grid3.payment-processing .custom-header .widget div[x-sec="title"] p {
+	font-size: 75%;
+	margin-top: 0;
+    margin-bottom: 0;
+    color: white;
+}
+
+.grid3.payment-processing .custom-header .widget div[x-sec="icon"] {
+	position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.grid3.payment-processing .custom-header .widget div[x-sec="icon"] svg {
+	width: 75px;
+    height: 75px;
+    fill: rgba(255,255,255,0.1);
+}
+

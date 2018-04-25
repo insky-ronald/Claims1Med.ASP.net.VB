@@ -33,6 +33,6 @@ var UsersLookup = function(edit, grid) {
 	
 	grid.Events.OnInitColumns.add(function(grid) {
 		grid.NewColumn({fname: "name", width: 400, allowSort: true});
-		grid.NewColumn({fname: "user_name", width: 75, allowSort: true, fixedWidth:true);
+		grid.NewColumn({fname: "user_name", width: 75, allowSort: true, fixedWidth:true});
 	});
 };

@@ -80,6 +80,7 @@ Namespace Api
 			End if
 			
 			Output.AsJson("table_count") = DataSet.Tables.Count
+			Output.AsJson("table_count2") = DataSet.Tables.Count
 
 			Dim I As Integer = 0
 			For Each DataTable In DataSet.Tables
