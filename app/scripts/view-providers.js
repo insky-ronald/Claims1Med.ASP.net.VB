@@ -9,7 +9,8 @@ function ProvidersView(viewParams) {
 	var providersMasterView;
 	new jSplitContainer($.extend(viewParams, {
 		paintParams: {
-			css: "accounts"
+			//css: "accounts"
+			theme: "white-green-dark"
 		},
 		container: viewParams.container,
 		orientation: "horz",
