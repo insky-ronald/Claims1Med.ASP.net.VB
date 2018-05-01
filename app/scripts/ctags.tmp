@@ -95,7 +95,6 @@ ClientsLookupView	view-clients-lookup.js	8;"	function
 ClientsView	clients-view.js	1;"	function
 ClinicEdit	edit-clinic.js	8;"	function
 ClinicView	clinic.js	8;"	function
-ClinicsView	view-clinics.js	8;"	function
 ContactsEdit	edit-contacts.js	6;"	function
 ContactsView	view-contacts.js	9;"	function
 ContactsView.MasterKey	view-contacts.js	10;"	function
@@ -294,7 +293,6 @@ Notes.showFooter	notes.js	19;"	method
 Notes.showHeader	notes.js	18;"	method
 PaymentBatchesView	view-payment-batches.js	1;"	function
 PaymentProcessingView	payment-processing.js	8;"	function
-PharmaciesView	view-pharmacies.js	8;"	function
 PlanEdit	edit-plan.js	6;"	function
 PoliciesView	view-policies.js	8;"	function
 ProductEdit	edit-product.js	6;"	function
@@ -302,9 +300,7 @@ ProductView	x product.js	8;"	function
 ProductView2	x product.js	108;"	function
 ProductsView	view-products.js	8;"	function
 ProviderDiscountEdit	edit-provider-discount.js	6;"	function
-ProvidersList	view-providers.js	90;"	function
 ProvidersMedicalTabs.ProvidersTab	view-providers-medical.js	47;"	function
-ProvidersView	view-providers.js	8;"	function
 RecoveryTypesEdit	edit-recovery-types.js	8;"	function
 RecoveryTypesView	view-recovery-types.js	9;"	function
 ServiceActionsView	view-service-actions.js	8;"	function

@@ -6,39 +6,34 @@
 // File name: view-clinics.js
 //==================================================================================================
 function ClinicsView(params){
-	var name = "app/clinics";
+	// var name = "app/clinics";
 	
-	return new JDBGrid({
-		params: params,
-		options: {
-			horzScroll: true
+	return new jGrid($.extend(params, {
+		paintParams: {
+			css: "clinics",
+			toolbar: {theme: "svg"}
 		},
-		toolbarTheme:"svg",
-		Painter: {
-			css: "clinics"
+		editForm: function(id, container, dialog) {
+			ClinicEdit({
+				id: id,
+				container: container,
+				dialog: dialog
+			})
 		},
-		init: function(grid) {			
-			grid.Events.OnInitGrid.add(function(grid) {
-				grid.optionsData.url = name;
-				grid.options.showToolbar = true;
-				grid.options.horzScroll = false;
-				grid.options.showPager = true;
-				grid.options.showSummary = false;
-				grid.options.cardView = false;
-				grid.options.autoScroll = true;
+		init: function(grid, callback) {			
+			grid.Events.OnInit.add(function(grid) {
+				grid.optionsData.url = "app/clinics";
+				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
-				grid.options.showBand = true;
-				grid.options.simpleSearch = true;
-				grid.options.simpleSearchField = "filter";
 				
-				grid.optionsData.editCallback = function(grid, id) {
-					__clinic(id);
-				};
+				grid.search.visible = true;
+				grid.search.mode = "simple";
+				grid.search.columnName = "filter";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
 						.addColumn("page", 1, {numeric:true})
-						.addColumn("pagesize", 25, {numeric:true})
+						.addColumn("pagesize", 50, {numeric:true})
 						.addColumn("sort", "name")
 						.addColumn("order", "asc")
 						.addColumn("filter", "")
@@ -47,33 +42,29 @@ function ClinicsView(params){
 				grid.Events.OnInitData.add(function(grid, data) {
 					data.Columns
 					    .setprops("id", {label:"ID", numeric:true, key:true})
-						.setprops("code", {label:"Code"})
-						.setprops("name", {label:"Clinic Name"})
-						.setprops("discount", {label:"Discount", numeric:true})
-						.setprops("street", {label:"Street"})
-						.setprops("city", {label:"City"})
-						.setprops("province", {label:"Province"})
-						.setprops("zip_code", {label:"Zip Code"})
-						.setprops("country", {label:"Country"}) 
+						.setprops("code", {label:"SunCode"})
+						.setprops("spin_id", {label:"SPIN ID"})
+						.setprops("name", {label:"Name"})
+						.setprops("country", {label:"Country"})
 				});
 
-				grid.Events.OnInitColumns.add(function(grid) {		
-					grid.NewCommand({command: "open", float: "left"});
-					
-					var band;
-
-                    band = grid.NewBand("Clinic Details");
-					band.NewColumn({fname: "id", width: 0, allowSort: true, fixedWidth:true});
-					band.NewColumn({fname: "code", width: 100, allowSort: false, fixedWidth:true});
-					band.NewColumn({fname: "name", width: 265, aloowSort: true, fixedWidth:true});
-					band.NewColumn({fname: "discount", width: 80, allowSort: false, fixedWidth:true});
-					
-					band = grid.NewBand("Clinic Address");
-					band.NewColumn({fname: "street", width: 300, allowSort: false, fixedWidth:true});
-					band.NewColumn({fname: "city", width: 300, allowSort: false, fixedWidth:true});
-					band.NewColumn({fname: "province", width: 125, allowSort: false, fixedWidth:true});
-					band.NewColumn({fname: "zip_code", width: 250, allowSort: false, fixedWidth:true});
-					band.NewColumn({fname: "country", width: 150, fixedWidth:false, allowSort: true}); 
+				grid.Events.OnInitRow.add(function(grid, row) {	
+					row.attr("x-status", grid.dataset.get("status_code"))
+				});	
+				
+				grid.Methods.add("deleteConfirm", function(grid, id) {
+					grid.dataset.gotoKey(id);
+					return {title: "Delete Clinic", message: ("Please confirm to delete clinic <b>{0}</b>.").format(grid.dataset.get("name"))};
+				});
+				
+				grid.Events.OnInitColumns.add(function(grid) {
+					grid.NewBand({id:"00", caption: "General"}, function(band) {
+						band.NewColumn({fname: "id", width: 75, allowSort: true, fixedWidth:true});
+						band.NewColumn({fname: "code", width: 100, allowSort: false, fixedWidth:true});
+						band.NewColumn({fname: "spin_id", width: 100, allowSort: false, fixedWidth:true});
+						band.NewColumn({fname: "name", width: 200, aloowSort: true, fixedWidth:true});
+						band.NewColumn({fname: "country", width: 200, allowSort: false, fixedWidth:true});
+					})
 				});
 			});
 		}

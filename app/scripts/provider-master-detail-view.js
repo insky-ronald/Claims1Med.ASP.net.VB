@@ -82,7 +82,9 @@ function ProviderMasterDetailView(params) {
 											},
 											OnCreateMasterDetail: function(detail, keyID) {
 												return new AddressesView({
-													nameID: keyID,
+													getMasterID: function() {
+														return detail.master.view.dataset.getKey()
+													},
 													container: detail.tab.container
 												});
 											},
@@ -103,7 +105,9 @@ function ProviderMasterDetailView(params) {
 											},
 											OnCreateMasterDetail: function(detail, keyID) {
 												return new ContactsView({
-													nameID: keyID,
+													getMasterID: function() {
+														return detail.master.view.dataset.getKey()
+													},
 													container: detail.tab.container
 												});
 											},
@@ -113,14 +117,30 @@ function ProviderMasterDetailView(params) {
 											OnActivate: function(tab) {
 												tab.detail.sync();
 											}
-										};
+										});
 										pg.addTab({caption:"Banks",
 											icon: {
-												name: "table"
+												name: "bank"
+											},
+											OnSetKey: function(detail, keyID) {
+												detail.view.dataParams.set("name_id", keyID);
+												detail.view.refresh();
+											},
+											OnCreateMasterDetail: function(detail, keyID) {
+												return new BanksView({
+													getMasterID: function() {
+														return detail.master.view.dataset.getKey()
+													},
+													container: detail.tab.container
+												});
 											},
 											OnCreate: function(tab) {
+												tab.detail.update();
+											},
+											OnActivate: function(tab) {
+												tab.detail.sync();
 											}
-										};
+										});
 										pg.addTab({caption:"Notes",
 											icon: {
 												name: "notes"
@@ -169,7 +189,7 @@ function ProviderMasterDetailView(params) {
 											};
 											pg.addTab({caption:"Doctors",
 												icon: {
-													name: "doctors"
+													name: "doctor"
 												},
 												OnCreate: function(tab) {
 												}

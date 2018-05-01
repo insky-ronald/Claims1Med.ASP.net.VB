@@ -22,7 +22,7 @@ function MedicalProvidersView(viewParams){
 					color: "forestgreen"
 				},
 				OnCreate: function(tab) {
-					ProvidersView({container:tab.container, requestParams:$.extend(params.requestParams, {providerType:"H"})})	
+					ProviderDoctorsView({container:tab.container})
 				}
 			});
 			pg.addTab({caption:"Clinics",
@@ -31,7 +31,7 @@ function MedicalProvidersView(viewParams){
 					color: "red"
 				},
 				OnCreate: function(tab) {
-					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
+					ProviderClinicsView({container:tab.container})
 				}
 			});
 			pg.addTab({caption:"Hospitals",
@@ -40,8 +40,7 @@ function MedicalProvidersView(viewParams){
 					color: "dodgerblue"
 				},
 				OnCreate: function(tab) {
-					// ClaimDocumentsInView({container:tab.container, requestParams:$.extend(viewParams.requestParams, {source:"I"})});
-					// ClaimDocumentsInView($.extend(viewParams, {container:tab.container}))
+					ProviderHospitalsView({container:tab.container})
 				}
 			});
 			pg.addTab({caption:"Pharmacies",
@@ -50,7 +49,7 @@ function MedicalProvidersView(viewParams){
 					color: "red"
 				},
 				OnCreate: function(tab) {
-					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
+					ProviderPharmaciesView({container:tab.container})
 				}
 			});
 		}
