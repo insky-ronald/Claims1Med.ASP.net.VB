@@ -1,7 +1,7 @@
 <%@ WebHandler Language="VB" Class="DataProvider" %>
 
 Public Class DataProvider
-	Inherits DataHandler.SubDataHandler
+	Inherits DataHandler.DataProvider
 	
 	Protected Overrides Function ListDataSource As String
 		Return "DBMedics.GetAirlines"

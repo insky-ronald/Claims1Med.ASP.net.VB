@@ -50,49 +50,29 @@ function HospitalsView(params){
 						.setprops("spin_id", {label:"SPIN ID"})
 						.setprops("name", {label:"Name"})
 						.setprops("country", {label:"Country"})
+						.setprops("discount_type_id", {label:"Discount",
+							getText: function(column, value) {
+								if(value === "1") {
+									return ("{0}% on invoice total").format(column.dataset.get("discount_percent"))
+								} else if(value === "3") {
+									return ("{0}% per invoice item").format(column.dataset.get("discount_percent")) 
+								} else if(value === "4") {
+									return ("IDR {0} per invoice item").format(column.dataset.get("discount_amount"))
+								} else {
+									return "..."
+								}
+							}
+						})
 				});
 
 				grid.Events.OnInitRow.add(function(grid, row) {	
-					row.attr("x-status", grid.dataset.get("status_code"))
+					row.attr("x-status", grid.dataset.get("status_code"));
+					row.attr("x-blacklisted", grid.dataset.get("blacklisted"));
 				});	
 				
 				grid.Methods.add("deleteConfirm", function(grid, id) {
 					grid.dataset.gotoKey(id);
 					return {title: "Delete Hospital", message: ("Please confirm to delete hospital <b>{0}</b>.").format(grid.dataset.get("name"))};
-				});
-				
-				// grid.methods.add("getCommandIcon", function(grid, column) {
-					// if(column.command === "open") {
-						// return "db-open"
-					// } else {
-						// return ""
-					// }
-				// })
-				
-				// grid.methods.add("editPageUrl", function(grid, id) {
-					// return __doctor(id, true)
-				// })
-				
-				grid.events.OnInitSearch.add(function(grid, editor) {
-					editor.Events.OnInitData.add(function(sender, data) {
-						data.Columns
-							.setprops("filter", {label:"Policy Number"})
-							.setprops("policy_number", {label:"Policy Number"})
-							// .setprops("start_date", {label:"Start", type:"date"})
-							// .setprops("end_date", {label:"End", type:"date"})
-							// .setprops("debit_account_codes", {label:"Debit Accounts"})
-					});
-					
-					editor.Events.OnInitEditor.add(function(sender, editor) {
-						editor.NewGroupEdit("General", function(editor, tab) {
-							// editor.AddText("policy_number");
-							editor.AddText("filter");
-						});
-						
-						editor.NewSubSelectionView("Debit Accounts", 300, "broker_ids", AccountsLookupView);
-						// editor.NewSubSelectionView("Debit Accounts", 300, "debit_account_codes", AccountsLookupView);
-						// editor.NewSubSelectionView("Credit Accounts", 300, "credit_account_codes", AccountsLookupView);
-					});
 				});
 				
 				grid.Events.OnInitColumns.add(function(grid) {
@@ -101,13 +81,10 @@ function HospitalsView(params){
 						band.NewColumn({fname: "code", width: 100, allowSort: false, fixedWidth:true});
 						band.NewColumn({fname: "spin_id", width: 100, allowSort: false, fixedWidth:true});
 						band.NewColumn({fname: "name", width: 200, aloowSort: true, fixedWidth:true});
-						// band.NewColumn({fname: "full_name", width: 250, aloowSort: true, fixedWidth:true});
-						// band.NewColumn({fname: "specialisation", width: 200, allowSort: true, fixedWidth:true});
-						// band.NewColumn({fname: "discount", width: 80, allowSort: false, fixedWidth:true});
 						band.NewColumn({fname: "country", width: 200, allowSort: false, fixedWidth:true});
+						band.NewColumn({fname: "discount_type_id", width: 200, allowSort: false, fixedWidth:true});
 					})
 				});
-				
 			});
 		}
 	}));

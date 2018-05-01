@@ -1,10 +1,14 @@
 <%@ WebHandler Language="VB" Class="DataProvider" %>
 
 Public Class DataProvider
-	Inherits DataHandler.SubDataHandler
+	Inherits DataHandler.DataProvider
 	
 	Protected Overrides Function ListDataSource As String
 		Return "DBMedics.GetClinics"
+	End Function
+	
+	Protected Overrides Function UpdateDataSource As String
+		Return "DBMedics.AddClinics"
 	End Function
 		
 	Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))

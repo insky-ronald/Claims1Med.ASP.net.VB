@@ -15,6 +15,7 @@ AddressTypesView	view-address-types.js	9;"	function
 AddressesView	addresses.js	8;"	function
 AddressesView	view-addresses.js	9;"	function
 AddressesView.MasterKey	view-addresses.js	10;"	function
+AirlineEdit	edit-airline.js	8;"	function
 AuditLogTypesEdit	edit-auditlog-types.js	8;"	function
 AuditLogTypesView	view-auditlog-types.js	9;"	function
 BanksEdit	edit-banks.js	6;"	function
@@ -121,6 +122,7 @@ CreateSubPage	voterslist.js	18;"	function
 CreateSubPagex	masterpolicies (backup).js	14;"	function
 CreateTestContainer.CreateTestPageControl	test-scroll.js	25;"	function
 CreateTestContainer.TestScrollerView	test-scroll.js	115;"	function
+CreditCardEdit	edit-creditcard.js	8;"	function
 CurrenciesEdit	edit-currencies.js	8;"	function
 CurrenciesLookup	currencies-lookup.js	1;"	function
 CurrenciesView	view-currencies.js	9;"	function
@@ -293,6 +295,7 @@ Notes.showFooter	notes.js	19;"	method
 Notes.showHeader	notes.js	18;"	method
 PaymentBatchesView	view-payment-batches.js	1;"	function
 PaymentProcessingView	payment-processing.js	8;"	function
+PharmacyEdit	edit-pharmacy.js	8;"	function
 PlanEdit	edit-plan.js	6;"	function
 PoliciesView	view-policies.js	8;"	function
 ProductEdit	edit-product.js	6;"	function
