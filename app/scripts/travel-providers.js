@@ -22,8 +22,7 @@ function TravelProvidersView(viewParams){
 					color: "dodgerblue"
 				},
 				OnCreate: function(tab) {
-					// ClaimDocumentsInView({container:tab.container, requestParams:$.extend(viewParams.requestParams, {source:"I"})});
-					// ClaimDocumentsInView($.extend(viewParams, {container:tab.container}))
+					ProviderAirlinesView({container:tab.container})
 				}
 			});
 			pg.addTab({caption:"Credit Cards",
@@ -32,7 +31,7 @@ function TravelProvidersView(viewParams){
 					color: "forestgreen"
 				},
 				OnCreate: function(tab) {
-					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
+					ProviderCreditCardsView({container:tab.container})
 				}
 			});
 		}

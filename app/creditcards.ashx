@@ -1,34 +1,29 @@
 <%@ WebHandler Language="VB" Class="DataProvider" %>
 
 Public Class DataProvider
-	Inherits DataHandler.DataProvider
+	Inherits DataHandler.SubDataHandler
 	
 	Protected Overrides Function ListDataSource As String
-		Return "DBMedics.GetCountries"
-	End Function
-
-	Protected Overrides Function UpdateDataSource As String
-		Return "DBMedics.AddCountries"
+		Return "DBMedics.GetCreditCards"
 	End Function
 		
 	Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))
 		MyBase.InitParams(Cmd, DataParams, DataValues)
-		If Cmd = "edit"
-			DataParams.Add("code")
-			DataValues.Add(Request.Params("code"))
+		If Cmd = "list"
+		    ' DataParams.Add("visit_id")
+			' DataValues.Add(Session("VisitorID"))
+		Else If Cmd = "edit"
+		    DataParams.Add("id")
+			DataValues.Add(Request.Params("id"))
 		End if
 	End Sub
-		
-	Protected Overrides Sub NewRecord(Row As System.Data.DataRow)
-		MyBase.NewRecord(Row)
-	End Sub		
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
 		If Cmd = "list"
-			Crud.AsBoolean("add") = False
-			Crud.AsBoolean("edit") = False
-			Crud.AsBoolean("delete") = False
-		End If
+			Crud.AsBoolean("add") = True
+			Crud.AsBoolean("edit") = True
+			Crud.AsBoolean("delete") = True
+		End if
 	End Sub
 End Class

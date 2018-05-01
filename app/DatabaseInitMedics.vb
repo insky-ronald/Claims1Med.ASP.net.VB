@@ -480,6 +480,34 @@ With DBConnection.NewCommand("GetPharmacies", "GetPharmacies", CommandType.Store
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
+With DBConnection.NewCommand("GetAirlines", "GetAirlines", CommandType.StoredProcedure)
+    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "name")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With
+
+With DBConnection.NewCommand("GetCreditCards", "GetCreditCards", CommandType.StoredProcedure)
+    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "name")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With
+
 With DBConnection.NewCommand("GetDoctorSpecialisation", "GetDoctorSpecialisation", CommandType.StoredProcedure)
     .AddParameter("code", SqlDbType.char, ParameterDirection.Input, 5, "")
     .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
