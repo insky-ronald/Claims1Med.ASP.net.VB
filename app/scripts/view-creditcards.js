@@ -3,18 +3,16 @@
 // 
 // ****************************************************************************************************
 //==================================================================================================
-// File name: view-clinics.js
+// File name: view-creditcards.js
 //==================================================================================================
-function ClinicsView(params){
-	// var name = "app/clinics";
-	
+function CreditCardsView(params){	
 	return new jGrid($.extend(params, {
 		paintParams: {
-			css: "clinics",
+			css: "creditcards",
 			toolbar: {theme: "svg"}
 		},
 		editForm: function(id, container, dialog) {
-			ClinicEdit({
+			CreditCardEdit({
 				id: id,
 				container: container,
 				dialog: dialog
@@ -22,7 +20,7 @@ function ClinicsView(params){
 		},
 		init: function(grid, callback) {			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/clinics";
+				grid.optionsData.url = "app/creditcards";
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
 				
@@ -46,24 +44,10 @@ function ClinicsView(params){
 						.setprops("spin_id", {label:"SPIN ID"})
 						.setprops("name", {label:"Name"})
 						.setprops("country", {label:"Country"})
-						.setprops("discount_type_id", {label:"Discount",
-							getText: function(column, value) {
-								if(value === "1") {
-									return ("{0}% on invoice total").format(column.dataset.get("discount_percent"))
-								} else if(value === "3") {
-									return ("{0}% per invoice item").format(column.dataset.get("discount_percent")) 
-								} else if(value === "4") {
-									return ("IDR {0} per invoice item").format(column.dataset.get("discount_amount"))
-								} else {
-									return "..."
-								}
-							}
-						})
 				});
 
 				grid.Events.OnInitRow.add(function(grid, row) {	
-					row.attr("x-status", grid.dataset.get("status_code"));
-					row.attr("x-blacklisted", grid.dataset.get("blacklisted"));
+					row.attr("x-status", grid.dataset.get("status_code"))
 				});	
 				
 				grid.Methods.add("deleteConfirm", function(grid, id) {
@@ -78,7 +62,6 @@ function ClinicsView(params){
 						band.NewColumn({fname: "spin_id", width: 100, allowSort: false, fixedWidth:true});
 						band.NewColumn({fname: "name", width: 200, aloowSort: true, fixedWidth:true});
 						band.NewColumn({fname: "country", width: 200, allowSort: false, fixedWidth:true});
-						band.NewColumn({fname: "discount_type_id", width: 200, allowSort: false, fixedWidth:true});
 					})
 				});
 			});

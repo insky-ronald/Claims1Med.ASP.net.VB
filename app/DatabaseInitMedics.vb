@@ -306,18 +306,18 @@ With DBConnection.NewCommand("AddCurrencies", "AddCurrencies", CommandType.Store
 	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
 End with 
 
-' With DBConnection.NewCommand("GetAddressTypes", "GetAddressTypes", CommandType.StoredProcedure)
-    ' .AddParameter("code", SqlDbType.VarChar, ParameterDirection.Input, 3, "")
-    ' .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    ' .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
-    ' .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
-    ' .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    ' .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-    ' .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-    ' .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "code")
-    ' .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
-    ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-' End With
+With DBConnection.NewCommand("GetAddressTypes", "GetAddressTypes", CommandType.StoredProcedure)
+    .AddParameter("code", SqlDbType.VarChar, ParameterDirection.Input, 3, "")
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "code")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With
 
 ' With DBConnection.NewCommand("AddAddressTypes", "AddAddressTypes", CommandType.StoredProcedure)
 	' .AddParameter("code", SqlDbType.VarChar, ParameterDirection.InputOutput, 3, "")
@@ -452,9 +452,62 @@ With DBConnection.NewCommand("GetHospitals", "GetHospitals", CommandType.StoredP
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
+With DBConnection.NewCommand("AddHospitals", "AddHospitals", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("code", SqlDbType.Char, ParameterDirection.Input, 10, "")
+	.AddParameter("spin_id", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	.AddParameter("name", SqlDbType.VarChar, ParameterDirection.Input, 100, "")
+	.AddParameter("country_code", SqlDbType.Char, ParameterDirection.Input, 3, "")
+	.AddParameter("status_code", SqlDbType.Char, ParameterDirection.Input, 1, "")
+	.AddParameter("blacklisted", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("discount_type_id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("discount_amount", SqlDbType.Money, ParameterDirection.Input, 0, 0)
+	.AddParameter("discount_percent", SqlDbType.SmallMoney, ParameterDirection.Input, 0, 0)
+	.AddParameter("notes", SqlDbType.Varchar, ParameterDirection.Input, -1, "")
+
+	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+End with
+
 With DBConnection.NewCommand("GetClinics", "GetClinics", CommandType.StoredProcedure)
     .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "name")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With
+
+With DBConnection.NewCommand("AddClinics", "AddClinics", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("code", SqlDbType.Char, ParameterDirection.Input, 10, "")
+	.AddParameter("spin_id", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	.AddParameter("name", SqlDbType.VarChar, ParameterDirection.Input, 100, "")
+	.AddParameter("country_code", SqlDbType.Char, ParameterDirection.Input, 3, "")
+	.AddParameter("status_code", SqlDbType.Char, ParameterDirection.Input, 1, "")
+	.AddParameter("blacklisted", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("discount_type_id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("discount_amount", SqlDbType.Money, ParameterDirection.Input, 0, 0)
+	.AddParameter("discount_percent", SqlDbType.SmallMoney, ParameterDirection.Input, 0, 0)
+	.AddParameter("notes", SqlDbType.Varchar, ParameterDirection.Input, -1, "")
+
+	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+End with
+
+With DBConnection.NewCommand("GetPharmacies", "GetPharmacies", CommandType.StoredProcedure)
+    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
     .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
     .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
@@ -465,10 +518,30 @@ With DBConnection.NewCommand("GetClinics", "GetClinics", CommandType.StoredProce
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
-With DBConnection.NewCommand("GetPharmacies", "GetPharmacies", CommandType.StoredProcedure)
+With DBConnection.NewCommand("AddPharmacies", "AddPharmacies", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("code", SqlDbType.Char, ParameterDirection.Input, 10, "")
+	.AddParameter("spin_id", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	.AddParameter("name", SqlDbType.VarChar, ParameterDirection.Input, 100, "")
+	.AddParameter("country_code", SqlDbType.Char, ParameterDirection.Input, 3, "")
+	.AddParameter("status_code", SqlDbType.Char, ParameterDirection.Input, 1, "")
+	.AddParameter("blacklisted", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("discount_type_id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("discount_amount", SqlDbType.Money, ParameterDirection.Input, 0, 0)
+	.AddParameter("discount_percent", SqlDbType.SmallMoney, ParameterDirection.Input, 0, 0)
+	.AddParameter("notes", SqlDbType.Varchar, ParameterDirection.Input, -1, "")
+
+	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+End with
+
+With DBConnection.NewCommand("GetAirlines", "GetAirlines", CommandType.StoredProcedure)
     .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
     .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
@@ -477,6 +550,50 @@ With DBConnection.NewCommand("GetPharmacies", "GetPharmacies", CommandType.Store
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
+
+With DBConnection.NewCommand("AddAirlines", "AddAirlines", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("code", SqlDbType.Char, ParameterDirection.Input, 10, "")
+	.AddParameter("spin_id", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	.AddParameter("name", SqlDbType.VarChar, ParameterDirection.Input, 100, "")
+	.AddParameter("country_code", SqlDbType.Char, ParameterDirection.Input, 3, "")
+	.AddParameter("status_code", SqlDbType.Char, ParameterDirection.Input, 1, "")
+	.AddParameter("blacklisted", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+
+	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+End with
+
+With DBConnection.NewCommand("GetCreditCards", "GetCreditCards", CommandType.StoredProcedure)
+    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("lookup", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "name")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With
+
+With DBConnection.NewCommand("AddCreditCards", "AddCreditCards", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("code", SqlDbType.Char, ParameterDirection.Input, 10, "")
+	.AddParameter("spin_id", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	.AddParameter("name", SqlDbType.VarChar, ParameterDirection.Input, 100, "")
+	.AddParameter("country_code", SqlDbType.Char, ParameterDirection.Input, 3, "")
+	.AddParameter("status_code", SqlDbType.Char, ParameterDirection.Input, 1, "")
+	.AddParameter("blacklisted", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+
+	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+End with
 
 With DBConnection.NewCommand("GetDoctorSpecialisation", "GetDoctorSpecialisation", CommandType.StoredProcedure)
     .AddParameter("code", SqlDbType.char, ParameterDirection.Input, 5, "")
@@ -495,8 +612,6 @@ With DBConnection.NewCommand("GetProviderDiscount", "GetProviderDiscount", Comma
     .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 1)
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
-
-' --------------------System Tables------------------------------
 
 ' With DBConnection.NewCommand("GetClients", "GetClients", CommandType.StoredProcedure)
     ' .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)

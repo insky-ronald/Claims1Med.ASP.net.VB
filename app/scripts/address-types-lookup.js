@@ -7,18 +7,18 @@ var AddressTypesLookup = function(edit, grid) {
 	grid.Events.OnInitGrid.add(function(grid) {
 		grid.options.simpleSearch = true;
 		grid.options.simpleSearchField = "filter";
-		// grid.optionsData.url = "address-types";
-		grid.optionsData.url = "lookup?name=lookup_address_types";
+		grid.optionsData.url = "address-types";
+		//grid.optionsData.url = "lookup?name=lookup_address_types";
 	});
 	
 	grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
-		// dataParams
-			// .addColumn("lookup", 1)
-			// .addColumn("filter", "")
-			// .addColumn("sort", "address_type")
-			// .addColumn("order", "asc")
-			// .addColumn("page", 1)
-			// .addColumn("pagesize")
+		dataParams
+			.addColumn("action", 1)
+			.addColumn("filter", "")
+			.addColumn("sort", "address_type")
+			.addColumn("order", "asc")
+			.addColumn("page", 1)
+			.addColumn("pagesize", 1000000)
 	});
 
 	grid.Events.OnInitData.add(function(grid, data) {

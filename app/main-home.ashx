@@ -121,23 +121,6 @@ Public Class DataProvider
 		
 		' Main = MenuItems.AddMain("clients", "Clients")
 
-			' With Main.SubItems.Add
-				' .ID = "clients"
-				' .Action = "admin"				
-				' .Title = "Clients & Policies"
-				' .Icon = "users"
-				' .URL = "app/clients"
-			' End with
-
-			' With Main.SubItems.Add
-				' .ID = "products"
-				' .Action = "admin"				
-				' .Title = "Products, Plans & Benefits"
-				' .Icon = "table"
-				' .URL = "app/products"
-			' End with
-			
-		' Main = MenuItems.AddMain("providers", "Providers")
 		Main = MenuItems.AddMain("system", "System")
 			
 			With Main.SubItems.Add
@@ -151,17 +134,18 @@ Public Class DataProvider
 			With Main.SubItems.Add
 				.ID = "medical"
 				.Action = "admin"				
-				.Title = "Medical Providers"
-				.Icon = "users"
-				' .Icon = "table"
+				.Title = "Medical"
+				.Icon = "hospital"
+				.URL = "app/medical-providers"
 			End with
 
-			' With Main.SubItems.Add
-				' .ID = "travel"
-				' .Action = "admin"				
-				' .Title = "Travel"
-				' .Icon = "table"
-			' End with
+			With Main.SubItems.Add
+				.ID = "travel"
+				.Action = "admin"				
+				.Title = "Travel"
+				.Icon = "airplane"
+				.URL = "app/travel-providers"
+			End with
 
 			' With Main.SubItems.Add
 				' .ID = "policies"
