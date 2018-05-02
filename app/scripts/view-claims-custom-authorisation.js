@@ -25,7 +25,7 @@ jCustomAuthorisationView.prototype.initialize = function(params) {
 
 jCustomAuthorisationView.prototype.OnInitGrid = function(grid) {
 	jCustomAuthorisationView.prototype.parent.prototype.OnInitGrid.call(this, grid);
-	// grid.options.editNewPage = true;
+	grid.options.showSelection = true;
 };
 
 jCustomAuthorisationView.prototype.OnInitDataRequest = function(dataset) {
@@ -36,33 +36,35 @@ jCustomAuthorisationView.prototype.OnInitDataRequest = function(dataset) {
 		.addColumn("pagesize", 25, {numeric:true})
 		.addColumn("sort", "service_no")
 		.addColumn("order", "asc")
-		// .addColumn("show_only_selected", 0, {numeric:true})
-		.addColumn("claim_no", "")
-		.addColumn("client_ids", "")
-		// .addColumn("broker_ids", "")
-		// .addColumn("plan_ids", "")
-		// .addColumn("settlement_currency_codes", "")
-		// .addColumn("client_currency_codes", "")
-		// .addColumn("user_names", "")
 };
 
 jCustomAuthorisationView.prototype.OnInitSearchData = function(dataset) {
 	jCustomAuthorisationView.prototype.parent.prototype.OnInitSearchData.call(this, dataset);
 	
 	dataset.Columns
-		// .setprops("show_only_selected", {label: "Selected", numeric:true})
 		.setprops("claim_no", {label:"Claim No."})
+		.setprops("service_no", {label:"Service No."})
+		.setprops("service_creation_date_start", {label:"Entry Start Date", type:"date"})
+		.setprops("service_creation_date_end", {label:"Entry End Date", type:"date"})
 		.setprops("invoice_no", {label:"Invoice No."})
+		.setprops("invoice_entry_date_start", {label:"Entry Start Date", type:"date"})
+		.setprops("invoice_entry_date_end", {label:"Entry End Date", type:"date"})
 		.setprops("client_ids")
-		// .setprops("policy_ids")
-		// .setprops("broker_ids")
-		// .setprops("plan_ids")
-		// .setprops("settlement_currency_codes")
-		// .setprops("client_currency_codes")
-		// .setprops("user_names")
 };
 
 jCustomAuthorisationView.prototype.OnInitSearchEditorGeneral = function(editor) {
+	editor.AddGroup("General", function(editor) {
+		editor.AddText("claim_no")
+		editor.AddText("service_no")
+		editor.AddDate("service_creation_date_start")
+		editor.AddDate("service_creation_date_end")
+	});
+
+	editor.AddGroup("Invoice", function(editor) {
+		editor.AddText("invoice_no")
+		editor.AddDate("invoice_entry_date_start")
+		editor.AddDate("invoice_entry_date_end")
+	});
 };
 
 jCustomAuthorisationView.prototype.OnInitSearchEditorLookups = function(editor) {
@@ -113,26 +115,26 @@ jCustomAuthorisationView.prototype.OnInitMethods = function(grid) {
 	var self = this;
 	
 	grid.methods.add("getCommandIcon", function(grid, column, previous) {
-		if(column.command === "select") {
-			if(grid.dataset.get("Selected")
-				return "select,1"
-			else
-				return "un-select,0"
-		} else if(column.command === "selected")
-			return "close"
-		else if(column.command === "un-selected")
-			return "checkbox-marked-circle-outline"
-		else
+		// if(column.command === "select") {
+			// if(grid.dataset.get("Selected")
+				// return "select,1"
+			// else
+				// return "un-select,0"
+		// } else if(column.command === "selected")
+			// return "close"
+		// else if(column.command === "un-selected")
+			// return "checkbox-marked-circle-outline"
+		// else
 			return previous
 		
 	});
 				
 	grid.methods.add("allowCommand", function(grid, column, previous) {
-		if(column.command === "selected")
-			return grid.dataset.get("Selected")
-		else if(column.command === "un-selected")
-			return !grid.dataset.get("Selected")
-		else
+		// if(column.command === "selected")
+			// return grid.dataset.get("Selected")
+		// else if(column.command === "un-selected")
+			// return !grid.dataset.get("Selected")
+		// else
 			return previous				
 	});
 	
@@ -173,10 +175,10 @@ jCustomAuthorisationView.prototype.OnPopupMenu = function(menu) {
 	if(grid.methods.call("allowSelection")) {
 		var m = menu.add(this.popuMenuTitle)
 		
-		if(grid.dataset.get("Selected"))
-			m.addCommand("Un-Select", "", "close")
-		else
-			m.addCommand("Select", "", "checkbox-marked-circle-outline");
+		// if(grid.dataset.get("Selected"))
+			// m.addCommand("Un-Select", "", "close")
+		// else
+			// m.addCommand("Select", "", "checkbox-marked-circle-outline");
 		
 		this.OnPopupMenuCommands(m);
 	};
@@ -228,7 +230,12 @@ jCustomAuthorisationView.prototype.OnDrawCustomHeader = function(container) {
 	}, "dashboard");
 	
 	this.addFilterDisplay({name:"claim_no", caption:"Claim No.", operator:"is"});
+	this.addFilterDisplay({name:"service_no", caption:"Service No.", operator:"is"});
 	this.addFilterDisplay({name:"invoice_no", caption:"Invoice No.", operator:"is"});
+	this.addFilterDisplay({name:"service_creation_date_start", caption:"Service Entry Start Date", operator:">="});
+	this.addFilterDisplay({name:"service_creation_date_end", caption:"Service Entry End Date", operator:"<="});
+	this.addFilterDisplay({name:"invoice_entry_date_start", caption:"Invoice Entry Start Date", operator:">="});
+	this.addFilterDisplay({name:"invoice_entry_date_end", caption:"Invoice Entry End Date", operator:"<="});
 	this.addFilterDisplay({name:"client_ids", caption:"Client ID", operator:"is"});
 	// this.addFilterDisplay({name:"policy_ids", caption:"Master Policy ID", operator:"is"});
 	// this.addFilterDisplay({name:"broker_ids", caption:"Broker ID", operator:"is"});
@@ -246,9 +253,9 @@ jCustomAuthorisationView.prototype.OnInitColumns = function(grid) {
 	var self = this;
 	
 	if(grid.methods.call("allowSelection")) {
-		grid.NewBand({fixed:"left"}, function(band) {
-			band.NewCommand({command:"select"});
-		})
+		// grid.NewBand({fixed:"left"}, function(band) {
+			// band.NewCommand({command:"select"});
+		// })
 		// grid.NewBand({caption:"Select", fixed:"left"}, function(band) {
 			// band.NewCommand({command:"selected"});
 			// band.NewCommand({command:"un-selected"});

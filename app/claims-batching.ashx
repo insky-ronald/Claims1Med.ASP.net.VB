@@ -1,22 +1,24 @@
-﻿<%@ WebHandler Language="VB" Class="DataProvider" %>
+<%@ WebHandler Language="VB" Class="DataProvider" %>
 
 Public Class DataProvider
-	Inherits DataHandler.DataProvider
+	Inherits DataHandler.SavedQueryProvider
+
+	Protected Overrides Function ReportTypeID As Integer
+		Return 1003
+	End Function
 	
 	Protected Overrides Function ListDataSource As String
-		Return "DBMedics.GetClaimStatusHistory"
-	End Function
-
-	Protected Overrides Function UpdateDataSource As String
-		Return "DBMedics.AddClaimStatusHistory"
+		Return "DBMedics.GetClaimsBatching"
 	End Function
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
-		If Cmd = "edit"
+		If Cmd = "list"
 			Crud.AsBoolean("add") = False
 			Crud.AsBoolean("edit") = False
 			Crud.AsBoolean("delete") = False
-		End if
+			Crud.AsBoolean("authorise") = True
+			' Crud.AsBoolean("authorise") = False
+		End If
 	End Sub
 End Class

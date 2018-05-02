@@ -11,3 +11,9 @@
 
 ##template
 ##endtemplate=app\clients
+
+##template
+##endtemplate=app\addresses
+
+##template
+##endtemplate=app\contacts

@@ -41,7 +41,7 @@ function __service(id, module, get) {
 	// return __open(("/app/service/{1}/{0}").format(module.toLowerCase(), id), get);
 	// return __open(("/app/service/{0}/{1}").format(module.toLowerCase(), id), get);
 	// return __open(("/app/service/{0}/{1}").format(module, id), get);
-	return __open(("/app/{0}/{1}").format(module.toLowerCase(), id), get);
+	return __open(("/app/service/{0}/{1}").format(module.toLowerCase(), id), get);
 };
 
 function __newservice(id, module, type, get) {
@@ -80,6 +80,10 @@ function __hospital(id, get) {
 
 function __clinic(id, get) {
 	return __open(("/app/clinic/{0}").format(id), get);
+};
+
+function __report(id, get) {
+	return __open(("/sys/report/{0}").format(id), get);
 };
 //==================================================================================================
 // Claim MainPage
@@ -244,4 +248,7 @@ MainPage.prototype.InitializeSession = function(data) {
 	this.CloneSvg("banks", "bank");
 	this.CloneSvg("floats", "table-edit");
 	this.CloneSvg("case-fees", "table-edit");
+	
+	// REPORT
+	this.CloneSvg("run-report", "approval");
 };

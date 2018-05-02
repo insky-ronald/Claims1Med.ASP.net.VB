@@ -22,10 +22,7 @@ function PaymentProcessingView(viewParams){
 					color: "dodgerblue"
 				},
 				OnCreate: function(tab) {
-					new jAuthorisationView({container:tab.container, requestParams: {referral:0}});
-					// MembersSearchView($.extend(viewParams, {container:tab.container}))
-					// ClaimDocumentsInView({container:tab.container, requestParams:$.extend(viewParams.requestParams, {source:"I"})});
-					// ClaimDocumentsInView($.extend(viewParams, {container:tab.container}))
+					new PaymentAuthorisationView({container:tab.container, requestParams: {referral:0}});
 				}
 			});
 			pg.addTab({caption:"Batching",
@@ -34,6 +31,7 @@ function PaymentProcessingView(viewParams){
 					color: "forestgreen"
 				},
 				OnCreate: function(tab) {
+					new PaymentBatchingView({container:tab.container, requestParams: {referral:0}});
 					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
 				}
 			});

@@ -119,40 +119,49 @@ Public Class DataProvider
 				' .URL = "app/claims-processing"
 			' End with
 		
-		' Main = MenuItems.AddMain("payment", "Claim")
+		' Main = MenuItems.AddMain("clients", "Clients")
+
+			' With Main.SubItems.Add
+				' .ID = "clients"
+				' .Action = "admin"				
+				' .Title = "Clients & Policies"
+				' .Icon = "users"
+				' .URL = "app/clients"
+			' End with
+
+			' With Main.SubItems.Add
+				' .ID = "products"
+				' .Action = "admin"				
+				' .Title = "Products, Plans & Benefits"
+				' .Icon = "table"
+				' .URL = "app/products"
+			' End with
 			
-		Main = MenuItems.AddMain("providers", "Providers")
-
-			With Main.SubItems.Add
-				.ID = "medical"
-				.Action = "admin"				
-				.Title = "Medical"
-				' .Icon = "table"
-			End with
-
-			With Main.SubItems.Add
-				.ID = "travel"
-				.Action = "admin"				
-				.Title = "Travel"
-				' .Icon = "table"
-			End with
-		
+		' Main = MenuItems.AddMain("providers", "Providers")
 		Main = MenuItems.AddMain("system", "System")
-
+			
 			With Main.SubItems.Add
 				.ID = "clients"
 				.Action = "admin"				
-				.Title = "Clients and Policies"
-				' .Icon = "table"
+				.Title = "Clients"
+				.Icon = "users"
 				.URL = "app/clients"
 			End with
 
 			With Main.SubItems.Add
-				.ID = "products"
+				.ID = "medical"
 				.Action = "admin"				
-				.Title = "Products, Plans & Benefits"
+				.Title = "Medical Providers"
+				.Icon = "users"
 				' .Icon = "table"
 			End with
+
+			' With Main.SubItems.Add
+				' .ID = "travel"
+				' .Action = "admin"				
+				' .Title = "Travel"
+				' .Icon = "table"
+			' End with
 
 			' With Main.SubItems.Add
 				' .ID = "policies"

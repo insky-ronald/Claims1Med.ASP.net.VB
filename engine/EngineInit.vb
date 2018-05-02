@@ -20,6 +20,7 @@ Styles.SetValue("permission", "design-5")
 Styles.SetValue("settings", "design-5")
 Styles.SetValue("system", "design-5")
 Styles.SetValue("database", "design-5")
+Styles.SetValue("report", "design-5")
 
 ScriptLibraries.SetValue("system", "html-editor")
 

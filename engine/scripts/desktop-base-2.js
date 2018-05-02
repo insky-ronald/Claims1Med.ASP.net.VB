@@ -33,8 +33,8 @@ DesktopBase.prototype.PostInitialize = function(data) {
 DesktopBase.prototype.Initialize = function(Params) {
 	DesktopBase.prototype.parent.prototype.Initialize.call(this, Params);
 	// console.log(this.DefaultPainter())
-	this.userName = "Matthew Bleach";
-	this.userRole = "Administrator";
+	// this.userName = "Matthew Bleach";
+	// this.userRole = "Administrator";
 	
 	this.dataCallback = Params.cb;
 	this.ver = Params.ver;
@@ -46,6 +46,10 @@ DesktopBase.prototype.Initialize = function(Params) {
 	this.Events.OnInitSession = new EventHandler(this);
 	this.Events.OnInitSession.add(function(desktop, data) {
 		desktop.pid = data.pid;
+		desktop.userName = data.user_name;
+		// desktop.userFullName = "Matthew Bleach";
+		desktop.userFullName = data.user_full_name;
+		desktop.userRole = "Administrator";
 		document.title = data.page_title;
 		desktop.InitializeSession(data);
 	})

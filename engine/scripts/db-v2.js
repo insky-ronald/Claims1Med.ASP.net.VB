@@ -6,6 +6,41 @@
 // 22-OCT-2014 ihms.0.0.1.3
 // 02-FEB-2015 ihms.1.0.0.1 added getBinding and getControl to object Dataset
 // ****************************************************************************************************
+
+//==================================================================================================
+// BaseDataset (work in progress, this will become the base class of Dataset)
+//==================================================================================================
+function BaseDataset(rawData) {
+	this.data = rawData;
+	this.delta = [];
+	this.deltaKeys = [];
+	this.recNo = 0;
+	// this.controls is an array of data-aware controls
+	this.controls = [];
+	this.primaryKey = "";
+	this.enableEvents = true;
+	
+	this.Events = {};
+	this.Events.OnEdit = new EventHandler(this);
+	this.Events.OnEditState = new EventHandler(this);
+	// this.Events.OnInitEditDialog = new EventHandler(this);
+	// this.Events.OnEditDialog = new EventHandler(this);
+	this.Events.OnNewRecord = new EventHandler(this);
+	this.Events.OnDelete = new EventHandler(this);
+	this.Events.OnCancel = new EventHandler(this);
+	this.Events.OnPost = new EventHandler(this);
+	this.Events.OnValidate = new EventHandler(this);
+	this.Events.OnAfterPost = new EventHandler(this);
+	this.Events.OnServerPost = new EventHandler(this);
+	this.Events.OnFetchData = new EventHandler(this);
+	this.Events.OnReset = new EventHandler(this);
+	this.Events.OnChanged = new EventHandler(this);
+	this.Events.OnMoveRecord = new EventHandler(this);
+	// this.Events.OnError = new EventHandler(this);
+	// this.Events.OnWarning = new EventHandler(this);
+	
+};
+
 /******************************************************************************************************
 	Dataset.prototype.append = function() 
 	Dataset.prototype.applyUpdate = function(msg, error, noEvent) 
@@ -42,6 +77,7 @@
 	Dataset.prototype.next = function(noEvent) 
 	Dataset.prototype.parseKeyValue = function(value) 
 	Dataset.prototype.post = function(callback) 
+	Dataset.prototype.post2 = function(callback) 
 	Dataset.prototype.previous = function(noEvent) 
 	Dataset.prototype.raw = function(fname, recno) 
 	Dataset.prototype.resetData = function(rawData, resetMode, noUnbind) 
@@ -91,39 +127,34 @@
 //==================================================================================================
 // Dataset
 //==================================================================================================
+// function Dataset(rawData, tableName, dsName) {
+Class.Inherits(Dataset, BaseDataset);
 function Dataset(rawData, tableName, dsName) {
+    Dataset.prototype.parent.call(this, rawData);
+	
 	var self = this;
 	
 	this.name = dsName;
 	this.tableName = tableName;
-	this.data = rawData;
-	this.delta = [];
-	this.deltaKeys = [];
-	this.recNo = 0;
-	// this.controls is an array of data-aware controls
-	this.controls = [];
-	this.primaryKey = "";
-	
-	this.enableEvents = true;
 	
 	this.Methods = new MethodHandler(this);
 	
-	this.Events = {};
-	this.Events.OnEdit = new EventHandler(this);
-	this.Events.OnEditState = new EventHandler(this);
+	// this.Events = {};
+	// this.Events.OnEdit = new EventHandler(this);
+	// this.Events.OnEditState = new EventHandler(this);
 	this.Events.OnInitEditDialog = new EventHandler(this);
 	this.Events.OnEditDialog = new EventHandler(this);
-	this.Events.OnNewRecord = new EventHandler(this);
-	this.Events.OnDelete = new EventHandler(this);
-	this.Events.OnCancel = new EventHandler(this);
-	this.Events.OnPost = new EventHandler(this);
-	this.Events.OnValidate = new EventHandler(this);
-	this.Events.OnAfterPost = new EventHandler(this);
-	this.Events.OnServerPost = new EventHandler(this);
-	this.Events.OnFetchData = new EventHandler(this);
-	this.Events.OnReset = new EventHandler(this);
-	this.Events.OnChanged = new EventHandler(this);
-	this.Events.OnMoveRecord = new EventHandler(this);
+	// this.Events.OnNewRecord = new EventHandler(this);
+	// this.Events.OnDelete = new EventHandler(this);
+	// this.Events.OnCancel = new EventHandler(this);
+	// this.Events.OnPost = new EventHandler(this);
+	// this.Events.OnValidate = new EventHandler(this);
+	// this.Events.OnAfterPost = new EventHandler(this);
+	// this.Events.OnServerPost = new EventHandler(this);
+	// this.Events.OnFetchData = new EventHandler(this);
+	// this.Events.OnReset = new EventHandler(this);
+	// this.Events.OnChanged = new EventHandler(this);
+	// this.Events.OnMoveRecord = new EventHandler(this);
 	this.Events.OnError = new EventHandler(this);
 	this.Events.OnWarning = new EventHandler(this);
 
@@ -158,10 +189,11 @@ function Dataset(rawData, tableName, dsName) {
 		var column = self.Columns.get(binding.fname);
 		var value = $(this).val();		
 		if(column.type == "date") {		
-			if(column.format == "datetime")
+			if(column.format == "datetime") {
 				value = value.parseDate(__dateformat +" "+ __timeformat)
-			else
+			} else {
 				value = value.parseDate(__dateformat)
+			}
 		} else if(column.type == "time") {
 			if(binding.time == "hr") {
 				column.setTimeParts(value);
@@ -185,7 +217,7 @@ function Dataset(rawData, tableName, dsName) {
 Dataset.prototype.each = function(callback) {
 	$(this.data).each(function(i, row) {
 		callback(row, i);
-	};
+	});
 };
 
 Dataset.prototype.clear = function() {
@@ -213,27 +245,28 @@ Dataset.prototype.sort = function(fname, order) {
 			bName = b[fname].toLowerCase();
 		};
 		
-		if(order == "asc")
+		if(order == "asc") {
 			return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0))
-		else
+		} else {
 			return ((aName > bName) ? -1 : ((aName < bName) ? 1 : 0));
+		}
 	};
 
 	this.data.sort(__sort);
 };
 
 Dataset.prototype.sortString = function(fname, isnumeric) {
-	var __sort = function sorit(a, b){
-	  var aName, bName;
+	var __sort = function sorit(a, b) {
+		var aName, bName;
 		if(isnumeric) {
-				aName = a[fname];
-				bName = b[fname];
+			aName = a[fname];
+			bName = b[fname];
 		} else {
-				aName = a[fname].toLowerCase();
-				bName = b[fname].toLowerCase();
+			aName = a[fname].toLowerCase();
+			bName = b[fname].toLowerCase();
 		};
-	  return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
-	}
+		return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+	};
 
 	this.data.sort(__sort);
 };
@@ -245,7 +278,7 @@ Dataset.prototype.lookup = function(value, fname) {
 				if(v[self.primaryKey] == value) {
 						retValue = v[fname];
 				};
-		};
+		});
 		
 		return retValue;
 };
@@ -261,21 +294,22 @@ Dataset.prototype.locate = function(fname, value) {
 				self.Events.OnMoveRecord.trigger();
 			}
 		};
-	};
+	});
 	
 	return found;
 };
 
 Dataset.prototype.keyIsNumeric = function() {
 	return this.Columns.get(this.primaryKey).numeric
-}
+};
 
 Dataset.prototype.parseKeyValue = function(value) {
-	if(this.keyIsNumeric())
+	if(this.keyIsNumeric()) {
 		return parseInt(value)
-	else
+	} else {
 		return value
-}
+	}
+};
 
 Dataset.prototype.gotoKey = function(value) {
 	var self = this;
@@ -289,7 +323,7 @@ Dataset.prototype.gotoKey = function(value) {
 				self.Events.OnMoveRecord.trigger();
 			};
 		};
-	};
+	});
 	
 	return found;
 };
@@ -382,7 +416,7 @@ Dataset.prototype.syncRecord = function(newRecord) {
 		self.data[self.recNo][name] = newRecord[0][name];
 			// Params.push(Name +"="+ params[Name]);
 	};
-}
+};
 
 Dataset.prototype.applyUpdate = function(msg, error, noEvent) {
 	// console.log({where:"applyUpdate", msg:msg, error:error})
@@ -415,6 +449,51 @@ Dataset.prototype.stringifyRec = function(recno) {
 	return "["+ JSON.stringify(this.data[recno == undefined ? this.recNo : recno]) +"]";
 };
 
+Dataset.prototype.post2 = function(options) {
+	var msg = [];
+	var mandatoryFields = [];
+	this.Columns.each(function(i, column) {
+		if(column.required && (column.text() === "" || (column.numeric && column.raw() == 0) || (column.type == "date" && column.asDate() == null))) {
+			mandatoryFields.push(column.label);
+		};
+	});
+	
+	if(mandatoryFields.length > 0) {
+		msg.push("<div class='required-fields-error'>");
+		msg.push(("<div section='title'>{0}</div>").format("The following fields are required:"));
+		$(mandatoryFields).each(function(i, name) {
+			msg.push(("<div section='item'>{0}. {1}</div>").format(i+1, name));
+		});
+		msg.push("</div>");
+	} else {	
+		var validateError = [];
+		this.Events.OnValidate.trigger(validateError);
+		if(validateError.length > 0) {
+			msg.push("<div class='required-fields-error'>");
+			msg.push(("<div section='title'>{0}</div>").format("Data validation errors:"));
+			$(validateError).each(function(i, name) {
+				msg.push(("<div section='item'>{0}. {1}</div>").format(i+1, name));
+			});
+			msg.push("</div>");
+		};
+	};
+	
+	if (msg.length > 0 && options.error) {
+		options.error({dataset:self, id:-1, title:"Data integritiy check error", error:msg})
+	} else if (msg.length == 0) {
+		var self = this;
+		this.Events.OnPost.trigger2(function(msg, error) {	
+			self.applyUpdate(msg.message, error);
+			
+			if (error >= 0 && options.success) {
+				options.success({dataset:self, id:error, title:msg.title, info:msg.message})
+			} else if (error < 0 && options.error) {
+				options.error({dataset:self, id:error, title:msg.title, error:msg.message})
+			}
+		});
+	}
+};
+
 Dataset.prototype.post = function(callback) {
 	var msg = [];
 	var mandatoryFields = [];
@@ -425,7 +504,7 @@ Dataset.prototype.post = function(callback) {
 	});
 	
 	if(mandatoryFields.length > 0) {
-		msg.push("<div class='required-fields-error'>")
+		msg.push("<div class='required-fields-error'>");
 		msg.push(("<div section='title'>{0}</div>").format("The following fields are required:"));
 		$(mandatoryFields).each(function(i, name) {
 			msg.push(("<div section='item'>{0}. {1}</div>").format(i+1, name));
@@ -435,7 +514,7 @@ Dataset.prototype.post = function(callback) {
 		var validateError = [];
 		this.Events.OnValidate.trigger(validateError);
 		if(validateError.length > 0) {
-			msg.push("<div class='required-fields-error'>")
+			msg.push("<div class='required-fields-error'>");
 			msg.push(("<div section='title'>{0}</div>").format("Data validation errors:"));
 			$(validateError).each(function(i, name) {
 				msg.push(("<div section='item'>{0}. {1}</div>").format(i+1, name));
@@ -458,13 +537,17 @@ Dataset.prototype.post = function(callback) {
 			// console.log("OnPost trigger at Dataset")
 		// });
 		// this.Events.OnPost.trigger(function(msg, error) {	
-		this.Events.OnPost.trigger2(function(dataset, msg, error) {	
+		// this.Events.OnPost.trigger2(function(dataset, msg, error) {	
+		this.Events.OnPost.trigger2(function(msg, error) {	
 			// console.log({dataset:dataset, msg:msg, error:error})
 			// console.log("this.Events.OnPost.trigger2")
-			self.applyUpdate(msg, defaultValue(error, 0));
+			self.applyUpdate(msg.message, defaultValue(error, 0));
 			if(callback !== undefined) {
 				// console.log({self:self, msg:msg, error:error})
-				callback(self, msg, defaultValue(error, 0));
+				// console.log("here 1...")
+				// callback(self, msg, defaultValue(error, 0));
+				callback(self, msg.message, defaultValue(error, 0));
+				// console.log("here 2")
 			};
 		});
 	};
@@ -659,11 +742,12 @@ Dataset.prototype.getColumnKey = function() {
 };
 
 Dataset.prototype.getDefault = function(fname, ifNullValue, recno) {
-	if(this.isNull(fname))
+	if(this.isNull(fname)) {
 		return ifNullValue
-	else
+	} else {
 		return this.get(fname, recno);
-}
+	}
+};
 
 Dataset.prototype.get = function(fname, recno) {
 	if(recno == undefined) {
@@ -703,10 +787,11 @@ Dataset.prototype.get = function(fname, recno) {
 		}
 	}
     
-    if(v == null)
+    if(v == null) {
         return ""
-    else
+    } else {
         return v;
+	}
 };
 	
 Dataset.prototype.isNull = function(fname) {
@@ -876,10 +961,14 @@ Dataset.prototype.setReadonly = function(fname, readonly) {
 			var l = v.data("label");
 			if(readonly) {
 				v.attr("readonly","readonly");
-				if(l) l.attr("readonly","readonly");
+				if(l) {
+					l.attr("readonly","readonly");
+				}
 			} else {
 				v.removeAttr("readonly");
-				if(l) l.removeAttr("readonly");
+				if(l) {
+					l.removeAttr("readonly");
+				}
 			};
 		}
 		// v.trigger("update", [self, self.Columns.get(binding.fname)]);
@@ -894,10 +983,11 @@ Dataset.prototype.setRequired = function(fname, required) {
 		if(binding.fname == fname) {
 			var l = v.data("label");
 			if(l) {
-				if(required) 
+				if(required) {
 					l.attr("required","required")
-				else
+				} else {
 					l.removeAttr("required")
+				}
 			}
 		}
 	});
@@ -964,10 +1054,11 @@ Dataset.prototype.formatDateTimeEx = function(fname, format) {
 
 Dataset.prototype.formatDateTime2 = function(fname, format) {
 	var v = this.raw(fname);
-	if(!format) 
+	if(!format) {
 		return v.convertDate2(__dateformat)
-	else
+	} else {
 		return v.convertDate2(format);
+	}
 };
 
 //==================================================================================================
@@ -1057,12 +1148,13 @@ Column.prototype.text = function() {
 	if(this.getText) {
 		v = this.getText(this, v);
 	} else if(this.type == "money") {		
-		if(v == null) 
+		if(v == null) {
 			v = ""
-		else if(v == ".")
+		} else if(v == ".") {
 			v = (0).formatMoney(this.format);
-		else 
+		} else {
 			v = parseFloat(v).formatMoney(this.format);
+		}
 	} else if(this.type == "date") {		
 		if(v != null && v != undefined) {
 			if(this.format == "datetime") {
@@ -1235,9 +1327,17 @@ Column.prototype.setDate = function(value, noEvents) {
 
 Column.prototype.setTimeParts = function(hr, min, sec, noEvents) {
 	var date = this.asTime();
-	if(hr !== undefined) date.setHours(hr);
-	if(min !== undefined) date.setMinutes(min);
-	if(sec !== undefined) date.setSeconds(sec);
+	if(hr !== undefined) {
+		date.setHours(hr);
+	}
+	
+	if(min !== undefined) {
+		date.setMinutes(min);
+	}
+	
+	if(sec !== undefined) {
+		date.setSeconds(sec);
+	}
 	
 	this.set(date);
 	// this.dataset.set(this.fname, value, undefined, noEvents);
