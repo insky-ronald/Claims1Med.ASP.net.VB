@@ -634,6 +634,8 @@ Namespace DataHandler
 		
 		Protected Overridable Sub InitCallback(ByVal Action As String, ByVal Output As EasyStringDictionary)
 			Output.AsString("pid") = Request.Params("pid")
+			Output.AsString("user_name") = Session("UserID")
+			Output.AsString("user_full_name") = Session("UserName")
 		End Sub
 	End Class
 	

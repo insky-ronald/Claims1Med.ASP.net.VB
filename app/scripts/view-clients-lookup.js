@@ -11,13 +11,13 @@ function ClientsLookupView(params){
 			css: "clients",
 			toolbar: {theme: "svg"}
 		},
-		editForm: function(id, container, dialog) {
-			CountriesEdit({
-				code: id,
-				container: container,
-				dialog: dialog
-			})
-		},
+		// editForm: function(id, container, dialog) {
+			// CountriesEdit({
+				// code: id,
+				// container: container,
+				// dialog: dialog
+			// })
+		// },
 		init: function(grid, callback) {			
 			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = "lookup?name=lookup_clients";
@@ -30,17 +30,17 @@ function ClientsLookupView(params){
 				
 				grid.search.visible = true;
 				grid.search.mode = "simple";
-				grid.search.columnName = "name";
+				grid.search.columnName = "filter";
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
 						// .addColumn("action", 1, {numeric:true})
 						.addColumn("page", 1, {numeric:true})
 						.addColumn("pagesize", 25, {numeric:true})
-						.addColumn("sort", "pin")
+						.addColumn("sort", "name")
 						.addColumn("order", "asc")
 						.addColumn("ids", "")
-						.addColumn("name", "")
+						.addColumn("filter", "")
 						
 				});
 				
@@ -53,14 +53,14 @@ function ClientsLookupView(params){
 				grid.Events.OnInitData.add(function(grid, data) {
 					data.Columns
 						.setprops("id", {label:"ID", numeric:true, key:true})
-						.setprops("pin", {label:"PIN"})
-						.setprops("organisation", {label:"Name"})
+						.setprops("account_code", {label:"Account Code"})
+						.setprops("name", {label:"Name"})
 						
 				});
 				
 				grid.Events.OnInitColumns.add(function(grid) {
-					grid.NewColumn({fname: "pin", width: 75, allowSort: true, fixedWidth:true});
-					grid.NewColumn({fname: "organisation", width: 350, aloowSort: true, fixedWidth:true});
+					grid.NewColumn({fname: "name", width: 350, aloowSort: true, fixedWidth:true});
+					grid.NewColumn({fname: "account_code", width: 100, allowSort: true, fixedWidth:true});
 				});
 				
 			});

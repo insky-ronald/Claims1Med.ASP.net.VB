@@ -3,31 +3,31 @@
 // 8-SEP-2017
 // ****************************************************************************************************
 //==================================================================================================
-// File name: view-claims-authorisation.js
+// File name: view-claims-batching.js
 //==================================================================================================
-Class.Inherits(PaymentAuthorisationView, jCustomAuthorisationView);
-function PaymentAuthorisationView(params) {
-    PaymentAuthorisationView.prototype.parent.call(this, params);
+Class.Inherits(PaymentBatchingView, jCustomAuthorisationView);
+function PaymentBatchingView(params) {
+    PaymentBatchingView.prototype.parent.call(this, params);
 };
 
-PaymentAuthorisationView.prototype.classID = "PaymentAuthorisationView";
-PaymentAuthorisationView.prototype.viewCss = "payment-processing authorisation";
-PaymentAuthorisationView.prototype.viewUrl = "app/claims-authorisation";
-// PaymentAuthorisationView.prototype.searchWidth = 550;
-PaymentAuthorisationView.prototype.exportName = "Claims Authorisation";
-PaymentAuthorisationView.prototype.exportSource = "DBMedics.GetClaimsAuthorisation";
-PaymentAuthorisationView.prototype.popuMenuTitle = "Authorisation";
+PaymentBatchingView.prototype.classID = "PaymentBatchingView";
+PaymentBatchingView.prototype.viewCss = "payment-processing authorisation";
+PaymentBatchingView.prototype.viewUrl = "app/claims-batching";
+// PaymentBatchingView.prototype.searchWidth = 550;
+PaymentBatchingView.prototype.exportName = "Claims Payment Batching";
+PaymentBatchingView.prototype.exportSource = "DBMedics.GetClaimsBatching";
+PaymentBatchingView.prototype.popuMenuTitle = "Payment Batching";
 
-PaymentAuthorisationView.prototype.Authorise = function(column) {
+PaymentBatchingView.prototype.Authorise = function(column) {
 	var self = this;
 	var grid = this.grid;
 	this.busy = true;
 	desktop.HideHints();
-	var authorise = grid.dataset.get("sub_status_code") === "E01" ? 1: 0;
+	var authorise = grid.dataset.get("sub_status_code") === "A01" ? 1: 0;
 	
 	desktop.Ajax(
 		self, 
-		"/app/api/command/authorise-invoice", 
+		"/app/api/command/authorise-batch-invoice", 
 		{
 			id: grid.dataset.getKey(),
 			authorise: authorise
@@ -39,14 +39,14 @@ PaymentAuthorisationView.prototype.Authorise = function(column) {
 					grid.footerData.set("authorised_amount", grid.footerData.get("authorised_amount")+grid.dataset.get("paid"));
 					grid.footerData.set("authorised", grid.footerData.get("authorised")+1);
 					grid.dataset.set("authorised_amount", grid.dataset.get("paid"));
-					grid.dataset.set("authorised_date", new Date());
-					grid.dataset.set("authorised_user", desktop.userName);
+					grid.dataset.set("batching_date", new Date());
+					grid.dataset.set("batching_user", desktop.userName);
 				} else {
 					grid.footerData.set("authorised_amount", grid.footerData.get("authorised_amount")-grid.dataset.get("authorised_amount"));
 					grid.footerData.set("authorised", grid.footerData.get("authorised")-1);
 					grid.dataset.set("authorised_amount", 0);
-					grid.dataset.set("authorised_date", null);
-					grid.dataset.set("authorised_user", "");
+					grid.dataset.set("batching_date", null);
+					grid.dataset.set("batching_user", "");
 				};
 				grid.dataset.post();
 				grid.refresh(true);
@@ -64,8 +64,8 @@ PaymentAuthorisationView.prototype.Authorise = function(column) {
 	)
 };
 
-PaymentAuthorisationView.prototype.OnInitGrid = function(grid) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitGrid.call(this, grid);
+PaymentBatchingView.prototype.OnInitGrid = function(grid) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitGrid.call(this, grid);
 	
 	var self = this;
 	this.busy = false;
@@ -76,8 +76,8 @@ PaymentAuthorisationView.prototype.OnInitGrid = function(grid) {
 	});
 };
 
-PaymentAuthorisationView.prototype.OnInitDataRequest = function(dataset) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitDataRequest.call(this, dataset);
+PaymentBatchingView.prototype.OnInitDataRequest = function(dataset) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitDataRequest.call(this, dataset);
 
 	dataset
 		.addColumn("loaded", 0, {numeric:true})
@@ -85,16 +85,16 @@ PaymentAuthorisationView.prototype.OnInitDataRequest = function(dataset) {
 		.addColumn("show_only_authorised", "")
 };
 
-PaymentAuthorisationView.prototype.OnInitSearchData = function(dataset) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitSearchData.call(this, dataset);
+PaymentBatchingView.prototype.OnInitSearchData = function(dataset) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitSearchData.call(this, dataset);
 	
 	dataset.Columns
 		.setprops("show_only_authorised", {label: "Show Only Authorised"})
 		// .setprops("show_referral", {numeric:true})
 };
 
-PaymentAuthorisationView.prototype.OnInitSearchEditorGeneral = function(editor) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitSearchEditorGeneral.call(this, editor);
+PaymentBatchingView.prototype.OnInitSearchEditorGeneral = function(editor) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitSearchEditorGeneral.call(this, editor);
 
 	// editor.AddGroup("Authorisation", function(editor) {
 		// editor.AddText("claim_no")
@@ -110,25 +110,25 @@ PaymentAuthorisationView.prototype.OnInitSearchEditorGeneral = function(editor) 
 			key: "id",
 			value: "value",
 			data: [
-				{id:"E02", value:"Yes"},
+				{id:"A02", value:"Yes"},
 				{id:"", value:"Show all"}
 			]
 		});
 	});
 };
 
-PaymentAuthorisationView.prototype.OnInitSearchEditorLookups = function(editor) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitSearchEditorLookups.call(this, editor);
+PaymentBatchingView.prototype.OnInitSearchEditorLookups = function(editor) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitSearchEditorLookups.call(this, editor);
 };
 
-PaymentAuthorisationView.prototype.OnResetSearch = function(dataset) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnResetSearch.call(this, dataset);
+PaymentBatchingView.prototype.OnResetSearch = function(dataset) {
+	PaymentBatchingView.prototype.parent.prototype.OnResetSearch.call(this, dataset);
 	// dataset.set("show_blocked", 10);
 	// dataset.set("show_referral", defaultValue(this.params.requestParams.referral, 0));
 };
 
-PaymentAuthorisationView.prototype.OnInitData = function(dataset) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitData.call(this, dataset);
+PaymentBatchingView.prototype.OnInitData = function(dataset) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitData.call(this, dataset);
 	
 	dataset.Columns
 		.setprops("service_id", {label:"ID", numeric:true, key: true})
@@ -150,9 +150,11 @@ PaymentAuthorisationView.prototype.OnInitData = function(dataset) {
 		.setprops("authorise", {numeric:true})
 		.setprops("approved_date", {label:"Approved Date (E01)", type:"date", format:"datetime"})
 		.setprops("approved_user", {label:"Approved User"})
+		.setprops("batching_date", {label:"Date", type:"date", format:"datetime"})
+		.setprops("batching_user", {label:"User"})
 		
-		.setprops("authorised_date", {label:"Authorised Date", type:"date", format:"datetime"})
-		.setprops("authorised_user", {label:"Authorised User"})
+		.setprops("authorised_date", {label:"Date", type:"date", format:"datetime"})
+		.setprops("authorised_user", {label:"User"})
 		
 		.setprops("invoice_no", {label:"Invoice No."})
 		.setprops("payment_mode", {label:"Mode"})
@@ -170,8 +172,8 @@ PaymentAuthorisationView.prototype.OnInitData = function(dataset) {
 		.setprops("create_date", {label:"Creation Date", type:"date", format:"datetime"})
 };
 
-PaymentAuthorisationView.prototype.OnInitSummaryData = function(dataset) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitSummaryData.call(this, dataset);
+PaymentBatchingView.prototype.OnInitSummaryData = function(dataset) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitSummaryData.call(this, dataset);
 	
 	dataset.Columns
 		.setprops("authorised_amount", {label:"Amount", numeric:true, type:"money", format:"00"})
@@ -179,16 +181,16 @@ PaymentAuthorisationView.prototype.OnInitSummaryData = function(dataset) {
 		.setprops("paid_base", {label:"Amount", numeric:true, type:"money", format:"00"});
 };
 
-PaymentAuthorisationView.prototype.OnInitRow = function(row) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitRow.call(this, row);
+PaymentBatchingView.prototype.OnInitRow = function(row) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitRow.call(this, row);
 	
 	if(this.grid.dataset.get("authorised")) {
 		row.attr("x-authorised", "1");
 	}
 };
 
-PaymentAuthorisationView.prototype.OnInitMethods = function(grid) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitMethods.call(this, grid);
+PaymentBatchingView.prototype.OnInitMethods = function(grid) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitMethods.call(this, grid);
 	
 	var self = this;
 	
@@ -235,8 +237,8 @@ PaymentAuthorisationView.prototype.OnInitMethods = function(grid) {
 	
 };
 
-PaymentAuthorisationView.prototype.OnPopupMenuCommands = function(menu) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnPopupMenuCommands.call(this, menu);
+PaymentBatchingView.prototype.OnPopupMenuCommands = function(menu) {
+	PaymentBatchingView.prototype.parent.prototype.OnPopupMenuCommands.call(this, menu);
 	var self = this;
 	var grid = this.grid;
 	
@@ -249,8 +251,8 @@ PaymentAuthorisationView.prototype.OnPopupMenuCommands = function(menu) {
 };
 
 
-PaymentAuthorisationView.prototype.OnInitColumns = function(grid) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnInitColumns.call(this, grid);
+PaymentBatchingView.prototype.OnInitColumns = function(grid) {
+	PaymentBatchingView.prototype.parent.prototype.OnInitColumns.call(this, grid);
 	var self = this;
 	
 	if(grid.methods.call("allowSelection")) {
@@ -275,11 +277,11 @@ PaymentAuthorisationView.prototype.OnInitColumns = function(grid) {
 	grid.NewBand({caption:"Invoice and Payment Detail"}, function(band) {
 		band.NewColumn({fname: "payee_type", width: 125});
 		band.NewColumn({fname: "payee_name", width: 250, allowSort: true});
-		band.NewColumn({fname: "patient_name", width: 250, allowSort: true});
-		band.NewColumn({fname: "certificate_no", width: 125, allowSort: true});
-		band.NewColumn({fname: "provider_name", width: 250, allowSort: true});
-		band.NewColumn({fname: "admission_date", width: 150, allowSort: true});
-		band.NewColumn({fname: "discharge_date", width: 150, allowSort: true});
+		// band.NewColumn({fname: "patient_name", width: 250, allowSort: true});
+		// band.NewColumn({fname: "certificate_no", width: 125, allowSort: true});
+		// band.NewColumn({fname: "provider_name", width: 250, allowSort: true});
+		// band.NewColumn({fname: "admission_date", width: 150, allowSort: true});
+		// band.NewColumn({fname: "discharge_date", width: 150, allowSort: true});
 		band.NewColumn({fname: "invoice_no", width: 150});
 		band.NewColumn({fname: "payment_mode", width: 100});
 		band.NewColumn({fname: "settlement_currency_code", width: 60});
@@ -287,20 +289,21 @@ PaymentAuthorisationView.prototype.OnInitColumns = function(grid) {
 		band.NewColumn({fname: "base_currency_code", width: 60});
 		band.NewColumn({fname: "paid_base", width: 125, showFooter:true});
 		band.NewColumn({fname: "authorised_amount", width: 125, showFooter:true});
-		band.NewColumn({fname: "validation_mode", width: 100});
+		// band.NewColumn({fname: "validation_mode", width: 100});
 	});
 	
-	grid.NewBand({caption:"Approval (E01)/Authorisation"}, function(band) {
-		band.NewColumn({fname: "approved_date", width: 150, allowSort: true});
-		band.NewColumn({fname: "approved_user", width: 150, allowSort: true});
-		band.NewColumn({fname: "authorised_date", width: 150, allowSort: true});
+	grid.NewBand({caption:"Batching (A02)"}, function(band) {
+		band.NewColumn({fname: "batching_user", width: 150, allowSort: true});
+		band.NewColumn({fname: "batching_date", width: 150, allowSort: true});
+	});
+	
+	grid.NewBand({caption:"Authorisation (E02)"}, function(band) {
 		band.NewColumn({fname: "authorised_user", width: 150, allowSort: true});
+		band.NewColumn({fname: "authorised_date", width: 150, allowSort: true});
 	});
 	
 	grid.NewBand({caption:"Invoice"}, function(band) {
 		band.NewColumn({fname: "create_date", width: 150, allowSort: true});
-		band.NewColumn({fname: "invoice_date", width: 150, allowSort: true});
-		band.NewColumn({fname: "invoice_date_received", width: 150, allowSort: true});
 		band.NewColumn({fname: "invoice_input_date", width: 150, allowSort: true});
 	});
 	
@@ -310,8 +313,8 @@ PaymentAuthorisationView.prototype.OnInitColumns = function(grid) {
 	// });
 };
 
-PaymentAuthorisationView.prototype.OnDrawCustomHeader = function(container) {
-	PaymentAuthorisationView.prototype.parent.prototype.OnDrawCustomHeader.call(this, container);
+PaymentBatchingView.prototype.OnDrawCustomHeader = function(container) {
+	PaymentBatchingView.prototype.parent.prototype.OnDrawCustomHeader.call(this, container);
 	var self = this;
 	var grid = this.grid;
 	

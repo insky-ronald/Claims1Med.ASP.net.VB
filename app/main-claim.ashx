@@ -245,15 +245,15 @@ Public Class DataProvider
 				.Params.AsString("module") = "flg"
 			End with
 			
-			With Main.SubItems.Add
-				.ID = "test"
-				.Title = "Test"
-				.Icon = "test"
-				.Action = "admin"				
+			' With Main.SubItems.Add
+				' .ID = "test"
+				' .Title = "Test"
+				' .Icon = "test"
+				' .Action = "admin"				
 				' .URL = "app/claim-invoices"
-				.Css = "*"
-				.Run = "TestScrollerView"
-			End with
+				' .Css = "*"
+				' .Run = "TestScrollerView"
+			' End with
 
 			' With Main.SubItems.Add
 				' .ID = "test"

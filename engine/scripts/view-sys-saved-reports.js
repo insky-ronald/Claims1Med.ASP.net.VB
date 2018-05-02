@@ -73,12 +73,11 @@ function SavedReportsView(params){
 					// else
 						// return previous
 					
-				// });
+				});
 				
 				grid.Events.OnCommand.add(function(grid, column) {
 					if(column.command === "run") {
 						__report(grid.dataset.get("id"));
-						console.log(event)
 					};
 				});
 				

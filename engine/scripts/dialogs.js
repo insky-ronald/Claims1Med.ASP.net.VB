@@ -247,7 +247,7 @@ function ConfirmDialog(c) {
 		Modal: c.modal,
 		Painter: {
 			painterClass: PopupBalloonPainter,
-			color: "firebrick",
+			color: defaultValue(c.color, "firebrick"),
 			// snap: "left",
 			// snap: "right",
 			// snap: "top",

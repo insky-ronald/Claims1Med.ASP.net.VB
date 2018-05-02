@@ -10,7 +10,8 @@ function ClaimDetailsView(params) {
 	
 	params.container.addClass("claim-details");
 	params.dataset = desktop.dbClaim;
-	// console.log(desktop);
+	params.postBack = "app/claim"
+	// console.log(params);
 	
 	return new CustomEditView(params, function(view) { // CustomEditView: refer to engine/edit-custom-view.js
 		view.Events.OnRefresh.add(function(view, data) {
@@ -133,18 +134,19 @@ function ClaimDetailsView(params) {
 														// showScrollButtons:true,
 														container: container,
 														init: function(pg) {
-															pg.addTab({caption:"Member's Policy Information",
-																icon: {
-																	name: "info",
-																	color: "dodgerblue"
-																},
-																OnCreate: function(tab) {
-																	CreateElementEx("pre", tab.container, function(notes) {
-																		notes.addClass("notes");
-																		notes.html(desktop.dbMember.get("notes"));
-																	});
-																}
-															});
+															// Hide for now as not needed by LDA
+															// pg.addTab({caption:"Member's Policy Information",
+																// icon: {
+																	// name: "info",
+																	// color: "dodgerblue"
+																// },
+																// OnCreate: function(tab) {
+																	// CreateElementEx("pre", tab.container, function(notes) {
+																		// notes.addClass("notes");
+																		// notes.html(desktop.dbMember.get("notes"));
+																	// });
+																// }
+															// });
 															pg.addTab({caption:"Plan History",
 																icon: {
 																	name: "history",

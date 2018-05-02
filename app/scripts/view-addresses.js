@@ -87,13 +87,14 @@ function AddressesView(params){
 					if(column.command === "default") {
 						// column.element is the cell container
 						ConfirmDialog({
+							color: "forestgreen",
 							target: column.element,
 							title: "Set Default",
 							message: "Please confirm to set address as default.",
 							callback: function(dialog) {
 								desktop.Ajax(
 									self, 
-									"/app/command/set_default_address", 
+									"/app/api/command/set-default-address",
 									{
 										name_id: MasterKey(),
 										address_id: grid.dataset.getKey()
