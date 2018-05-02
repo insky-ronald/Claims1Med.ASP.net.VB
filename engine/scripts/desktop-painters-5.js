@@ -42,7 +42,7 @@ DesktopPainter5.prototype.Paint = function() {
 						CreateElementEx("span", userDetail, function(name) {
 							CreateElementEx("div", name, function(name) {
 								name.attr("x-sec", "name")
-								name.html(desktop.userName)
+								name.html(desktop.userFullName)
 							});
 							CreateElementEx("div", name, function(name) {
 								name.attr("x-sec", "role")

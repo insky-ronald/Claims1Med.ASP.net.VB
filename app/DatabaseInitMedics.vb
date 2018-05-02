@@ -100,10 +100,10 @@ End With
     ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 ' End With 
 
-With DBConnection.NewCommand("GetClaim", "GetClaim", CommandType.StoredProcedure)
-    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-End With 
+' With DBConnection.NewCommand("GetClaim", "GetClaim", CommandType.StoredProcedure)
+    ' .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+' End With 
 
 With DBConnection.NewCommand("GetMember", "GetMember", CommandType.StoredProcedure)
     .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
@@ -142,23 +142,6 @@ With DBConnection.NewCommand("GetClient", "GetClient", CommandType.StoredProcedu
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
 
-With DBConnection.NewCommand("GetAddress", "GetAddress", CommandType.StoredProcedure)
-    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("name_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
-	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)	
-    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
-    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
-    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-End With 
-
-With DBConnection.NewCommand("GetContacts", "GetContacts", CommandType.StoredProcedure)
-    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("name_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
-    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
-    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-End With 
-
 With DBConnection.NewCommand("GetBanks", "GetBanks", CommandType.StoredProcedure)
     .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("name_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
@@ -166,45 +149,62 @@ With DBConnection.NewCommand("GetBanks", "GetBanks", CommandType.StoredProcedure
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
+
+' With DBConnection.NewCommand("GetAddress", "GetAddress", CommandType.StoredProcedure)
+    ' .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("name_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+	' .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)	
+    ' .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+    ' .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+    ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+' End With 
     
-With DBConnection.NewCommand("AddAddress", "AddAddress", CommandType.StoredProcedure)
-	.AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
-	.AddParameter("name_id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
-	.AddParameter("address_type", SqlDbType.Char, ParameterDirection.Input, 3, "")
-	.AddParameter("street", SqlDbType.VarChar, ParameterDirection.Input, 100, "")
-	.AddParameter("city", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("province", SqlDbType.VarChar, ParameterDirection.Input, 30, "")
-	.AddParameter("zip_code", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("country_code", SqlDbType.Char, ParameterDirection.Input, 3, "")
-	.AddParameter("phone_no1", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("phone_no2", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("fax_no1", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("fax_no2", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("email", SqlDbType.VarChar, ParameterDirection.Input, 60, "")
+' With DBConnection.NewCommand("AddAddress", "AddAddress", CommandType.StoredProcedure)
+	' .AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	' .AddParameter("name_id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	' .AddParameter("address_type", SqlDbType.Char, ParameterDirection.Input, 3, "")
+	' .AddParameter("street", SqlDbType.VarChar, ParameterDirection.Input, 100, "")
+	' .AddParameter("city", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("province", SqlDbType.VarChar, ParameterDirection.Input, 30, "")
+	' .AddParameter("zip_code", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("country_code", SqlDbType.Char, ParameterDirection.Input, 3, "")
+	' .AddParameter("phone_no1", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("phone_no2", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("fax_no1", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("fax_no2", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("email", SqlDbType.VarChar, ParameterDirection.Input, 60, "")
 
-	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
-	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
-End with
+	' .AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	' .AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	' .AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+' End with
 
-With DBConnection.NewCommand("AddContacts", "AddContacts", CommandType.StoredProcedure)
-	.AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
-	.AddParameter("name_id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
-	.AddParameter("title", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("full_name", SqlDbType.VarChar, ParameterDirection.Input, 50, "")
-	.AddParameter("department", SqlDbType.VarChar, ParameterDirection.Input, 50, "")
-	.AddParameter("position", SqlDbType.VarChar, ParameterDirection.Input, 50, "")
-	.AddParameter("phone", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("mobile", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("fax", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
-	.AddParameter("email", SqlDbType.VarChar, ParameterDirection.Input, 60, "")
+' With DBConnection.NewCommand("GetContacts", "GetContacts", CommandType.StoredProcedure)
+    ' .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("name_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+    ' .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+    ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+' End With 
 
-	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
-	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
-End with
+' With DBConnection.NewCommand("AddContacts", "AddContacts", CommandType.StoredProcedure)
+	' .AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	' .AddParameter("name_id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	' .AddParameter("title", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("full_name", SqlDbType.VarChar, ParameterDirection.Input, 50, "")
+	' .AddParameter("department", SqlDbType.VarChar, ParameterDirection.Input, 50, "")
+	' .AddParameter("position", SqlDbType.VarChar, ParameterDirection.Input, 50, "")
+	' .AddParameter("phone", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("mobile", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("fax", SqlDbType.VarChar, ParameterDirection.Input, 20, "")
+	' .AddParameter("email", SqlDbType.VarChar, ParameterDirection.Input, 60, "")
+
+	' .AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	' .AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	' .AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+' End with
 
 With DBConnection.NewCommand("AddBanks", "AddBanks", CommandType.StoredProcedure)
 	.AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
@@ -319,15 +319,15 @@ With DBConnection.NewCommand("GetAddressTypes", "GetAddressTypes", CommandType.S
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
-With DBConnection.NewCommand("AddAddressTypes", "AddAddressTypes", CommandType.StoredProcedure)
-	.AddParameter("code", SqlDbType.VarChar, ParameterDirection.InputOutput, 3, "")
-	.AddParameter("address_type", SqlDbType.VarChar, ParameterDirection.Input, 60, "")
+' With DBConnection.NewCommand("AddAddressTypes", "AddAddressTypes", CommandType.StoredProcedure)
+	' .AddParameter("code", SqlDbType.VarChar, ParameterDirection.InputOutput, 3, "")
+	' .AddParameter("address_type", SqlDbType.VarChar, ParameterDirection.Input, 60, "")
 
-	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
-	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
-End with 
+	' .AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	' .AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	' .AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+' End with 
 
 With DBConnection.NewCommand("GetNationalities", "GetNationalities", CommandType.StoredProcedure)
     .AddParameter("code", SqlDbType.VarChar, ParameterDirection.Input, 10, "")

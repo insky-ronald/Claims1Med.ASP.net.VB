@@ -6,6 +6,7 @@
 // File name: view-claim-diagnosis-summary.js
 //==================================================================================================
 function ClaimStatusHistoryView(params) {
+	
 	var ChangeStatus = function(status, new_status) {
 		var params = {
 			mode: "new",

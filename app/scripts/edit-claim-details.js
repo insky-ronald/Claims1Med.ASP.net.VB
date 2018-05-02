@@ -15,7 +15,8 @@ function ClaimDetailsEdit(viewParams) {
 		fillContainer: false,
 		showToolbar: false,
 		url: "?id=" + desktop.dbClaim.get("id"),
-		postBack: "app/claim-details",
+		// postBack: "app/claim-details",
+		postBack: "app/claim",
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(group, columnName) {
 				// console.log(columnName)

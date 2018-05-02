@@ -59,8 +59,77 @@ function ContactsView(params){
 						.setprops("fax", {label:"Fax No."})
 						.setprops("email", {label:"Email Address"})
 				});
+				
+				grid.Events.OnInitRow.add(function(grid, row) {	
+					row.attr("x-status", grid.dataset.get("is_default"))
+				});
+		
+				grid.methods.add("getCommandHeaderIcon", function(grid, column, defaultValue) {
+					if(column.command === "default")
+						return "override"
+					else
+						return defaultValue
+				});
+		
+				grid.methods.add("getCommandIcon", function(grid, column, defaultValue) {
+					if(column.command === "default")
+						return "override"
+					else
+						return defaultValue
+				});
+		
+				grid.methods.add("getCommandHint", function(grid, column, defaultValue) {
+					if(column.command === "default")
+						return "Set as default contact"
+					else
+						return defaultValue
+				});
+
+				grid.methods.add("allowCommand", function(grid, column, defaultValue) {
+					if(column.command === "default")
+						return grid.dataset.get("is_default") === 0
+					else
+						return defaultValue
+				});
+
+				grid.Events.OnCommand.add(function(grid, column) {
+					if(column.command === "default") {
+						// column.element is the cell container
+						ConfirmDialog({
+							color: "forestgreen",
+							target: column.element,
+							title: "Set Default",
+							message: "Please confirm to set contact as default.",
+							callback: function(dialog) {
+								desktop.Ajax(
+									self, 
+									"/app/api/command/set-default-contact",
+									{
+										name_id: MasterKey(),
+										contact_id: grid.dataset.getKey()
+									}, 
+									function(result) {
+										if (result.status == 0) {
+											grid.refresh();
+										} else {
+											ErrorDialog({
+												target: column.element,
+												title: "Error: Set Default",
+												message: result.message
+											});
+										}
+									}
+								)
+							}
+						});
+					};
+				});
 
 				grid.Events.OnInitColumns.add(function(grid) {
+					grid.NewBand({caption: "...", fixed:"left"} , function(band) {
+						band.NewCommand({command:"default"});
+					});
+					
 					grid.NewColumn({fname: "title", width: 50, allowSort: false, fixedWidth:true});
 					grid.NewColumn({fname: "full_name", width: 200, allowSort: true, fixedWidth:true});
 					grid.NewColumn({fname: "department", width: 150, allowSort: true, fixedWidth:true});

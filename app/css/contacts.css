@@ -1,0 +1,18 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 07-MAR-2017 */
+/*****************************************************************************************************/
+.grid3.contacts .data-cell.command-cell[command="default"] svg,
+.grid3.contacts .header-cell.command-cell[command="default"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.contacts tbody tr[x-status="0"] {
+	/* color: firebrick; */
+}
+
+.grid3.contacts tbody tr[x-status="1"] {
+	color: forestgreen;
+	/*color: #2C80B3;*/
+	/*color: #27AE60;*/
+}

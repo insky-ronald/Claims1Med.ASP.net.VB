@@ -14,7 +14,7 @@ End With
 
 With DBConnection.NewCommand("lookup_clients", "GetClients", CommandType.StoredProcedure)
 	.AddParameter("ids", SqlDbType.varchar, ParameterDirection.Input, 200, "")
-    .AddParameter("name", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
 	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 1)
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
     .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
@@ -24,3 +24,17 @@ With DBConnection.NewCommand("lookup_clients", "GetClients", CommandType.StoredP
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
 End With 
+    
+With DBConnection.NewCommand("AddClient", "AddClient", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("pin", SqlDbType.VarChar, ParameterDirection.Input, 10, "")
+	.AddParameter("icd_version", SqlDbType.Int, ParameterDirection.Input, 0, 9)
+	.AddParameter("name", SqlDbType.VarChar, ParameterDirection.Input, 100, "")
+	.AddParameter("country_code", SqlDbType.Char, ParameterDirection.Input, 3, "")
+	.AddParameter("currency_code", SqlDbType.Char, ParameterDirection.Input, 3, "")
+
+	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+End with

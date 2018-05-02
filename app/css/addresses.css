@@ -12,7 +12,7 @@
 }
 
 .grid3.addresses tbody tr[x-status="1"] {
-	color: #1148c7;
+	color: forestgreen;
 	/*color: #2C80B3;*/
 	/*color: #27AE60;*/
 }
