@@ -584,6 +584,126 @@ Namespace DataHandler
 		End Sub
 	End Class
 	
+	Public Class BaseReport
+		Inherits DataHandler.DataProvider
+		
+		Protected ReportName As String = "Normal"
+		Protected SavedReport As Integer = 0
+		
+		Protected Overridable Function ReportTypeID As Integer
+			Return 0
+		End Function
+			
+		Protected Overrides Sub BeforeExecuteQuery(ByVal QueryData As System.Data.DataTable)
+			MyBase.BeforeExecuteQuery(QueryData)
+			
+			If QueryData.Columns.Contains("id")
+				SavedReport = QueryData.Rows(0).Item("id")
+			End if
+				
+			Dim Init As Boolean = False
+			Using DBReport = DBConnections("DBReporting").OpenData("GetSavedReports", {"id","action","visit_id"}, {SavedReport, 10, Session("VisitorID")}, "")
+				Init = DBReport.Rows(0).Item("init")
+			End Using
+			
+			' Using NewQuery = JsonToDatatable(Request.Params("qry"))
+				' If QueryData.Rows(0).Item("loaded") = 0 and SavedReport > 0
+				If Not Init
+					Using Command = DBConnections("DBReporting").PrepareCommand("AddSavedReportQuery")				
+						QueryData.Rows(0).Item("loaded") = 1
+						With Command
+							.SetParameter("id", SavedReport)
+							.SetParameter("query", DataTableToJson(QueryData))
+							.SetParameter("action", 11)
+							.SetParameter("visit_id", Session("VisitorID"))
+							.Execute
+						End With
+					End Using
+				Else If QueryData.Rows(0).Item("loaded") = 1 or SavedReport = 0
+					If SavedReport = 0				
+						Using Command = DBConnections("DBReporting").PrepareCommand("AddSavedReportQuery")
+							With Command
+								.SetParameter("id", 0)
+								.SetParameter("report_type_id", ReportTypeID)
+								.SetParameter("name", ReportName)
+								.SetParameter("query", "")
+								.SetParameter("action", 20)
+								.SetParameter("visit_id", Session("VisitorID"))
+								.Execute
+								
+								SavedReport = .GetParameter("id").Value
+							End With
+							
+							Using NewQuery = JsonToDatatable(Request.Params("qry"))
+								NewQuery.Columns.Add("id", GetType(Integer))
+								NewQuery.Rows(0).Item("id") = SavedReport
+								
+								With Command
+									.SetParameter("id", SavedReport)
+									.SetParameter("query", DatatableToJson(NewQuery))
+									.SetParameter("action", 11)
+									.SetParameter("visit_id", Session("VisitorID"))
+									.Execute
+								End With
+							End Using
+						End Using
+					Else
+						SavedReport = QueryData.Rows(0).Item("id")
+						Using Command = DBConnections("DBReporting").PrepareCommand("AddSavedReportQuery")
+							With Command
+								.SetParameter("id", SavedReport)
+								.SetParameter("query", Request.Params("qry"))
+								.SetParameter("action", 11)
+								.SetParameter("visit_id", Session("VisitorID"))
+								.Execute
+							End With
+						End Using
+					End if
+					
+				End if
+			' End Using
+			
+			' Dim Exclusions As String = "id,page,pagesize,sort,order"
+			Dim Exclusions As String = ""
+			Using Command = DBConnections("DBReporting").PrepareCommand("AddSavedReportQueryItem")
+				With Command
+					.SetParameter("id", SavedReport)
+					.SetParameter("visit_id", Session("VisitorID"))
+
+					For Each Column In QueryData.Columns
+						If Not Exclusions.Contains(Column.ColumnName)
+							.SetParameter("name", Column.ColumnName)
+							If IsDBNull(QueryData.Rows(0).Item(Column.ColumnName))
+								.SetParameter("value", "")
+							Else
+								.SetParameter("value", QueryData.Rows(0).Item(Column.ColumnName))
+							End if
+							.Execute
+						End if
+					Next
+				End With
+			End Using
+		End Sub
+		
+		Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
+			MyBase.ProcessOutput(Cmd, Output)
+			
+			Using DBReport = DBConnections("DBReporting").OpenData("GetReport", {"id","visit_id"}, {SavedReport,Session("VisitorID")}, "")
+				Using QueryData = JsonToDatatable(DBReport.Eval("@query"))
+					QueryData.Rows(0).Item("loaded") = 1
+					If Output.AsInteger("table_count") = 1
+						Output.AsJson("data_1") = "[]"
+						Output.AsJson("data_2") = DataTableToJson(QueryData)
+						Output.AsInteger("table_count") = Output.AsInteger("table_count") + 2
+					Else
+						Output.AsJson("data_2") = DataTableToJson(QueryData)
+						Output.AsInteger("table_count") = Output.AsInteger("table_count") + 1
+					End if
+				End Using
+			End Using
+		End Sub
+	End Class
+	
 	Public Class BaseNavigator
 		Inherits DataHandler.BaseHandler
 		REM Inherits System.Web.UI.Page
