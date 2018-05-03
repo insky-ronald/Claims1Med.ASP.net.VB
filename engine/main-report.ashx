@@ -6,6 +6,7 @@ Public Class DataProvider
 	Inherits DataHandler.BaseNavigator
 	
 	Private ReportID As Integer
+	Private ReportTypeID As Integer
 	' Private MemberID As Integer
 	' Private ClaimType As String
 	Private DBReport As System.Data.DataTable
@@ -19,9 +20,11 @@ Public Class DataProvider
 		MyBase.InitCallback(Action, Output)
 		
 		ReportID = Request.Params("keyid")
-	
-		DBReport = DBConnections("DBReporting").OpenData("GetSavedReports", {"id","action","visit_id"}, {ReportID,10,Session("VisitorID")}, "")
-		DBReportType = DBConnections("DBReporting").OpenData("GetReportTypes", {"id","action","visit_id"}, {DBReport.Eval("@report_type_id"),10,Session("VisitorID")}, "")
+		DBReport = DBConnections("DBReporting").OpenData("GetSavedReports", {"id","action","visit_id"}, {ReportID, 10, Session("VisitorID")}, "")
+		
+		ReportTypeID = DBReport.Eval("@report_type_id")		
+		DBReportType = DBConnections("DBReporting").OpenData("GetReportTypes", {"id","action","visit_id"}, {ReportTypeID, 10, Session("VisitorID")}, "")
+		
 		
 		' If ReportID = 0
 			' MemberID = Request.Params("keyid2")
@@ -75,7 +78,7 @@ Public Class DataProvider
 	Protected Overrides Sub InitMenuItems(ByVal MenuItems As Navigator.MenuItems)
 		MyBase.InitMenuItems(MenuItems)
 		
-		MenuItems.Params.AsInteger("report_id") = ReportID
+		MenuItems.Params.AsJson("report_id") = ReportID
 		
 		Dim Main As Navigator.MenuItem = MenuItems.AddMain("report", "Report")
 		
@@ -84,9 +87,9 @@ Public Class DataProvider
 				.Title = "Tabular"
 				.Icon = "table"
 				.Action = "report"
-				.URL = "engine/report"
+				.URL = "app/report-" & ReportTypeID.ToString
 				' .Css = "*"
-				' .Run = "ClaimDetailsView"
+				' .Run = "ReportView"
 				' If ClaimType = "MED"
 					' .Description = "Medical Claim"
 				' End if
