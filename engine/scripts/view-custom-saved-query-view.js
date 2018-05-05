@@ -104,6 +104,9 @@ jCustomSavedQueryView.prototype.OnDrawCustomHeader = function(container) {
 jCustomSavedQueryView.prototype.OnInitColumns = function(grid) {
 };
 
+jCustomSavedQueryView.prototype.OnInitToolbar = function(toolbar) {
+};
+
 jCustomSavedQueryView.prototype.paint = function() {
 	jCustomSavedQueryView.prototype.parent.prototype.paint.call(this);
 	
@@ -184,6 +187,10 @@ jCustomSavedQueryView.prototype.paint = function() {
 				
 				grid.Events.OnInitColumns.add(function(grid) {
 					self.OnInitColumns(grid);
+				});
+				
+				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
+					self.OnInitToolbar(toolbar);
 				});
 				
 				self.OnInitGrid(grid);

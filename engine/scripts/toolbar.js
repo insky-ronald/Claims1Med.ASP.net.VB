@@ -57,7 +57,8 @@ JToolbar.prototype.NewDropdownItem = function(params) {
 	params.dropdown = true;
 	params.noIndicator = defaultValue(params.noIndicator, false);
 	params.click = function(item) {
-		new JPopupDialog({
+		// console.log(item);
+		var dialog = new JPopupDialog({
 			Target: item.Element(),				
 			Modal: false,
 			onClose: params.onClose,
@@ -73,6 +74,8 @@ JToolbar.prototype.NewDropdownItem = function(params) {
 				OnRenderFooter: params.painter.footer
 			}
 		});
+		
+		dialog.toolbarButton = item;
 	};
 	
 	return this.NewItem(params);
@@ -121,7 +124,7 @@ JToolbar.prototype.NewDropdownConfirm = function(params) {
 };
 
 JToolbar.prototype.NewDropDownConfirmItem = function(params) {
-	return this.NewDropdownItem({
+	var item = this.NewDropdownItem({
 		id: params.id,
 		dataBind: params.dataBind,
 		dataEvent: params.dataEvent,
@@ -139,7 +142,7 @@ JToolbar.prototype.NewDropDownConfirmItem = function(params) {
 					style: "green",
 					click: function(button) {
 						dialog.Hide();
-						params.confirm();
+						params.confirm(dialog.toolbarButton);
 					}
 				});
 					
@@ -170,6 +173,8 @@ JToolbar.prototype.NewDropDownConfirmItem = function(params) {
 			}
 		}
 	});
+	
+	return item;
 };
 
 JToolbar.prototype.NewDropDownViewItem = function(params) {

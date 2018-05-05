@@ -14,11 +14,12 @@ function MemberPlanHistoryView(viewParams){
 		editForm: function(id, container, dialog) {
 		},
 		init: function(grid, callback) {			
-			desktop.dbClaim.Events.OnCancel.add(function(dataset) {
-				desktop.dbMember.cancel();
-				grid.refresh(true);
-				// console.log("ok");
-			});
+			if (desktop.dbClaim) {
+				desktop.dbClaim.Events.OnCancel.add(function(dataset) {
+					desktop.dbMember.cancel();
+					grid.refresh(true);
+				});
+			};
 			
 			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = "app/member-plan-history";
@@ -37,7 +38,7 @@ function MemberPlanHistoryView(viewParams){
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
 						.addColumn("member_id", viewParams.requestParams.member_id, {numeric:true})
-						// .addColumn("sort", "create_date")
+						// .addColumn("sort", "sequence_no")
 						// .addColumn("order", "desc")
 				});
 				
@@ -246,19 +247,21 @@ function MemberPlanHistoryView(viewParams){
 				})
 				
 				grid.Events.OnInitColumns.add(function(grid) {
-					grid.NewBand({caption: "...", fixed:"left"} , function(band) {
-						band.NewCommand({command:"override1"});
-						band.NewCommand({command:"override2"});
-						// band.NewCommand({command:"override2"});
-						// band.NewColumn({fname: "sequence_no", width: 30});
-					});
+					if (desktop.dbClaim) {
+						grid.NewBand({caption: "...", fixed:"left"} , function(band) {
+							band.NewCommand({command:"override1"});
+							band.NewCommand({command:"override2"});
+							// band.NewCommand({command:"override2"});
+							// band.NewColumn({fname: "sequence_no", width: 30});
+						});
+					};
 					
 					grid.NewBand({caption: "..."} , function(band) {
 						band.NewColumn({fname: "sequence_no", width: 30});
 						band.NewColumn({fname: "flag", width: 50});
 						band.NewColumn({fname: "history_type", width: 50});
 						band.NewColumn({fname: "plan_code", width: 100});
-						band.NewColumn({fname: "sub_product", width: 100});
+						// band.NewColumn({fname: "sub_product", width: 100});
 						band.NewColumn({fname: "start_date", width: 100});
 						band.NewColumn({fname: "end_date", width: 100});
 						band.NewColumn({fname: "cancelation_date", width: 100});

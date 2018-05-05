@@ -12,7 +12,7 @@ function __open(url, get) {
 	if(get) {
 		return url
 	} else {
-		window.open(url, "");
+		return window.open(url, "");
 	}
 };
 
@@ -251,4 +251,6 @@ MainPage.prototype.InitializeSession = function(data) {
 	
 	// REPORT
 	this.CloneSvg("run-report", "approval");
+
+	this.CloneSvg("benefit", "table");
 };

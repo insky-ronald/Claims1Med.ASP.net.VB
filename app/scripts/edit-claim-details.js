@@ -21,6 +21,12 @@ function ClaimDetailsEdit(viewParams) {
 			editor.Events.OnInitData.add(function(group, columnName) {
 				// console.log(columnName)
 			});
+			
+			editor.Events.OnPostSuccess2.add(function(editor, returnData) {
+				if (returnData.mode == "new" && returnData.result.id) {
+					location.href = __claim(returnData.result.id, true);
+				}
+			});
 
 			editor.Events.OnInitEditor.add(function(sender, editor) {
 				editor.NewGroupEdit({caption:"General", icon:{name:"view-list", color:"forestgreen"}},
@@ -33,8 +39,10 @@ function ClaimDetailsEdit(viewParams) {
 								editor.SetVisible("first_symptom_date", !isAccident);
 								editor.SetVisible("first_consultation_date", !isAccident);
 
-								editor.SetRequired("first_symptom_date", !isAccident);
-								editor.SetRequired("first_consultation_date", !isAccident);
+								// editor.SetRequired("first_symptom_date", !isAccident);
+								// editor.SetRequired("first_consultation_date", !isAccident);
+								editor.SetRequired("first_symptom_date", false);
+								editor.SetRequired("first_consultation_date", false);
 
 								editor.SetVisible("accident_date", isAccident);
 								editor.SetVisible("accident_code", isAccident);
@@ -44,11 +52,12 @@ function ClaimDetailsEdit(viewParams) {
 							};
 						});
 
-						editor.AddGroup("Basic Claim Information", function(editor) {
-							editor.AddEdit({ID: "id"});
-							editor.AddEdit({ID: "claim_no"});
+						editor.AddGroup("Claim", function(editor) {
+							// editor.AddEdit({ID: "id"});
+							// editor.AddEdit({ID: "claim_no"});
 							// editor.AddEdit({ID: "claim_type"});
-							editor.AddEdit({ID: "case_owner"});
+							// editor.AddEdit({ID: "case_owner"});
+							editor.AddLookup("case_owner", {width:400, height:300, disableEdit:true, init:UsersLookup});
 							// editor.AddEdit({ID: "status"});
 							editor.AddEdit({ID: "notification_date"});
 						});

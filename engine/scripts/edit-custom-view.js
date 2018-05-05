@@ -75,7 +75,18 @@ function CustomEditView(params, init) {
 			dataEvent: function(dataset, button) {
 				button.show(dataset.editing);
 			},
+			// click: function(item) {
+				// console.log(item);
+				// ErrorDialog({
+					// target: item.elementContainer,
+					// title: "Attempt to delete failed",
+					// message: "OK test...",
+					// snap: "bottom",
+					// inset: false
+				// });
+			// },
 			click: function(item) {
+				// console.log(desktop); return;
 				self.dataset.post2({
 					error: function(message) {
 						ErrorDialog({
@@ -87,6 +98,7 @@ function CustomEditView(params, init) {
 						});
 					},
 					success: function(message) {
+						// console.log(message);
 						if (message.id > 0) {
 							InfoDialog({
 								target: item.elementContainer.closest("ul"),
@@ -161,6 +173,16 @@ function CustomEditView(params, init) {
 				item.dataBind.cancel();
 			}
 		});
+
+		// toolbar.NewItem({
+			// id: "test",
+			// icon: "test",
+			// iconColor: "#8DCF6E",
+			// hint: "Test",
+			// click: function(item) {
+				// console.log(window.opener.desktop);
+			// }
+		// });
 
 		toolbar.SetVisible("refresh", !view.dataset.editing);
 		toolbar.SetVisible("cancel", view.dataset.editing);

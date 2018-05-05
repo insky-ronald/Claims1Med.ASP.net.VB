@@ -32,7 +32,7 @@ Public Class DataProvider
 		MyBase.ProcessOutput(Cmd, Output)
 		If Cmd = "list"
 			Crud.AsBoolean("add") = False
-			Crud.AsBoolean("edit") = True
+			Crud.AsBoolean("edit") = False
 			Crud.AsBoolean("delete") = False
 		End If
 	End Sub

@@ -14,6 +14,10 @@ Public Class DataProvider
 	Protected Overrides Function UpdateDataSource As String
 		Return "DBMedics.AddClaim"
 	End Function
+
+	Protected Overrides Function UpdateResultFields As String
+		Return "id"
+	End Function	
 		
 	Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))
 		MyBase.InitParams(Cmd, DataParams, DataValues)

@@ -18,19 +18,25 @@ Public Class DataProvider
 	Private Sub NewRowRecord(ByVal sender As Object, ByVal e As System.Data.DataTableNewRowEventArgs)
 		Dim Row As System.Data.DataRow = e.Row
 		
-		Row.Item("id") = 0
-		Row.Item("claim_no") = ""
-		Row.Item("claim_type") = Request.Params("type")
-		Row.Item("status_code") = "N"
-		Row.Item("status") = "NEW CLAIM"
-		Row.Item("case_owner") = Session("UserID")
-		Row.Item("member_id") = DBMember.Rows(0).Item("member_id")
-		Row.Item("name_id") = DBMember.Rows(0).Item("name_id")
-		Row.Item("main_name_id") = DBMember.Rows(0).Item("main_name_id")
-		Row.Item("policy_id") = DBMember.Rows(0).Item("policy_id")
-		Row.Item("client_id") = DBMember.Rows(0).Item("client_id")
-		Row.Item("product_code") = DBMember.Rows(0).Item("product_code").Trim
-		Row.Item("plan_code") = DBMember.Rows(0).Item("plan_code").Trim
+		Using DBInfo = DBConnections("DBMedics").OpenData("GetNewClaimInfo", {"member_id", "claim_type","visit_id"}, {DBMember.Rows(0).Item("member_id"), Request.Params("type"), Session("VisitorID")}, "")
+			Row.Item("id") = 0
+			Row.Item("claim_no") = ""
+			Row.Item("claim_type") = Request.Params("type")
+			Row.Item("claim_type_name") = DBInfo.Eval("@claim_type")
+			Row.Item("status_code") = "N"
+			Row.Item("status") = "NEW CLAIM"
+			' Row.Item("case_owner") = Session("UserID")
+			Row.Item("case_owner") = DBInfo.Eval("@user_name")
+			Row.Item("member_id") = DBMember.Rows(0).Item("member_id")
+			Row.Item("name_id") = DBMember.Rows(0).Item("name_id")
+			Row.Item("main_name_id") = DBMember.Rows(0).Item("main_name_id")
+			Row.Item("policy_id") = DBMember.Rows(0).Item("policy_id")
+			Row.Item("client_id") = DBMember.Rows(0).Item("client_id")
+			Row.Item("product_code") = DBMember.Rows(0).Item("product_code").Trim
+			Row.Item("plan_code") = DBMember.Rows(0).Item("plan_code").Trim
+			Row.Item("notification_date") = DBInfo.Eval("@notification_date")
+			Row.Item("country_of_incident") = DBInfo.Eval("@country_of_incident")
+		End Using
 	End Sub
 	
 	Protected Overrides Sub InitCallback(ByVal Action As String, ByVal Output As EasyStringDictionary)
@@ -38,6 +44,8 @@ Public Class DataProvider
 		
 		If Request.Params("keyid") = "new"
 			ClaimID = 0
+			MemberID = Request.Params("keyid2")
+			ClaimType = Request.Params("type")
 		Else
 			ClaimID = Request.Params("keyid")
 		End if
@@ -45,7 +53,6 @@ Public Class DataProvider
 		DBClaim = DBConnections("DBMedics").OpenData("GetClaim", {"id","visit_id"}, {ClaimID, Session("VisitorID")}, "")
 		
 		If ClaimID = 0
-			MemberID = Request.Params("keyid2")
 			CustomData.AsInteger("newRecord") = 1
 		Else
 			MemberID = DBClaim.Eval("@member_id")

@@ -228,7 +228,7 @@ jMemberSearch.prototype.OnInitColumns = function(grid) {
 	jMemberSearch.prototype.parent.prototype.OnInitColumns.call(this, grid);
 
 	grid.NewColumn({fname: "certificate_no", width: 150, allowSort: true});
-	grid.NewColumn({fname: "alpha_id", width: 150, allowSort: true});
+	// grid.NewColumn({fname: "alpha_id", width: 150, allowSort: true});
 	grid.NewColumn({fname: "policy_no", width: 150, allowSort: true});
 	grid.NewColumn({fname: "full_name", width: 250, allowSort: true, linkField:"id"});
 	grid.NewColumn({fname: "plan_name", width: 200, allowSort: true});
@@ -240,4 +240,26 @@ jMemberSearch.prototype.OnInitColumns = function(grid) {
 	grid.NewColumn({fname: "policy_holder", width: 250, allowSort: true});
 	grid.NewColumn({fname: "client_name", width: 250, allowSort: true, linkField:"client_id"});
 	grid.NewColumn({fname: "product_name", width: 250, allowSort: true, linkField:"product_code"});
+};
+
+jMemberSearch.prototype.OnInitToolbar = function(toolbar) {
+	jMemberSearch.prototype.parent.prototype.OnInitToolbar.call(this, toolbar);
+	
+	toolbar.NewDropDownViewItem({
+		id: "new-member",
+		icon: "new",
+		color: "#1CA8DD",
+		title: "New Member",
+		height: 200,
+		width: 800,
+		subTitle: "Choose the plan to assign the new member",
+		view: PlansLookup,
+		// viewParams: {module:"INV", mode:1},
+		select: function(code) {
+			// window.open(__claim(("new/{0}/{1}").format(code.toLowerCase(), grid.dataParams.get("member_id")), true), "");
+			// window.open(__member(("new/{0}?type={1}").format(grid.dataParams.get("member_id"), code), true), "");
+			window.open(__member(("new/{0}?plan={1}").format(0, code), true), "");
+			// window.open(__member(("new/{0}").format(code), true), "");
+		}
+	});
 };

@@ -41,7 +41,6 @@ function ClaimDetailsView(params) {
 							},
 							container: container,
 							init: function(pg) {
-								// pg.addTab({caption:desktop.dbClaim.get("claim_type_name") + " Claim",
 								pg.addTab({caption:desktop.dbClaim.get("claim_type_name"),
 									icon: {
 										name: "view-list",
@@ -258,33 +257,6 @@ function ClaimDetailsView(params) {
 											
 										}
 									});
-									// pg.addTab({caption:"This is a test",
-										// icon: {
-											// name: "view-list",
-											// color: "forestgreen"
-										// },
-										// OnCreate: function(tab) {
-											
-										// }
-									// });
-									// pg.addTab({caption:"John Zapanta",
-										// icon: {
-											// name: "view-list",
-											// color: "forestgreen"
-										// },
-										// OnCreate: function(tab) {
-											
-										// }
-									// });
-									// pg.addTab({caption:"IBSI",
-										// icon: {
-											// name: "view-list",
-											// color: "forestgreen"
-										// },
-										// OnCreate: function(tab) {
-											
-										// }
-									// });
 								}
 							}
 						});
@@ -319,8 +291,25 @@ function ClaimDetailsView(params) {
 				dataEvent: function(dataset, button) {
 					button.show(!dataset.editing);
 				},
-				confirm: function() {
-					
+				confirm: function(button) {
+					desktop.Ajax(null, "/app/get/delete/claim", {
+							mode: "delete",
+							data: "["+JSON.stringify({id: desktop.dbClaim.get("id")})+"]"
+						}, 
+						function(result) {
+							if(result.status < 0) {
+								ErrorDialog({
+									target: button.elementContainer,
+									title: "Error deleting claim",
+									message: result.message,
+									snap: "bottom",
+									inset: false
+								})
+							} else {
+								window.close();
+							}
+						}
+					)
 				}
 			});
 			

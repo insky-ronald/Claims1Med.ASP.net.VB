@@ -1,0 +1,11 @@
+##template
+##endtemplate=app\member
+
+##template
+##endtemplate=app\addresses
+
+##template
+##endtemplate=app\contacts
+
+##template
+##endtemplate=app\member-plan-history

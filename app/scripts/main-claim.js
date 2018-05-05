@@ -6,6 +6,7 @@
 
 MainPage.prototype.AfterPaint = function() {
 	MainPage.prototype.parent.prototype.AfterPaint.call(this);
+	desktop.dbUsers = desktop.LoadCacheData(desktop.customData.users, "users", "user_name");
 	desktop.dbCountries = desktop.LoadCacheData(desktop.customData.countries, "countries", "code");
 	// desktop.dbCurrencies = desktop.LoadCacheData(desktop.customData.currencies, "currencies", "code");
 
@@ -56,12 +57,12 @@ MainPage.prototype.AfterPaint = function() {
 		.setprops("id", {label:"ID", numeric:true, key: true, readonly:true})
 		.setprops("claim_no", {label:"Claim No.", readonly:true})
 		.setprops("claim_type", {label:"Claim Type", readonly:true})
-		.setprops("case_owner", {label:"Claim Owner", required:true})
-		// .setprops("case_owner", {label:"Claim Owner", required:true, upperCase:false, lookupDataset: desktop.dbUsers,
-			// getText: function(column, value) {
-				// return column.lookupDataset.lookup(value, "name");
-			// }
-		// )
+		// .setprops("case_owner", {label:"Claim Owner", readonly:true, required:true})
+		.setprops("case_owner", {label:"Claim Owner", required:true, upperCase:false, lookupDataset: desktop.dbUsers,
+			getText: function(column, value) {
+				return column.lookupDataset.lookup(value, "name");
+			}
+		)
 		.setprops("status", {label:"Status", readonly:true})
 		.setprops("notification_date", {label:"Date Notified", type:"date", required:true})
 
@@ -83,11 +84,12 @@ MainPage.prototype.AfterPaint = function() {
 				return column.lookupDataset.lookup(value, "country");
 			}
 		})
-
 		.setprops("is_accident", {label:"Accident"})
 		.setprops("accident_date", {label:"Date of Accident", type:"date", required:desktop.dbClaim.raw("is_accident")})
 		.setprops("accident_code", {label:"Accident Type", required:desktop.dbClaim.raw("is_accident")})
 
+		// .setprops("diagnosis_code", {label: "Diagnosis", required:true})
+		.setprops("diagnosis_code", {label: "Diagnosis", required:false})
 		.setprops("is_preexisting", {label:"Pre-Existing"})
 		.setprops("first_symptom_date", {label:"First Symptom", type:"date", required:!desktop.dbClaim.raw("is_accident")})
 		.setprops("first_consultation_date", {label:"First Consultation", type:"date", required:!desktop.dbClaim.raw("is_accident")});

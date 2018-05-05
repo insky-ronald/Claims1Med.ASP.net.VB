@@ -6,6 +6,7 @@
 // File name: view-member-claims.js
 //==================================================================================================
 function MemberClaimsView(params) {
+	console.log(params);
 	return new jGrid($.extend(params, {
 		paintParams: {
 			css: "member-claims",
@@ -13,7 +14,8 @@ function MemberClaimsView(params) {
 		},
 		init: function(grid, callback) {			
 			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "member-claims?"+ ObjectToRequestParams(params.requestParams);
+				// grid.optionsData.url = "member-claims?"+ ObjectToRequestParams(params.requestParams);
+				grid.optionsData.url = "member-claims";
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = false;
@@ -29,7 +31,12 @@ function MemberClaimsView(params) {
 						.addColumn("pagesize", 1000, {numeric:true})
 						.addColumn("sort", "claim_no")
 						.addColumn("order", "asc")
-						.addColumn("member_id", params.member_id)
+						
+					if(params.member_id) {
+						dataParams.addColumn("member_id", params.member_id)
+					} else {
+						dataParams.addColumn("member_id", params.requestParams.member_id)
+					}
 						// .addColumn("filter", "member 6")
 				});
 				
@@ -92,7 +99,8 @@ function MemberClaimsView(params) {
 						view: ClaimTypesLookup,
 						// viewParams: {module:"INV", mode:1},
 						select: function(code) {
-							window.open(__claim(("new/{0}/{1}").format(code.toLowerCase(), grid.dataParams.get("member_id")), true), "");
+							// window.open(__claim(("new/{0}/{1}").format(code.toLowerCase(), grid.dataParams.get("member_id")), true), "");
+							window.open(__claim(("new/{0}?type={1}").format(grid.dataParams.get("member_id"), code), true), "");
 						}
 					});
 				});
@@ -113,18 +121,6 @@ function MemberClaimsView(params) {
 						indent: 0,
 						container: params.container,
 						init: function(pg) {
-							pg.addTab({caption:"Invoices",
-								OnCreate: function(tab) {
-									tab.container.addClass("master-detail-tab");
-									ListClaimServices({
-										container: tab.container,
-										requestParams: {
-											module: "inv",
-											claim_id: grid.dataset.getKey()
-										}
-									})
-								}
-							});
 							pg.addTab({caption:"Guarantee of Payments",
 								OnCreate: function(tab) {
 									tab.container.addClass("master-detail-tab");
@@ -132,6 +128,18 @@ function MemberClaimsView(params) {
 										container: tab.container,
 										requestParams: {
 											module: "gop",
+											claim_id: grid.dataset.getKey()
+										}
+									})
+								}
+							});
+							pg.addTab({caption:"Invoices",
+								OnCreate: function(tab) {
+									tab.container.addClass("master-detail-tab");
+									ListClaimServices({
+										container: tab.container,
+										requestParams: {
+											module: "inv",
 											claim_id: grid.dataset.getKey()
 										}
 									})
