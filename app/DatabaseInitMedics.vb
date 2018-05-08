@@ -127,10 +127,10 @@ End With
     ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 ' End With 
 
-With DBConnection.NewCommand("GetPlan", "GetPlan", CommandType.StoredProcedure)
-    .AddParameter("code", SqlDbType.varchar, ParameterDirection.Input, 10, "")
-    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-End With 
+' With DBConnection.NewCommand("GetPlan", "GetPlan", CommandType.StoredProcedure)
+    ' .AddParameter("code", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+    ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+' End With 
 
 ' With DBConnection.NewCommand("GetProduct", "GetProduct", CommandType.StoredProcedure)
     ' .AddParameter("code", SqlDbType.varchar, ParameterDirection.Input, 10, "")

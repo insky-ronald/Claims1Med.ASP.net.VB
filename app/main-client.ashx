@@ -46,7 +46,7 @@ Public Class DataProvider
 			With Main.SubItems.Add
 				.ID = "address"
 				.Title = "Address"
-				.Icon = "table-edit"
+				.Icon = "addresses"
 				.Action = "admin"
 				.URL = "app/addresses"
 				.Params.AsInteger("name_id") = ClientID
@@ -55,10 +55,20 @@ Public Class DataProvider
 			With Main.SubItems.Add
 				.ID = "contacts"
 				.Title = "Contacts"
+				.Icon = "contacts"
+				.Action = "admin"
+				.URL = "app/contacts"
+				.Params.AsInteger("name_id") = ClientID
+			End with
+		
+		Main = MenuItems.AddMain("products", "Products")
+			
+			With Main.SubItems.Add
+				.ID = "products"
+				.Title = "Products and Plans"
 				.Icon = "table-edit"
 				.Action = "admin"
 				.URL = "engine/under-construction"
-				.Params.AsInteger("name_id") = ClientID
 			End with
 			
 		Main = MenuItems.AddMain("financial", "Financial")
@@ -66,9 +76,9 @@ Public Class DataProvider
 			With Main.SubItems.Add
 				.ID = "banks"
 				.Title = "Banks"
-				.Icon = "table-edit"
+				.Icon = "bank"
 				.Action = "admin"
-				.URL = "engine/under-construction"
+				.URL = "app/banks"
 				.Params.AsInteger("name_id") = ClientID
 			End with
 		

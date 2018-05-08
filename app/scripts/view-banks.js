@@ -7,6 +7,14 @@
 // uses edit-banks.js
 //==================================================================================================
 function BanksView(params){	
+	function MasterKey() {
+		if(params.getMasterID) {
+			return params.getMasterID()
+		} else {
+			return params.requestParams.name_id
+		}
+	};
+	
 	return new jGrid($.extend(params, {
 		paintParams: {
 			css: "banks",
@@ -14,7 +22,8 @@ function BanksView(params){
 		},
 		editForm: function(id, container, dialog) {
 			BanksEdit({
-				url: ("?id={0}&name_id={1}").format(id, params.getMasterID()),
+				// url: ("?id={0}&name_id={1}").format(id, params.getMasterID()),
+				url: ("?id={0}&name_id={1}").format(id, MasterKey()),
 				container: container,
 				dialog: dialog
 			})
@@ -29,7 +38,8 @@ function BanksView(params){
 							
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
-						.addColumn("name_id", params.getMasterID(), {numeric:true})
+						// .addColumn("name_id", params.getMasterID(), {numeric:true})
+						.addColumn("name_id", MasterKey(), {numeric:true})
 						.addColumn("sort", "bank_name")
 						.addColumn("order", "asc")
 				});
