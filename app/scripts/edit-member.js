@@ -37,12 +37,20 @@ function MemberEdit(viewParams){
 						
 						editor.AddGroup("General", function(editor) {
 							editor.AddEdit({ID: "certificate_no"});
+							if (desktop.dbMember.raw("relationship_code") !== "XX") {
+								editor.AddEdit({ID: "main_member"});
+								editor.AddEdit({ID: "relationship_code"});
+								// editor.AddLookup("relationship_code", {width:400, height:300, disableEdit:true, init:CountriesLookup});
+							}
 						});
 						
 						editor.AddGroup("Member's Personal Data", function(editor) {
 							editor.AddEdit({ID: "first_name"});
 							editor.AddEdit({ID: "middle_name"});
 							editor.AddEdit({ID: "last_name"});
+							if (!desktop.customData.newRecord) {
+								editor.AddEdit({ID: "name"});
+							}
 							editor.AddEdit({ID: "dob"});
 							editor.AddRadioButton("gender", {
 								key: "id",

@@ -1,0 +1,3 @@
+.grid3.hospitals .row[x-blacklisted="1"] .data-cell {
+	color: dimgray !important;
+}

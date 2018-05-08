@@ -256,8 +256,16 @@ jGridPainter3.prototype.paintToolbar = function(container) {
 			buttonSize: grid.options.toolbar.size
 	});	
 	
+	if(grid.exportData.allow) {
+		grid.painter.showExport();
+	}
+	
 	if(this.control.search.visible) {
-		if(grid.search.mode === "simple") {
+		if(grid.search.visible && (grid.search.mode === "advanced" || grid.search.mode === "mixed")) {
+			grid.painter.showAdvancedSearch();
+		}
+		
+		if(grid.search.mode === "simple" || grid.search.mode === "mixed") {
 			CreateElementEx("div", this.toolbar.Painter.buttonContainer, function(search) {
 				search.addClass("simple-search")
 				search.addClass("ss-theme-" + grid.options.toolbar.theme)

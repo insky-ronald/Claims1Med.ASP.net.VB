@@ -66,6 +66,41 @@ function MemberView(params) {
 					});
 					
 					splitter.events.OnPaintPane2.add(function(splitter, container) {
+						if (desktop.customData.newRecord) {
+							new jPageControl({
+								paintParams: {
+									css: "pg-claim",
+									theme: "claim-details",
+									icon: {
+										size: tabIconSize,
+										position: "left"
+									}
+								},
+								container: container,
+								init: function(pg) {
+									// display family members only
+									pg.addTab({caption:"Family Members",
+										icon: {
+											name: "users",
+											color: "dodgerblue"
+										},
+										OnCreate: function(tab) {
+											FamilyMembersView({
+												container:tab.container, 
+												requestParams:{
+													new_member: desktop.customData.newRecord,
+													plan_code:desktop.dbMember.get("plan_code"),
+													certificate_id:desktop.dbMember.get("certificate_id")
+												}
+											})
+										}
+									})
+								}
+							});
+							
+							return;
+						}
+						
 						new jSplitContainer({
 							paintParams: {
 								theme: "white-green-dark"
@@ -88,27 +123,23 @@ function MemberView(params) {
 										},
 										container: container,
 										init: function(pg) {
-											pg.addTab({caption:"Plan History",
-												icon: {
-													name: "history",
-													color: "forestgreen"
-												},
-												OnCreate: function(tab) {
-													MemberPlanHistoryView({container:tab.container, requestParams: {member_id:desktop.dbMember.get("id")}});
-												}
-											});
-											
-											// if(!desktop.customData.newRecord) {
 											pg.addTab({caption:"Family Members",
 												icon: {
 													name: "users",
 													color: "dodgerblue"
 												},
 												OnCreate: function(tab) {
-													// ClaimDiagnosisSummaryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
+													FamilyMembersView({
+														container:tab.container, 
+														requestParams:{
+															new_member: desktop.customData.newRecord,
+															plan_code:desktop.dbMember.get("plan_code"),
+															certificate_id:desktop.dbMember.get("certificate_id")
+														}
+													})
 												}
 											})
-											// }
+											
 											pg.addTab({caption:"Address",
 												icon: {
 													name: "addresses",
@@ -153,6 +184,16 @@ function MemberView(params) {
 										},
 										container: container,
 										init: function(pg) {
+											pg.addTab({caption:"Plan History",
+												icon: {
+													name: "history",
+													color: "forestgreen"
+												},
+												OnCreate: function(tab) {
+													MemberPlanHistoryView({container:tab.container, requestParams: {member_id:desktop.dbMember.get("id")}});
+												}
+											});
+											
 											pg.addTab({caption:"Medical Notes",
 												icon: {
 													name: "notes",
@@ -173,49 +214,6 @@ function MemberView(params) {
 													// ClaimDetailsEdit({container: tab.container});
 												// }
 											// });
-											
-											// if(!desktop.customData.newRecord) {
-											pg.addTab({caption:"Benefit Utilisation",
-												icon: {
-													name: "benefit",
-													color: "dodgerblue"
-												},
-												OnCreate: function(tab) {
-													new jPageControl({
-														paintParams: {
-															css: "pg-claim",
-															theme: "claim-details",
-															icon: {
-																size: tabIconSize,
-																position: "left"
-															}
-														},
-														container: tab.container,
-														init: function(pg) {
-															pg.addTab({caption:"Normal",
-																icon: {
-																	name: "benefit",
-																	color: "dodgerblue"
-																},
-																OnCreate: function(tab) {
-																	// ClaimDetailsEdit({container: tab.container});
-																}
-															});
-															
-															pg.addTab({caption:"Per Year",
-																icon: {
-																	name: "benefit",
-																	color: "dodgerblue"
-																},
-																OnCreate: function(tab) {
-																	// ClaimDetailsEdit({container: tab.container});
-																}
-															});
-														}
-													});
-												}
-											});
-											// }
 										}
 									});
 								});

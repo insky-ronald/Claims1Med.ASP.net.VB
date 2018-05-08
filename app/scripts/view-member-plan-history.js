@@ -30,7 +30,8 @@ function MemberPlanHistoryView(viewParams){
 				grid.options.showBand = false;
 				grid.options.showSummary = false;
 				grid.options.showPager = false;
-				grid.options.showMasterDetail = true;
+				// grid.options.showMasterDetail = true;
+				grid.options.showMasterDetail = false;
 				
 				grid.search.visible = false;
 				grid.exportData.allow = false;
@@ -247,18 +248,16 @@ function MemberPlanHistoryView(viewParams){
 				})
 				
 				grid.Events.OnInitColumns.add(function(grid) {
-					if (desktop.dbClaim) {
-						grid.NewBand({caption: "...", fixed:"left"} , function(band) {
-							band.NewCommand({command:"override1"});
-							band.NewCommand({command:"override2"});
+					// if (desktop.dbClaim) {
+						// grid.NewBand({caption: "...", fixed:"left"} , function(band) {
+							// band.NewCommand({command:"override1"});
 							// band.NewCommand({command:"override2"});
-							// band.NewColumn({fname: "sequence_no", width: 30});
-						});
-					};
+						// });
+					// };
 					
 					grid.NewBand({caption: "..."} , function(band) {
 						band.NewColumn({fname: "sequence_no", width: 30});
-						band.NewColumn({fname: "flag", width: 50});
+						// band.NewColumn({fname: "flag", width: 50});
 						band.NewColumn({fname: "history_type", width: 50});
 						band.NewColumn({fname: "plan_code", width: 100});
 						// band.NewColumn({fname: "sub_product", width: 100});

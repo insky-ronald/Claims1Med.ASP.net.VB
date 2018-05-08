@@ -46,8 +46,9 @@ function __service(id, module, get) {
 
 function __newservice(id, module, type, get) {
 	// return __open(("/app/service/new/{0}/{1}/{2}").format(module.toLowerCase(), type.trim().toLowerCase(), id), get);
+	return __open(("/app/service/{0}/new?claim={2}&type={1}").format(module.toLowerCase(), type.trim(), id), get);
 	// return __open(("/app/service/new/{0}/{1}/{2}").format(module, type.trim(), id), get);
-	return __open(("/app/{0}/new/{1}/{2}").format(module.toLowerCase(), type.trim(), id), get);
+	// return __open(("/app/{0}/new/{1}/{2}").format(module.toLowerCase(), type.trim(), id), get);
 };
 
 function __invoice(id, get) {
@@ -203,14 +204,20 @@ MainPage.prototype.InitializeSession = function(data) {
 	this.RegisterSvg("account-card-details", 25, '<path d="M2,3H22C23.05,3 24,3.95 24,5V19C24,20.05 23.05,21 22,21H2C0.95,21 0,20.05 0,19V5C0,3.95 0.95,3 2,3M14,6V7H22V6H14M14,8V9H21.5L22,9V8H14M14,10V11H21V10H14M8,13.91C6,13.91 2,15 2,17V18H14V17C14,15 10,13.91 8,13.91M8,6A3,3 0 0,0 5,9A3,3 0 0,0 8,12A3,3 0 0,0 11,9A3,3 0 0,0 8,6Z" />');
 	this.RegisterSvg("information-variant", 24, '<path d="M13.5,4A1.5,1.5 0 0,0 12,5.5A1.5,1.5 0 0,0 13.5,7A1.5,1.5 0 0,0 15,5.5A1.5,1.5 0 0,0 13.5,4M13.14,8.77C11.95,8.87 8.7,11.46 8.7,11.46C8.5,11.61 8.56,11.6 8.72,11.88C8.88,12.15 8.86,12.17 9.05,12.04C9.25,11.91 9.58,11.7 10.13,11.36C12.25,10 10.47,13.14 9.56,18.43C9.2,21.05 11.56,19.7 12.17,19.3C12.77,18.91 14.38,17.8 14.54,17.69C14.76,17.54 14.6,17.42 14.43,17.17C14.31,17 14.19,17.12 14.19,17.12C13.54,17.55 12.35,18.45 12.19,17.88C12,17.31 13.22,13.4 13.89,10.71C14,10.07 14.3,8.67 13.14,8.77Z" />');
 	this.RegisterSvg("close-circle-outline", 25, '<path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />');
+	this.RegisterSvg("group", 24, '<path d="M1,1V5H2V19H1V23H5V22H19V23H23V19H22V5H23V1H19V2H5V1M5,4H19V5H20V19H19V20H5V19H4V5H5M6,6V14H9V18H18V9H14V6M8,8H12V12H8M14,11H16V16H11V14H14" />');
+	this.RegisterSvg("stethoscope", 24, '<path d="M19,8C19.56,8 20,8.43 20,9A1,1 0 0,1 19,10C18.43,10 18,9.55 18,9C18,8.43 18.43,8 19,8M2,2V11C2,13.96 4.19,16.5 7.14,16.91C7.76,19.92 10.42,22 13.5,22A6.5,6.5 0 0,0 20,15.5V11.81C21.16,11.39 22,10.29 22,9A3,3 0 0,0 19,6A3,3 0 0,0 16,9C16,10.29 16.84,11.4 18,11.81V15.41C18,17.91 16,19.91 13.5,19.91C11.5,19.91 9.82,18.7 9.22,16.9C12,16.3 14,13.8 14,11V2H10V5H12V11A4,4 0 0,1 8,15A4,4 0 0,1 4,11V5H6V2H2Z" />');
+	this.RegisterSvg("box-cutter", 24, '<path d="M7.22,11.91C6.89,12.24 6.71,12.65 6.66,13.08L12.17,15.44L20.66,6.96C21.44,6.17 21.44,4.91 20.66,4.13L19.24,2.71C18.46,1.93 17.2,1.93 16.41,2.71L7.22,11.91M5,16V21.75L10.81,16.53L5.81,14.53L5,16M17.12,4.83C17.5,4.44 18.15,4.44 18.54,4.83C18.93,5.23 18.93,5.86 18.54,6.25C18.15,6.64 17.5,6.64 17.12,6.25C16.73,5.86 16.73,5.23 17.12,4.83Z" />');
+	this.RegisterSvg("playlist-edit", 24, '<path d="M2,6V8H14V6H2M2,10V12H14V10H2M20.04,10.13C19.9,10.13 19.76,10.19 19.65,10.3L18.65,11.3L20.7,13.35L21.7,12.35C21.92,12.14 21.92,11.79 21.7,11.58L20.42,10.3C20.31,10.19 20.18,10.13 20.04,10.13M18.07,11.88L12,17.94V20H14.06L20.12,13.93L18.07,11.88M2,14V16H10V14H2Z" />');
 	// this.RegisterSvg("", 24, '');
 
 	this.CloneSvg("info", "information-variant");
+	this.CloneSvg("details-edit", "playlist-edit");
 	this.CloneSvg("addresses", "mailbox");
 	this.CloneSvg("contacts", "account-card-details");
 	
 	this.CloneSvg("set-default", "check-circle-outline");
 	this.CloneSvg("claim-status", "history");
+	this.CloneSvg("service-breakdown", "view-list");
 	this.CloneSvg("service-status", "history");
 	this.CloneSvg("new-action", "account-check");
 	this.CloneSvg("notes", "note-outline");
@@ -252,5 +259,7 @@ MainPage.prototype.InitializeSession = function(data) {
 	// REPORT
 	this.CloneSvg("run-report", "approval");
 
-	this.CloneSvg("benefit", "table");
+	this.CloneSvg("benefit", "approval");
+	this.CloneSvg("diagnosis", "stethoscope");
+	this.CloneSvg("procedure", "box-cutter");
 };

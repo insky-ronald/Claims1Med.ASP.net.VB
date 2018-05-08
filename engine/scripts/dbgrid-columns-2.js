@@ -10,7 +10,7 @@
 Class.Inherits(jGridColumn, jControl)
 function jGridColumn(params) {
     jGridColumn.prototype.parent.call(this, params)
-}
+};
 
 jGridColumn.prototype.classID = "jGridColumn"
 
@@ -56,4 +56,67 @@ jGridColumn.prototype.initialize = function(params) {
 	this.float = defaultValue(params.float, "none")
 	
 	// this.debug(this)
-}
+};
+
+jGridColumn.prototype.openDropDown = function(params) {
+	// console.log(params)
+	params.container.data("object", {icon:params.icon, size:18});
+	var dialog = new JPopupDialog({
+		Target: params.container,
+		Modal: false,
+		// onClose: params.onClose,
+		Painter: {
+			painterClass: PopupOverlayPainter,
+			color: params.color,
+			snap: "bottom",
+			align: "left",
+			noIndicator: false,
+			OnRenderHeader: function(dialog, container) {
+			},
+			OnRenderContent: function(dialog, container) {
+				CreateElementEx("div", container, function(header) {
+					CreateElement("h2", header).html(params.title).css("margin", 0);
+					if (params.subTitle) {
+						CreateElement("p", header).html(params.subTitle);
+					}
+				});			
+				
+				CreateElementEx("div", container, function(view) {
+					view.parent()
+						.css("width", params.width || 600)
+						
+					view
+						.css("height", params.height || 300)
+						.css("border", "1px solid " + params.color);
+						
+					if(params.view) {
+						params.view($.extend({}, {container:view, 
+							initParams:function(dataParams) {
+								// console.log("here")
+								if (params.initParams) {
+									params.initParams(dataParams);
+								}
+							},
+							select:function(key) {
+								dialog.Hide();
+								desktop.HideHints();
+								params.select(key);
+							}
+						}));						
+					};
+				});
+			},
+			OnRenderFooter: function(dialog, container) {
+				CreateButton({
+					container: container,
+					caption: "Close",
+					style: "green",
+					click: function(button) {
+						dialog.Hide();
+					}
+				});
+			}
+		}
+	});
+	
+};

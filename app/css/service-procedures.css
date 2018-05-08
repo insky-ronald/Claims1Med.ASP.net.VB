@@ -1,0 +1,26 @@
+##const
+##endconst
+
+.grid3.service-procedures tbody tr[x-default] {
+	color: forestgreen;
+}
+
+.grid3.service-procedures tbody tr[x-main="1"] {
+	font-size: 105%;
+	font-weight: bold;
+}
+
+.grid3.service-procedures .data-cell.command-cell[command="diagnosis"] svg,
+.grid3.service-procedures .header-cell.command-cell[command="diagnosis"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.service-procedures .data-cell.command-cell[command="deletex"] svg,
+.grid3.service-procedures .header-cell.command-cell[command="deletex"] svg {
+	fill: firebrick !important;
+}
+
+.grid3.service-procedures .data-cell.command-cell[command="editx"] svg,
+.grid3.service-procedures .header-cell.command-cell[command="editx"] svg {
+	fill: dodgerblue !important;
+}

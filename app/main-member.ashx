@@ -4,22 +4,25 @@ Public Class DataProvider
 	Inherits DataHandler.BaseNavigator
 	
 	Private MemberID As Integer = 0
-	Private MainMemberID As Integer = 0
+	Private CertificateID As Integer = 0
 	Private PlanCode As String
 	Private DBMember As System.Data.DataTable
 	
 	Private Sub NewRowRecord(ByVal sender As Object, ByVal e As System.Data.DataTableNewRowEventArgs)
 		Dim Row As System.Data.DataRow = e.Row
 		
-		Using DBInfo = DBConnections("DBMedics").OpenData("GetNewMemberInfo", {"member_id", "plan_code","visit_id"}, {MemberID, Request.Params("plan"), Session("VisitorID")}, "")
+		Using DBInfo = DBConnections("DBMedics").OpenData("GetNewMemberInfo", {"certificate_id", "relationship_code", "plan_code","visit_id"}, {CertificateID, Request.Params("rel"), Request.Params("plan"), Session("VisitorID")}, "")
 			Row.Item("id") = 0
 			Row.Item("sequence_no") = 0
-			Row.Item("dependent_code") = 0
 			Row.Item("status_code") = "1"
 			Row.Item("name_type") = "M"
 			Row.Item("auto_gen_certificate") = false
 			Row.Item("create_policy") = false
 			Row.Item("member_is_policy_holder") = false
+			Row.Item("certificate_no") = DBInfo.Eval("@certificate_no")
+			Row.Item("main_member") = DBInfo.Eval("@main_member")
+			Row.Item("gender") = DBInfo.Eval("@gender")
+			Row.Item("dependent_code") = DBInfo.Eval("@dependent_code")
 			Row.Item("plan_code") = DBInfo.Eval("@plan_code")
 			Row.Item("plan_name") = DBInfo.Eval("@plan_name")
 			Row.Item("product_code") = DBInfo.Eval("@product_code")
@@ -28,6 +31,7 @@ Public Class DataProvider
 			Row.Item("client_name") = DBInfo.Eval("@client_name")
 			Row.Item("start_date") = DBInfo.Eval("@start_date")
 			Row.Item("end_date") = DBInfo.Eval("@end_date")
+			Row.Item("certificate_id") = CertificateID
 			Row.Item("policy_id") = DBInfo.Eval("@policy_id")
 			Row.Item("policy_no") = DBInfo.Eval("@policy_no")
 			Row.Item("policy_holder") = DBInfo.Eval("@policy_holder")
@@ -55,10 +59,10 @@ Public Class DataProvider
 		MyBase.InitCallback(Action, Output)
 		
 		If Request.Params("keyid") = "new"
-			MainMemberID = Request.Params("keyid2")
+			CertificateID = Request.Params("keyid2")
 			PlanCode = Request.Params("plan")
 			CustomData.AsInteger("newRecord") = 1
-			CustomData.AsJson("medical_notes") = ""
+			CustomData.AsJson("medical_notes") = "[]"
 		Else
 			MemberID = Request.Params("keyid")
 			CustomData.AsInteger("newRecord") = 0
@@ -69,17 +73,30 @@ Public Class DataProvider
 			AddHandler DBMember.TableNewRow, AddressOf NewRowRecord
 			DBMember.Rows.Add(DBMember.NewRow())
 		Else
-			Using DBMedicalNotes = DBConnections("DBMedics").OpenData("GetMemberMedicalNotes", {"id","claim_id","visit_id"}, {MemberID, 0, Session("VisitorID")}, "")
-				CustomData.AsJson("medical_notes") = DBMedicalNotes.AsJson()
-			End Using
+			' Using DBMedicalNotes = DBConnections("DBMedics").OpenData("GetMemberMedicalNotes", {"id","claim_id","visit_id"}, {MemberID, 0, Session("VisitorID")}, "")
+				' CustomData.AsJson("medical_notes") = DBMedicalNotes.AsJson()
+			' End Using
 		End if
+		
+		Using DBMedicalNotes = DBConnections("DBMedics").OpenData("GetMemberMedicalNotes", {"id","claim_id","visit_id"}, {MemberID, 0, Session("VisitorID")}, "")
+			CustomData.AsJson("medical_notes") = DBMedicalNotes.AsJson()
+		End Using
 
 		If Action = "navigator"
 			If MemberID = 0
-				Output.AsString("page_title") = "New Member"
-				Output.AsString("window_title") = "New Member"
+				If CertificateID = 0
+					Output.AsString("page_title") = "New Member"
+				Else
+					Output.AsString("page_title") = "New Dependent"
+				End if
+				
+				Output.AsString("window_title") = Output.AsString("page_title")
 			Else
-				Output.AsString("page_title") = DBMember.Eval("Member: @name")
+				If DBMember.Eval("@dependent_code") = 0
+					Output.AsString("page_title") = DBMember.Eval("Member: @name")
+				Else
+					Output.AsString("page_title") = DBMember.Eval("Dependent: @name")
+				End if
 				Output.AsString("window_title") = DBMember.Eval("@name")
 			End if
 
@@ -94,6 +111,11 @@ Public Class DataProvider
 			Using DBCountries = DBConnections("DBMedics").OpenData("GetCountries", {"action","visit_id"}, {1, Session("VisitorID")}, "")
 				DBCountries.Columns.Remove("row_no")
 				CustomData.AsJson("countries") = DBCountries.AsJson()
+			End Using
+
+			Using DBRelationships = DBConnections("DBMedics").OpenData("GetRelationships", {"action","visit_id"}, {1, Session("VisitorID")}, "")
+				DBRelationships.Columns.Remove("row_no")
+				CustomData.AsJson("relationships") = DBRelationships.AsJson()
 			End Using
 			
 			REM CustomData.AsString("claim_type") = DBMember.Eval("@claim_type")
@@ -146,6 +168,15 @@ Public Class DataProvider
 				.Icon = "history"
 				.Action = "admin"				
 				.URL = "app/member-case-history"
+				' .Params.AsInteger("member_id") = MemberID
+			End with
+			
+			With Main.SubItems.Add
+				.ID = "benefit-utilisation"
+				.Title = "Benefit Utilisation"
+				.Icon = "benefit"
+				.Action = "admin"				
+				.URL = "app/benefit-utilisation"
 				' .Params.AsInteger("member_id") = MemberID
 			End with
 			

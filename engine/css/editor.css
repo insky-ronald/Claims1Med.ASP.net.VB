@@ -278,6 +278,7 @@
 
 /* radio button */
 .editor div[edit-sec="radio"] {
+	color: dimgray;
 	outline:none;
 }
 
@@ -288,11 +289,16 @@
 	cursor: pointer;
 }
 
+.editor div[radio-sec="item"]:hover { 
+	color: black;
+}
+
 .editor div[radio-sec="item"]:hover svg { 
-	fill: black;
+	/* fill: #FF5722; */
 }
 
 .editor div[edit-sec="radio"] svg {
+	fill: #FF5722;
 	position: relative;
 	top: 2.5px;
 	width: 14px;
@@ -301,11 +307,12 @@
 }
 
 .editor div[edit-sec="radio"] div[radio-sec="item"] svg {
-	fill: #FF5722;
+	/* fill: #FF5722; */
+	/* fill: dimgray; */
 }
 
 .editor div[edit-sec="radio"] div[radio-sec="item-readonly"] svg {
-	fill: dimgray;
+	/* fill: dimgray; */
 }
 
 .editor span[radio-sec="label"] {
@@ -315,7 +322,12 @@
 }
 
 .editor div[radio-sec="item"] span[radio-sec="label"][radio-selected="1"] {
-	font-weight: bold;
+	/* font-weight: bold; */
+	color: black;
+}
+
+.editor div[radio-sec="item"] span[radio-sec="label"][radio-selected="1"]:svg {
+	/* fill: #FF5722; */
 }
 
 /* link */

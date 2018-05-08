@@ -162,6 +162,24 @@ Public Class DataProvider
 				.Params.AsInteger("claim_id") = ClaimID
 				.Params.AsInteger("service_id") = 0
 			End with
+			
+			With Main.SubItems.Add
+				.ID = "benefit-utilisation"
+				.Title = "Benefit Utilisation"
+				.Icon = "benefit"
+				.Action = "admin"				
+				.URL = "app/benefit-utilisation"
+				.Params.AsInteger("member_id") = MemberID
+			End with
+			
+			With Main.SubItems.Add
+				.ID = "call-log"
+				.Title = "Call Log"
+				.Icon = "call-log"
+				.Action = "admin"				
+				' .URL = "app/member-case-history"
+				' .Params.AsInteger("member_id") = MemberID
+			End with
 		
 			With Main.SubItems.Add
 				.ID = "log"
@@ -174,6 +192,17 @@ Public Class DataProvider
 			End with
 		
 		Main = MenuItems.AddMain("services", "Services")
+			
+			With Main.SubItems.Add
+				.ID = "gop"
+				.Title = "Guarantee of Payments"
+				.Icon = "table"
+				.Action = "admin"				
+				.URL = "app/claim-invoices"
+				.Css = "*"
+				.Run = "ListClaimServices"
+				.Params.AsString("module") = "gop"
+			End with
 		
 			With Main.SubItems.Add
 				.ID = "invoices"
@@ -187,17 +216,6 @@ Public Class DataProvider
 			End with
 			
 			With Main.SubItems.Add
-				.ID = "gop"
-				.Title = "Guarantee of Payments"
-				.Icon = "table"
-				.Action = "admin"				
-				.URL = "app/claim-invoices"
-				.Css = "*"
-				.Run = "ListClaimServices"
-				.Params.AsString("module") = "gop"
-			End with
-			
-			With Main.SubItems.Add
 				.ID = "noc"
 				.Title = "Notification of Claims"
 				.Icon = "table"
@@ -208,49 +226,49 @@ Public Class DataProvider
 				.Params.AsString("module") = "noc"
 			End with
 			
-			With Main.SubItems.Add
-				.ID = "casefee"
-				.Title = "Case Fees"
-				.Icon = "table"
-				.Action = "admin"				
-				.URL = "app/claim-invoices"
-				.Css = "*"
-				.Run = "ListClaimServices"
-				.Params.AsString("module") = "cas"
-			End with
+			' With Main.SubItems.Add
+				' .ID = "casefee"
+				' .Title = "Case Fees"
+				' .Icon = "table"
+				' .Action = "admin"				
+				' .URL = "app/claim-invoices"
+				' .Css = "*"
+				' .Run = "ListClaimServices"
+				' .Params.AsString("module") = "cas"
+			' End with
 			
-			With Main.SubItems.Add
-				.ID = "recovery"
-				.Title = "Recovery of Claims"
-				.Icon = "table"
-				.Action = "admin"				
-				.URL = "app/claim-invoices"
-				.Css = "*"
-				.Run = "ListClaimServices"
-				.Params.AsString("module") = "rec"
-			End with
+			' With Main.SubItems.Add
+				' .ID = "recovery"
+				' .Title = "Recovery of Claims"
+				' .Icon = "table"
+				' .Action = "admin"				
+				' .URL = "app/claim-invoices"
+				' .Css = "*"
+				' .Run = "ListClaimServices"
+				' .Params.AsString("module") = "rec"
+			' End with
 			
-			With Main.SubItems.Add
-				.ID = "costcont"
-				.Title = "Cost Containment"
-				.Icon = "table"
-				.Action = "admin"				
-				.URL = "app/claim-invoices"
-				.Css = "*"
-				.Run = "ListClaimServices"
-				.Params.AsString("module") = "cos"
-			End with
+			' With Main.SubItems.Add
+				' .ID = "costcont"
+				' .Title = "Cost Containment"
+				' .Icon = "table"
+				' .Action = "admin"				
+				' .URL = "app/claim-invoices"
+				' .Css = "*"
+				' .Run = "ListClaimServices"
+				' .Params.AsString("module") = "cos"
+			' End with
 			
-			With Main.SubItems.Add
-				.ID = "flag"
-				.Title = "Flags"
-				.Icon = "table"
-				.Action = "admin"				
-				.URL = "app/claim-invoices"
-				.Css = "*"
-				.Run = "ListClaimServices"
-				.Params.AsString("module") = "flg"
-			End with
+			' With Main.SubItems.Add
+				' .ID = "flag"
+				' .Title = "Flags"
+				' .Icon = "table"
+				' .Action = "admin"				
+				' .URL = "app/claim-invoices"
+				' .Css = "*"
+				' .Run = "ListClaimServices"
+				' .Params.AsString("module") = "flg"
+			' End with
 			
 			' With Main.SubItems.Add
 				' .ID = "test"

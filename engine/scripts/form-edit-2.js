@@ -28,6 +28,7 @@ JFormEditor.prototype.Initialize = function(params) {
 	// this.url = params.url.split("?")[1];
 	this.dataset = params.dataset;
 	this.mode = defaultValue(params.mode, "edit");
+	this.postData = defaultValue(params.postData, true);
 	this.postBack = params.postBack;
 	this.postBackParams = params.url.split("?")[1];
 	// console.log(this.postBack)
@@ -106,30 +107,33 @@ JFormEditor.prototype.Initialize = function(params) {
 	params.init(this);
 	
 	var self = this;
+	// if(this.dataset && this.postData) {
 	if(this.dataset) {
 		// self.mode = "edit";
 		self.Events.OnInitData.trigger(self.dataset);
-		self.dataset.Events.OnPost.add(function(dataset, postCallback) {	
-			self.GetData("update", function(params) {
-				// params.mode = data.mode;
-				// params.mode = "edit";
-				params.mode = self.mode;
-				params.data = dataset.stringifyRec(0);
-			}, function(result) {
-				var msg;
-				if(result.status != 0) {
-					msg = {};
-					msg.title = "Update error";
-					msg.message = result.message;
-				} else {
-					msg = "";
-					// self.Events.OnPostSuccess2.trigger(result.update);
-					self.Events.OnPostSuccess2.trigger(result);
-				};
-				
-				postCallback(msg, result.status);
-			});
-		})
+		if (self.postData) {
+			self.dataset.Events.OnPost.add(function(dataset, postCallback) {	
+				self.GetData("update", function(params) {
+					// params.mode = data.mode;
+					// params.mode = "edit";
+					params.mode = self.mode;
+					params.data = dataset.stringifyRec(0);
+				}, function(result) {
+					var msg;
+					if(result.status != 0) {
+						msg = {};
+						msg.title = "Update error";
+						msg.message = result.message;
+					} else {
+						msg = "";
+						// self.Events.OnPostSuccess2.trigger(result.update);
+						self.Events.OnPostSuccess2.trigger(result);
+					};
+					
+					postCallback(msg, result.status);
+				});
+			})
+		}
 	} else {
 		// console.log(this)
 		// this.GetData("edit", function(params) {

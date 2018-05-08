@@ -1,82 +1,98 @@
-function FamilyMembersView(params){
-	// console.log(params)
-	return new JDBGrid({
-		owner: params.owner,
-		container: params.container, 
-		options: {
-			horzScroll: true
+// ****************************************************************************************************
+// Last modified on
+// 
+// ****************************************************************************************************
+//==================================================================================================
+// File name: view-family-members.js
+//==================================================================================================
+function FamilyMembersView(viewParams){
+	return new jGrid($.extend(viewParams, {
+		paintParams: {
+			css: "member-family",
+			toolbar: {theme: "svg"}
 		},
-		Painter: {
-			css: "members"
+		editForm: function(id, container, dialog) {
 		},
-		toolbarTheme:"svg",
-		init: function(grid) {
-			grid.Events.OnInitGrid.add(function(grid) {
-				grid.optionsData.url = "members-search";
-				grid.options.showToolbar = true;
-				grid.options.horzScroll = true;
-				grid.options.showPager = false;
-				grid.options.showSummary = false;
-				grid.options.cardView = false;
-				grid.options.autoScroll = true;
-				grid.options.allowSort = true;
-				grid.options.showSelection = false;
-				grid.options.showBand = false;
-				// grid.options.showBand = true;
-				grid.options.simpleSearch = false;
-				grid.options.simpleSearchField = "filter";
+		init: function(grid, callback) {			
+			grid.Events.OnInit.add(function(grid) {
+				grid.optionsData.url = "app/member-family";
 				
-				grid.optionsData.editCallback = function(grid, id) {
-					__member(id);
-				};
+				grid.options.horzScroll = true;
+				grid.options.allowSort = false;
+				grid.options.editNewPage = false;
+				grid.options.showBand = false;
+				grid.options.showSummary = false;
+				grid.options.showPager = false;
+				// grid.options.showMasterDetail = true;
+				
+				grid.search.visible = false;
+				grid.exportData.allow = false;
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
-						.addColumn("page", 1, {numeric:true})
-						.addColumn("pagesize", 25, {numeric:true})
-						.addColumn("sort", "full_name")
+						.addColumn("certificate_id", viewParams.requestParams.certificate_id, {numeric:true})
+						.addColumn("sort", "dependent_code")
 						.addColumn("order", "asc")
-						.addColumn("certificate_id", params.certificate_id)
-						// .addColumn("certificate_id", 391751)
-						.addColumn("filter", "member")
+				});
+
+				grid.methods.add("getLinkUrl", function(grid, params) {
+					if(params.column.linkField === "id") {
+						return __member(params.id, true)
+					} else {
+						return ""
+					}
 				});
 				
 				grid.Events.OnInitData.add(function(grid, data) {
 					data.Columns
 						.setprops("id", {label:"ID", numeric:true, key: true})
-						.setprops("relationship_code", {label:"Relationship"})
-						.setprops("full_name", {label:"Name"})
-						.setprops("sex", {label:"Sex", getText:function(column, value) {
-							return value == "F" ? "Female" : (value == "M" ? "Male" : "");
-						})
-						.setprops("client_name", {label:"Client"})
+						.setprops("dependent_code", {label:"#"})
+						.setprops("certificate_no", {label:"Certificate No."})
+						.setprops("full_name", {label:"Member's Name"})
+						.setprops("relationship", {label:"Relationship"})
+						.setprops("sex", {label:"Gender"})
 						.setprops("dob", {label:"DOB", type:"date"})
 				});
 
-				grid.Events.OnInitGridMenu.add(function(grid, menus) {
-					var main;
-					main = menus.add("Member");					
-						main.add(grid.dataset.get("full_name"), __member(grid.dataset.get("member_id"), true), "user");
-					main = menus.add("Client");					
-						main.add(grid.dataset.get("client_name"), __client(grid.dataset.get("client_id"), true), "db-open");
-						main.add("Policy: " + grid.dataset.get("policy_no"), __masterpolicy(grid.dataset.get("policy_id"), true), "db-open");
-						main.add("Product: " + grid.dataset.get("product_name"), __product(grid.dataset.get("product_id"), true), "db-open");
-						main.add("Plan: " + grid.dataset.get("plan_name"), __product(grid.dataset.get("plan_id"), true), "db-open");
-				});
-
+				grid.Events.OnInitRow.add(function(grid, row) {	
+					row.attr("x-type", grid.dataset.get("dependent_code"));
+				});	
+				
 				grid.Events.OnInitColumns.add(function(grid) {
-					grid.NewCommand({command:"open", float: "left"});
-					grid.NewColumn({fname: "full_name", width: 200, allowSort: true});
-					grid.NewColumn({fname: "relationship_code", width: 100, allowSort: false});
-					grid.NewColumn({fname: "sex", width: 50, allowSort: false});
-					grid.NewColumn({fname: "dob", width: 100, allowSort: false});
+					grid.NewBand({caption: "...", fixed:"left"} , function(band) {
+						band.NewColumn({fname: "dependent_code", width: 50, allowSort: true,});
+					});
+					
+					grid.NewBand({caption: "..."} , function(band) {
+						band.NewColumn({fname: "certificate_no", width: 125, allowSort: true,});
+						// band.NewColumn({fname: "full_name", width: 250});
+						grid.NewColumn({fname: "full_name", width: 250, allowSort: true, linkField:"id"});
+						band.NewColumn({fname: "relationship", width: 150});
+						band.NewColumn({fname: "sex", width: 75});
+						band.NewColumn({fname: "dob", width: 100});
+					});
 				});
 				
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
-					// toolbar.grid = grid;
-					// grid.owner.InitializeToolbar(toolbar);
+					if (!viewParams.requestParams.new_member) {
+						toolbar.NewDropDownViewItem({
+							id: "new-member",
+							icon: "new",
+							color: "#1CA8DD",
+							title: "New Dependent",
+							height: 200,
+							// width: 800,
+							subTitle: "Choose the relationship of the new dependent",
+							view: RelationshipsLookup,
+							// viewParams: {module:"INV", mode:1},
+							select: function(code) {
+								// window.open(__member(("new/{0}?plan={1}&rel={2}").format(viewParams.requestParams.certificate_id, viewParams.requestParams.plan_code, code), true), "");
+								window.open(__member(("new/{0}?rel={1}").format(viewParams.requestParams.certificate_id, code), true), "");
+							}
+						});
+					}
 				});
 			});
 		}
-	});	
+	}));
 };

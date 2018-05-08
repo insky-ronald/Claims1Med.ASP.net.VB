@@ -98,7 +98,6 @@ function CustomEditView(params, init) {
 						});
 					},
 					success: function(message) {
-						// console.log(message);
 						if (message.id > 0) {
 							InfoDialog({
 								target: item.elementContainer.closest("ul"),

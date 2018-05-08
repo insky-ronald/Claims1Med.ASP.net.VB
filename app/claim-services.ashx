@@ -1,26 +1,26 @@
 ﻿<%@ WebHandler Language="VB" Class="DataProvider" %>
 
 Public Class DataProvider
-	Inherits DataHandler.SubDataHandler
+	Inherits DataHandler.DataProvider
 	
 	Protected Overrides Function ListDataSource As String
 		Return "DBMedics.GetClaimServices"
 	End Function
 		
-	Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))
-		MyBase.InitParams(Cmd, DataParams, DataValues)
-		If Cmd = "list"
-			DataParams.Add("visit_id")
-			DataValues.Add(Session("VisitorID"))
-		End if
-	End Sub
+	' Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))
+		' MyBase.InitParams(Cmd, DataParams, DataValues)
+		' If Cmd = "list"
+			' DataParams.Add("visit_id")
+			' DataValues.Add(Session("VisitorID"))
+		' End if
+	' End Sub
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
 		If Cmd = "list"
 			REM Output.AsString("module") = Request.Params("module")
-			Crud.AsBoolean("add") = True
-			Crud.AsBoolean("edit") = True
+			Crud.AsBoolean("add") = False
+			Crud.AsBoolean("edit") = False
 			Crud.AsBoolean("delete") = False
 			REM Crud.AsBoolean("edit") = True
 			REM Crud.AsBoolean("delete") = True

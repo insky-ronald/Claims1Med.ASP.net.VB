@@ -199,8 +199,10 @@ JToolbar.prototype.NewDropDownViewItem = function(params) {
 			content: function(dialog, container) {
 				CreateElementEx("div", container, function(header) {
 					CreateElement("h2", header).html(params.title).css("margin", 0);
-					CreateElement("p", header).html(params.subTitle);
-				});
+					if (params.subTitle) {
+						CreateElement("p", header).html(params.subTitle);
+					}
+				});			
 				
 				CreateElementEx("div", container, function(view) {
 					view.parent()
