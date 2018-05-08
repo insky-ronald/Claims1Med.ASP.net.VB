@@ -36,7 +36,7 @@ function PlansView(params){
 				
 				grid.Events.OnInitData.add(function(grid, data) {
 					data.Columns
-						.setprops("code", {label:"Code", numeric:false, key:true})
+						.setprops("code", {label:"Plan Code", numeric:false, key:true})
 						.setprops("product_code", {label:"Product Code"})	
 						.setprops("plan_name", {label:"Plan Name"})	
 						.setprops("currency_code", {label:"Currency"})	
@@ -49,7 +49,7 @@ function PlansView(params){
 
 				grid.Events.OnInitColumns.add(function(grid) {
 					grid.NewColumn({fname: "code", width: 100, allowSort: true, fixedWidth:true});
-					grid.NewColumn({fname: "product_code", width: 200, allowSort: true, fixedWidth:true});
+					// grid.NewColumn({fname: "product_code", width: 200, allowSort: true, fixedWidth:true});
 					grid.NewColumn({fname: "plan_name", width: 400, allowSort: true, fixedWidth:true});
 					grid.NewColumn({fname: "currency_code", width: 100, allowSort: true, fixedWidth:true});
 				});
