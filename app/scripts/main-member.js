@@ -2,6 +2,7 @@ MainPage.prototype.AfterPaint = function() {
 	MainPage.prototype.parent.prototype.AfterPaint.call(this);
 
 	desktop.dbCountries = desktop.LoadCacheData(desktop.customData.countries, "countries", "code");
+	desktop.dbRelationships = desktop.LoadCacheData(desktop.customData.relationships, "relationships", "code");
 	
 	desktop.dbProduct = new Dataset(desktop.customData.product);
 	desktop.dbProduct.Columns
@@ -18,14 +19,25 @@ MainPage.prototype.AfterPaint = function() {
 	desktop.dbMember.Columns
 		.setprops("id", {label:"ID", numeric:true, key: true})
 		.setprops("certificate_no", {label:"Certificate No.", required:true})
+		.setprops("main_member", {label:"Main Member", readonly:true, required:true})
 		.setprops("first_name", {label:"First Name", required:true})
 		.setprops("middle_name", {label:"Middle Member"})
 		.setprops("last_name", {label:"Last Member", required:true})
+		.setprops("name", {label:"Full Name", readonly:true})
 		.setprops("dob", {label:"Date of Birth", type:"date"})
 		.setprops("gender", {label:"Gender"})
 		.setprops("reference_no1", {label:desktop.dbProduct.get("member_reference_name1")})
 		.setprops("reference_no2", {label:desktop.dbProduct.get("member_reference_name2")})
 		.setprops("reference_no3", {label:desktop.dbProduct.get("member_reference_name3")})
+		.setprops("relationship_code", {label:"Relationship", readonly:true, required:true, lookupDataset: desktop.dbRelationships,
+			getText: function(column, value) {
+				if (value == "XX") {
+					return "SELF"
+				} else {
+					return column.lookupDataset.lookup(value, "relationship");
+				}
+			}
+		})
 		.setprops("home_country_code", {label:"Home Country", required:false, lookupDataset: desktop.dbCountries,
 			getText: function(column, value) {
 				return column.lookupDataset.lookup(value, "country");

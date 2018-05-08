@@ -1,7 +1,7 @@
 <%@ WebHandler Language="VB" Class="DataProvider" %>
 
 Public Class DataProvider
-	Inherits DataHandler.SubDataHandler
+	Inherits DataHandler.DataProvider
 
 	REM this is called from api_getdata.aspx
 	REM find Api.BaseDataApi in Api.vb
@@ -10,29 +10,29 @@ Public Class DataProvider
 		Return "DBMedics.GetClaimDiagnosis"
 	End Function
 	
-	Protected Overrides Function ReadDataSource As String
-		Return "DBMedics.GetClaimDiagnosisEdit"
-	End Function
+	' Protected Overrides Function ReadDataSource As String
+		' Return "DBMedics.GetClaimDiagnosisEdit"
+	' End Function
 
 	REM Protected Overrides Function UpdateDataSource As String
 		REM Return "DBClaims.AddMasterPolicy"
 	REM End Function
 		
-	Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))
-		MyBase.InitParams(Cmd, DataParams, DataValues)
-		If Cmd = "list"
-			DataParams.Add("visit_id")
-			DataValues.Add(Session("VisitorID"))
-		Else If Cmd = "edit"
-			DataParams.Add("id")
-			DataParams.Add("visit_id")
-			DataValues.Add(Request.Params("id"))
-			DataValues.Add(Session("VisitorID"))
-		Else If Cmd = "new"
-			DataParams.Add("visit_id")
-			DataValues.Add(Session("VisitorID"))
-		End if
-	End Sub
+	' Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))
+		' MyBase.InitParams(Cmd, DataParams, DataValues)
+		' If Cmd = "list"
+			' DataParams.Add("visit_id")
+			' DataValues.Add(Session("VisitorID"))
+		' Else If Cmd = "edit"
+			' DataParams.Add("id")
+			' DataParams.Add("visit_id")
+			' DataValues.Add(Request.Params("id"))
+			' DataValues.Add(Session("VisitorID"))
+		' Else If Cmd = "new"
+			' DataParams.Add("visit_id")
+			' DataValues.Add(Session("VisitorID"))
+		' End if
+	' End Sub
 		
 	Protected Overrides Sub NewRecord(Row As System.Data.DataRow)
 		MyBase.NewRecord(Row)
@@ -42,12 +42,12 @@ Public Class DataProvider
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
 		If Cmd = "list"
-			Crud.AsBoolean("add") = True
-			Crud.AsBoolean("edit") = True
-			Crud.AsBoolean("delete") = True
-			REM Crud.AsBoolean("add") = False
-			REM Crud.AsBoolean("edit") = True
-			REM Crud.AsBoolean("delete") = True
+			' Crud.AsBoolean("add") = True
+			' Crud.AsBoolean("edit") = True
+			' Crud.AsBoolean("delete") = True
+			Crud.AsBoolean("add") = False
+			Crud.AsBoolean("edit") = False
+			Crud.AsBoolean("delete") = False
 		Else If Cmd = "edit"
 			Crud.AsBoolean("add") = True
 			Crud.AsBoolean("edit") = False

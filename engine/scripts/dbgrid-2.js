@@ -150,13 +150,13 @@ jGrid.prototype.initialize = function(params) {
 			});
 		};
 		
-		if(grid.exportData.allow) {
-			grid.painter.showExport();
-		}
+		// if(grid.exportData.allow) {
+			// grid.painter.showExport();
+		// }
 		
-		if(grid.search.visible && grid.search.mode === "advanced") {
-			grid.painter.showAdvancedSearch();
-		}
+		// if(grid.search.visible && (grid.search.mode === "advanced" || grid.search.mode === "mixed")) {
+			// grid.painter.showAdvancedSearch();
+		// }
 	})
 	
 	this.events.OnCommand = new EventHandler(this);
@@ -267,7 +267,7 @@ jGrid.prototype.initialize = function(params) {
 				}
 			});
 			
-			console.log(dataset.Events)
+			// console.log(dataset.Events)
 			dataset.Events.OnResetSearch.trigger();
 			
 			grid.Refresh();
@@ -681,7 +681,19 @@ jGrid.prototype.deleteRecord = function(id, c) {
 
 jGrid.prototype.editRecord = function(id, target) {	
 // jGrid.prototype.editRecord_OLD = function(id, target) {
+	
 	var self = this;
+
+	if(id == 0)
+		this.dataEdit.mode = "new"
+	if(id === "new")
+		this.dataEdit.mode = "new"
+	else
+		this.dataEdit.mode = "edit";
+	
+	if (!this.options.editNewPage && this.dataEdit.mode == "edit" && !this.crud.edit) {
+		return;
+	}
 	
 	if(this.options.editNewPage) {
 		if(id == 0)
@@ -693,13 +705,6 @@ jGrid.prototype.editRecord = function(id, target) {
 		
 		return
 	}
-
-	if(id == 0)
-		this.dataEdit.mode = "new"
-	if(id === "new")
-		this.dataEdit.mode = "new"
-	else
-		this.dataEdit.mode = "edit";
 	
 	this.painter.showEditDialog({
 		mode: this.dataEdit.mode,

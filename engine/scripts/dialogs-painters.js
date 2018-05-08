@@ -513,7 +513,8 @@ PopupOverlayPainter.prototype.OnRenderHeader = function(container) {
 				.attr("src", this.btn.icon)
 		else {
 			this.tabContainer.css("background", this.colorColor)
-			desktop.GetSvg(this.tabContainer, this.btn.icon, 28, {noTopMargin:true})
+			desktop.GetSvg(this.tabContainer, this.btn.icon, defaultValue(this.btn.size, 28), {noTopMargin:true})
+				.css("margin", "auto")
 				.css("fill", "white")
 		};
 			

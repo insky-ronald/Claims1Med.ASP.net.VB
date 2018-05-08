@@ -41,6 +41,9 @@
 ##template
 ##endtemplate=app\members-search
 
+##template
+##endtemplate=app\member-family
+
 ##template	
 	theme=claim-services
 	font=10pt Arial

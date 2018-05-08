@@ -15,7 +15,8 @@ function ServiceEdit(viewParams) {
 		showToolbar: false,
 		labelWidth: 140,
 		url: "?id=" + viewParams.dataset.get("id"),
-		postBack: "app/claim",
+		postBack: "app/service-gop",
+		postData: false,
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(sender, data) {
 			});
@@ -33,18 +34,30 @@ function ServiceEdit(viewParams) {
 						});
 						
 						editor.AddGroup("Reference Numbers and Date", function(editor) {
-							editor.AddEdit({ID: "id"});
+							// editor.AddEdit({ID: "id"});
+							editor.AddLink({ID: "claim_no", link: function(column) {
+								return __claim(column.dataset.get("claim_id"), true);
+							}});
 							editor.AddEdit({ID: "service_no"});
 							editor.AddEdit({ID: "service_date"});
-							editor.AddEdit({ID: "admission_first_call"});
+							// editor.AddEdit({ID: "admission_first_call"});
 						});
 						editor.AddGroup("Insured", function(editor) {
-							editor.AddEdit({ID: "patient_name"});
+							editor.AddLink({ID: "patient_name", link: function(column) {
+								return __member(column.dataset.get("member_id"), true);
+							}});
 							editor.AddEdit({ID: "policy_no"});
-							editor.AddEdit({ID: "client_name"});
+							// editor.AddEdit({ID: "client_name"});
+							editor.AddLink({ID: "plan_code", link: function(column) {
+								return __plan(column.dataset.get("plan_code"), true);
+							}});
+							editor.AddLink({ID: "client_name", link: function(column) {
+								return __client(column.dataset.get("client_id"), true);
+							}});
 						});
 						editor.AddGroup("Exchange Rates", function(editor) {
-							editor.AddEdit({ID: "claim_currency_code"});
+							// editor.AddEdit({ID: "claim_currency_code"});
+							editor.AddLookup("claim_currency_code", {width:400, height:300, disableEdit:true, init:CurrenciesLookup});
 							editor.AddEdit({ID: "claim_currency_rate_date"});
 							editor.AddEdit({ID: "claim_currency_to_base"});
 							editor.AddEdit({ID: "claim_currency_to_client"});
@@ -69,8 +82,12 @@ function ServiceEdit(viewParams) {
 						
 						if(desktop.customData.service_id) {
 							editor.AddGroup("Update Log", function(editor) {
-								editor.AddEdit({ID: "create_date"});
-								editor.AddEdit({ID: "update_date"});								
+								editor.AddTimeStamp({ID:"create_date", name:"create_user_name", label:"Created by"});
+								editor.AddTimeStamp({ID:"update_date", name:"update_user_name", label:"Last updated by"});
+								// editor.AddTimeStamp({ID:"create_date", name:"create_user", label:"Created by"});
+								// editor.AddTimeStamp({ID:"update_date", name:"update_user", label:"Last updated by"});
+								// editor.AddEdit({ID: "create_date"});
+								// editor.AddEdit({ID: "update_date"});								
 							});
 						};
 					}

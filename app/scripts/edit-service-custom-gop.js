@@ -15,7 +15,7 @@ function ServiceCustomEdit(viewParams) {
 		showToolbar: false,
 		labelWidth: 120,
 		url: "?id=" + viewParams.dataset.get("id"),
-		postBack: "app/claim",
+		postBack: "app/service-gop",
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(sender, data) {
 			});
@@ -32,11 +32,61 @@ function ServiceCustomEdit(viewParams) {
 						});
 						
 						editor.AddGroup("Hospital and Physician", function(editor) {
-							editor.AddEdit({ID: "provider_name"});
-							editor.AddEdit({ID: "hospital_medical_record"});
-							editor.AddEdit({ID: "doctor_name"});
-							editor.AddEdit({ID: "provider_contact_person"});
+							editor.AddDropDown("provider_id", {width:600, height:350, disableEdit:true, init:ProvidersLookup, 
+								lookup: function(grid) {
+									grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
+										dataParams.set("id", viewParams.dataset.raw("provider_id"));
+										dataParams.set("client_id", viewParams.dataset.get("client_id"));
+										
+										dataParams.Events.OnResetSearch.add(function(dataset) {
+											dataset.set("id", viewParams.dataset.raw("provider_id"));
+											dataset.set("client_id", viewParams.dataset.get("client_id"));
+										});
+									});
+									
+									grid.Events.OnSelectLookup.add(function(grid, key) {
+										viewParams.dataset.set("provider_name", grid.dataset.lookup(key, "name"));
+									});
+								}
+							);
+							editor.AddDropDown("doctor_id", {width:600, height:350, disableEdit:true, init:HospitalDoctorsLookup, 
+								lookup: function(grid) {
+									grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
+										dataParams.set("id", viewParams.dataset.raw("doctor_id"));
+										dataParams.set("hospital_id", viewParams.dataset.raw("provider_id"));
+										
+										dataParams.Events.OnResetSearch.add(function(dataset) {
+											dataset.set("id", viewParams.dataset.raw("doctor_id"));
+											dataset.set("hospital_id", viewParams.dataset.raw("provider_id"));
+										});
+									});
+									
+									grid.Events.OnSelectLookup.add(function(grid, key) {
+										viewParams.dataset.set("doctor_name", grid.dataset.lookup(key, "name"));
+									});
+								}
+							);
+							editor.AddDropDown("provider_contact_person", {width:400, height:300, disableEdit:false, init:GopContactsLookup, 
+								lookup: function(grid) {
+									grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
+										dataParams.set("provider_id", viewParams.dataset.raw("provider_id"));
+										dataParams.set("doctor_id", viewParams.dataset.raw("doctor_id"));
+										
+										// dataParams.Events.OnResetSearch.add(function(dataset) {
+											// dataset.set("id", viewParams.dataset.raw("doctor_id"));
+											// dataset.set("hospital_id", viewParams.dataset.raw("provider_id"));
+										// });
+									});
+									
+									grid.Events.OnSelectLookup.add(function(grid, key) {
+										viewParams.dataset.set("provider_contact_person", grid.dataset.lookup(key, "name"));
+										viewParams.dataset.set("provider_fax_no", grid.dataset.lookup(key, "fax"));
+									});
+								}
+							);
+							// editor.AddEdit({ID: "provider_contact_person"});
 							editor.AddEdit({ID: "provider_fax_no"});
+							editor.AddEdit({ID: "hospital_medical_record"});
 						});
 						
 						editor.AddGroup("Admission", function(editor) {
@@ -45,7 +95,7 @@ function ServiceCustomEdit(viewParams) {
 						});
 						
 						editor.AddGroup("Guarantee Amount", function(editor) {
-							editor.AddEdit({ID: "claim_currency_code"});
+							editor.AddLookup("claim_currency_code", {width:400, height:300, disableEdit:true, init:CurrenciesLookup});
 							editor.AddEdit({ID: "misc_expense"});
 							editor.AddEdit({ID: "room_expense"});
 							editor.AddEdit({ID: "length_of_stay"});

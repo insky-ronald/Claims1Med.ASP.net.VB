@@ -366,12 +366,12 @@ End with
     ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 ' End With
 
-With DBConnection.NewCommand("GetClaimDiagnosis", "GetClaimDiagnosis", CommandType.StoredProcedure)
-    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
-    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
-    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-End With
+' With DBConnection.NewCommand("GetClaimDiagnosis", "GetClaimDiagnosis", CommandType.StoredProcedure)
+    ' .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+    ' .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+    ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+' End With
 
 ' With DBConnection.NewCommand("GeClaimDocuments", "GeClaimDocuments", CommandType.StoredProcedure)
     ' .AddParameter("claim_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
@@ -382,10 +382,10 @@ End With
     ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 ' End With
 
-With DBConnection.NewCommand("GetClaimDiagnosisEdit", "GetClaimDiagnosisEdit", CommandType.StoredProcedure)
-    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-End With
+' With DBConnection.NewCommand("GetClaimDiagnosisEdit", "GetClaimDiagnosisEdit", CommandType.StoredProcedure)
+    ' .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+' End With
 
 ' With DBConnection.NewCommand("GetServiceItems", "GetServiceItems", CommandType.StoredProcedure)
     ' .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
@@ -1082,18 +1082,3 @@ End with
 With DBConnection.NewCommand("GetCustomerServiceData", "GetCustomerServiceData", CommandType.StoredProcedure)
 	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
-
-With DBConnection.NewCommand("GetDiagnosis", "GetDiagnosis", CommandType.StoredProcedure)
-	.AddParameter("code", SqlDbType.VarChar, ParameterDirection.Input, 3, "")
-	.AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
-	.AddParameter("version", SqlDbType.VarChar, ParameterDirection.Input, 2, "")
-	.AddParameter("is_shortlist", SqlDbType.tinyint, ParameterDirection.Input, 0, 0)
-	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0) 
-    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
-    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "code")
-    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
-    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-End with

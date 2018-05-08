@@ -41,8 +41,9 @@ With DBConnection.NewCommand("AddMember", "AddMember", CommandType.StoredProcedu
 End With
 
 With DBConnection.NewCommand("GetNewMemberInfo", "GetNewMemberInfo", CommandType.StoredProcedure)
+	.AddParameter("certificate_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+	.AddParameter("relationship_code", SqlDbType.Char, ParameterDirection.Input, 2, "")
 	.AddParameter("plan_code", SqlDbType.VarChar, ParameterDirection.Input, 15, "")
-	.AddParameter("member_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
 
@@ -69,5 +70,36 @@ End With
 
 With DBConnection.NewCommand("GetMemberPlanHistory", "GetMemberPlanHistory", CommandType.StoredProcedure)
     .AddParameter("member_id", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 
+
+With DBConnection.NewCommand("GetMemberFamily", "GetMemberFamily", CommandType.StoredProcedure)
+    .AddParameter("certificate_id", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 
+
+With DBConnection.NewCommand("GetRelationships", "GetRelationships", CommandType.StoredProcedure)
+    .AddParameter("code", SqlDbType.varchar, ParameterDirection.Input, 3, "")
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+    .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 
+
+With DBConnection.NewCommand("lookup_relationships", "GetRelationships", CommandType.StoredProcedure)
+    .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 
+
+With DBConnection.NewCommand("MemberBenefitUtilisation", "MemberBenefitUtilisation", CommandType.StoredProcedure)
+    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("type", SqlDbType.int, ParameterDirection.Input, 0, 1)
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 

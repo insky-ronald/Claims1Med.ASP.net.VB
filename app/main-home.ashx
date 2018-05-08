@@ -49,15 +49,7 @@ Public Class DataProvider
 			' End with
 
 			With Main.SubItems.Add
-				.ID = "tasks"
-				.Action = "admin"				
-				.Title = "Task Manager"
-				.Icon = "timetable"
-				.URL = "app/task-manager"
-			End with
-
-			With Main.SubItems.Add
-				.ID = "members"
+				.ID = "claims-processing"
 				.Action = "admin"				
 				' .Title = "Members"
 				.Title = "Claims Processing"
@@ -82,7 +74,7 @@ Public Class DataProvider
 			' End with
 			
 			With Main.SubItems.Add
-				.ID = "payment"
+				.ID = "payment-processing"
 				.Action = "admin"				
 				.Title = "Payment Processing"
 				.Icon = "table"
@@ -90,15 +82,23 @@ Public Class DataProvider
 				REM .Css = "claims-processing"
 				REM .Params.AsString("module") = .ID
 			End with
-		
+
 			With Main.SubItems.Add
-				.ID = "enquiries"
-				.Action = "admin"	
-				.Title = "Enquiries"
-				.Icon = "search"
+				.ID = "task-manager"
+				.Action = "admin"				
+				.Title = "Task Manager"
+				.Icon = "timetable"
+				.URL = "app/task-manager"
+			End with
+		
+			' With Main.SubItems.Add
+				' .ID = "enquiries"
+				' .Action = "admin"	
+				' .Title = "Enquiries"
+				' .Icon = "search"
 				' .URL = "engine/under-construction"
 				' .Params.AsString("module") = .ID
-			End with
+			' End with
 		
 			With Main.SubItems.Add
 				.ID = "reports"
@@ -134,18 +134,18 @@ Public Class DataProvider
 			With Main.SubItems.Add
 				.ID = "medical"
 				.Action = "admin"				
-				.Title = "Medical"
+				.Title = "Medical Providers"
 				.Icon = "hospital"
 				.URL = "app/medical-providers"
 			End with
 
-			With Main.SubItems.Add
-				.ID = "travel"
-				.Action = "admin"				
-				.Title = "Travel"
-				.Icon = "airplane"
-				.URL = "app/travel-providers"
-			End with
+			' With Main.SubItems.Add
+				' .ID = "travel"
+				' .Action = "admin"				
+				' .Title = "Travel"
+				' .Icon = "airplane"
+				' .URL = "app/travel-providers"
+			' End with
 
 			' With Main.SubItems.Add
 				' .ID = "policies"

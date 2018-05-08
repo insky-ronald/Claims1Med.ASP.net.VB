@@ -5,19 +5,32 @@
 //==================================================================================================
 // File name: service-details.js
 //==================================================================================================
-function InitializeData(service) {
-	service.Columns
-		.setprops("claim_currency_code", {readonly:true})
-		.setprops("provider_id", {label:"", numeric:true})
-		.setprops("provider_name", {label:"Hospital's Name", required:true})
+// function InitializeData(dbService, dbServiceCustom) {
+function InitializeData(dbService) {
+	// console.log({a:dbService, b:dbServiceCustom})
+	dbService.Columns
+	// dbServiceCustom.Columns
+		// .setprops("claim_currency_code", {readonly:true})
+		.setprops("provider_id", {label:"Hospital's Name", required:true, //lookupDataset: desktop.dbCountries,
+			getText: function(column, value) {
+				return column.dataset.get("provider_name")
+			}
+		})
+		.setprops("doctor_id", {label:"Physician's Name", required:true, //lookupDataset: desktop.dbCountries,
+			getText: function(column, value) {
+				return column.dataset.get("doctor_name")
+			}
+		})
+		// .setprops("provider_id", {label:"", numeric:true})
+		// .setprops("provider_name", {label:"Hospital's Name", required:true})
 		.setprops("hospital_medical_record", {label:"Medical Record #"})
-		.setprops("doctor_id", {label:"", numeric:true})
-		.setprops("doctor_name", {label:"Physician's Name"})
+		// .setprops("doctor_id", {label:"", numeric:true})
+		// .setprops("doctor_name", {label:"Physician's Name"})
 		.setprops("provider_contact_person", {label:"Attention To"})
 		.setprops("provider_fax_no", {label:"Fax No."})
 		.setprops("start_date", {label:"Admission Date", type:"date", required:true})
 		.setprops("end_date", {label:"Discharge Date", type:"date"})
-		.setprops("claim_currency_code", {label:"Currency", required:true})
+		// .setprops("claim_currency_code", {label:"Currency", required:true})
 		.setprops("misc_expense", {label:"Hospital Expenses", numeric:true, type:"money", format:"00"})
 		.setprops("room_expense", {label:"Room & Board (per day)", numeric:true, type:"money", format:"00"})
 		.setprops("length_of_stay", {label:"Length of Stay", numeric:true, readonly:true});
@@ -29,6 +42,7 @@ function InitializeData(service) {
 function ServiceDetailsView(viewParams) {
 	viewParams.container.addClass("service-details");
 	viewParams.dataset = desktop.dbService;
+	viewParams.postBack = "app/service-gop"
 	
 	return new CustomEditView(viewParams, function(view) { // CustomEditView: refer to engine/edit-custom-view.js
 		view.Events.OnRefresh.add(function(view, data) {
@@ -58,9 +72,10 @@ function ServiceDetailsView(viewParams) {
 							},
 							container: container,
 							init: function(pg) {
-								pg.addTab({caption: "General",
+								// pg.addTab({caption: "General",
+								pg.addTab({caption: desktop.customData.service_type_name,
 									icon: {
-										name: "view-list",
+										name: "details-edit",
 										color: "dodgerblue"
 									},
 									OnCreate: function(tab) {
@@ -78,6 +93,7 @@ function ServiceDetailsView(viewParams) {
 													// container.addClass("bordered-content");
 													// container.css("border-style", "solid none none none");
 													ServiceCustomEdit({container: container, dataset:desktop.dbService});
+													// ServiceCustomEdit({container: container, dataset:desktop.dbServiceSubType});
 												});
 												
 												splitter.events.OnPaintPane2.add(function(splitter, container) {
@@ -92,29 +108,51 @@ function ServiceDetailsView(viewParams) {
 														},
 														container: container,
 														init: function(pg) {
-															pg.addTab({caption:"Admission/Discharge Calculation",
+															pg.addTab({caption:"Diagnosis",
 																icon: {
-																	name: "view-list",
-																	color: "forestgreen"
+																	name: "diagnosis",
+																	color: "firebrick"
 																},
 																OnCreate: function(tab) {
-																	// tab.container.addClass("bordered-content");
-																	// tab.container.css("border-style", "solid solid none none");
-																	CalculationDatesEdit({container: tab.container, dataset:desktop.dbCalculationDates});
+																	ServiceDiagnosisView({container:tab.container, requestParams:{service_id:desktop.dbService.get("id")}});
 																}
 															});
+															pg.addTab({caption:"Medical Procedures",
+																icon: {
+																	name: "procedure",
+																	color: "firebrick"
+																},
+																OnCreate: function(tab) {
+																	ServiceProceduresView({container:tab.container, requestParams:{service_id:desktop.dbService.get("id")}});
+																}
+															});
+															// pg.addTab({caption:"Add Plan",
+																// icon: {
+																	// name: "table-edit",
+																	// color: "forestgreen"
+																// },
+																// OnCreate: function(tab) {
+																// }
+															// });
+															// pg.addTab({caption:"Admission/Discharge Calculation",
+																// icon: {
+																	// name: "view-list",
+																	// color: "forestgreen"
+																// },
+																// OnCreate: function(tab) {
+																	// CalculationDatesEdit({container: tab.container, dataset:desktop.dbCalculationDates});
+																// }
+															// });
 															
-															pg.addTab({caption:"Estimation of Cost and LOS",
-																icon: {
-																	name: "view-list",
-																	color: "dodgerblue"
-																},
-																OnCreate: function(tab) {
-																	// tab.container.addClass("bordered-content");
-																	// tab.container.css("border-style", "solid solid none none");
-																	EstimatesEdit({container: tab.container, dataset:desktop.dbEstimates});
-																}
-															});
+															// pg.addTab({caption:"Estimation of Cost and LOS",
+																// icon: {
+																	// name: "view-list",
+																	// color: "dodgerblue"
+																// },
+																// OnCreate: function(tab) {
+																	// EstimatesEdit({container: tab.container, dataset:desktop.dbEstimates});
+																// }
+															// });
 															
 															pg.addTab({caption:"Remarks",
 																icon: {
@@ -133,33 +171,30 @@ function ServiceDetailsView(viewParams) {
 									}
 								});
 								
-								pg.addTab({caption:"Diagnosis",
-									icon: {
-										name: "pill",
-										color: "firebrick"
-									},
-									OnCreate: function(tab) {
-										// ClaimDiagnosisSummaryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
-									}
-								});
-								pg.addTab({caption:"Medical Procedures",
-									icon: {
-										name: "pill",
-										color: "firebrick"
-									},
-									OnCreate: function(tab) {
-										// ClaimDiagnosisSummaryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
-									}
-								});
-								pg.addTab({caption:"Add Plan",
-									icon: {
-										name: "table-edit",
-										color: "forestgreen"
-									},
-									OnCreate: function(tab) {
-										// ClaimDiagnosisSummaryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
-									}
-								});
+								// pg.addTab({caption:"Diagnosis",
+									// icon: {
+										// name: "pill",
+										// color: "firebrick"
+									// },
+									// OnCreate: function(tab) {
+									// }
+								// });
+								// pg.addTab({caption:"Medical Procedures",
+									// icon: {
+										// name: "pill",
+										// color: "firebrick"
+									// },
+									// OnCreate: function(tab) {
+									// }
+								// });
+								// pg.addTab({caption:"Add Plan",
+									// icon: {
+										// name: "table-edit",
+										// color: "forestgreen"
+									// },
+									// OnCreate: function(tab) {
+									// }
+								// });
 							}
 						});
 					});
@@ -176,9 +211,9 @@ function ServiceDetailsView(viewParams) {
 							},
 							container: container,
 							init: function(pg) {
-								pg.addTab({caption:"GOP",
+								pg.addTab({caption:"Guarantee of Payment",
 									icon: {
-										name: "table-edit",
+										name: "details-edit",
 										color: "dodgerblue"
 									},
 									OnCreate: function(tab) {

@@ -512,6 +512,127 @@ ListBoxEdit.prototype.Initialize = function(params) {
 };
 
 //**************************************************************************************************
+// LookupDropDown
+//**************************************************************************************************
+// Class.Inherits(LookupDropDown, TextEdit); 
+Class.Inherits(LookupDropDown, CustomDropDownEdit); 
+function LookupDropDown(Params) {
+    LookupDropDown.prototype.parent.call(this, Params);
+};
+
+LookupDropDown.prototype.classID = "LookupDropDown";
+LookupDropDown.prototype.showButton = true;
+LookupDropDown.prototype.buttonIcon = "drop-down-table";
+LookupDropDown.prototype.defaultColor = "#FF802B";
+
+LookupDropDown.prototype.DefaultPainter = function() {
+    // return new LookupDropDownPainter(this);
+    return new LookupEditPainter(this);
+};
+
+// LookupDropDown.prototype.Select = function(id) {
+	// desktop.HideHints();
+	// this.dialog.Hide();
+	// this.dataColumn.set(id);
+// };
+
+LookupDropDown.prototype.Initialize = function(params) {
+    LookupDropDown.prototype.parent.prototype.Initialize.call(this, params);
+	var self = this;
+	var lookup = params.options.lookup;
+	var lookupInit = params.options.init;
+	this.initDataRequest = params.options.initDataRequest;
+	this.disableEdit = defaultValue(params.options.disableEdit, false);
+	
+	this.containerInit = function(params) {
+		// return new JDBGrid({
+			// params: params,
+		return new jGrid($.extend(params, {
+			paintParams: {
+				css: "countries",
+				toolbar: {theme: "svg"}
+			},
+			init: function(grid) {
+				// grid.Events.OnInitGrid.add(function(grid) {
+				grid.Events.OnSelectLookup = new EventHandler(grid);
+				grid.Events.OnSelectLookup.add(function(grid, key) {
+					desktop.HideHints();
+					self.dialog.Hide();
+					self.dataColumn.set(key);
+				});
+				
+				// grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
+					// console.log("1")
+					// dataParams.Events.OnResetSearch.trigger();
+				// });
+				
+				grid.Events.OnInit.add(function(grid) {
+					// grid.dataParams.Events.OnResetSearch.trigger();
+					
+					// grid.optionsData.url = "countries";
+					grid.optionsData.cache = true;
+					grid.options.lookup = params.lookup;
+					
+					grid.options.showToolbar = true;
+					// grid.options.toolbarTheme = "svg";
+					
+					grid.options.horzScroll = false;
+					// grid.options.showPager = true;
+					grid.options.showPager = false;
+					grid.options.showSummary = false;
+					grid.options.cardView = false;
+					grid.options.autoScroll = true;
+					grid.options.allowSort = true;
+					// grid.options.showSelection = true;
+					grid.options.showBand = false;
+					// grid.options.showBand = true;
+					// grid.options.simpleSearch = true;
+				});
+				
+				grid.methods.add("getCommandIcon", function(grid, column, previous) {
+					if(column.command === "select-lookup")
+						return "transfer"
+					else
+						return previous							
+				});
+							
+				grid.methods.add("getCommandHint", function(grid, column, previous) {
+					if(column.command === "select-lookup")
+						return "Select record"
+					else
+						return previous							
+				});
+				
+				grid.Events.OnCommand.add(function(grid, column) {	
+					if(column.command === "select-lookup") {
+						// self.Select(grid.dataset.getKey());
+						// desktop.HideHints();
+						// self.dialog.Hide();
+						// self.dataColumn.set(grid.dataset.getKey());
+						grid.Events.OnSelectLookup.trigger(grid.dataset.getKey());
+					}
+				});
+				
+				
+				grid.Events.OnInitColumns.add(function(grid) {
+					grid.NewBand({fixed:"left"}, function(band) {
+						band.NewCommand({command:"select-lookup"});
+					});
+					grid.NewBand({fixed:"right"}, function(band) {
+						band.NewCommand({command:"select-lookup"});
+					});
+				});	
+
+				lookupInit(self, grid);
+				if(lookup) {
+					lookup(grid, grid.dataParams);
+				}
+			}
+		});	
+	};
+};
+
+//**************************************************************************************************
 // LookupEdit
 //**************************************************************************************************
 // Class.Inherits(LookupEdit, TextEdit); 

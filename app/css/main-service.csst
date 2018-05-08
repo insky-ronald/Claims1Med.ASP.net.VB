@@ -18,3 +18,12 @@
 
 ##template
 ##endtemplate=app\service-actions
+
+##template
+##endtemplate=app\client-providers
+
+##template
+##endtemplate=app\service-diagnosis
+
+##template
+##endtemplate=app\service-procedures

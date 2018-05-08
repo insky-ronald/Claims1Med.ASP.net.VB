@@ -55,7 +55,8 @@ function ClaimDetailsView(params) {
 								if(!desktop.customData.newRecord) {
 									pg.addTab({caption:"Diagnosis",
 										icon: {
-											name: "pill",
+											name: "diagnosis",
+											// name: "stethoscope",
 											color: "firebrick"
 										},
 										OnCreate: function(tab) {
@@ -248,15 +249,15 @@ function ClaimDetailsView(params) {
 											
 										// }
 									// });
-									pg.addTab({caption:"Benefit Utilisation",
-										icon: {
-											name: "view-list",
-											color: "forestgreen"
-										},
-										OnCreate: function(tab) {
+									// pg.addTab({caption:"Benefit Utilisation",
+										// icon: {
+											// name: "view-list",
+											// color: "forestgreen"
+										// },
+										// OnCreate: function(tab) {
 											
-										}
-									});
+										// }
+									// });
 								}
 							}
 						});

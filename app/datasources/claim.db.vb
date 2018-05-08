@@ -84,3 +84,11 @@ With DBConnection.NewCommand("CanDeleteClaim", "CanDeleteClaim", CommandType.Sto
 	.AddParameter("action_status_id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
 	.AddParameter("action_msg", SqlDbType.VarChar, ParameterDirection.InputOutput, 200, "")
 End With
+
+With DBConnection.NewCommand("lookup_service_sub_types", "GetServiceSubTypes", CommandType.StoredProcedure)
+    .AddParameter("service_type", SqlDbType.char, ParameterDirection.Input, 3, "")
+    .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With

@@ -1,33 +1,36 @@
 ##const
 ##endconst
 
-.grid-service-diagnosis tr[x-default] {
-	color: green;
+.grid3.service-diagnosis tbody tr[x-default] {
+	color: forestgreen;
 }
 
-.grid-service-diagnosis span[x-sec="code"] {
-	float:left;
-	margin-left: 4px;
-	min-width: 35px;
-	/*font-weight: bold;*/
-}
-
-.grid-service-diagnosis tr[has-items="1"] {
+.grid3.service-diagnosis tbody tr[x-main="1"] {
 	font-size: 105%;
-}
-
-.grid-service-diagnosis tr[has-items="1"] span[x-sec="code"] {
 	font-weight: bold;
 }
 
-.grid table[grid-sec="headers"] thead[grid-sec="header"] th[command="change-group"] svg,
-.grid table[grid-sec="content"] tbody td[command="change-group"] svg:hover {
-	/*fill: #27AE60;*/
-	fill: #B34EE9;
+.grid3.service-diagnosis .data-cell.command-cell[command="add"] svg,
+.grid3.service-diagnosis .header-cell.command-cell[command="add"] svg {
+	fill: dodgerblue !important;
 }
 
-.grid table[grid-sec="headers"] thead[grid-sec="header"] th[command="set-default"] svg,
-.grid table[grid-sec="content"] tbody td[command="set-default"] svg:hover {
-	/*fill: #27AE60;*/
-	fill: green;
+.grid3.service-diagnosis .data-cell.command-cell[command="default"] svg,
+.grid3.service-diagnosis .header-cell.command-cell[command="default"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.service-diagnosis .data-cell.command-cell[command="deletex"] svg,
+.grid3.service-diagnosis .header-cell.command-cell[command="deletex"] svg {
+	fill: firebrick !important;
+}
+
+.grid3.service-diagnosis .data-cell.command-cell[command="editx"] svg,
+.grid3.service-diagnosis .header-cell.command-cell[command="editx"] svg {
+	fill: dodgerblue !important;
+}
+
+.grid3.service-diagnosis .data-cell.command-cell[command="group"] svg,
+.grid3.service-diagnosis .header-cell.command-cell[command="group"] svg {
+	fill: forestgreen !important;
 }

@@ -148,6 +148,11 @@ JEditor.prototype.AddGroup = function(name, init, dataset) {
 			group.Add(edit);
 			return edit;
 		},
+		AddDropDown: function(attr, options) {
+			var edit = self.AddDropDown(attr, options);
+			group.Add(edit);
+			return edit;
+		},
 		AddLookup: function(attr, options) {
 			var edit = self.AddLookup(attr, options);
 			group.Add(edit);
@@ -223,6 +228,10 @@ JEditor.prototype.AddDateEx = function(attr, options) {
 
 JEditor.prototype.AddTimeStamp = function(attr, options) {
 	return this.CreateItem(TimeStamp, attr, options);
+};
+
+JEditor.prototype.AddDropDown = function(attr, options) {
+	return this.CreateItem(LookupDropDown, attr, options);
 };
 
 JEditor.prototype.AddLookup = function(attr, options) {

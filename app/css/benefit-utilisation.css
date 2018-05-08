@@ -1,0 +1,18 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/*****************************************************************************************************/
+.grid3.benefit-utilisation tbody tr[x-main-plan="1"] {
+	/* color: forestgreen;  */
+	font-size: 110%;
+	font-weight: bold;
+}
+
+.grid3.benefit-utilisation tbody tr[x-period="1"] {
+	/* color: forestgreen;  */
+	font-size: 100%;
+	font-weight: bold;
+}
+
+.grid3.benefit-utilisation tbody tr[x-limit="1"] {
+	color: dodgerblue;  
+}

@@ -134,7 +134,7 @@ jMemberSearch.prototype.OnInitData = function(dataset) {
 		.setprops("id", {label:"ID", numeric:true, key: true})
 		.setprops("certificate_no", {label:"Certificate No.", required:true})
 		.setprops("alpha_id", {label:"Client Certificate No."})
-		.setprops("relationship_code", {label:"Relation"})
+		.setprops("relationship", {label:"Relation"})
 		.setprops("product_name", {label:"Product"})
 		.setprops("full_name", {label:"Member's Name"})
 		.setprops("start_date", {label:"Effective Date Date", type:"date", required:true})
@@ -232,7 +232,7 @@ jMemberSearch.prototype.OnInitColumns = function(grid) {
 	grid.NewColumn({fname: "policy_no", width: 150, allowSort: true});
 	grid.NewColumn({fname: "full_name", width: 250, allowSort: true, linkField:"id"});
 	grid.NewColumn({fname: "plan_name", width: 200, allowSort: true});
-	grid.NewColumn({fname: "relationship_code", width: 100, allowSort: true});
+	grid.NewColumn({fname: "relationship", width: 100, allowSort: true});
 	grid.NewColumn({fname: "dob", width: 100, allowSort: false});
 	grid.NewColumn({fname: "sex", width: 75, allowSort: false});
 	grid.NewColumn({fname: "start_date", width: 125, allowSort: false});
