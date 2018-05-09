@@ -75,6 +75,8 @@ ClaimsEntry	claims-entry.js	8;"	function
 ClaimsProcessingView	claims-processing.js	8;"	function
 ClaimsProcessingView	x task-manager.js	6;"	function
 ClaimsSearchView	view-claims-search.js	1;"	function
+ClientCaseFeesView	view-client-case-fees.js	8;"	function
+ClientCaseFeesView.MasterKey	view-client-case-fees.js	9;"	function
 ClientEdit	edit-client.js	6;"	function
 ClientEditData	client_edit.js	2;"	function
 ClientEditor	client_edit.js	13;"	function
@@ -182,6 +184,8 @@ FlagSubTypesView	view-flag-sub-types.js	9;"	function
 FlagTypesEdit	edit-flag-types.js	8;"	function
 FlagTypesLookup	flag-types-lookup.js	1;"	function
 FlagTypesView	view-flag-types.js	9;"	function
+FloatsView	view-floats.js	8;"	function
+FloatsView.MasterKey	view-floats.js	9;"	function
 GOPTypesEdit	edit-gop-types.js	8;"	function
 GOPTypesView	view-gop-types.js	9;"	function
 GopContactsLookup	gop-contacts-lookup.js	1;"	function

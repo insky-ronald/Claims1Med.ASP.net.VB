@@ -88,15 +88,17 @@ Public Class DataProvider
 				.Title = "Floats"
 				.Icon = "table-edit"
 				.Action = "admin"
-				.URL = "engine/under-construction"
+				.URL = "app/floats"
+				.Params.AsInteger("name_id") = ClientID
 			End with
 		
 			With Main.SubItems.Add
-				.ID = "case-fees"
+				.ID = "client-case-fees"
 				.Title = "Case Fees"
 				.Icon = "table-edit"
 				.Action = "admin"
-				.URL = "engine/under-construction"
+				.URL = "app/client-case-fees"
+				.Params.AsInteger("name_id") = ClientID
 			End with
 			
 		Main = MenuItems.AddMain("security", "Security")
