@@ -68,7 +68,8 @@ Public Class DataProvider
 				.Title = "Products and Plans"
 				.Icon = "table-edit"
 				.Action = "admin"
-				.URL = "engine/under-construction"
+				.URL = "app/client-products"
+				.Params.AsInteger("name_id") = ClientID
 			End with
 			
 		Main = MenuItems.AddMain("financial", "Financial")

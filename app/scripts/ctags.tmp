@@ -347,6 +347,7 @@ PharmacyEdit	edit-pharmacy.js	8;"	function
 PlanEdit	edit-plan.js	6;"	function
 PlansLookup	view-plans-lookup.js	8;"	function
 PlansView	view-plans.js	8;"	function
+PlansView.MasterKey	view-plans.js	9;"	function
 PoliciesView	view-policies.js	8;"	function
 ProductEdit	edit-product.js	6;"	function
 ProductView	x product.js	8;"	function

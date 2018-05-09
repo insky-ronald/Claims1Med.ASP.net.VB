@@ -1,0 +1,3 @@
+.grid3.plans .data-table .row[x-status="0"] {
+	color: firebrick;
+}
