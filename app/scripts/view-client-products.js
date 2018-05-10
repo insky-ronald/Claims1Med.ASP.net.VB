@@ -18,7 +18,7 @@ function ClientProductsGrid(params){
 				grid.options.editNewPage = true;
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
-				grid.options.showBand = true;
+				// grid.options.showBand = true;
 				grid.search.visible = false;
 				// grid.search.mode = "advanced";
 				grid.search.mode = "simple";
@@ -40,12 +40,12 @@ function ClientProductsGrid(params){
 						.setprops("product_name", {label:"Product Name"})
 						// .setprops("client_name", {label:"Client Name"})
 						.setprops("float_name", {label:"Float"})
-						.setprops("claim_reference_name1", {label:"Reference 1"})
-						.setprops("claim_reference_name2", {label:"Reference 2"})
-						.setprops("claim_reference_name3", {label:"Reference 3"})
-						.setprops("member_reference_name1", {label:"Reference 1"})
-						.setprops("member_reference_name2", {label:"Reference 2"})
-						.setprops("member_reference_name3", {label:"Reference 3"})
+						.setprops("claim_reference_name1", {label:"Claim Reference 1"})
+						.setprops("claim_reference_name2", {label:"Claim Reference 2"})
+						.setprops("claim_reference_name3", {label:"Claim Reference 3"})
+						.setprops("member_reference_name1", {label:"Member Reference 1"})
+						.setprops("member_reference_name2", {label:"Member Reference 2"})
+						.setprops("member_reference_name3", {label:"Member Reference 3"})
 				});	
 				
 				grid.methods.add("editPageUrl", function(grid, id) {

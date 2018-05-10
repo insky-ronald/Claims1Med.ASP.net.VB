@@ -65,7 +65,7 @@ Public Class DataProvider
 			
 			With Main.SubItems.Add
 				.ID = "products"
-				.Title = "Products and Plans"
+				.Title = "Products & Plans"
 				.Icon = "table-edit"
 				.Action = "admin"
 				.URL = "app/client-products"
