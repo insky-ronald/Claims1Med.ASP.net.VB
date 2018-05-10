@@ -1,19 +1,24 @@
 ##includetemplate=app\app-medics-3
 ##include=app\main-service
 ##include=engine\edit-custom-view
+##include=app\service-status-code-lookup
 
 // ##if(keyid=gop)
 	##include=app\service-details-gop
 	##include=app\edit-service-gop
 	##include=app\edit-service-custom-gop
+	// ##include=app\edit-gop-GM01
 // ##elseif(keyid=inv)
-	// ##include=app\service-details-inv
+	##include=app\service-details-inv
+	##include=app\edit-service-inv
+	##include=app\edit-service-custom-inv
 // ##endif
 
 ##include=app\view-service-status-history
 ##include=app\view-service-actions
 ##include=app\providers-lookup
 ##include=app\hospital-doctors-lookup
+##include=app\countries-lookup
 ##include=app\currencies-lookup
 ##include=app\gop-contacts-lookup
 ##include=app\view-service-diagnosis
@@ -21,3 +26,4 @@
 ##include=app\view-diagnosis
 ##include=app\view-diagnosis-group
 ##include=app\view-procedures
+##include=app\view-service-sub--types-lookup
