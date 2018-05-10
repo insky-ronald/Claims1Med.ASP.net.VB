@@ -1,0 +1,103 @@
+.document-template {
+	/* background: wheat; */
+}
+
+.document-template div[x-sec="toolbar"] {
+	height: 34px;
+    box-sizing: border-box;
+}
+
+.document-template div[x-sec="document"] {
+	height: Calc(100% - 32px);
+    width: 100%;
+	padding: 0.5in;
+	background: dimgray;
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+.document-template div[x-sec="template"] {
+	height: 11.69in;
+    width: 8.27in;
+	padding: 0.5in;
+	background: white;
+	border: 1px solid black;
+}
+
+.template {
+	font-family: Calibri;
+	font-size: 11pt;
+}
+
+.template .title {
+	text-align: center;
+	font-size: 150%;
+	margin-bottom: 0.25in;
+}
+
+.template .reference {
+	font-size: 110%;
+}
+
+.template .reference tr td {
+	padding: 0.05in 0 0.1in 0;
+}
+
+.template .reference td:first-child {
+	width: 1.5in;
+}
+
+.template .reference td:last-child {
+}
+
+.template .provider div[x-sec="name"] {
+	font-size: 110%;
+	font-weight: bold;
+	margin-top: 0.1in;
+}
+
+.template .attention {
+	font-size: 110%;
+	font-weight: bold;
+	margin-top: 0.5in;
+	margin-bottom: 0.5in;
+}
+
+.template .dear {
+	margin-bottom: 0.25in;
+}
+
+.template .sub-title {
+	font-size: 110%;
+	font-weight: bold;
+	margin-bottom: 0.1in;
+}
+
+.template .patient-info {
+	width: 100%;
+}
+
+.template .patient-info > tbody > tr > td {
+	vertical-align: top;
+}
+
+.template .patient-info > tbody > tr > td:first-child {
+	width: 50%;
+}
+
+.template .patient-info > tbody > tr > td:last-child {
+	width: 50%;
+}
+
+.template .patient-info table[x-sec="sub"]  {
+	width: 100%;
+}
+
+.template .patient-info table[x-sec="sub"] tr {
+	/* padding: 0.05in 0 0.1in 0; */
+	height: 0.25in;
+}
+
+.template .patient-info table[x-sec="sub"] td:first-child {
+	width: 50%;
+}

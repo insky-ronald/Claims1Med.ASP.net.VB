@@ -1,3 +1,40 @@
+DBConnection.NewCommand("GetServiceTypes", "
+	select 
+		distinct(module) as service_type,
+		service_type as code
+	from v_service_status_codes
+", CommandType.Text)
+
+With DBConnection.NewCommand("GetServiceStatusCodes", "GetServiceStatusCodes", CommandType.StoredProcedure)
+	.AddParameter("service_type", SqlDbType.char, ParameterDirection.Input, 3, "")
+	.AddParameter("service_code", SqlDbType.char, ParameterDirection.Input, 1, "")
+    .AddParameter("code", SqlDbType.VarChar, ParameterDirection.Input, 7, "")
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "module")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With
+
+With DBConnection.NewCommand("lookup_service_status_codes", "GetServiceStatusCodes", CommandType.StoredProcedure)
+	.AddParameter("service_type", SqlDbType.char, ParameterDirection.Input, 3, "")
+	.AddParameter("status_code", SqlDbType.char, ParameterDirection.Input, 1, "")
+    .AddParameter("code", SqlDbType.VarChar, ParameterDirection.Input, 7, "")
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "module")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With
+
 With DBConnection.NewCommand("GetClaimServices", "GetClaimServices", CommandType.StoredProcedure)
     .AddParameter("claim_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("service_type", SqlDbType.char, ParameterDirection.Input, 3, "")
@@ -47,6 +84,11 @@ With DBConnection.NewCommand("AddGop", "AddGop", CommandType.StoredProcedure)
 	.AddParameter("room_expense", SqlDbType.money, ParameterDirection.Input, 0, 0)
 	.AddParameter("misc_expense", SqlDbType.money, ParameterDirection.Input, 0, 0)
 	.AddParameter("hospital_medical_record", SqlDbType.varchar, ParameterDirection.Input, 30, "")
+	
+	.AddParameter("action", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.VarChar, ParameterDirection.InputOutput, 200, "")
 End With
 
 With DBConnection.NewCommand("GetServiceSubType", "GetServiceSubType", CommandType.StoredProcedure)
@@ -98,4 +140,31 @@ With DBConnection.NewCommand("GetGopContacts", "GetGopContacts", CommandType.Sto
     .AddParameter("doctor_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("is_hospital", SqlDbType.int, ParameterDirection.Input, 0, 1)
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With
+
+With DBConnection.NewCommand("ChangeServiceStatus", "ChangeServiceStatus", CommandType.StoredProcedure)
+    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("status_code", SqlDbType.char, ParameterDirection.Input, 1, "")
+    .AddParameter("sub_status_code", SqlDbType.char, ParameterDirection.Input, 3, "")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.VarChar, ParameterDirection.InputOutput, 2048, "")
+End With
+
+With DBConnection.NewCommand("SupercedeGop", "SupercedeGop", CommandType.StoredProcedure)
+    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("new_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.VarChar, ParameterDirection.InputOutput, 2048, "")
+End With
+
+With DBConnection.NewCommand("InvoiceReceived", "InvoiceReceived", CommandType.StoredProcedure)
+    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("new_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("service_no", SqlDbType.varchar, ParameterDirection.InputOutput, 20, "")
+    .AddParameter("service_sub_type", SqlDbType.char, ParameterDirection.Input, 4, "")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.VarChar, ParameterDirection.InputOutput, 2048, "")
 End With

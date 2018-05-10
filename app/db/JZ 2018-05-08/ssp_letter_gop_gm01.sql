@@ -1,0 +1,2 @@
+CREATE SYNONYM [dbo].[ssp_letter_gop_gm01] FOR [MEDICS40LDA].[dbo].[SP_LETTER_GOP_GM01]
+GO

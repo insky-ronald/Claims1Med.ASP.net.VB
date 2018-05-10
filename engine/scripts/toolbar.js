@@ -244,6 +244,7 @@ JToolbarButton.prototype.Initialize = function(params) {
     this.id = params.id;
     this.toolbar = params.toolbar;
     this.icon = params.icon;
+    this.iconSize = defaultValue(params.iconSize, this.toolbar.buttonSize+4);
     this.iconColor = params.iconColor;
     this.hint = params.hint;
     this.align = defaultValue(params.align, "left");

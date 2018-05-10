@@ -3,7 +3,7 @@
 // Last modified on
 // 
 // ****************************************************************************************************
-function GopEdit(viewParams) {
+function InvoiceEdit(viewParams) {
 	return new JFormEditor({
 		id: viewParams.id,
 		dataset: viewParams.dataset,
@@ -15,7 +15,7 @@ function GopEdit(viewParams) {
 		showToolbar: false,
 		labelWidth: 140,
 		url: "?id=" + viewParams.dataset.get("id"),
-		postBack: "app/service-gop",
+		postBack: viewParams.postBack,
 		postData: false,
 		init: function(editor) {
 			editor.Events.OnInitData.add(function(sender, data) {
@@ -39,10 +39,7 @@ function GopEdit(viewParams) {
 								return __claim(column.dataset.get("claim_id"), true);
 							}});
 							editor.AddEdit({ID: "service_no"});
-							editor.AddLink({ID: "link_service_no", link: function(column) {
-								return __service(column.dataset.get("link_service_id"), "inv", true);
-							}});
-							editor.AddEdit({ID: "service_date"});
+							// editor.AddEdit({ID: "service_date"});
 							// editor.AddEdit({ID: "admission_first_call"});
 						});
 						editor.AddGroup("Insured", function(editor) {

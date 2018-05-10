@@ -60,13 +60,15 @@ ToolButtonPainter.prototype.Paint = function() {
 			icon  = iconParts[0];
 		
 		// desktop.GetSvg(container, button.icon, this.Control.toolbar.buttonSize+4, {noTopMargin:true})
-		var svg = desktop.GetSvg(container, icon, this.Control.toolbar.buttonSize+4, {noTopMargin:true})
+		// var svg = desktop.GetSvg(container, icon, this.Control.toolbar.buttonSize+4, {noTopMargin:true})
+		var svg = desktop.GetSvg(container, icon, button.iconSize, {noTopMargin:true})
 			.css("fill", this.Control.iconColor);
 			
 		var self = this;
 		if(iconParts.length > 1)
 			CreateElementEx("div", container, function(c) {
-				desktop.GetSvg(c, iconParts[1], self.Control.toolbar.buttonSize, {noTopMargin:true})
+				// desktop.GetSvg(c, iconParts[1], self.Control.toolbar.buttonSize, {noTopMargin:true})
+				desktop.GetSvg(c, iconParts[1], button.iconSize, {noTopMargin:true})
 					.css("fill", self.Control.iconColor);
 			});
 			// desktop.GetSvg(container, iconParts[1], this.Control.toolbar.buttonSize, {noTopMargin:true})

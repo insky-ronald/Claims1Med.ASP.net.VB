@@ -5,7 +5,8 @@ var ProvidersLookup = function(edit, grid) {
 		grid.options.showPager = true;
 		
 		grid.search.visible = true;
-		grid.search.mode = "advanced";
+		grid.search.mode = "mixed";
+		grid.search.columnName = "filter";
 		grid.search.searchWidth = 450;
 		grid.optionsData.url = "client-providers";
 	});
