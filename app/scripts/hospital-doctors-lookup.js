@@ -5,7 +5,8 @@ var HospitalDoctorsLookup = function(edit, grid) {
 		grid.options.showPager = true;
 		
 		grid.search.visible = true;
-		grid.search.mode = "advanced";
+		grid.search.mode = "mixed";
+		grid.search.columnName = "filter";
 		grid.search.searchWidth = 450;
 		grid.optionsData.url = "hospital-doctors";
 	});
@@ -41,7 +42,7 @@ var HospitalDoctorsLookup = function(edit, grid) {
 				tab.container.css("border-style", "solid solid none solid");
 
 				editor.AddGroup("Find Provider", function(editor) {
-					editor.AddEdit("filter");
+					// editor.AddEdit("filter");
 					editor.AddRadioButton("category", {
 						key: "id",
 						value: "value",

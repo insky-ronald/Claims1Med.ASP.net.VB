@@ -252,6 +252,20 @@ MainPage.prototype.InitializeSession = function(data) {
 	this.CloneSvg("claim-decline", "close-circle-outline");
 	this.CloneSvg("claim-open", "check-circle-outline");
 	
+	this.CloneSvg("supercede-gop", "share");
+	this.CloneSvg("send-to-outbox", "share");
+	this.CloneSvg("invoice-received", "thumb-up-outline");
+	this.CloneSvg("document-template", "file-outline");
+	this.CloneSvg("select-template", "hand-pointing-right");
+	
+	this.CloneSvg("service-status-pending", "check-circle-outline");
+	this.CloneSvg("service-status-awaiting", "clock");
+	this.CloneSvg("service-status-cancel", "close-circle-outline");
+	
+	this.CloneSvg("invoice-decline", "close-circle-outline");
+	this.CloneSvg("invoice-settle", "thumb-up-outline");
+	this.CloneSvg("invoice-settle-other", "hand-pointing-right");
+	
 	this.CloneSvg("banks", "bank");
 	this.CloneSvg("floats", "table-edit");
 	this.CloneSvg("case-fees", "table-edit");

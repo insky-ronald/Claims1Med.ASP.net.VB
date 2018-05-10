@@ -132,6 +132,21 @@ End With
     ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 ' End With 
 
+With DBConnection.NewCommand("GetCurrencyExchangeRate", "GetCurrencyExchangeRate", CommandType.StoredProcedure)
+    .AddParameter("src_crcy", SqlDbType.varchar, ParameterDirection.Input, 3, "")
+    .AddParameter("dst_crcy", SqlDbType.varchar, ParameterDirection.Input, 3, "")
+    .AddParameter("rate_date", SqlDbType.datetime, ParameterDirection.Input, 0, Nothing)
+    .AddParameter("amount", SqlDbType.float, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 
+
+With DBConnection.NewCommand("GetCurrencyExchangeRateSet", "GetCurrencyExchangeRateSet", CommandType.StoredProcedure)
+    .AddParameter("currencies", SqlDbType.varchar, ParameterDirection.Input, 1024, "")
+    .AddParameter("rate_date", SqlDbType.datetime, ParameterDirection.Input, 0, Nothing)
+    .AddParameter("rates", SqlDbType.varchar, ParameterDirection.InputOutput, 1024, "")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 
+
 ' With DBConnection.NewCommand("GetProduct", "GetProduct", CommandType.StoredProcedure)
     ' .AddParameter("code", SqlDbType.varchar, ParameterDirection.Input, 10, "")
     ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
@@ -906,26 +921,26 @@ With DBConnection.NewCommand("AddFlagSubTypes", "AddFlagSubTypes", CommandType.S
 	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
 End with
 
-DBConnection.NewCommand("GetServiceTypes", "
-	select 
-		distinct(module) as service_type,
-		service_type as code
-	from v_service_status_codes
-", CommandType.Text)
+' DBConnection.NewCommand("GetServiceTypes", "
+	' select 
+		' distinct(module) as service_type,
+		' service_type as code
+	' from v_service_status_codes
+' ", CommandType.Text)
 
-With DBConnection.NewCommand("GetServiceStatusCodes", "GetServiceStatusCodes", CommandType.StoredProcedure)
-	.AddParameter("service_type", SqlDbType.char, ParameterDirection.Input, 3, "")
-    .AddParameter("code", SqlDbType.VarChar, ParameterDirection.Input, 7, "")
-    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
-	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
-    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
-    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "module")
-    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
-    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
-End With
+' With DBConnection.NewCommand("GetServiceStatusCodes", "GetServiceStatusCodes", CommandType.StoredProcedure)
+	' .AddParameter("service_type", SqlDbType.char, ParameterDirection.Input, 3, "")
+    ' .AddParameter("code", SqlDbType.VarChar, ParameterDirection.Input, 7, "")
+    ' .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	' .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    ' .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    ' .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    ' .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    ' .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "module")
+    ' .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    ' .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+' End With
 
 DBConnection.NewCommand("ClaimNotesTypes", "
 	select *

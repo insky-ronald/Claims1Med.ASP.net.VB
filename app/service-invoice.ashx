@@ -8,7 +8,7 @@ Public Class DataProvider
 	End Function
 
 	Protected Overrides Function UpdateDataSource As String
-		Return "DBMedics.AddGop"
+		Return "DBMedics.AddInvoice"
 	End Function
 
 	Protected Overrides Function UpdateResultFields As String
@@ -19,7 +19,8 @@ Public Class DataProvider
 		MyBase.InitParams(Cmd, DataParams, DataValues)
 		If Cmd = "edit"
 			DataParams.Add("service_type")
-			DataValues.Add("gop")
+			DataValues.Add("inv")
+
 			DataParams.Add("id")
 			DataValues.Add(Request.Params("id"))
 		End if
@@ -27,6 +28,6 @@ Public Class DataProvider
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
-		DatabaseUtils.GetActionPermission("gop", Crud)
+		DatabaseUtils.GetActionPermission("invoice", Crud)
 	End Sub
 End Class

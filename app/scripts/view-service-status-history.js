@@ -17,8 +17,8 @@ function ServiceStatusView(viewParams){
 			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = "app/service-status-history";
 				
-				grid.options.viewType = "cardview";
-				grid.options.hideHeader = true;
+				// grid.options.viewType = "cardview";
+				// grid.options.hideHeader = true;
 				
 				grid.options.horzScroll = true;
 				grid.options.allowSort = false;
@@ -56,10 +56,10 @@ function ServiceStatusView(viewParams){
 				if(grid.options.viewType !== "cardview") {
 					grid.Events.OnInitColumns.add(function(grid) {
 						grid.NewColumn({fname: "status", width: 150});
-						grid.NewColumn({fname: "sub_status_code", width: 75});
-						grid.NewColumn({fname: "sub_status", width: 300});
-						grid.NewColumn({fname: "create_user", width: 150});
+						grid.NewColumn({fname: "sub_status_code", width: 50});
+						grid.NewColumn({fname: "sub_status", width: 250});
 						grid.NewColumn({fname: "create_date", width: 150});
+						grid.NewColumn({fname: "create_user_name", width: 125});
 					});
 				}
 				
@@ -90,9 +90,201 @@ function ServiceStatusView(viewParams){
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
 					// console.log(viewParams);
 					// console.log(desktop);
-					var module = desktop.customData.module_type.toLowerCase();
 					var status = desktop.dbService.get("status_code") ;
+					var module = desktop.customData.module_type.toLowerCase();
 
+					if (desktop.canEdit || (module == "inv" && (desktop.status == "D" || desktop.status == "S"))) {
+						var btnPending = toolbar.NewDropDownViewItem({
+							id: "pending",
+							icon: "service-status-pending",
+							color: "forestgreen",
+							title: "Change Pending Status",
+							view: ServiceStatusCodesLookup,
+							viewParams: {serviceType: desktop.serviceType, statusCode:"P"},
+							select: function(code) {
+								desktop.Ajax(null, "/app/api/command/change-service-status", {
+										id: desktop.dbService.getKey(),
+										status_code: "P",
+										sub_status_code: code
+									}, 
+									function(result) {
+										if(result.status < 0) {
+											ErrorDialog({
+												target: btnPending.elementContainer,
+												title: "Error",
+												message: result.message,
+												snap: "bottom",
+												inset: false
+											});
+										} else {
+											location.reload();
+										}
+									}
+								)
+							}
+						});
+					}
+					
+					if(module === "inv" && (desktop.canEdit || desktop.status == "D")) {
+						var btnDecline = toolbar.NewDropDownViewItem({
+							id: "inv-decline",
+							icon: "invoice-decline",
+							color: "firebrick",
+							title: "Decline Invoice",
+							view: ServiceStatusCodesLookup,
+							viewParams: {serviceType: desktop.serviceType, statusCode:"D"},
+							select: function(code) {
+								desktop.Ajax(null, "/app/api/command/change-service-status", {
+										id: desktop.dbService.getKey(),
+										status_code: "D",
+										sub_status_code: code
+									}, 
+									function(result) {
+										if(result.status < 0) {
+											ErrorDialog({
+												target: btnDecline.elementContainer,
+												title: "Error",
+												message: result.message,
+												snap: "bottom",
+												inset: false
+											});
+										} else {
+											location.reload();
+										}
+									}
+								)
+							}
+						});
+					}
+					
+					if(module === "inv" && desktop.canEdit) {
+						toolbar.NewDropDownConfirmItem({
+							id: "inv-settle",
+							icon: "invoice-settle",
+							color: "dodgerblue",
+							title: "Pay/Settle Invoice",
+							subTitle: "Please confirm to post invoice for payment.",
+							confirm: function(button) {
+								desktop.Ajax(null, "/app/api/command/inv-settle", {
+										id: desktop.dbService.getKey()
+									}, 
+									function(result) {
+										if(result.status < 0) {
+											ErrorDialog({
+												target: button.elementContainer,
+												title: "Error",
+												message: result.message,
+												snap: "bottom",
+												inset: false
+											});
+										} else {
+											location.reload();
+										}
+									}
+								)
+							}
+						});
+					}
+					
+					if(module === "inv" && desktop.canEdit) {
+						var btnSettle = toolbar.NewDropDownViewItem({
+							id: "inv-settle-other",
+							icon: "invoice-settle-other",
+							color: "dodgerblue",
+							title: "Settle - Other Method",
+							view: ServiceStatusCodesLookup,
+							viewParams: {serviceType: desktop.serviceType, statusCode:"S"},
+							select: function(code) {
+								desktop.Ajax(null, "/app/api/command/change-service-status", {
+										id: desktop.dbService.getKey(),
+										status_code: "S",
+										sub_status_code: code
+									}, 
+									function(result) {
+										if(result.status < 0) {
+											ErrorDialog({
+												target: btnSettle.elementContainer,
+												title: "Error",
+												message: result.message,
+												snap: "bottom",
+												inset: false
+											});
+										} else {
+											location.reload();
+										}
+									}
+								)
+							}
+						});
+					}
+					
+					
+					if(module === "gop" && desktop.canEdit) {
+						var btnCancel = toolbar.NewDropDownViewItem({
+							id: "cancel",
+							icon: "service-status-cancel",
+							color: "firebrick",
+							title: "Cancel",
+							// subTitle: "Choose the type of pending status.",
+							// height: 200,
+							// width: 500,
+							// view: ProceduresView,
+							select: function(code) {
+								desktop.Ajax(
+									self, 
+									"/app/api/command/add-claim-procedure",
+									{
+										service_id: desktop.dbService.get("id"),
+										claim_id: desktop.dbService.get("claim_id"),
+										code: code,
+										diagnosis_code: ""
+									}, 
+									function(result) {
+										if (result.status == 0) {
+											grid.refresh();
+										} else {
+											ErrorDialog({
+												target: btnCancel.elementContainer,
+												title: "Error adding procedure",
+												message: result.message
+											});
+										}
+									}
+								)
+							}
+						});
+					}
+					
+					if(module === "gop" && (desktop.status == "S" && desktop.subStatus == "S01")) {
+						toolbar.NewDropDownConfirmItem({
+							id: "awaiting",
+							icon: "service-status-awaiting",
+							color: "firebrick",
+							color: "dodgerblue",
+							title: "Await Invoice",
+							subTitle: "Please confirm to await for the invoice.",
+							confirm: function(button) {
+								desktop.Ajax(null, "/app/api/command/gop-awaiting-invoice", {
+										id: desktop.dbService.getKey()
+									}, 
+									function(result) {
+										if(result.status < 0) {
+											ErrorDialog({
+												target: button.elementContainer,
+												title: "Error",
+												message: result.message,
+												snap: "bottom",
+												inset: false
+											});
+										} else {
+											location.reload();
+										}
+									}
+								)
+							}
+						});
+					}
+					
 					return;
 					if((module === "inv" && status === "P") || (module === "gop" && (status === "N" || status === "P")) ) {
 						toolbar.NewDropDownViewItem({
@@ -101,7 +293,7 @@ function ServiceStatusView(viewParams){
 							color: "forestgreen",
 							title: "Change Pending Status",
 							subTitle: "Choose the type of pending status to change to.",
-							view: ServiceStatusLookup,
+							// view: ServiceStatusLookup,
 							viewParams: {module:module, status:"P"},
 							select: function(code) {
 								// window.open(__invoice(("new?claim_id={0}&claim_type={1}&service_type={2}").format(desktop.dbClaim.get("id"), desktop.dbClaim.get("claim_type"), code), true), "");
@@ -115,7 +307,7 @@ function ServiceStatusView(viewParams){
 								color: "firebrick",
 								title: "Cancel Guarantee",
 								subTitle: "Choose the type of cancelation.",
-								view: ServiceStatusLookup,
+								// view: ServiceStatusLookup,
 								viewParams: {module:module, status:"D"},
 								select: function(code) {
 									// window.open(__invoice(("new?claim_id={0}&claim_type={1}&service_type={2}").format(desktop.dbClaim.get("id"), desktop.dbClaim.get("claim_type"), code), true), "");
@@ -130,7 +322,7 @@ function ServiceStatusView(viewParams){
 								title: "Decline Invoice",
 								subTitle: "Choose the type of decline.",
 								color: "firebrick",
-								view: ServiceStatusLookup,
+								// view: ServiceStatusLookup,
 								viewParams: {module:module, status:"D"},
 								select: function(code) {
 									// window.open(__invoice(("new?claim_id={0}&claim_type={1}&service_type={2}").format(desktop.dbClaim.get("id"), desktop.dbClaim.get("claim_type"), code), true), "");

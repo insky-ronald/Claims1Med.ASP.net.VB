@@ -7,7 +7,10 @@ Public Class DataProvider
 	Private ServiceType As String = ""
 	Private ServiceSubType As String = ""
 	Private ServiceSubTypeName As String = ""
+	
 	Private DBService As System.Data.DataTable
+	Private DBClaim As System.Data.DataTable
+	Private DBMember As System.Data.DataTable
 	' Private DBServiceSubType As System.Data.DataTable
 	Private DBGopCalculationDates As System.Data.DataTable
 	Private DBGopEstimates As System.Data.DataTable
@@ -39,24 +42,57 @@ Public Class DataProvider
 	Private Sub NewRowRecord(ByVal sender As Object, ByVal e As System.Data.DataTableNewRowEventArgs)
 		Dim Row As System.Data.DataRow = e.Row
 		
-		Using DBInfo = DBConnections("DBMedics").OpenData("GetNewServiceInfo", {"claim_id", "service_type","service_sub_type","visit_id"}, {Request.Params("claim"), Request.Params("keyid"), Request.Params("type"), Session("VisitorID")}, "")
-			Row.Item("id") = 0
-			' Row.Item("claim_no") = ""
-			' Row.Item("claim_type") = Request.Params("type")
-			' Row.Item("claim_type_name") = DBInfo.Eval("@claim_type")
-			' Row.Item("status_code") = "N"
-			' Row.Item("status") = "NEW CLAIM"
-			' Row.Item("case_owner") = DBInfo.Eval("@user_name")
-			' Row.Item("member_id") = DBMember.Rows(0).Item("member_id")
-			' Row.Item("name_id") = DBMember.Rows(0).Item("name_id")
-			' Row.Item("main_name_id") = DBMember.Rows(0).Item("main_name_id")
-			' Row.Item("policy_id") = DBMember.Rows(0).Item("policy_id")
-			' Row.Item("client_id") = DBMember.Rows(0).Item("client_id")
-			' Row.Item("product_code") = DBMember.Rows(0).Item("product_code").Trim
-			' Row.Item("plan_code") = DBMember.Rows(0).Item("plan_code").Trim
-			' Row.Item("notification_date") = DBInfo.Eval("@notification_date")
-			' Row.Item("country_of_incident") = DBInfo.Eval("@country_of_incident")
-		End Using
+		Row.Item("id") = 0
+		Row.Item("claim_id") = DBClaim.Eval("@id")
+		Row.Item("claim_no") = DBClaim.Eval("@claim_no")
+		Row.Item("service_type") = Request.Params("keyid")
+		Row.Item("service_sub_type") = Request.Params("type")
+		Row.Item("service_date") = Date.Today
+		Row.Item("status_code") = "N"
+		Row.Item("sub_status_code") = "N01"
+		Row.Item("sequence_no") = 0
+		Row.Item("version_no") = 1
+		Row.Item("claim_type") = DBClaim.Eval("@claim_type")
+		Row.Item("client_id") = DBClaim.Eval("@client_id")
+		Row.Item("client_name") = DBMember.Eval("@client_name")
+		Row.Item("policy_id") = DBClaim.Eval("@policy_id")
+		Row.Item("policy_no") = DBMember.Eval("@policy_no")
+		Row.Item("plan_code") = DBClaim.Eval("@plan_code")
+		Row.Item("member_id") = DBClaim.Eval("@member_id")
+		Row.Item("patient_name") = DBMember.Eval("@member_name")
+		Row.Item("claim_currency_code") = "AON"
+		Row.Item("base_currency_code") = DBClaim.Eval("@base_currency_code")
+		Row.Item("eligibility_currency_code") = DBClaim.Eval("@eligibility_currency_code")
+		Row.Item("client_currency_code") = DBClaim.Eval("@client_currency_code")
+		Row.Item("discount_type") = 0
+		Row.Item("discount_percent") = 0
+		Row.Item("discount_amount") = 0
+		Row.Item("misc_expense") = 0
+		Row.Item("room_expense") = 0
+		Row.Item("length_of_stay") = 0
+			
+		' "service_no": null,
+		' "service_date": null,
+		' "document_type": null,
+		' "claim_currency_rate_date": null,
+		' "claim_currency_to_base": null,
+		' "claim_currency_to_client": null,
+		' "claim_currency_to_eligibility": null,
+		' "settlement_advice_id": null,
+		' "link_invoice_id": null,
+		' "has_provider_discount": null,
+		' "start_date": null,
+		' "end_date": null,
+		' "provider_id": null,
+		' "provider_name": null,
+		' "hospital_medical_record": null,
+		' "provider_contact_person": null,
+		' "provider_fax_no": null,
+		' "discount_type_id": null,
+		' "doctor_id": null,
+		' "doctor_name": null,
+		' "diagnosis_notes": null,
+		' "notes": null,
 	End Sub
 	
 	Protected Overrides Sub InitCallback(ByVal Action As String, ByVal Output As EasyStringDictionary)
@@ -77,6 +113,9 @@ Public Class DataProvider
 		
 		If ServiceID = 0
 			ServiceSubType = Request.Params("type")
+			DBClaim = DBConnections("DBMedics").OpenData("GetClaim", {"id","visit_id"}, {Request.Params("claim"), Session("VisitorID")}, "")
+			DBMember = DBConnections("DBMedics").OpenData("GetClaimMemberInfo", {"claim_id","member_id","visit_id"}, {Request.Params("claim"),DBClaim.Eval("@member_id"), Session("VisitorID")}, "")
+			
 			AddHandler DBService.TableNewRow, AddressOf NewRowRecord
 			DBService.Rows.Add(DBService.NewRow())
 		Else
@@ -107,8 +146,25 @@ Public Class DataProvider
 				Output.AsString("window_title") = DBService.Eval("@service_no")
 				ServiceSubType = Request.Params("type")
 			Else
-				Output.AsString("page_title") = "New Invoice"
-				Output.AsString("window_title") = "New Invoice"
+				If ServiceType = "inv"
+					Output.AsString("page_title") = "New Invoice"
+				Else If ServiceType = "gop"
+					Output.AsString("page_title") = "New Guarantee of Payment"
+				' Else If ServiceType = "noc"
+					' Description = "Notification of Claim"
+				' Else If ServiceType = "cas"
+					' Description = "Case Fee"
+				' Else If ServiceType = "rec"
+					' Description = "Recovery"
+				' Else If ServiceType = "cos"
+					' Description = "Cost Containment"
+				' Else If ServiceType = "flg"
+					' Description = "Flag"
+				' Else
+					' Description = ServiceType
+				End if
+
+				Output.AsString("window_title") = Output.AsString("page_title")
 				ServiceSubType = DBService.Eval("@service_sub_type")
 			End if
 
@@ -135,10 +191,13 @@ Public Class DataProvider
 
 	Protected Overrides Sub UnloadHandler(ByVal Context As HttpContext)
 		MyBase.UnloadHandler(Context)
-		DBService.Dispose
-		' DBServiceSubType.Dispose
+		DBService.Dispose		
 		DBGopEstimates.Dispose
 		DBGopCalculationDates.Dispose
+		If ServiceID = 0
+			DBClaim.Dispose
+			DBMember.Dispose
+		End if
 	End Sub
 	
 	Protected Overrides Sub InitMenuItems(ByVal MenuItems As Navigator.MenuItems)
@@ -150,12 +209,10 @@ Public Class DataProvider
 		
 		If ServiceType = "inv"
 			Description = "Invoice"
-			Run = "ServiceDetailsView"
+			Run = "InvoiceView"
 		Else If ServiceType = "gop"
 			Description = "Guarantee of Payment"
-			' Description = ServiceSubTypeName
-			Run = "ServiceDetailsView"
-			' Run = "GopView"
+			Run = "GopView"
 		Else If ServiceType = "noc"
 			Description = "Notification of Claim"
 		Else If ServiceType = "cas"
@@ -192,6 +249,17 @@ Public Class DataProvider
 				.Title = "Breakdown"
 				.Icon = "service-breakdown"
 				.URL = "app/service-breakdown"
+				.Params.AsString("service_id") = ServiceID
+			End with
+		End if
+		
+		If ServiceType = "gop"
+			With Main.SubItems.Add
+				.ID = "template"
+				.Action = "admin"				
+				.Title = "Template"
+				.Icon = "document-template"
+				.URL = "app/document-template"
 				.Params.AsString("service_id") = ServiceID
 			End with
 		End if

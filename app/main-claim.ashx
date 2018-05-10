@@ -21,6 +21,8 @@ Public Class DataProvider
 		Using DBInfo = DBConnections("DBMedics").OpenData("GetNewClaimInfo", {"member_id", "claim_type","visit_id"}, {DBMember.Rows(0).Item("member_id"), Request.Params("type"), Session("VisitorID")}, "")
 			Row.Item("id") = 0
 			Row.Item("claim_no") = ""
+			Row.Item("is_accident") = false
+			Row.Item("is_preexisting") = false
 			Row.Item("claim_type") = Request.Params("type")
 			Row.Item("claim_type_name") = DBInfo.Eval("@claim_type")
 			Row.Item("status_code") = "N"
@@ -36,6 +38,9 @@ Public Class DataProvider
 			Row.Item("plan_code") = DBMember.Rows(0).Item("plan_code").Trim
 			Row.Item("notification_date") = DBInfo.Eval("@notification_date")
 			Row.Item("country_of_incident") = DBInfo.Eval("@country_of_incident")
+			Row.Item("base_currency_code") = DBInfo.Eval("@base_currency_code")
+			Row.Item("client_currency_code") = DBInfo.Eval("@client_currency_code")
+			Row.Item("eligibility_currency_code") = DBInfo.Eval("@eligibility_currency_code")
 		End Using
 	End Sub
 	
