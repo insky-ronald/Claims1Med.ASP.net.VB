@@ -1,15 +1,16 @@
 <%@ WebHandler Language="VB" Class="DataProvider" %>
 
 Public Class DataProvider
-	Inherits DataHandler.SubDataHandler
+	' Inherits DataHandler.SubDataHandler
+	Inherits DataHandler.DataProvider
 	
 	Protected Overrides Function ListDataSource As String
 		Return "DBMedics.GetBanks"
 	End Function
 	
-	Protected Overrides Function ReadDataSource As String
-		Return "DBMedics.GetBanks"
-	End Function
+	' Protected Overrides Function ReadDataSource As String
+		' Return "DBMedics.GetBanks"
+	' End Function
 
 	Protected Overrides Function UpdateDataSource As String
 		Return "DBMedics.AddBanks"
@@ -17,18 +18,19 @@ Public Class DataProvider
 		
 	Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))
 		MyBase.InitParams(Cmd, DataParams, DataValues)
-		If Cmd = "list"
-			DataParams.Add("visit_id")
-			DataValues.Add(Session("VisitorID"))
-		Else If Cmd = "edit"
+		' If Cmd = "list"
+			' DataParams.Add("visit_id")
+			' DataValues.Add(Session("VisitorID"))
+		' Else 
+		If Cmd = "edit"
 			DataParams.Add("id")
 			DataValues.Add(Request.Params("id"))
 
 			DataParams.Add("visit_id")
 			DataValues.Add(Session("VisitorID"))
-		Else If Cmd = "new"
-			DataParams.Add("visit_id")
-			DataValues.Add(Session("VisitorID"))
+		' Else If Cmd = "new"
+			' DataParams.Add("visit_id")
+			' DataValues.Add(Session("VisitorID"))
 		End if
 	End Sub
 		

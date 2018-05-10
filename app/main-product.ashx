@@ -14,7 +14,7 @@ Public Class DataProvider
 
 		If Action = "navigator"
 			Output.AsString("page_title") = DBProduct.Eval("Product: @code")
-			Output.AsString("window_title") = DBProduct.Eval("@product_name")
+			Output.AsString("window_title") = DBProduct.Eval("@product_name") 
 
 			CustomData.AsString("product_code") = ProductCode
 			REM CustomData.AsJson("certificate_id") = DBMember.Eval("@certificate_id")
@@ -51,8 +51,9 @@ Public Class DataProvider
 				.Title = "Plans"
 				.Icon = "table-edit"
 				.Action = "admin"
-				.URL = "engine/under-construction"
-				REM .Params.AsInteger("name_id") = ClientID
+				' .URL = "engine/under-construction"
+				.URL = "app/plans"
+				.Params.AsString("client_id") = DBProduct.Eval("@client_id")
 			End with
 	End Sub
 End Class
