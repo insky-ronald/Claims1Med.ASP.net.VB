@@ -41,6 +41,7 @@ function PaymentProcessingView(viewParams){
 					color: "firebrick"
 				},
 				OnCreate: function(tab) {
+					new PaymentBatchesView({container:tab.container});
 					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
 				}
 			});
