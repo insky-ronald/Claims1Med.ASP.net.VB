@@ -93,6 +93,30 @@ function ClaimDetailsEdit(viewParams) {
 						// });
 
 						editor.AddGroup("Medical Condition", function(editor) {
+							if (desktop.customData.newRecord) {
+									// editor.AddEdit("diagnosis_code");
+								// editor.AddDropDown("diagnosis_code", {width:600, height:350, disableEdit:true, init:DiagnosisView, 
+								editor.AddDropDown("diagnosis_code", {width:600, height:350, disableEdit:true, init:DiagnosisLookup, 
+									lookup: function(grid) {
+										grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
+											// dataParams.set("id", viewParams.dataset.raw("provider_id"));
+											// dataParams.set("client_id", viewParams.dataset.get("client_id"));
+											
+											// dataParams.Events.OnResetSearch.add(function(dataset) {
+												// dataset.set("id", viewParams.dataset.raw("provider_id"));
+												// dataset.set("client_id", viewParams.dataset.get("client_id"));
+											// });
+										});
+										
+										grid.Events.OnSelectLookup.add(function(grid, key) {
+											// console.log({a:"...", d:desktop.dbClaim.raw("diagnosis_code")});
+											// desktop.dbClaim.set("diagnosis", grid.dataset.lookup(key, "diagnosis"));
+											desktop.dbClaim.set("diagnosis", grid.dataset.lookup(key, "diagnosis"));
+										});
+									}
+								);
+							}
+							
 							editor.AddRadioButton("is_accident", {
 								key: "id",
 								value: "value",

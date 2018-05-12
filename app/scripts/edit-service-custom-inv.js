@@ -4,6 +4,7 @@
 // 
 // ****************************************************************************************************
 function InvoiceCustomEdit(viewParams) {
+	// console.log(viewParams)
 	return new JFormEditor({
 		id: viewParams.id,
 		dataset: viewParams.dataset,
@@ -22,12 +23,12 @@ function InvoiceCustomEdit(viewParams) {
 			
 			editor.Events.OnPostSuccess2.add(function(editor, returnData) {
 				if (returnData.mode == "new" && returnData.result.id) {
-					location.href = __service(returnData.result.id, "gop", true);
+					location.href = __service(returnData.result.id, "inv", true);
 				}
 			});
 			
 			editor.Events.OnInitEditor.add(function(sender, editor) {
-				editor.NewGroupEdit({caption:"Guarantee of Payment", icon:{name:"view-list", color:"forestgreen"}}, 
+				editor.NewGroupEdit({caption:"Invoice", icon:{name:"view-list", color:"forestgreen"}}, 
 					function(editor, tab) {
 						editor.group.OnDatasetChanged.add(function(group, columnName) {
 							// if(columnName == "discount_type" || columnName === undefined) {
@@ -110,11 +111,11 @@ function InvoiceCustomEdit(viewParams) {
 								key: "id",
 								value: "value",
 								data: [
-									{id:1, value:"Emergency Medical"},
-									{id:2, value:"Emergency Surgical"},
-									{id:3, value:"Elective Medical"},
-									{id:4, value:"Elective Surgical"},
-									{id:0, value:"Other"}
+									{id:"1", value:"Emergency Medical"},
+									{id:"2", value:"Emergency Surgical"},
+									{id:"3", value:"Elective Medical"},
+									{id:"4", value:"Elective Surgical"},
+									{id:"0", value:"Other"}
 									// {id:5, value:"Other"}
 								]
 							});

@@ -104,6 +104,7 @@ Styles.SetValue("database", "design-5")
 Styles.SetValue("doctor", "design-5")
 Styles.SetValue("hospital", "design-5")
 Styles.SetValue("clinic", "design-5")
+Styles.SetValue("sob", "design-5")
 
 REM Styles.SetValue("demo", "design-5")
 REM Styles.SetValue("masterpolicy", "design-5")

@@ -16,10 +16,9 @@ Public Class DataProvider
 			Output.AsString("window_title") = DBClient.Eval("@full_name")
 
 			CustomData.AsJson("client_id") = ClientID
-			REM CustomData.AsJson("certificate_id") = DBMember.Eval("@certificate_id")
 			CustomData.AsJson("data") = DBClient.AsJson()
-		Else If Action = "refresh"
-			Output.AsJson("data") = DBClient.AsJson()
+		' Else If Action = "refresh"
+			' Output.AsJson("data") = DBClient.AsJson()
 		End if
 	End Sub
 
@@ -41,27 +40,29 @@ Public Class DataProvider
 				.Icon = "table-edit"
 				.Action = "admin"
 				.URL = "app/client"
+				.Css = "*"
+				.Run = "ClientDetailsView"
 			End with
 		
-			With Main.SubItems.Add
-				.ID = "address"
-				.Title = "Address"
-				.Icon = "addresses"
-				.Action = "admin"
-				.URL = "app/addresses"
-				.Params.AsInteger("name_id") = ClientID
-			End with
+			' With Main.SubItems.Add
+				' .ID = "address"
+				' .Title = "Address"
+				' .Icon = "addresses"
+				' .Action = "admin"
+				' .URL = "app/addresses"
+				' .Params.AsInteger("name_id") = ClientID
+			' End with
 		
-			With Main.SubItems.Add
-				.ID = "contacts"
-				.Title = "Contacts"
-				.Icon = "contacts"
-				.Action = "admin"
-				.URL = "app/contacts"
-				.Params.AsInteger("name_id") = ClientID
-			End with
+			' With Main.SubItems.Add
+				' .ID = "contacts"
+				' .Title = "Contacts"
+				' .Icon = "contacts"
+				' .Action = "admin"
+				' .URL = "app/contacts"
+				' .Params.AsInteger("name_id") = ClientID
+			' End with
 		
-		Main = MenuItems.AddMain("products", "Products")
+		' Main = MenuItems.AddMain("products", "Products")
 			
 			With Main.SubItems.Add
 				.ID = "products"
@@ -72,34 +73,34 @@ Public Class DataProvider
 				.Params.AsInteger("name_id") = ClientID
 			End with
 			
-		Main = MenuItems.AddMain("financial", "Financial")
+		' Main = MenuItems.AddMain("financial", "Financial")
 		
-			With Main.SubItems.Add
-				.ID = "banks"
-				.Title = "Banks"
-				.Icon = "bank"
-				.Action = "admin"
-				.URL = "app/banks"
-				.Params.AsInteger("name_id") = ClientID
-			End with
+			' With Main.SubItems.Add
+				' .ID = "banks"
+				' .Title = "Banks"
+				' .Icon = "bank"
+				' .Action = "admin"
+				' .URL = "app/banks"
+				' .Params.AsInteger("name_id") = ClientID
+			' End with
 		
-			With Main.SubItems.Add
-				.ID = "floats"
-				.Title = "Floats"
-				.Icon = "table-edit"
-				.Action = "admin"
-				.URL = "app/floats"
-				.Params.AsInteger("name_id") = ClientID
-			End with
+			' With Main.SubItems.Add
+				' .ID = "floats"
+				' .Title = "Floats"
+				' .Icon = "table-edit"
+				' .Action = "admin"
+				' .URL = "app/floats"
+				' .Params.AsInteger("name_id") = ClientID
+			' End with
 		
-			With Main.SubItems.Add
-				.ID = "client-case-fees"
-				.Title = "Case Fees"
-				.Icon = "table-edit"
-				.Action = "admin"
-				.URL = "app/client-case-fees"
-				.Params.AsInteger("name_id") = ClientID
-			End with
+			' With Main.SubItems.Add
+				' .ID = "client-case-fees"
+				' .Title = "Case Fees"
+				' .Icon = "table-edit"
+				' .Action = "admin"
+				' .URL = "app/client-case-fees"
+				' .Params.AsInteger("name_id") = ClientID
+			' End with
 			
 		Main = MenuItems.AddMain("security", "Security")
 		

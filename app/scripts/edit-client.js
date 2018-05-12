@@ -90,7 +90,44 @@ function ClientEdit(params) {
 			});
 		});
 		
-		// view.Events.OnInitToolbar.add(function(view, toolbar) {
-		// });
+		
+		view.Events.OnInitToolbar.add(function(view, toolbar) {
+			console.log(view); return;
+			toolbar.NewDropDownConfirmItem({
+				id: "delete",
+				icon: "delete",
+				color: "firebrick",
+				hint: "Delete claim",
+				title: "Delete Claim",
+				subTitle: "Please confirm to delete claim.",
+				// dataBind: view.dataset,
+				dataBind: params.dataset,
+				dataEvent: function(dataset, button) {
+					button.show(!dataset.editing);
+				},
+				confirm: function(button) {
+					// desktop.Ajax(null, "/app/get/delete/claim", {
+							// mode: "delete",
+							// data: "["+JSON.stringify({id: desktop.dbClaim.get("id")})+"]"
+						// }, 
+						// function(result) {
+							// if(result.status < 0) {
+								// ErrorDialog({
+									// target: button.elementContainer,
+									// title: "Error deleting claim",
+									// message: result.message,
+									// snap: "bottom",
+									// inset: false
+								// })
+							// } else {
+								// window.close();
+							// }
+						// }
+					// )
+				}
+			});
+			
+			toolbar.SetVisible("delete", !desktop.dbClaim.editing);
+		});
 	});
 };

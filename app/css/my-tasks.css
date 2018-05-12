@@ -1,0 +1,17 @@
+.grid3.my-tasks .master-detail-main {
+	width: 100%;
+}
+
+.grid3.my-tasks .master-detail-container {
+	font: 10pt Consolas;
+	background: lightyellow;
+	padding: 6px;
+	width: 100% !important;
+	border: 2px solid orange;
+	tab-size: 4;
+	overflow: auto;
+}
+
+.grid3.my-tasks .master-detail-container pre {
+	margin: 0;
+}

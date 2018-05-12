@@ -89,7 +89,11 @@ MainPage.prototype.AfterPaint = function() {
 		.setprops("accident_code", {label:"Accident Type", required:desktop.dbClaim.raw("is_accident")})
 
 		// .setprops("diagnosis_code", {label: "Diagnosis", required:true})
-		.setprops("diagnosis_code", {label: "Diagnosis", required:false})
+		.setprops("diagnosis_code", {label: "Diagnosis", required:true,
+			getText: function(column, value) {
+				return column.dataset.get("diagnosis")
+			}
+		})
 		.setprops("is_preexisting", {label:"Pre-Existing"})
 		.setprops("first_symptom_date", {label:"First Symptom", type:"date", required:!desktop.dbClaim.raw("is_accident")})
 		.setprops("first_consultation_date", {label:"First Consultation", type:"date", required:!desktop.dbClaim.raw("is_accident")});

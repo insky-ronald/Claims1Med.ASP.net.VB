@@ -131,3 +131,6 @@
    text-color-hover=black
    text-color-active=white
 ##endtemplate=engine\buttons-template
+
+##template
+##endtemplate=engine\sys-saved-report

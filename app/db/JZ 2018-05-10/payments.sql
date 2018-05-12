@@ -1,0 +1,56 @@
+DROP VIEW [dbo].[payments]
+GO
+
+CREATE VIEW [dbo].[payments]
+AS
+	SELECT        
+		PAYMENT_ID as id, 
+		BATCH_NO as batch_id, 
+		CLIENT_ID as client_id, 
+		FLOAT_ID as float_id, 
+		PAY_MODE as payment_mode, 
+		PAYEE_ID as payee_id, 
+		PAYEE_NAME as payee_name, 
+		CRCY_CODE as currency_code, 
+		AMOUNT as amount, 
+		CLT_CRCY as client_currency_code, 
+		CLT_AMOUNT as clientt_amount, 
+		BASE_CRCY as base_crcy, 
+		BASE_AMOUNT as base_amount, 
+		STATUS as status_code, 
+		STATUS_CODE as sub_status_code, 
+		DELIVERY_MODE as delivery_mode, 
+		PAYMENT_TERMS as payment_terms, 
+		--SOS_SEND_TO as , 
+		--CLEAR_CTRY as , 
+		INVOICE_NO as invoice_no, 
+		SOS_INVOICE_NO as sos_invoice_no, 
+		BANK_NAME as bank_name, 
+		BANK_ROUTE_CODE as bank_route_code, 
+		BEN_NAME as beneficiary_name, 
+		BEN_BANK_ACNO as beneficiary_bank_account, 
+		BEN_ADDR1 as beneficiary_address1, 
+		BEN_ADDR2 as beneficiary_address2, 
+		BEN_ADDR3 as beneficiary_address3, 
+		BEN_CTRY as beneficiary_country_code, 
+		BANK_ADDR1 as bank_address1, 
+		BANK_ADDR2 as bank_address2, 
+		BANK_ADDR3 as bank_address3, 
+		BANK_CTRY as bank_country_code, 
+		CB_LINE1 as cb_line1, 
+		CB_LINE2 as cb_line2, 
+		CB_LINE3 as cb_line3, 
+		CB_LINE4 as cb_line4, 
+		CB_CHEQUE_NO as cb_cheque_no, 
+		CB_VALUE_DATE as cb_value_date, 
+		CB_CASH_DATE as cb_cash_date, 
+		CB_RATE as cb_rate, 
+		CB_STATUS as cb_status, 
+		LOCKED as locked, 
+		InsertDate as create_date, 
+		InsertUser as create_user, 
+		UpdateDate as update_date, 
+		UpdateUser as update_user
+	FROM dbo.tb_payments
+
+GO

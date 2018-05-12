@@ -1,173 +1,319 @@
-function TaskManagerView(params){
-	// alerts(JSON.stringify(params));
-	return new JDBGrid({
-		owner: params.owner,
-		container: params.container, 
-		options: {
-			horzScroll: true
-		},
-		Painter: {
-			css: defaultValue(params.pid, "tasks")
-		},
-		toolbarTheme:"svg",
-		init: function(grid) {
-			grid.Events.OnInitGrid.add(function(grid) {
-				grid.optionsData.url = "task-manager";
-				grid.options.showToolbar = true;
-				grid.options.horzScroll = true;
-				grid.options.showPager = true;
-				grid.options.showSummary = false;
-				grid.options.cardView = false;
-				grid.options.autoScroll = true;
-				grid.options.allowSort = true;
-				grid.options.showSelection = true;
-				// grid.options.showBand = false;
-				grid.options.showBand = true;
-				grid.options.simpleSearch = false;
-				// grid.options.simpleSearchField = "filter";
-				grid.options.showAdvanceSearch = true;
-				
-				// grid.optionsData.editCallback = function(grid, id) {
-					// __claim(id);
-				// };
-				
-				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
-					dataParams
-						.addColumn("page", 1, {numeric:true})
-						.addColumn("pagesize", 25, {numeric:true})
-						.addColumn("sort", "claim_no")
-						.addColumn("order", "asc")
-						// .addColumn("filter", "15-")
-						.addColumn("filter", "")
-				});
-				
-				grid.Events.OnInitData.add(function(grid, data) {
-					data.Columns
-						.setprops("id", {label:"ID", numeric:true, key: true})
-						.setprops("claim_no", {label:"Claim No."})
-						.setprops("service_no", {label:"Service No."})
-						.setprops("action_class", {label:"Action Class"})
-						.setprops("action", {label:"Action"})
-						.setprops("action_owner", {label:"Owner"})
-						.setprops("action_set_date", {label:"Creation Date", type:"date", required:true})
-						.setprops("action_set_user", {label:"Action Creator"})
-						.setprops("days", {label:"Days Overdue", numeric:true})
-						
-						// .setprops("claim_status", {label:"Claim Status"})
-						// .setprops("sub_status_code", {label:"Sub-Status"})
-						// .setprops("sub_status", {label:"Description"})
-						.setprops("service_status_code", {label:"Status"})
-						.setprops("service_status", {label:"Status"})
-						.setprops("service_sub_status_code", {label:"Sub-Status"})
-						.setprops("service_sub_status", {label:"Sub-Status"})
-						.setprops("provider_name", {label:"Provider"})
-						// .setprops("doctor_name", {label:"Doctor"})
-						.setprops("full_name", {label:"Claimant"})
-						// .setprops("claim_currency_code", {label:"CCY"})
-						// .setprops("settlement_currency_code", {label:"SCY"})
-						.setprops("case_owner", {label:"Claim Owner"})
-						.setprops("claim_type_name", {label:"Claim Type"})
-						.setprops("service_type_name", {label:"Service Type"})
-						.setprops("service_sub_type_name", {label:"Service Sub-Type"})
-						.setprops("transaction_date", {label:"Admission Date", type:"date", required:true})
-						.setprops("transaction_end_date", {label:"Discharge Date", type:"date", required:true})
-						// .setprops("hcm_reference", {label:"HCM Reference"})
-						// .setprops("actual_amount", {label:"Amount", numeric:true, type:"money", format:"00"})
-						// .setprops("paid_amount", {label:"Paid", numeric:true, type:"money", format:"00"})
+// ****************************************************************************************************
+// Last modified on
+// 
+// ****************************************************************************************************
+//==================================================================================================
+// File name: view-task-manager.js
+//==================================================================================================
+function TaskManagerView(viewParams) {
+	return new jTaskManager({container:viewParams.container});
+};
 
-						// .setprops("start_date", {label:"Admission Date", type:"date", required:true})
-						// .setprops("end_date", {label:"Discharge Date", type:"date", required:true})
+Class.Inherits(jTaskManager, jCustomSavedQueryView);
+function jTaskManager(params) {
+    jTaskManager.prototype.parent.call(this, params);
+};
 
-						// .setprops("invoice_no", {label:"Invoice No."})
-						// .setprops("invoice_received_date", {label:"Date Received", type:"date", required:true})
-						// .setprops("gender", {label:"Sex"})
-						// .setprops("age", {label:"Age", numeric:true})
-						.setprops("client_name", {label:"Client"})
-						.setprops("product_name", {label:"Product"})
-						// .setprops("plan_code", {label:"Plan Code"})
-						// .setprops("plan_name", {label:"Plan Name"})
-						.setprops("policy_no", {label:"Policy No.", required:true})
-						// .setprops("certificate_no", {label:"Certificate No.", required:true})
-						.setprops("policy_holder", {label:"Policy Holder", required:true})
-						.setprops("diagnosis_code", {label:"ICD", required:true})
-						.setprops("diagnosis", {label:"Diagnosis", required:true})
-						
-						// .setprops("update_date", {label:"Last Update", type:"date", format:"datetime"})
-						// .setprops("create_date", {label:"Date Created", type:"date", format:"datetime"})
-				});
+jTaskManager.prototype.classID = "jTaskManager";
+jTaskManager.prototype.viewCss = "members report";
+jTaskManager.prototype.viewUrl = "app/task-manager";
+jTaskManager.prototype.searchWidth = 600;
+jTaskManager.prototype.exportName = "Tasks";
+jTaskManager.prototype.exportSource = "DBMedics.GetTaskManager";
+jTaskManager.prototype.popuMenuTitle = "Task Manager";
 
-				grid.Events.OnInitGridMenu.add(function(grid, menus) {
-					var main;
-					main = menus.add("Claim");
-						main.add(grid.dataset.get("claim_no"), __claim(grid.dataset.get("claim_id"), true), "db-open");
-						if(grid.dataset.get("service_no")) {
-							main.add(grid.dataset.get("service_no"), __service(grid.dataset.get("service_id"), grid.dataset.get("service_type"), true), "db-open");
-						}
-						main.add(grid.dataset.get("patient_name"), __member(grid.dataset.get("member_id"), true), "db-open");
-						
-					main = menus.add("Policy");
-						main.add(grid.dataset.get("policy_no"), __masterpolicy(grid.dataset.get("policy_id"), true), "db-open");
-				});
+jTaskManager.prototype.initialize = function(params) {
+	jTaskManager.prototype.parent.prototype.initialize.call(this, params);
+};
 
-				grid.Events.OnInitColumns.add(function(grid) {
-					grid.NewCommand({command:"menu", float: "left"});
-					
-					var band;
-					
-					band = grid.NewBand("Action");
-					band.NewColumn({fname: "action_class", width: 200, allowSort: true});
-					band.NewColumn({fname: "action", width: 250, allowSort: true});
-					band.NewColumn({fname: "action_owner", width: 125, allowSort: true});
-					band.NewColumn({fname: "action_set_date", width: 100, allowSort: true});
-					band.NewColumn({fname: "action_set_user", width: 100, allowSort: true});
-					band.NewColumn({fname: "days", width: 100, allowSort: false});
-					
-					band = grid.NewBand("Claim and Service");
-					band.NewColumn({fname: "claim_no", width: 100, allowSort: true});
-					band.NewColumn({fname: "case_owner", width: 125, allowSort: true});
-					band.NewColumn({fname: "claim_type_name", width: 100, allowSort: true});
-					band.NewColumn({fname: "service_no", width: 175, allowSort: true});
-					band.NewColumn({fname: "service_type_name", width: 150, allowSort: true});
-					band.NewColumn({fname: "service_sub_type_name", width: 250, allowSort: true});
+jTaskManager.prototype.OnInitGrid = function(grid) {
+	jTaskManager.prototype.parent.prototype.OnInitGrid.call(this, grid);
+	grid.options.showSummary = false;
+	grid.options.editNewPage = true;
+	grid.options.showBand = false;
+};
 
-					band = grid.NewBand("Status");
-					band.NewColumn({fname: "service_status", width: 100, allowSort: true});
-					band.NewColumn({fname: "service_sub_status", width: 200, allowSort: true});
-					
-					
-					// band = grid.NewBand("Claim");
-					// band.NewColumn({fname: "claim_no", width: 100, allowSort: true});
-					// band.NewColumn({fname: "case_owner", width: 125, allowSort: true});
-					// band.NewColumn({fname: "claim_type_name", width: 100, allowSort: true});
-					
-					// band = grid.NewBand("Service");
-					// band.NewColumn({fname: "service_no", width: 175, allowSort: true});
-					// band.NewColumn({fname: "service_type_name", width: 150, allowSort: true});
-					// band.NewColumn({fname: "service_sub_type_name", width: 250, allowSort: true});
-					// band.NewColumn({fname: "full_name", width: 250, allowSort: true});
-					
-					band = grid.NewBand("Treatment");
-					band.NewColumn({fname: "provider_name", width: 250, allowSort: true});
-					band.NewColumn({fname: "transaction_date", width: 125, allowSort: true});
-					band.NewColumn({fname: "transaction_end_date", width: 125, allowSort: true});
-					band.NewColumn({fname: "diagnosis_code", width: 75, allowSort: true});
-					band.NewColumn({fname: "diagnosis", width: 250, allowSort: true});
+jTaskManager.prototype.OnInitDataRequest = function(dataset) {
+	jTaskManager.prototype.parent.prototype.OnInitDataRequest.call(this, dataset);
 
-					band = grid.NewBand("Member");
-					band.NewColumn({fname: "full_name", width: 250, allowSort: true});
+	dataset
+		.addColumn("page", 1, {numeric:true})
+		.addColumn("pagesize", 50, {numeric:true})
+		.addColumn("sort", "claim_no")
+		.addColumn("order", "asc")
+		// .addColumn("name", "")
+		// .addColumn("member_no", "")
+		// .addColumn("claim_types", "*")
+		// .addColumn("service_types", "*")
+		// .addColumn("status_codes", "")
+		// .addColumn("sub_status_codes", "")
+		// .addColumn("entry_start_date", null)
+		// .addColumn("entry_end_date", null)
+		.addColumn("client_ids", "");
+		// .addColumn("policy_ids", "");
 
-					band = grid.NewBand("Client and Policy");
-					band.NewColumn({fname: "client_name", width: 250, allowSort: true});
-					band.NewColumn({fname: "product_name", width: 250, allowSort: true});
-					band.NewColumn({fname: "policy_no", width: 100, allowSort: true});
-					band.NewColumn({fname: "policy_holder", width: 250, allowSort: true});
-				});
-				
-				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
-					// toolbar.grid = grid;
-					// grid.owner.InitializeToolbar(toolbar);
-				});
-			});
+	dataset.Events.OnResetSearch.add(function(dataset, grid) {
+		// dataset.set("claim_no", "");
+		// dataset.set("member_no", "");
+		// dataset.set("claim_types", "*");
+		// dataset.set("service_types", "*");
+		// dataset.set("status_codes", "");
+		// dataset.set("sub_status_codes", "");
+		// dataset.set("name", "");
+		dataset.set("client_ids", "");
+		// dataset.set("policy_ids", "");
+	})
+};
+
+jTaskManager.prototype.OnInitSearchData = function(dataset) {
+	jTaskManager.prototype.parent.prototype.OnInitSearchData.call(this, dataset);
+	// dataset.Columns
+		// .setprops("name", {label:"Name"})
+		// .setprops("certificate_no", {label:"Certificate No."})
+		// .setprops("claim_types", {label: "Claim Type"})
+		// .setprops("service_types", {label: "Service Type"})
+		// .setprops("status_codes", {label: "Status"})
+		// .setprops("sub_status_codes", {label: "Sub-Status"})
+		// .setprops("entry_start_date", {label: "From", type:"date"})
+		// .setprops("entry_end_date", {label: "To", type:"date"})
+};
+
+jTaskManager.prototype.OnInitSearchEditor = function(editor) {
+	jTaskManager.prototype.parent.prototype.OnInitSearchEditor.call(this, editor);
+
+	// editor.NewGroupEdit({caption:"Tasks"}, function(editor, tab) {
+		// tab.container.css("border", "1px silver");
+		// tab.container.css("border-style", "solid solid none solid");
+
+		// editor.AddGroup("", function(editor) {
+			// editor.AddText("name");
+			// editor.AddText("certificate_no");
+		// });
+
+		// editor.NewSubSelectionView("Clients", 300, "client_ids", ClientsLookupView);
+		
+		// editor.AddGroup("Claim and Service Types", function(editor) {
+			// editor.AddRadioButton("claim_types", {
+				// key: "id",
+				// value: "value",
+				// data: [
+					// {id:"*", value:"All"},
+					// {id:"MED", value:"Medical"},
+					// {id:"TRV", value:"Travel"}
+				// ]
+			// });
+			// editor.AddRadioButton("service_types", {
+				// key: "id",
+				// value: "value",
+				// data: [
+					// {id:"*", value:"All"},
+					// {id:"INV", value:"Invoice"},
+					// {id:"GOP", value:"Guarantee of Payment"},
+					// {id:"NOC", value:"Notification of Claim"}
+				// ]
+			// });
+		// });
+
+		// editor.AddGroup("Entry Date", function(editor) {
+			// editor.AddEdit({ID: "entry_start_date"});
+			// editor.AddEdit({ID: "entry_end_date"});
+		// });
+
+		// editor.AddGroup("Status <a>(separate codes with comma, ie E,P in Status or P01,E01,A04 in Sub-Status)</a>", function(editor) {
+			// editor.AddEdit({ID: "status_codes"});
+			// editor.AddEdit({ID: "sub_status_codes"});
+		// });
+	// });
+
+	editor.NewSubSelectionView("Clients", 300, "client_ids", ClientsLookupView);
+	// editor.NewSubSelectionView("Master Policies", 300, "policy_ids", MasterPoliciesLookupView);
+};
+
+jTaskManager.prototype.OnInitData = function(dataset) {
+	jTaskManager.prototype.parent.prototype.OnInitData.call(this, dataset);
+
+	dataset.Columns
+		.setprops("id", {label:"ID", numeric:true, key: true})
+		.setprops("claim_no", {label:"Claim No."})
+		.setprops("service_no", {label:"Service No."})
+		.setprops("action_class", {label:"Action Class"})
+		.setprops("action", {label:"Action"})
+		.setprops("action_owner", {label:"Owner"})
+		.setprops("action_set_date", {label:"Creation Date", type:"date", required:true})
+		.setprops("action_set_user", {label:"Action Creator"})
+		.setprops("days", {label:"Days Overdue", numeric:true})
+		.setprops("service_status_code", {label:"Status"})
+		.setprops("service_status", {label:"Status"})
+		.setprops("service_sub_status_code", {label:"Sub-Status"})
+		.setprops("service_sub_status", {label:"Sub-Status"})
+		.setprops("provider_name", {label:"Provider"})
+		.setprops("full_name", {label:"Claimant"})
+		.setprops("case_owner", {label:"Claim Owner"})
+		.setprops("claim_type_name", {label:"Claim Type"})
+		.setprops("service_type_name", {label:"Service Type"})
+		.setprops("service_sub_type_name", {label:"Service Sub-Type"})
+		.setprops("transaction_date", {label:"Admission Date", type:"date", required:true})
+		.setprops("transaction_end_date", {label:"Discharge Date", type:"date", required:true})
+		.setprops("client_name", {label:"Client"})
+		.setprops("product_name", {label:"Product"})
+		.setprops("policy_no", {label:"Policy No.", required:true})
+		.setprops("policy_holder", {label:"Policy Holder", required:true})
+		.setprops("diagnosis_code", {label:"ICD", required:true})
+		.setprops("diagnosis", {label:"Diagnosis", required:true})
+	
+		// .setprops("id", {label:"ID", numeric:true, key: true})
+		// .setprops("certificate_no", {label:"Certificate No.", required:true})
+		// .setprops("alpha_id", {label:"Client Certificate No."})
+		// .setprops("relationship", {label:"Relation"})
+		// .setprops("product_name", {label:"Product"})
+		// .setprops("full_name", {label:"Member's Name"})
+		// .setprops("start_date", {label:"Effective Date Date", type:"date", required:true})
+		// .setprops("end_date", {label:"Expiry Date", type:"date", required:true})
+		// .setprops("sex", {label:"Sex"})
+		// .setprops("client_name", {label:"Client"})
+		// .setprops("plan_name", {label:"Plan Name"})
+		// .setprops("policy_no", {label:"Policy No.", required:true})
+		// .setprops("policy_holder", {label:"Policy Holder", required:true})
+		// .setprops("dob", {label:"DOB", type:"date"})
+};
+
+jTaskManager.prototype.OnInitSummaryData = function(dataset) {
+	jTaskManager.prototype.parent.prototype.OnInitSummaryData.call(this, dataset);
+};
+
+jTaskManager.prototype.OnInitRow = function(row) {
+	jTaskManager.prototype.parent.prototype.OnInitRow.call(this, row);
+
+	// if(this.grid.dataset.get("ServiceStatusCode") == "D") {
+		// row.attr("service-status", "decline")
+	// } else if(this.grid.dataset.get("ServiceStatusCode") == "P" || this.grid.dataset.get("ServiceStatusCode") == "N") {
+		// row.attr("service-status", "pending")
+	// } else if(this.grid.dataset.get("ServiceStatusCode") == "E") {
+		// row.attr("service-status", "approved")
+	// } else {
+		// row.attr("service-status", "")
+	// };
+};
+
+jTaskManager.prototype.OnInitMethods = function(grid) {
+	jTaskManager.prototype.parent.prototype.OnInitMethods.call(this, grid);
+
+	grid.methods.add("getLinkUrl", function(grid, params) {
+		// if(params.column.linkField === "id") {
+			// return __member(params.id, true)
+		if(params.column.linkField === "client_id") {
+			return __client(params.id, true)
+		} else if(params.column.linkField === "member_id") {
+			return __member(params.id, true)
+		} else if(params.column.linkField === "product_code") {
+			return __product(params.id, true)
+		} else if(params.column.linkField === "claim_id") {
+			return __claim(params.id, true)
+		} else if(params.column.linkField === "service_id") {
+			// var module = grid.dataset.lookup(params.id, "service_type");
+			var module = grid.dataset.lookup(grid.dataset.getKey(), "service_type");
+			return __service(params.id, module, true)
+			// if(module === "INV")
+				// return __invoice(params.id, true)
+			// else if(module === "GOP")
+				// return __gop(params.id, true)
+		} else {
+			return ""
 		}
-	});	
+	});
+
+	grid.methods.add("editPageUrl", function(grid, id) {
+		return __member(id, true);
+		// var module = grid.dataset.lookup(id, "ModuleID");
+		// if(module === "INV")
+			// return __invoice(id, true)
+		// else if(module === "GOP")
+			// return __gop(id, true)
+	})
+};
+
+jTaskManager.prototype.OnPopupMenuCommands = function(menu) {
+	jTaskManager.prototype.parent.prototype.OnPopupMenuCommands.call(this, menu);
+};
+
+jTaskManager.prototype.OnPopupMenu = function(menu) {
+	jTaskManager.prototype.parent.prototype.OnPopupMenu.call(this, menu);
+};
+
+jTaskManager.prototype.OnDrawCustomHeader = function(container) {
+	jTaskManager.prototype.parent.prototype.OnDrawCustomHeader.call(this, container);
+
+	// this.addFilterDisplay({name:"name", caption:"Member's Name", operator:"starts with"});
+	// this.addFilterDisplay({name:"certificate_no", caption:"Certificate No.", operator:"starts with"});
+	this.addFilterDisplay({name:"client_ids", caption:"Client ID", operator:"is"});
+	// this.addFilterDisplay({name:"policy_ids", caption:"Master Policy ID", operator:"is"});
+	// if(this.grid.dataParams.get("claim_types") !== "*")
+		// this.addFilterDisplay({name:"claim_types", caption:"Claim Type", operator:"is"});
+	// if(this.grid.dataParams.get("service_types") !== "*")
+		// this.addFilterDisplay({name:"service_types", caption:"Service Type", operator:"is"});
+
+	// this.addFilterDisplay({name:"entry_start_date", caption:"Entry Date", operator:">="});
+	// this.addFilterDisplay({name:"entry_end_date", caption:"Entry Date", operator:"<="});
+	// this.addFilterDisplay({name:"status_codes", caption:"Status Code", operator:"is"});
+	// this.addFilterDisplay({name:"sub_status_codes", caption:"Sub-Status Code", operator:"is"});
+};
+
+jTaskManager.prototype.OnInitColumns = function(grid) {
+	jTaskManager.prototype.parent.prototype.OnInitColumns.call(this, grid);
+
+	// grid.NewBand({caption:"Action"}, function(band) {
+	grid.NewColumn({fname: "action_class", width: 200, allowSort: true});
+	grid.NewColumn({fname: "action", width: 250, allowSort: true});
+	grid.NewColumn({fname: "action_owner", width: 125, allowSort: true});
+	grid.NewColumn({fname: "action_set_date", width: 125, allowSort: true});
+	grid.NewColumn({fname: "action_set_user", width: 125, allowSort: true});
+	grid.NewColumn({fname: "days", width: 100, allowSort: false});
+	// });
+
+	// grid.NewBand({caption:"Claim and Service"}, function(band) {
+	grid.NewColumn({fname: "claim_no", width: 100, allowSort: true, linkField:"claim_id"});
+	grid.NewColumn({fname: "case_owner", width: 125, allowSort: true});
+	grid.NewColumn({fname: "claim_type_name", width: 100, allowSort: true});
+	grid.NewColumn({fname: "service_no", width: 175, allowSort: true, linkField:"service_id"});
+	grid.NewColumn({fname: "service_type_name", width: 150, allowSort: true});
+	grid.NewColumn({fname: "service_sub_type_name", width: 250, allowSort: true});
+
+	grid.NewColumn({fname: "service_status", width: 100, allowSort: true});
+	grid.NewColumn({fname: "service_sub_status", width: 200, allowSort: true});
+	
+	grid.NewColumn({fname: "provider_name", width: 250, allowSort: true});
+	grid.NewColumn({fname: "transaction_date", width: 125, allowSort: true});
+	grid.NewColumn({fname: "transaction_end_date", width: 125, allowSort: true});
+	grid.NewColumn({fname: "diagnosis_code", width: 75, allowSort: true});
+	grid.NewColumn({fname: "diagnosis", width: 250, allowSort: true});
+
+	grid.NewColumn({fname: "full_name", width: 250, allowSort: true, linkField:"member_id"});
+
+	grid.NewColumn({fname: "client_name", width: 250, allowSort: true, linkField:"client_id"});
+	grid.NewColumn({fname: "product_name", width: 250, allowSort: true});
+	grid.NewColumn({fname: "policy_no", width: 100, allowSort: true});
+	grid.NewColumn({fname: "policy_holder", width: 250, allowSort: true});
+};
+
+jTaskManager.prototype.OnInitToolbar = function(toolbar) {
+	jTaskManager.prototype.parent.prototype.OnInitToolbar.call(this, toolbar);
+	
+	return;
+	toolbar.NewDropDownViewItem({
+		id: "new-member",
+		icon: "new",
+		color: "#1CA8DD",
+		title: "New Member",
+		height: 200,
+		width: 800,
+		subTitle: "Choose the plan to assign the new member",
+		// view: PlansLookup,
+		// viewParams: {module:"INV", mode:1},
+		select: function(code) {
+			// window.open(__claim(("new/{0}/{1}").format(code.toLowerCase(), grid.dataParams.get("member_id")), true), "");
+			// window.open(__member(("new/{0}?type={1}").format(grid.dataParams.get("member_id"), code), true), "");
+			window.open(__member(("new/{0}?plan={1}").format(0, code), true), "");
+			// window.open(__member(("new/{0}").format(code), true), "");
+		}
+	});
 };

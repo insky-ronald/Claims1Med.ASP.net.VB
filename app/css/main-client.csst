@@ -8,3 +8,23 @@
 
 ##template
 ##endtemplate=app\client
+
+##template
+##endtemplate=app\client-details
+
+##template
+##endtemplate=app\addresses
+
+##template
+##endtemplate=app\contacts
+
+##template	
+	theme=client-details
+	font=10pt Arial
+	// header-background=lightyellow
+	tab-active-font-color=black
+	tab-active-font-weight=normal
+	tab-normal-font-color=dimgray
+	tab-padding=8px 5px 8px 4px
+	tab-icon-indent=2px
+##endtemplate=engine\pg-theme-2
