@@ -151,17 +151,17 @@ MainPage.prototype.InitializeSession = function(data) {
 	});
 
 	this.Events.OnSideMenuPageControl.add(function(desktop, pg) {
-		pg.addTab({caption:"Call Logs",
-			icon: {
-				name: "phone"
-			},
-			OnCreate: function(tab) {
-
-			}
-		});
 		pg.addTab({caption:"Tasks",
 			icon: {
 				name: "timetable"
+			},
+			OnCreate: function(tab) {
+				MyTasksView({container:tab.container, requestParams: {personal:true}});
+			}
+		});
+		pg.addTab({caption:"Call Logs",
+			icon: {
+				name: "phone"
 			},
 			OnCreate: function(tab) {
 
@@ -262,6 +262,7 @@ MainPage.prototype.InitializeSession = function(data) {
 	this.CloneSvg("service-status-awaiting", "clock");
 	this.CloneSvg("service-status-cancel", "close-circle-outline");
 	
+	this.CloneSvg("invoice-payment", "hand-pointing-right");
 	this.CloneSvg("invoice-decline", "close-circle-outline");
 	this.CloneSvg("invoice-settle", "thumb-up-outline");
 	this.CloneSvg("invoice-settle-other", "hand-pointing-right");
@@ -276,4 +277,8 @@ MainPage.prototype.InitializeSession = function(data) {
 	this.CloneSvg("benefit", "approval");
 	this.CloneSvg("diagnosis", "stethoscope");
 	this.CloneSvg("procedure", "box-cutter");
+	
+	this.CloneSvg("limits", "star");
+	this.CloneSvg("schedule-benefits", "approval");
+	this.CloneSvg("schedule-exclusions", "alert-decagram");
 };

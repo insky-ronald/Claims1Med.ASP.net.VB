@@ -45,14 +45,8 @@ Public Class DataProvider
 		Row.Item("id") = 0
 		Row.Item("claim_id") = DBClaim.Eval("@id")
 		Row.Item("claim_no") = DBClaim.Eval("@claim_no")
-		Row.Item("service_type") = Request.Params("keyid")
-		Row.Item("service_sub_type") = Request.Params("type")
-		Row.Item("service_date") = Date.Today
-		Row.Item("status_code") = "N"
-		Row.Item("sub_status_code") = "N01"
-		Row.Item("sequence_no") = 0
-		Row.Item("version_no") = 1
-		Row.Item("claim_type") = DBClaim.Eval("@claim_type")
+		Row.Item("service_type") = Request.Params("keyid").ToUpper
+		Row.Item("service_sub_type") = Request.Params("type").ToUpper
 		Row.Item("client_id") = DBClaim.Eval("@client_id")
 		Row.Item("client_name") = DBMember.Eval("@client_name")
 		Row.Item("policy_id") = DBClaim.Eval("@policy_id")
@@ -67,9 +61,24 @@ Public Class DataProvider
 		Row.Item("discount_type") = 0
 		Row.Item("discount_percent") = 0
 		Row.Item("discount_amount") = 0
-		Row.Item("misc_expense") = 0
-		Row.Item("room_expense") = 0
-		Row.Item("length_of_stay") = 0
+		
+		If ServiceType = "GOP"
+			Row.Item("service_date") = Date.Today
+			Row.Item("status_code") = "N"
+			Row.Item("sub_status_code") = "N01"
+			Row.Item("sequence_no") = 0
+			Row.Item("version_no") = 1
+			Row.Item("claim_type") = DBClaim.Eval("@claim_type")
+			Row.Item("misc_expense") = 0
+			Row.Item("room_expense") = 0
+			Row.Item("length_of_stay") = 0
+		Else If ServiceType = "INV"
+			Row.Item("status_code") = "P"
+			Row.Item("sub_status_code") = "P01"
+			Row.Item("room_type") = "O"
+			Row.Item("medical_type") = "0"
+			Row.Item("treatment_country_code") = "AGO"
+		End if
 			
 		' "service_no": null,
 		' "service_date": null,
@@ -98,7 +107,7 @@ Public Class DataProvider
 	Protected Overrides Sub InitCallback(ByVal Action As String, ByVal Output As EasyStringDictionary)
 		MyBase.InitCallback(Action, Output)
 		
-		ServiceType = Request.Params("keyid")
+		ServiceType = Request.Params("keyid").ToUpper
 		If Request.Params("keyid2") = "new"
 			ServiceID = 0
 		Else
@@ -146,9 +155,9 @@ Public Class DataProvider
 				Output.AsString("window_title") = DBService.Eval("@service_no")
 				ServiceSubType = Request.Params("type")
 			Else
-				If ServiceType = "inv"
+				If ServiceType = "INV"
 					Output.AsString("page_title") = "New Invoice"
-				Else If ServiceType = "gop"
+				Else If ServiceType = "GOP"
 					Output.AsString("page_title") = "New Guarantee of Payment"
 				' Else If ServiceType = "noc"
 					' Description = "Notification of Claim"
@@ -207,10 +216,10 @@ Public Class DataProvider
 		Dim Run As String = ""
 		Dim Description As String = ""
 		
-		If ServiceType = "inv"
+		If ServiceType = "INV"
 			Description = "Invoice"
 			Run = "InvoiceView"
-		Else If ServiceType = "gop"
+		Else If ServiceType = "GOP"
 			Description = "Guarantee of Payment"
 			Run = "GopView"
 		Else If ServiceType = "noc"
@@ -242,7 +251,7 @@ Public Class DataProvider
 			REM .URL = "app/service-" & ServiceType
 		End with		
 		
-		If ServiceType = "inv" or ServiceType = "gop"
+		If ServiceType = "INV" or ServiceType = "GOP"
 			With Main.SubItems.Add
 				.ID = "breakdown"
 				.Action = "admin"				
@@ -253,7 +262,7 @@ Public Class DataProvider
 			End with
 		End if
 		
-		If ServiceType = "gop"
+		If ServiceType = "GOP"
 			With Main.SubItems.Add
 				.ID = "template"
 				.Action = "admin"				

@@ -86,6 +86,9 @@ jCustomSavedQueryView.prototype.addFilterDisplay = function(info) {
 	}
 };
 
+jCustomSavedQueryView.prototype.OnMasterDetail = function(params) {
+};
+
 jCustomSavedQueryView.prototype.OnDrawCustomHeader = function(container) {
 	var self = this;
 	CreateElementEx("div", container, function(queryContainer) {							
@@ -183,6 +186,10 @@ jCustomSavedQueryView.prototype.paint = function() {
 				
 				grid.Events.OnDrawCustomHeader.add(function(grid, container) {	
 					self.OnDrawCustomHeader(container);
+				});
+				
+				grid.Events.OnMasterDetail.add(function(grid, params) {
+					self.OnMasterDetail(grid, params);
 				});
 				
 				grid.Events.OnInitColumns.add(function(grid) {

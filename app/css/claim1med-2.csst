@@ -38,3 +38,9 @@
 
 ##includetemplate	
 ##endinclude=engine\system
+
+##template
+##endtemplate=engine\sys-saved-report
+
+##template
+##endtemplate=app\my-tasks

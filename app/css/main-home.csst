@@ -5,5 +5,5 @@
 	navigator-width=250px
 ##endinclude=app\claim1med-2
 
-##template
-##endtemplate=engine\sys-saved-report
+// ##template
+// ##endtemplate=engine\sys-saved-report

@@ -64,15 +64,15 @@ Desktop.prototype.Initialize = function(Params) {
 	Desktop.prototype.parent.prototype.Initialize.call(this, Params);
 	
 	this.Events.OnSideMenuPageControl.add(function(desktop, pg) {
-		pg.addTab({caption:"",
-			hideCaption: true,
-			icon: {
-				name: "user"
-			},
-			OnCreate: function(tab) {
+		// pg.addTab({caption:"",
+			// hideCaption: true,
+			// icon: {
+				// name: "user"
+			// },
+			// OnCreate: function(tab) {
 				
-			}
-		});
+			// }
+		// });
 	});
 	
 	this.Events.OnDeveloperMenuPageControl.add(function(desktop, pg) {

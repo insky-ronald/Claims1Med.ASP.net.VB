@@ -29,6 +29,7 @@ With DBConnection.NewCommand("AddClaim", "AddClaim", CommandType.StoredProcedure
 	.AddParameter("reference_no3" , SqlDbType.VarChar, ParameterDirection.Input, 15, "")
 	.AddParameter("third_party", SqlDbType.Int, ParameterDirection.Input, 0, 0)
 
+	.AddParameter("diagnosis_code" , SqlDbType.VarChar, ParameterDirection.Input, 10, "")
 	.AddParameter("is_accident", SqlDbType.Int, ParameterDirection.Input, 0, 0)
 	.AddParameter("accident_date", SqlDbType.DateTime, ParameterDirection.Input, 0, Nothing)
 	.AddParameter("accident_code", SqlDbType.VarChar, ParameterDirection.Input, 10, "")

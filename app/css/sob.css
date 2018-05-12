@@ -1,0 +1,32 @@
+.grid3.sob .row[x-top="1"] {
+	font-size: 110%;
+	font-weight: bold;
+}
+
+.grid3.sob .row[x-limit="1"] {
+	color: forestgreen;
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="limit"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="no-limit"] svg {
+	fill: silver !important;
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="benefits"] svg {
+	fill: dodgerblue !important;
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="no-benefits"] svg {
+	fill: silver !important;
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="exclusions"] svg {
+	fill: firebrick !important;
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="no-exclusions"] svg {
+	fill: silver !important;
+}

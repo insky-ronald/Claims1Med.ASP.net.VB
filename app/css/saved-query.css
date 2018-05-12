@@ -2,7 +2,7 @@
 /* Last modified on */
 /* 20-SEP-2017 */
 /*****************************************************************************************************/
-.grid3.saved-query .custom-header {
+.grid3.saved-query.payment-processing .custom-header {
 	display: flex;
 	flex-flow: column;
 	font: 10pt Arial;
@@ -13,7 +13,7 @@
 	/* background: lightyellow; */
 }
 
-.grid3.saved-query .custom-header .query-container {
+.grid3.saved-query.payment-processing .custom-header .query-container {
 	display: flex;
 	flex-grow: 1;
 	padding: 4px;
@@ -22,51 +22,51 @@
 	background: lightyellow;
 }
 
-.grid3.saved-query .custom-header .query-container svg {
+.grid3.saved-query.payment-processing .custom-header .query-container svg {
 	fill: firebrick;
 }
 
-.grid3.saved-query .custom-header .query-container > div:first-child {
+.grid3.saved-query.payment-processing .custom-header .query-container > div:first-child {
 	flex-shrink: 0;
 	margin-left: 4px;
 }
 
-.grid3.saved-query .custom-header .query-container > div:last-child {
+.grid3.saved-query.payment-processing .custom-header .query-container > div:last-child {
 	flex-grow: 1;
 	display: flex;
 	align-items: center;
 	padding-left: 10px;
 }
 
-.grid3.saved-query .custom-header .query-container > div:last-child > div {
+.grid3.saved-query.payment-processing .custom-header .query-container > div:last-child > div {
 	position: relative;
     /* top: -4px; */
 }
 
-.grid3.saved-query .custom-header .query-containersvg[x-icon="info"] {
+.grid3.saved-query.payment-processing .custom-header .query-containersvg[x-icon="info"] {
 	/* fill: dodgerblue; */
 	fill: #315B8F;
 }
 
-.grid3.saved-query .custom-header .query-container span[x-sec="item"] {
+.grid3.saved-query.payment-processing .custom-header .query-container span[x-sec="item"] {
 	margin-right: 4px;
 }
 
-.grid3.saved-query .custom-header .query-container a[x-sec="name"] {
+.grid3.saved-query.payment-processing .custom-header .query-container a[x-sec="name"] {
 	color: black;
 	font-weight: bold;
 }
 
-.grid3.saved-query .custom-header .query-container a[x-sec="value"] {
+.grid3.saved-query.payment-processing .custom-header .query-container a[x-sec="value"] {
 	color: dodgerblue;
 }
 
-.grid3.saved-query .custom-header .query-container a[x-sec="operator"] {
+.grid3.saved-query.payment-processing .custom-header .query-container a[x-sec="operator"] {
 	color: gray;
 	/* font-weight: bold; */
 }
 
-.grid3.saved-query .custom-header .query-container a[x-sec="operator2"] {
+.grid3.saved-query.payment-processing .custom-header .query-container a[x-sec="operator2"] {
 	color: silver;
 	font-weight: bold;
 }

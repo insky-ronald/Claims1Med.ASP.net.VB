@@ -30,7 +30,6 @@ MainPage.prototype.AfterPaint = function() {
 		.setprops("id", {label:"ID", numeric:true, key: true, readonly:true})
 		.setprops("claim_no", {label:"Claim No.", readonly:true})
 		.setprops("service_no", {label:"Reference No.", readonly:true})
-		.setprops("admission_first_call", {label:"Admission First Call", type:"date", format:"datetime", required:false})
 		.setprops("patient_name", {label:"Insured's Name", readonly:true})
 		.setprops("policy_no", {label:"Policy No.", readonly:true})
 		.setprops("plan_code", {label:"Plan", readonly:true})
@@ -48,13 +47,19 @@ MainPage.prototype.AfterPaint = function() {
 				column.dataset.Events.OnGetExchangeRates.trigger();
 			}
 		})
-		.setprops("claim_currency_to_base", {label:("To Base Currrency (<b>{0}</b>)").format(desktop.dbService.get("client_currency_code")), numeric:true, readonly:true})
-		.setprops("claim_currency_to_client", {label:("To Client Currrency (<b>{0}</b>)").format(desktop.dbService.get("base_currency_code")), numeric:true, readonly:true})
+		.setprops("claim_currency_to_base", {label:("To Base Currrency (<b>{0}</b>)").format(desktop.dbService.get("base_currency_code")), numeric:true, readonly:true})
+		.setprops("claim_currency_to_client", {label:("To Client Currrency (<b>{0}</b>)").format(desktop.dbService.get("client_currency_code")), numeric:true, readonly:true})
 		.setprops("claim_currency_to_eligibility", {label:("To Eligibility Currrency (<b>{0}</b>)").format(desktop.dbService.get("eligibility_currency_code")), numeric:true, readonly:true})
 		.setprops("discount_type", {label:"Discount Type", numeric:true, type:"money", format:"00"})
 		.setprops("discount_percent", {label:"Percent %", numeric:true, type:"money", format:"00"})
 		.setprops("discount_amount", {label:"Amount", numeric:true});
 
+	if (desktop.serviceType == "GOP") {
+		desktop.dbService.Columns
+			.setprops("admission_first_call", {label:"Admission First Call", type:"date", format:"datetime", required:false})
+	} else if (desktop.serviceType == "INV") {
+	}
+		
 	if(desktop.customData.newRecord) {
 		desktop.dbService.edit()
 	};

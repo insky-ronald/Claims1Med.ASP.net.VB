@@ -10,7 +10,7 @@ function InvoiceEdit(viewParams) {
 		mode: viewParams.dataset.get("id") ? "edit": "new",
 		container: viewParams.container,
 		containerPadding: 10,
-		pageControlTheme: "main",
+		pageControlTheme: "service-details",
 		fillContainer: false,
 		showToolbar: false,
 		labelWidth: 140,
@@ -31,17 +31,34 @@ function InvoiceEdit(viewParams) {
 								editor.SetVisible("discount_amount", false);
 								// editor.SetRequired("first_symptom_date", !isAccident);
 							};
+
+							if(columnName == "invoice_no" || columnName === undefined) {
+								// console.log(group.dataset.get("invoice_no"));
+								var none = group.dataset.get("invoice_no").trim().toLowerCase() === "none";
+								// console.log(noInvoice);
+								editor.SetVisible("invoice_date", !none);
+								editor.SetVisible("invoice_received_date", !none);
+								editor.SetVisible("invoice_entry_date", !none);
+								editor.SetVisible("invoice_entry_user_name", !none);
+								
+								editor.SetRequired("invoice_date", !none);
+								editor.SetRequired("invoice_received_date", !none);
+							};
 						});
 						
-						editor.AddGroup("Reference Numbers and Date", function(editor) {
+						editor.AddGroup("Reference Numbers", function(editor) {
 							// editor.AddEdit({ID: "id"});
 							editor.AddLink({ID: "claim_no", link: function(column) {
 								return __claim(column.dataset.get("claim_id"), true);
 							}});
 							editor.AddEdit({ID: "service_no"});
+							editor.AddLink({ID: "link_service_no", link: function(column) {
+								return __service(column.dataset.get("link_service_id"), "gop", true);
+							}});
 							// editor.AddEdit({ID: "service_date"});
 							// editor.AddEdit({ID: "admission_first_call"});
 						});
+						
 						editor.AddGroup("Insured", function(editor) {
 							editor.AddLink({ID: "patient_name", link: function(column) {
 								return __member(column.dataset.get("member_id"), true);
@@ -55,6 +72,25 @@ function InvoiceEdit(viewParams) {
 								return __client(column.dataset.get("client_id"), true);
 							}});
 						});
+						
+						editor.AddGroup("Provider Invoice", function(editor) {
+							editor.AddRadioButton("payment_mode", {
+								key: "id",
+								value: "value",
+								data: [
+									{id:"R", value:"Reimbursement"},
+									{id:"C", value:"Cashless"},
+									{id:"N", value:"Not paid by ISOS"}
+								]
+							});
+							editor.AddEdit({ID: "invoice_no"});
+							editor.AddEdit({ID: "invoice_date"});
+							editor.AddEdit({ID: "invoice_received_date"});
+							editor.AddEdit({ID: "invoice_entry_date"});
+							editor.AddEdit({ID: "invoice_entry_user_name"});
+							// editor.AddTimeStamp({ID:"invoice_entry_date", name:"invoice_entry_user_name", label:"Input Date"});
+						})
+						
 						editor.AddGroup("Exchange Rates", function(editor) {
 							// editor.AddEdit({ID: "claim_currency_code"});
 							editor.AddLookup("claim_currency_code", {width:400, height:300, disableEdit:true, init:CurrenciesLookup});
