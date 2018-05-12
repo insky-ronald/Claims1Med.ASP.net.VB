@@ -38,7 +38,8 @@ Brokers.parent	brokers.js	14;"	method
 Brokers.showPager	brokers.js	21;"	method
 Brokers.showSummary	brokers.js	22;"	method
 Brokers.showToolbar	brokers.js	19;"	method
-CalculationDatesEdit	edit-service-gop.js	100;"	function
+CalculationDatesEdit	edit-service-gop.js	103;"	function
+CalculationDatesEdit	edit-service-inv.js	100;"	function
 CaseFeesTypesEdit	edit-case-fees-types.js	8;"	function
 CaseFeesTypesView	view-case-fees-types.js	9;"	function
 ClaimAuditLogsView	view-claim-audit-logs.js	8;"	function
@@ -165,6 +166,7 @@ DoctorEdit2	edit-doctor.js	101;"	function
 DoctorSpecialisationLookup	doctor-specialisation-lookup.js	1;"	function
 DoctorView	doctor.js	8;"	function
 DoctorsView	view-doctors.js	8;"	function
+DocumentTemplateContainer	view-document-template.js	8;"	function
 Documents	documents.js	13;"	class
 Documents	documents.js	13;"	function
 Documents.Documents	documents.js	20;"	class
@@ -177,7 +179,8 @@ EditActionTypes	edit-action-types.js	1;"	function
 EditFlagSubTypes	edit-flag-types.js	52;"	function
 EditNoteSubTypes	edit-claim-notes-types.js	38;"	function
 EditNoteTypes	edit-claim-notes-types.js	8;"	function
-EstimatesEdit	edit-service-gop.js	192;"	function
+EstimatesEdit	edit-service-gop.js	195;"	function
+EstimatesEdit	edit-service-inv.js	192;"	function
 FamilyMembersView	view-family-members.js	8;"	function
 FlagSubTypesEdit	edit-flag-sub-types.js	8;"	function
 FlagSubTypesView	view-flag-sub-types.js	9;"	function
@@ -189,8 +192,11 @@ FloatsView.MasterKey	view-floats.js	9;"	function
 GOPTypesEdit	edit-gop-types.js	8;"	function
 GOPTypesView	view-gop-types.js	9;"	function
 GopContactsLookup	gop-contacts-lookup.js	1;"	function
+GopCustomEdit	edit-service-custom-gop.js	6;"	function
 GopDetailsEdit	x edit-gop-details.js	6;"	function
+GopEdit	edit-service-gop.js	6;"	function
 GopSubTypeEdit	x edit-gop-type-details.js	6;"	function
+GopView	service-details-gop.js	52;"	function
 GopView	service-gop.js	6;"	function
 GroupEdit	edit-group.js	2;"	function
 GroupsView	view-groups.js	2;"	function
@@ -200,8 +206,8 @@ HospitalDoctorsLookup	hospital-doctors-lookup.js	1;"	function
 HospitalEdit	edit-hospital.js	8;"	function
 HospitalView	hospital.js	8;"	function
 HospitalsView	view-hospitals.js	8;"	function
-InitializeData	service-details-gop.js	9;"	function
-InitializeData	service-details-inv.js	8;"	function
+InitializeGop	service-details-gop.js	8;"	function
+InitializeInvoice	service-details-inv.js	8;"	function
 InlineEditNavigator	view-service-breakdown.js	395;"	class
 InlineEditNavigator.add	view-service-breakdown.js	417;"	method
 InlineEditNavigator.gridReady	view-service-breakdown.js	400;"	method
@@ -209,8 +215,11 @@ InlineEditNavigator.hideEditor	view-service-breakdown.js	410;"	method
 InlineEditNavigator.kill	view-service-breakdown.js	479;"	method
 InlineEditNavigator.next	view-service-breakdown.js	503;"	method
 InlineEditNavigator.select	view-service-breakdown.js	437;"	method
+InvoiceCustomEdit	edit-service-custom-inv.js	6;"	function
 InvoiceDetailsEdit	x edit-invoice-details.js	6;"	function
+InvoiceEdit	edit-service-inv.js	6;"	function
 InvoiceSubTypeEdit	x edit-invoice-type-details.js	6;"	function
+InvoiceView	service-details-inv.js	58;"	function
 InvoiceView	service-inv.js	6;"	function
 InvoiceViewx	service-inv.js	215;"	function
 Invoices	claim-invoices.js	13;"	class
@@ -242,7 +251,7 @@ MainPage.AfterPaint	main-claim.js	7;"	method
 MainPage.AfterPaint	main-gop.js	7;"	method
 MainPage.AfterPaint	main-inv.js	7;"	method
 MainPage.AfterPaint	main-member.js	1;"	method
-MainPage.AfterPaint	main-service.js	7;"	method
+MainPage.AfterPaint	main-service.js	1;"	method
 MainPage.CanDeleteClaim	main-claim.js	242;"	method
 MainPage.DefaultPainter	__init.js	106;"	method
 MainPage.InitializeSession	__init-2.js	8;"	method
@@ -253,7 +262,7 @@ MainPage.MainPage	main-claim.js	7;"	class
 MainPage.MainPage	main-gop.js	7;"	class
 MainPage.MainPage	main-inv.js	7;"	class
 MainPage.MainPage	main-member.js	1;"	class
-MainPage.MainPage	main-service.js	7;"	class
+MainPage.MainPage	main-service.js	1;"	class
 MainPage.ValidateActionEx	main-claim.js	209;"	method
 MainPage.classID	__init-2.js	6;"	method
 MainPage.classID	__init.js	97;"	method
@@ -368,9 +377,6 @@ ServiceActionsView	view-service-actions.js	8;"	function
 ServiceActionsView	x-view-service-actions.js	9;"	function
 ServiceBreakdownContainer	view-service-breakdown.js	10;"	function
 ServiceBreakdownView	view-service-breakdown.js	52;"	function
-ServiceCustomEdit	edit-service-custom-gop.js	6;"	function
-ServiceDetailsView	service-details-gop.js	42;"	function
-ServiceEdit	edit-service-gop.js	6;"	function
 ServiceGop	service-gop.js	14;"	class
 ServiceGop	service-gop.js	14;"	function
 ServiceGop.ServiceGop	service-gop.js	51;"	class
@@ -392,6 +398,7 @@ ServiceInvoice.parent	service-inv.js	15;"	method
 ServiceInvoice.type	service-inv.js	19;"	method
 ServiceItemsView	view-service-items.js	1;"	function
 ServiceStatusCodesEdit	edit-service-status-codes.js	8;"	function
+ServiceStatusCodesLookup	service-status-code-lookup.js	8;"	function
 ServiceStatusCodesView	view-service-status-codes.js	9;"	function
 ServiceStatusLookup	service-status-lookup.js	1;"	function
 ServiceStatusView	view-service-status-history.js	8;"	function
