@@ -97,17 +97,13 @@ function ServiceProceduresView(params){
 				});
 				
 				grid.methods.add("allowCommand", function(grid, column, defaultValue) {
-					// if(column.command === "default")
-						// return grid.dataset.get("is_default") == 0 && grid.dataset.get("parent_id") !== 0
-					// if(column.command === "deletex")
-						// return grid.dataset.get("parent_id") != 0
-					// else if(column.command === "add")
-						// return grid.dataset.get("parent_id") == 0
-					// else if(column.command === "editx")
-						// return grid.dataset.get("parent_id") != 0
-					// else if(column.command === "group")
-						// return grid.dataset.get("parent_id") != 0
-					// else
+					if(column.command === "deletex")
+						return desktop.canEdit
+					else if(column.command === "editx")
+						return desktop.canEdit
+					else if(column.command === "diagnosis")
+						return desktop.canEdit
+					else
 						return defaultValue
 				});
 
@@ -242,40 +238,42 @@ function ServiceProceduresView(params){
 				});
 
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
-					var item = toolbar.NewDropDownViewItem({
-						id: "new-diagnosis",
-						icon: "new",
-						color: "#1CA8DD",
-						// color: "dodgerblue",
-						title: "Add Procedure",
-						height: 300,
-						width: 600,
-						// subTitle: "Choose the diagnosis to add",
-						view: ProceduresView,
-						select: function(code) {
-							desktop.Ajax(
-								self, 
-								"/app/api/command/add-claim-procedure",
-								{
-									service_id: desktop.dbService.get("id"),
-									claim_id: desktop.dbService.get("claim_id"),
-									code: code,
-									diagnosis_code: ""
-								}, 
-								function(result) {
-									if (result.status == 0) {
-										grid.refresh();
-									} else {
-										ErrorDialog({
-											target: item.elementContainer,
-											title: "Error adding procedure",
-											message: result.message
-										});
+					if (desktop.canEdit) {
+						var item = toolbar.NewDropDownViewItem({
+							id: "new-diagnosis",
+							icon: "new",
+							color: "#1CA8DD",
+							// color: "dodgerblue",
+							title: "Add Procedure",
+							height: 300,
+							width: 600,
+							// subTitle: "Choose the diagnosis to add",
+							view: ProceduresView,
+							select: function(code) {
+								desktop.Ajax(
+									self, 
+									"/app/api/command/add-claim-procedure",
+									{
+										service_id: desktop.dbService.get("id"),
+										claim_id: desktop.dbService.get("claim_id"),
+										code: code,
+										diagnosis_code: ""
+									}, 
+									function(result) {
+										if (result.status == 0) {
+											grid.refresh();
+										} else {
+											ErrorDialog({
+												target: item.elementContainer,
+												title: "Error adding procedure",
+												message: result.message
+											});
+										}
 									}
-								}
-							)
-						}
-					});
+								)
+							}
+						});
+					}
 				});
 			});
 		}

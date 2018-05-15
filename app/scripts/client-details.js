@@ -10,7 +10,7 @@ function ClientDetailsView(params) {
 	
 	params.container.addClass("client-details");
 	params.dataset = desktop.dbClient;
-	params.postBack = "app/client"
+	params.postBack = "app/clients"
 	// return;
 	// console.log(params);
 	
@@ -48,7 +48,7 @@ function ClientDetailsView(params) {
 										color: "dodgerblue"
 									},
 									OnCreate: function(tab) {
-										// ClaimDetailsEdit({container: tab.container});
+										ClaimDetailsEdit({container: tab.container});
 									}
 								});
 							}
@@ -157,7 +157,12 @@ function ClientDetailsView(params) {
 													color: "forestgreen"
 												},
 												OnCreate: function(tab) {
-													// ClaimDetailsEdit({container: tab.container});
+													ClientCaseFeesView({
+														getMasterID: function() {
+															return desktop.dbClient.get("id")
+														},
+														container: tab.container
+													});
 												}
 											});
 										}

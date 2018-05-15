@@ -696,6 +696,7 @@ jGridPainter3.prototype.showEditDialog = function(params) {
 		Target: this.parentContainer,
 		// Target: $("body"),
 		// Target: defaultValue($("#sub-data-container"), $("#parent-sub-container")),
+		Dataset: params.dataset,
 		ActivatingTarget: params.target,
 		Modal: false,
 		OnInit: function(dialog) {

@@ -1,0 +1,18 @@
+/*****************************************************************************************************/
+/* Last modified on */
+/* 07-MAR-2017 */
+/*****************************************************************************************************/
+.grid3.schedule-history .data-cell.command-cell[command="current"] svg,
+.grid3.schedule-history .header-cell.command-cell[command="current"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.schedule-history tbody tr[x-current="0"] {
+	/* color: firebrick; */
+}
+
+.grid3.schedule-history tbody tr[x-current="1"] {
+	color: forestgreen;
+	/*color: #2C80B3;*/
+	/*color: #27AE60;*/
+}

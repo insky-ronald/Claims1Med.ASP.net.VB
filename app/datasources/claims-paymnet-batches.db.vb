@@ -16,3 +16,27 @@ With DBConnection.NewCommand("GetClaimsBatches", "GetClaimsBatches", CommandType
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
+
+With DBConnection.NewCommand("GetPaymentsByBatch", "GetPaymentsByBatch", CommandType.StoredProcedure)
+	.AddParameter("batch_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "id")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 
+
+With DBConnection.NewCommand("GetPaymentBreakdownByBatch", "GetPaymentBreakdownByBatch", CommandType.StoredProcedure)
+	.AddParameter("batch_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "id")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 

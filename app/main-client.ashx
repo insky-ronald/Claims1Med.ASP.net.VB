@@ -9,17 +9,22 @@ Public Class DataProvider
 	Protected Overrides Sub InitCallback(ByVal Action As String, ByVal Output As EasyStringDictionary)
 		MyBase.InitCallback(Action, Output)
 		ClientID = Request.Params("keyid")
-		DBClient = DBConnections("DBMedics").OpenData("GetClient", {"id","visit_id"}, {ClientID, Session("VisitorID")}, "")
+		DBClient = DBConnections("DBMedics").OpenData("GetClients", {"id","action","visit_id"}, {ClientID, 10, Session("VisitorID")}, "")
 
 		If Action = "navigator"
-			Output.AsString("page_title") = DBClient.Eval("Client: @full_name")
-			Output.AsString("window_title") = DBClient.Eval("@full_name")
+			Output.AsString("page_title") = DBClient.Eval("Client: @name")
+			Output.AsString("window_title") = DBClient.Eval("@name")
 
 			CustomData.AsJson("client_id") = ClientID
 			CustomData.AsJson("data") = DBClient.AsJson()
 		' Else If Action = "refresh"
 			' Output.AsJson("data") = DBClient.AsJson()
 		End if
+		
+		Using DBCurrencies = DBConnections("DBMedics").OpenData("GetCurrencies", {"action","visit_id"}, {1, Session("VisitorID")}, "")
+			DBCurrencies.Columns.Remove("row_no")
+			CustomData.AsJson("currencies") = DBCurrencies.AsJson()
+		End Using
 	End Sub
 
 	Protected Overrides Sub UnloadHandler(ByVal Context As HttpContext)
@@ -102,15 +107,15 @@ Public Class DataProvider
 				' .Params.AsInteger("name_id") = ClientID
 			' End with
 			
-		Main = MenuItems.AddMain("security", "Security")
+		' Main = MenuItems.AddMain("security", "Security")
 		
-			With Main.SubItems.Add
-				.ID = "authorisation"
-				.Title = "Authorisation"
-				.Icon = "table-edit"
-				.Action = "admin"
-				.URL = "engine/under-construction"
-			End with
+			' With Main.SubItems.Add
+				' .ID = "authorisation"
+				' .Title = "Authorisation"
+				' .Icon = "table-edit"
+				' .Action = "admin"
+				' .URL = "engine/under-construction"
+			' End with
 		
 			With Main.SubItems.Add
 				.ID = "providers"

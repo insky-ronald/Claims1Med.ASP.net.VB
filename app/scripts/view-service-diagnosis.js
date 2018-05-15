@@ -92,13 +92,13 @@ function ServiceDiagnosisView(params){
 					if(column.command === "default")
 						return grid.dataset.get("is_default") == 0 && grid.dataset.get("parent_id") !== 0
 					else if(column.command === "deletex")
-						return grid.dataset.get("parent_id") != 0
+						return grid.dataset.get("parent_id") != 0 && desktop.canEditDiagnosis
 					else if(column.command === "add")
 						return grid.dataset.get("parent_id") == 0
 					else if(column.command === "editx")
 						return grid.dataset.get("parent_id") != 0
 					else if(column.command === "group")
-						return grid.dataset.get("parent_id") != 0
+						return grid.dataset.get("parent_id") != 0 // && desktop.canEditDiagnosis
 					else
 						return defaultValue
 				});
@@ -304,40 +304,42 @@ function ServiceDiagnosisView(params){
 				});
 
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
-					var item = toolbar.NewDropDownViewItem({
-						id: "new-diagnosis",
-						icon: "new",
-						color: "#1CA8DD",
-						// color: "dodgerblue",
-						title: "Add Diagnosis Group",
-						height: 300,
-						width: 600,
-						// subTitle: "Choose the diagnosis to add",
-						view: DiagnosisView,
-						select: function(code) {
-							desktop.Ajax(
-								self, 
-								"/app/api/command/add-claim-diagnosis",
-								{
-									service_id: desktop.dbService.get("id"),
-									claim_id: desktop.dbService.get("claim_id"),
-									diagnosis_group: code,
-									diagnosis_code: code
-								}, 
-								function(result) {
-									if (result.status == 0) {
-										grid.refresh();
-									} else {
-										ErrorDialog({
-											target: item.elementContainer,
-											title: "Error adding diagnosis",
-											message: result.message
-										});
+					if (desktop.canEditDiagnosis) {
+						var item = toolbar.NewDropDownViewItem({
+							id: "new-diagnosis",
+							icon: "new",
+							color: "#1CA8DD",
+							// color: "dodgerblue",
+							title: "Add Diagnosis Group",
+							height: 300,
+							width: 600,
+							// subTitle: "Choose the diagnosis to add",
+							view: DiagnosisView,
+							select: function(code) {
+								desktop.Ajax(
+									self, 
+									"/app/api/command/add-claim-diagnosis",
+									{
+										service_id: desktop.dbService.get("id"),
+										claim_id: desktop.dbService.get("claim_id"),
+										diagnosis_group: code,
+										diagnosis_code: code
+									}, 
+									function(result) {
+										if (result.status == 0) {
+											grid.refresh();
+										} else {
+											ErrorDialog({
+												target: item.elementContainer,
+												title: "Error adding diagnosis",
+												message: result.message
+											});
+										}
 									}
-								}
-							)
-						}
-					});
+								)
+							}
+						});
+					}
 				});
 			});
 		}

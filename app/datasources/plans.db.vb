@@ -1,5 +1,5 @@
 With DBConnection.NewCommand("GetPlan", "GetPlan", CommandType.StoredProcedure)
-    .AddParameter("code", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+    .AddParameter("code", SqlDbType.varchar, ParameterDirection.Input, 15, "")
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
 
@@ -19,6 +19,7 @@ End With
 
 With DBConnection.NewCommand("GetScheduleHistory", "GetScheduleHistory", CommandType.StoredProcedure)
     .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+	.AddParameter("plan_code", SqlDbType.varchar, ParameterDirection.Input, 15, "")
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
 

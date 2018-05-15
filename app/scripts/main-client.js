@@ -1,11 +1,13 @@
 MainPage.prototype.AfterPaint = function() {
 	MainPage.prototype.parent.prototype.AfterPaint.call(this);
 
+	desktop.dbCurrencies = desktop.LoadCacheData(desktop.customData.currencies, "currencies", "code");
+	
 	desktop.dbClient = new Dataset(desktop.customData.data);
 	desktop.dbClient.Columns
 		.setprops("id", {label:"ID", numeric:true, key: true})
-		.setprops("full_name", {label:"Name", required:true})
-		.setprops("currency_code", {label:"Currency", required:true, maxLength:3, upperCase:true})
+		.setprops("name", {label:"Name", required:true})
+		.setprops("client_currency_code", {label:"Currency", required:true, maxLength:3, upperCase:true})
 		.setprops("status_code", {label:"Active", required:false})
 		.setprops("sun_code", {label:"Sun Code", required:false})
 		.setprops("soa_prefix", {label:"SOA Prefix", required:false})

@@ -1,42 +1,101 @@
-function PaymentBatchesView(params){	
-	return new jGrid($.extend(params, {
+function PaymentBatchesView(viewParams){	
+	var batchesView;
+	
+	new jSplitContainer($.extend(viewParams, {
 		paintParams: {
-			css: "payment-batches",
-			toolbar: {theme: "svg"}
+			theme: "white-green-dark"
 		},
-		init: function(grid, callback) {			
-			grid.Events.OnInit.add(function(grid) {
-				grid.optionsData.url = "app/claims-batches";
-				grid.options.horzScroll = true;
-				grid.options.allowSort = true;
-				
-				grid.search.visible = false;
-				grid.search.mode = "simple";
-				grid.search.columnName = "filter";
-				
-				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
-					dataParams
-						.addColumn("page", 1, {numeric:true})
-						.addColumn("pagesize", 50, {numeric:true})
-						.addColumn("sort", "batch_no")
-						.addColumn("order", "asc")
-						.addColumn("filter", "")
-				});
-				
-				grid.Events.OnInitData.add(function(grid, data) {
-					data.Columns
-					    .setprops("batch_no", {label:"Batch No.", numeric:true, key:true})
-						.setprops("batch_name", {label:"Batch Name"})
-						.setprops("remarks", {label:"Remarks"})
-						.setprops("is_posted", {label:"Posted"})
-				});
-				
-				grid.Events.OnInitColumns.add(function(grid) {
-						grid.NewColumn({fname: "batch_no", width: 100, allowSort: true, fixedWidth:true});
-						grid.NewColumn({fname: "batch_name", width: 200, allowSort: false, fixedWidth:true});
-						grid.NewColumn({fname: "remarks", width: 200, allowSort: false, fixedWidth:true});
+		container: viewParams.container,
+		orientation: "horz",
+		size: 50,
+		usePercent: true,
+		noBorder: true,
+		init: function(splitter) {
+			splitter.events.OnPaintPane1.add(function(splitter, container) {
+				batchesView = BatchesView($.extend(viewParams, {container:container}))
+			});
+			
+			splitter.events.OnPaintPane2.add(function(splitter, container) {
+				console.log(batchesView.grid)
+				new jPageControl({
+					paintParams: {
+						theme: "member-claims",
+						icon: {
+							size: 22,
+							position: "left"
+						}
+					},
+					container: container,
+					masterView: batchesView,
+					init: function(pg) {
+						pg.addTab({caption:"Payments",
+							icon: {
+								name: "user",
+								color: "dodgerblue"
+							},
+							OnSetKey: function(detail, keyID) {
+								detail.view.dataParams.set("batch_id", keyID);
+								detail.view.refresh();
+							},
+							OnCreateMasterDetail: function(detail, keyID) {
+								return new PaymentsByBatchView({
+									batch_id: keyID,
+									container: detail.tab.container
+								});
+							},
+							OnActivate: function(tab) {
+								tab.detail.sync();
+							}
+						});
+						
+						pg.addTab({caption:"Breakdown 1",
+							icon: {
+								name: "user",
+								color: "dodgerblue"
+							},
+							OnSetKey: function(detail, keyID) {
+								detail.view.dataParams.set("batch_id", keyID);
+								detail.view.refresh();
+							},
+							OnCreateMasterDetail: function(detail, keyID) {
+								return new PaymentBreakdownByBatchView({
+									batch_id: keyID,
+									container: detail.tab.container
+								});
+							},
+							OnCreate: function(tab) {
+								tab.detail.update();
+							},
+							OnActivate: function(tab) {
+								tab.detail.sync();
+							}
+						});
+						
+						pg.addTab({caption:"Breakdown 2",
+							icon: {
+								name: "user",
+								color: "dodgerblue"
+							},
+							OnSetKey: function(detail, keyID) {
+								detail.view.dataParams.set("batch_id", keyID);
+								detail.view.refresh();
+							},
+							OnCreateMasterDetail: function(detail, keyID) {
+								return new PaymentBreakdownByBatchView2({
+									batch_id: keyID,
+									container: detail.tab.container
+								});
+							},
+							OnCreate: function(tab) {
+								tab.detail.update();
+							},
+							OnActivate: function(tab) {
+								tab.detail.sync();
+							}
+						});
+					}
 				});
 			});
 		}
-	});	
+	}));
 };

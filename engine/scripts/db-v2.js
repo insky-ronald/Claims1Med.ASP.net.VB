@@ -409,6 +409,11 @@ Dataset.prototype.cancel = function() {
 	// this.OnCancel(this);
 };
 
+Dataset.prototype.clearDelta = function() {
+	this.delta = [];
+	this.deltaKeys = [];
+};
+
 Dataset.prototype.syncRecord = function(newRecord) {
 	var self = this;
 	for(var name in newRecord[0]) {
