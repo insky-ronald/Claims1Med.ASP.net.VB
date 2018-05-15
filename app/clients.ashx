@@ -1,7 +1,7 @@
 ﻿<%@ WebHandler Language="VB" Class="DataProvider" %>
 
 Public Class DataProvider
-	Inherits DataHandler.SubDataHandler
+	Inherits DataHandler.DataProvider
 	
 	Protected Overrides Function ListDataSource As String
 		Return "DBMedics.GetClients"
@@ -20,10 +20,10 @@ Public Class DataProvider
 		If Cmd = "list"
 			DataParams.Add("visit_id")
 			DataValues.Add(Session("VisitorID"))
-		' Else If Cmd = "edit"
-			' DataParams.Add("id")
+		Else If Cmd = "edit"
+			DataParams.Add("id")
 			' DataParams.Add("visit_id")
-			' DataValues.Add(Request.Params("id"))
+			DataValues.Add(Request.Params("id"))
 			' DataValues.Add(Session("VisitorID"))
 		' Else If Cmd = "new"
 			' DataParams.Add("visit_id")

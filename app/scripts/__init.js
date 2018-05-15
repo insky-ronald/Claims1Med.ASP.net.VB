@@ -71,6 +71,10 @@ function __plan(id, get) {
 	return __open(("/app/plan/{0}").format(id), get);
 };
 
+function __sob(id, get) {
+	return __open(("/app/sob/{0}").format(id), get);
+};
+
 function __doctor(id, get) {
 	return __open(("/app/doctor/{0}").format(id), get);
 };

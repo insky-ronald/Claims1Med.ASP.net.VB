@@ -36,6 +36,17 @@ Public Class Api
 			End Using
 		End if
 
+		If Cmd = "validate-service"
+			Using Command = DBConnections("DBMedics").PrepareCommand("ValidateService")
+				Command.SetParameter("id", Request.Params("id"))
+				Command.SetParameter("visit_id", VisitorID)
+				Command.Execute
+				
+				Output.AsJson("status") = Command.GetParameter("action_status_id").Value
+				Output.AsString("message") = Command.GetParameter("action_msg").Value
+			End Using
+		End if
+
 		If Cmd = "change-service-status"
 			Using Command = DBConnections("DBMedics").PrepareCommand("ChangeServiceStatus")
 				Command.SetParameter("id", Request.Params("id"))

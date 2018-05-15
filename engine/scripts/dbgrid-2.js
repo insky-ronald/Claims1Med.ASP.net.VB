@@ -706,9 +706,11 @@ jGrid.prototype.editRecord = function(id, target) {
 		return
 	}
 	
+	// console.log(this.dataset);
 	this.painter.showEditDialog({
 		mode: this.dataEdit.mode,
 		target: target, // this is the target element, the user clicked to activate edit
+		dataset: this.dataset,
 		editForm: function(container, dialog) {
 			self.editForm(id, container, dialog); // this call embeds the FormEditor in the container, refer to form-edit.js
 		}

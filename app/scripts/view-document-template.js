@@ -36,68 +36,40 @@ function DocumentTemplateContainer(viewParams){
 		}
 	});
 	
-	var item = toolbar.NewDropDownViewItem({
-		id: "template",
-		icon: "select-template",
-		color: "dodgerblue",
-		title: "Select Template",
-		// subTitle: "Choose the type of pending status.",
-		// height: 200,
-		// width: 500,
-		// view: ProceduresView,
-		select: function(code) {
-			// desktop.Ajax(
-				// self, 
-				// "/app/api/command/add-claim-procedure",
-				// {
-					// service_id: desktop.dbService.get("id"),
-					// claim_id: desktop.dbService.get("claim_id"),
-					// code: code,
-					// diagnosis_code: ""
-				// }, 
-				// function(result) {
-					// if (result.status == 0) {
-						// grid.refresh();
-					// } else {
-						// ErrorDialog({
-							// target: item.elementContainer,
-							// title: "Error adding procedure",
-							// message: result.message
-						// });
-					// }
-				// }
-			// )
-		}
-	});
+	var documentContainer;
+	
+	if (desktop.canEdit) {
+		var item = toolbar.NewDropDownViewItem({
+			id: "template",
+			icon: "select-template",
+			color: "dodgerblue",
+			title: "Select Template",
+			view: ServiceTemplatesLookup,			
+			select: function(code) {
+				documentContainer.load(("/template/{0}/view?template={1}").format(desktop.dbService.get("id"), code));
+			}
+		});
 
-	// var documentContainer = CreateElement("div", viewParams.container)	
-			// .attr("x-sec", "document");
-
-	CreateElementEx("div", viewParams.container, function(container) {
-		container.attr("x-sec", "document");
-		
-		CreateElementEx("div", container, function(template) {
-			template.attr("x-sec", "template");
+		CreateElementEx("div", viewParams.container, function(container) {
+			container.attr("x-sec", "document");
 			
-			template.load("/template/507846/view?template=GOP_GM01")
-			return;
-			desktop.Ajax(
-				this, 
-				"/template/507846/view",
-				{
-					template: "GOP_GM01"
-					// service_id: desktop.dbService.get("id"),
-					// claim_id: desktop.dbService.get("claim_id"),
-					// code: code,
-					// diagnosis_code: ""
-				}, 
-				function(result) {
-					// console.log(result);
-					template.html(result);
-				}
-			)
+			documentContainer = CreateElementEx("div", container, function(template) {
+				template.attr("x-sec", "template");
+			});
+			
 		});
 		
-	});
+		return;
+		// CreateElementEx("div", viewParams.container, function(container) {
+			// container.attr("x-sec", "document");
+			
+			// CreateElementEx("div", container, function(template) {
+				// template.attr("x-sec", "template");
+				
+				// template.load(("/template/{0}/view?template={1}").format(desktop.dbService.get("id"), "GOP_GM01"))
+			// });
+			
+		// });
+	}
 			
 };

@@ -80,11 +80,11 @@ function PlanEdit(params) {
 						}
 					});
 
-					pg.NewTab("Discharge Summary", {
-						OnCreate: function(tab) {
-							tab.content.css("border", "1px solid #92846A");
-						}
-					});
+					// pg.NewTab("Discharge Summary", {
+						// OnCreate: function(tab) {
+							// tab.content.css("border", "1px solid #92846A");
+						// }
+					// });
 				}
 			});
 		});

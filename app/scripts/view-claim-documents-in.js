@@ -121,7 +121,7 @@ function ClaimDocumentsInView(viewParams){
 					
 					CreateElementEx("div", card, function(container) {						
 						CreateElementEx("div", container, function(container) {
-							CreateElement("span", container).addClass("type").html(grid.dataset.text("reference_no"))
+							// CreateElement("span", container).addClass("type").html(grid.dataset.text("reference_no"))
 							// CreateElement("span", container).addClass("sub-type").html(grid.dataset.text("action"))
 						}, "title")
 					}, "document");
@@ -138,6 +138,10 @@ function ClaimDocumentsInView(viewParams){
 						// container: params.container
 					// })
 				})
+				
+				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
+					// owner.initStatusToolbar(toolbar);
+				});
 			});
 		}
 	}));

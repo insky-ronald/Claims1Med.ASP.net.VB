@@ -32,6 +32,7 @@ Public Class DataProvider
 		MyBase.InitMenuItems(MenuItems)
 		
 		MenuItems.Params.AsString("product_code") = PlanCode
+		MenuItems.Params.AsString("plan_code") = PlanCode
 		
 		Dim Main As Navigator.MenuItem = MenuItems.AddMain("plan", "Plan")
 		
@@ -48,9 +49,10 @@ Public Class DataProvider
 			With Main.SubItems.Add
 				.ID = "sob"
 				.Title = "Schedule of Benefits"
-				.Icon = "table-edit"
+				.Description= "Schedule of Benefits History"
+				.Icon = "history"
 				.Action = "admin"
-				.URL = "engine/under-construction"
+				.URL = "app/schedule-history"
 				REM .Params.AsInteger("name_id") = ClientID
 			End with
 	End Sub

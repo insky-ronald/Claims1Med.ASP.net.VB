@@ -219,7 +219,7 @@ function ServiceStatusView(viewParams){
 					}
 					
 					
-					if(module === "gop" && desktop.canEdit) {
+					if(module === "gopx" && desktop.canEdit) {
 						var btnCancel = toolbar.NewDropDownViewItem({
 							id: "cancel",
 							icon: "service-status-cancel",

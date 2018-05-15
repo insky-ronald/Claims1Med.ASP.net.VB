@@ -12,6 +12,7 @@ MainPage.prototype.AfterPaint = function() {
 	// GOP-related options
 	if (desktop.serviceType == "GOP") {
 		desktop.canEdit = desktop.status == "N" || desktop.status == "P";
+		desktop.canEditDiagnosis = desktop.canEdit;
 		desktop.posted = desktop.status == "S";
 		desktop.inpatient = desktop.serviceSubType == "GM01" || desktop.serviceSubType == "GM02";
 		desktop.sentToOutbox = desktop.status == "S" && desktop.subStatus == "S01";
@@ -20,6 +21,7 @@ MainPage.prototype.AfterPaint = function() {
 		desktop.invoiceReceived = desktop.status == "S" && desktop.subStatus == "S03";
 	} else if (desktop.serviceType == "INV") {
 		desktop.canEdit = desktop.status == "N" || desktop.status == "P";
+		desktop.canEditDiagnosis = false;
 		desktop.posted = desktop.status == "S";
 		desktop.inpatient = desktop.serviceSubType == "M003" || desktop.serviceSubType == "M004" || desktop.serviceSubType == "M005" || desktop.serviceSubType == "M006";
 	}
@@ -102,9 +104,111 @@ MainPage.prototype.AfterPaint = function() {
 			.setprops("update_date", {label:"Last Update", type:"date", format:"datetime", readonly:true});
 	// };
 
+	var self = this;
+	this.Events.OnPaintCustomHeader.add(function(desktop, container) {
+		self.notificationContainer = CreateElement("div", container, "", "notifications");
+		self.claimInfoContainer = CreateElementEx("div", container, "", "information");
+
+		var statusColor, statusCode = desktop.dbService.get("status_code");
+
+		if(statusCode === "P") {
+			statusColor = "forestgreen"
+		} else if(statusCode === "S") {
+			statusColor = "dodgerblue"
+		} else if(statusCode === "D") {
+			statusColor = "#ED5565"
+		} else if(statusCode === "N") {
+			statusColor = "#F8AC59"
+		} else {
+			statusColor = "black"
+		}
+
+		desktop.AddStatus({
+			icon: "history",
+			color: statusColor,
+			status: desktop.dbService.get("status_description"),
+			subStatus: ("{1} (<b>{0}</b>)").format(desktop.dbService.get("sub_status_code"), desktop.dbService.get("sub_status"))
+		});
+
+		// desktop.AddNotification({
+			// icon: "history",
+			// color: statusColor,
+			// description: desktop.dbService.get("sub_status")
+		// });
+
+		desktop.AddClaimInfo({
+			caption: "Patient",
+			description: desktop.dbService.get("patient_name")
+		});
+
+		desktop.AddClaimInfo({
+			caption: "Plan",
+			description: desktop.dbService.get("plan_code")
+		});
+
+		desktop.AddClaimInfo({
+			caption: "Client",
+			description: desktop.dbService.get("client_name")
+		});
+	});
+	
 	if (desktop.serviceType == "GOP") {
 		InitializeGop(desktop.dbService);
 	} else if (desktop.serviceType == "INV") {
 		InitializeInvoice(desktop.dbService);
 	}
+};
+
+MainPage.prototype.AddStatus = function(params) {
+	CreateElementEx("span", this.notificationContainer, function(info) {
+		info.css("border-color", params.color);
+		CreateElementEx("span", info, function(icon) {
+			icon.css("background", params.color);
+			desktop.svg.draw(icon, params.icon, 20);
+		}, "nofification-info-icon");
+
+		CreateElementEx("span", info, function(description) {
+			description.html(params.status);
+			description.css("color", params.color);
+		}, "nofification-status");
+
+		CreateElementEx("span", info, function(description) {
+			description.html(params.subStatus);
+			description.css("color", params.color);
+		}, "nofification-sub-status");
+
+	}, "nofification-info");
+};
+
+MainPage.prototype.AddNotification = function(params) {
+	CreateElementEx("span", this.notificationContainer, function(info) {
+		info.css("border-color", params.color);
+		CreateElementEx("span", info, function(icon) {
+			icon.css("background", params.color);
+			desktop.svg.draw(icon, params.icon, 20);
+		}, "nofification-info-icon");
+
+		CreateElementEx("span", info, function(description) {
+			description.html(params.description);
+			description.css("color", params.color);
+		}, "nofification-info-label");
+
+	}, "nofification-info");
+};
+
+MainPage.prototype.AddClaimInfo = function(params) {
+	CreateElementEx("span", this.claimInfoContainer, function(info) {
+		// info.css("border-color", params.color);
+		CreateElementEx("span", info, function(caption) {
+			// icon.css("background", params.color);
+			// desktop.svg.draw(icon, params.icon, 20);
+			caption.html(params.caption)
+		}, "claim-info-caption");
+
+		CreateElementEx("span", info, function(description) {
+			description.html(params.description)
+			// description.css("color", params.color)
+		}, "claim-info-description");
+
+	}, "claim-info");
 };

@@ -32,7 +32,6 @@ function PaymentProcessingView(viewParams){
 				},
 				OnCreate: function(tab) {
 					new PaymentBatchingView({container:tab.container, requestParams: {referral:0}});
-					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
 				}
 			});
 			pg.addTab({caption:"Batches",
@@ -42,44 +41,16 @@ function PaymentProcessingView(viewParams){
 				},
 				OnCreate: function(tab) {
 					new PaymentBatchesView({container:tab.container});
-					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
 				}
 			});
-			pg.addTab({caption:"Find Payment",
-				icon: {
-					name: "search",
-					color: "forestgreen"
-				},
-				OnCreate: function(tab) {
-					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
-				}
-			});
+			// pg.addTab({caption:"Find Payment",
+				// icon: {
+					// name: "search",
+					// color: "forestgreen"
+				// },
+				// OnCreate: function(tab) {
+				// }
+			// });
 		}
 	});
-	
-	// return new MultiTabsView(params, function(pg) {
-		// pg.add("Authorization", function(tab) {
-			// PaymentAuthorizationView({
-				// container: tab.content
-			// })
-		// });
-
-		// pg.add("Batching", function(tab) {
-			// PaymentBatchingView({
-				// container: tab.content
-			// })
-		// });
-
-		// pg.add("Batches", function(tab) {
-			// PaymentBatchesView({
-				// container: tab.content
-			// })
-		// });
-
-		// pg.add("Find Payment", function(tab) {
-			// PaymentsSearchView({
-				// container: tab.content
-			// })
-		// });
-	// });
 };

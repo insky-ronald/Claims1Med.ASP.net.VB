@@ -18,21 +18,25 @@
 
 .document-template div[x-sec="template"] {
 	height: 11.69in;
+	max-height: 11.69in;
     width: 8.27in;
-	padding: 0.5in;
+    max-width: 8.27in;
+	padding: 0.75in;
+	/* padding: 1in; */
 	background: white;
 	border: 1px solid black;
 }
 
 .template {
 	font-family: Calibri;
-	font-size: 11pt;
+	font-size: 10.5pt;
 }
 
 .template .title {
 	text-align: center;
-	font-size: 150%;
+	font-size: 160%;
 	margin-bottom: 0.25in;
+	font-weight: bold;
 }
 
 .template .reference {
@@ -59,17 +63,18 @@
 .template .attention {
 	font-size: 110%;
 	font-weight: bold;
-	margin-top: 0.5in;
-	margin-bottom: 0.5in;
+	margin-top: 0.3in;
+	margin-bottom: 0.3in;
 }
 
 .template .dear {
-	margin-bottom: 0.25in;
+	margin-bottom: 0.02in;
 }
 
 .template .sub-title {
 	font-size: 110%;
 	font-weight: bold;
+	margin-top: 0.1in;
 	margin-bottom: 0.1in;
 }
 
@@ -100,4 +105,60 @@
 
 .template .patient-info table[x-sec="sub"] td:first-child {
 	width: 50%;
+}
+
+.template .guarantee {
+	width: 100%;
+	font-size: 110%;
+}
+
+.template .guarantee tr td {
+	padding: 0.02in 0 0.02in 0;
+}
+
+.template .guarantee td:first-child {
+	width: 40%;
+}
+
+.template .guarantee td:last-child {
+}
+
+.template .bullet {
+	width: 100%;
+	font-size: 110%;
+}
+
+.template .bullet tr td {
+	padding: 0.02in 0 0.02in 0;
+}
+
+.template .bullet td:first-child {
+	width: 0.25in;
+	min-width: 0.25in;
+	vertical-align: top;
+}
+
+.template .bullet td:last-child {
+	width: 100%;
+}
+
+.two-columns {
+	width: 100%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+}
+
+.two-columns.indent {
+	padding-left: 0.50in;
+}
+
+.two-columns > div:first-child{
+	/* float: left; */
+    width: 50%;
+}
+
+.two-columns > div:last-child{
+	/* float: left; */
+    width: 50%;
 }

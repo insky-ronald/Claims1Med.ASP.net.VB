@@ -2,12 +2,12 @@
 	toolbar-height=34px
 ##endconst
 
-#page-custom-header {
-	height: 45px;
-	border: 1px #B0CEE3;
-	border-style: solid none solid none;
-	background: #FFFFE0;
-}
+/* #page-custom-header { */
+	/* height: 45px; */
+	/* border: 1px #B0CEE3; */
+	/* border-style: solid none solid none; */
+	/* background: #FFFFE0; */
+/* } */
 
 .pg-service-detail > .pg-content {
 	/* border: 1px dimgray; */

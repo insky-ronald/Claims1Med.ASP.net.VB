@@ -5,6 +5,9 @@
 	navigator-width=250px
 ##endinclude=app\claim1med-2
 
+##template
+##endtemplate=app\main-service
+
 ##template	
 	theme=service-details
 	font=10pt Arial

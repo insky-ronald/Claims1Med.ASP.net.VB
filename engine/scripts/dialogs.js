@@ -165,6 +165,7 @@ JEditDialog2.prototype.Initialize = function(Params) {
     JEditDialog2.prototype.parent.prototype.Initialize.call(this, Params);
 	this.OnInit = Params.OnInit;
 	this.ActivatingTarget = Params.ActivatingTarget;
+	this.Dataset = Params.Dataset;
 
 	this.OnEditorLoaded = new EventHandler(this;
 	// console.log(this.ActivatingTarget)

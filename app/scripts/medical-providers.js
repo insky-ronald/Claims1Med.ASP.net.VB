@@ -16,6 +16,15 @@ function MedicalProvidersView(viewParams){
 		},
 		container: viewParams.container,
 		init: function(pg) {
+			pg.addTab({caption:"Hospitals",
+				icon: {
+					name: "hospitals",
+					color: "dodgerblue"
+				},
+				OnCreate: function(tab) {
+					ProviderHospitalsView({container:tab.container})
+				}
+			});
 			pg.addTab({caption:"Doctors",
 				icon: {
 					name: "doctor",
@@ -32,15 +41,6 @@ function MedicalProvidersView(viewParams){
 				},
 				OnCreate: function(tab) {
 					ProviderClinicsView({container:tab.container})
-				}
-			});
-			pg.addTab({caption:"Hospitals",
-				icon: {
-					name: "hospitals",
-					color: "dodgerblue"
-				},
-				OnCreate: function(tab) {
-					ProviderHospitalsView({container:tab.container})
 				}
 			});
 			pg.addTab({caption:"Pharmacies",
