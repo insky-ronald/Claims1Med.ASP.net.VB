@@ -24,6 +24,7 @@ jGridColumn.prototype.initialize = function(params) {
     jGridColumn.prototype.parent.prototype.initialize.call(this, params)
 	
     this.grid = params.owner
+    this.permission = params.permission
     this.band = params.band
     this.internal = params.internal
     this.command = params.command

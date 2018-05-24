@@ -340,7 +340,7 @@ jResize.prototype.initBegin = function(e) {
 	var self = $(e.target).data("drag");
 	if(!self) return;
 
-	self.params.initDrag(self);
+	self.params.initDrag(self, e);
 
 	e.preventDefault();
 
@@ -364,7 +364,7 @@ jResize.prototype.dragEnd = function(e) {
     });
 
 	if(self.params.dragEnd) {
-    	self.params.dragEnd(self);
+    	self.params.dragEnd(self, e);
 	};
 };
 
@@ -373,5 +373,5 @@ jResize.prototype.dragNode = function(e) {
 
 	e.preventDefault();
 
-   	self.params.dragging(self, e.pageX - self.pageX, e.pageY - self.pageY);
+   	self.params.dragging(self, e.pageX - self.pageX, e.pageY - self.pageY, e);
 };

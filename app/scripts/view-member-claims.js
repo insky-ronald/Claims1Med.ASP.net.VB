@@ -6,7 +6,7 @@
 // File name: view-member-claims.js
 //==================================================================================================
 function MemberClaimsView(params) {
-	console.log(params);
+	// console.log(params);
 	return new jGrid($.extend(params, {
 		paintParams: {
 			css: "member-claims",
@@ -15,8 +15,8 @@ function MemberClaimsView(params) {
 		init: function(grid, callback) {			
 			grid.Events.OnInit.add(function(grid) {
 				// grid.optionsData.url = "member-claims?"+ ObjectToRequestParams(params.requestParams);
-				grid.optionsData.url = "member-claims";
-				
+				grid.optionsData.url = "member-claims";				
+				// grid.options.action = "claim";
 				grid.options.horzScroll = true;
 				grid.options.allowSort = false;
 				grid.options.showPager = false;
@@ -66,6 +66,10 @@ function MemberClaimsView(params) {
 					return __claim(id, true)
 				});
 				
+				grid.methods.add("canAdd", function(grid) {
+					return false;
+				});
+				
 				grid.Events.OnInitColumns.add(function(grid) {
 					grid.NewColumn({fname: "claim_no", width: 150, fixedWidth:true, allowSort: true});
 					grid.NewColumn({fname: "claim_type", width: 200, fixedWidth:true});
@@ -98,6 +102,9 @@ function MemberClaimsView(params) {
 						subTitle: "Choose the type of claim to create",
 						view: ClaimTypesLookup,
 						// viewParams: {module:"INV", mode:1},
+						permission: {
+							view: grid.crud.add
+						},
 						select: function(code) {
 							// window.open(__claim(("new/{0}/{1}").format(code.toLowerCase(), grid.dataParams.get("member_id")), true), "");
 							window.open(__claim(("new/{0}?type={1}").format(grid.dataParams.get("member_id"), code), true), "");

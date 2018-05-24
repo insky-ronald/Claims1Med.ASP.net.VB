@@ -25,6 +25,7 @@ jSplitContainer.prototype.initialize = function(params) {
 		orientation: "vert"
 	}, params);
 
+	this.events.OnPaintSizer = new EventHandler(this);
 	this.events.OnPaintPane1 = new EventHandler(this);
 	this.events.OnPaintPane2 = new EventHandler(this);
 };

@@ -22,9 +22,16 @@ Public Class DataProvider
 			DataValues.Add(Session("VisitorID"))
 			DataParams.Add("application_id")
 			DataValues.Add(Session("ApplicationID"))
-		Else If Cmd = "edit" or Cmd = "new"
+		Else If Cmd = "edit" 'or Cmd = "new"
 			DataParams.Add("id")
 			DataValues.Add(Request.Params("id"))
+			DataParams.Add("mode")
+			DataValues.Add(10)
+			DataParams.Add("visit_id")
+			DataValues.Add(Session("VisitorID"))
+		Else If Cmd = "new"
+			DataParams.Add("id")
+			DataValues.Add(0)
 			DataParams.Add("mode")
 			DataValues.Add(10)
 			DataParams.Add("visit_id")
@@ -35,6 +42,7 @@ Public Class DataProvider
 	Protected Overrides Sub NewRecord(Row As System.Data.DataRow)
 		MyBase.NewRecord(Row)
 		Row.Item("application_id") = Session("ApplicationID")
+		Row.Item("position") = 1
 		Row.Item("action_type_id") = 10
 		Row.Item("status_code_id") = 10
 	End Sub		

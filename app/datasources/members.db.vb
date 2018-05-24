@@ -40,6 +40,16 @@ With DBConnection.NewCommand("AddMember", "AddMember", CommandType.StoredProcedu
 	.AddParameter("action_msg", SqlDbType.VarChar, ParameterDirection.InputOutput, 200, "")
 End With
 
+With DBConnection.NewCommand("AddMemberMedicalNotes", "AddMemberMedicalNotes", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("claim_id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("medical_history_notes", SqlDbType.VarChar, ParameterDirection.Input, -1, "")
+	.AddParameter("action", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.VarChar, ParameterDirection.InputOutput, 200, "")
+End With
+
 With DBConnection.NewCommand("GetNewMemberInfo", "GetNewMemberInfo", CommandType.StoredProcedure)
 	.AddParameter("certificate_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
 	.AddParameter("relationship_code", SqlDbType.Char, ParameterDirection.Input, 2, "")

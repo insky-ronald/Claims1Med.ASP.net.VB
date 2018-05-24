@@ -26,7 +26,8 @@
 <ul>
 	<li> <a href="/sys/system" target="system">System<a/> </li>
 	<li> <a href="/sys/security" target="security">Security<a/> </li>
-	<li> <a href="/app/api/test/test" target="test">API test<a/> </li>
+	<li> <a href="/app/claim-tables" target="claim-tables">Claim Tables<a/> </li>
+	<!-- <li> <a href="/app/api/test/test" target="test">API test<a/> </li> -->
 </ul>
 
 <h1>Session</h1>

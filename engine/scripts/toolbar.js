@@ -39,15 +39,30 @@ JToolbar.prototype.getItem = function(name) {
 }
 
 JToolbar.prototype.SetVisible = function(name, visible) {
-	this.list.get(name).show(visible);
+	var item = this.list.get(name);
+	if (item) {
+		item.show(visible);
+	}
 }
 
 JToolbar.prototype.NewItem = function(params) {
-
-	params.toolbar = this;
-	var item = new JToolbarButton(params);
 	
-	return this.list.add(item.id, item);
+	// console.log(params.permission);
+	// params.permission = $.extend({}, {canView:true}, params.permission);
+	params.permission = $.extend({}, {view:true}, params.permission);
+	
+	if(params.permission.view) {
+		params.toolbar = this;
+		var item = new JToolbarButton(params);
+		
+		this.list.add(item.id, item);
+		if(params.dataEvent) {
+			params.dataEvent(params.dataBind, item)
+		}
+		return item;
+	} else {
+		return null;
+	}
 };
 
 // JToolbar.prototype.NewTextBox = function(params) {
@@ -123,6 +138,200 @@ JToolbar.prototype.NewDropdownConfirm = function(params) {
 	return this.NewDropdownItem(params);
 };
 
+// JToolbar.prototype.NewDropDownContainer = function(params) {
+JToolbar.prototype.NewDropDownWizard = function(params) {
+	
+	params = $.extend({
+		dropdown: true,
+		noIndicator: false,
+		height: "auto",
+		width: "auto",
+		align: "left",
+		color: "dimgray"
+	}, params, {
+		id: params.id,
+		// align: params.align || "left",
+		align: params.align,
+		color: params.color,
+		icon: params.icon,
+		iconColor: defaultValue(params.iconColor, params.color),
+		noIndicator: params.noIndicator,
+		hint: params.title,
+		dataBind: params.dataBind,
+		dataEvent: params.dataEvent,
+		permission: params.permission
+	});
+	
+	params.click = function(item) {
+		var pg, btns = {}, tabIndex = 0, subTitle = "", wizard;
+		
+		// var updateButtons = function(wizard) {
+			// btns.back.SetEnabled(wizard.pg.activeTab.id > 1);
+			// btns.next.SetEnabled(wizard.pg.activeTab.id < wizard.pg.tabs.length);
+			// btns.finish.SetEnabled(wizard.pg.activeTab.id == wizard.pg.tabs.length);
+		// };
+		
+		var dialog = new JPopupDialog({
+			Target: item.Element(),				
+			Modal: false,
+			onClose: params.onClose,
+			Painter: {
+				painterClass: PopupOverlayPainter,
+				color: params.color,
+				snap: "bottom",
+				// align: defaultValue(params.dlgAlign, params.align),
+				align: params.align,
+				noIndicator: params.noIndicator,
+				OnRenderContent: function(dialog, container) {
+					// console.log(params.title)
+					CreateElementEx("div", container, function(header) {
+						CreateElement("h2", header).css("color", params.color).html(params.title).css("margin", 0);
+						subTitle = CreateElement("p", header).addClass("dialog-sub-title").html(params.subTitle);
+					});
+					
+					CreateElementEx("div", container, function(content) {
+						content.css("width", params.width);
+						content.css("height", params.height);
+						pg = new jPageControl({
+							paintParams: {
+								css: "pg-claim2",
+								theme: "search",
+								icon: {
+									size: 16,
+									position: "left"
+								}
+							},
+							showScrollButtons:true,
+							container: content,							
+							init: function(pg) {
+								var i = 1;
+								wizard = {
+									pg: pg,
+									update: function() {
+										btns.back.SetEnabled(this.canBack());
+										btns.next.SetEnabled(this.canNext());
+										btns.finish.SetEnabled(this.canFinish());
+									},
+									canBack: function() {
+										return this.pg.activeTab.id > 1;
+									},
+									canNext: function() {
+										return this.pg.activeTab.id < this.pg.tabs.length && this.canNext2();
+									},
+									canNext2: function() {
+										return true;
+									},
+									canFinish: function() {
+										return this.pg.activeTab.id == this.pg.tabs.length;
+									},
+									add: function(options) {
+										pg.addTab({caption: ("Wiz {0}").format(i++),
+											icon: {
+												name: "table",
+												color: "forestgreen"
+											},
+											OnVisibility: function(tab, visible) {
+												if (options.OnVisibility) {
+													options.OnVisibility(wizard, visible)
+												}
+											},
+											OnActivate: function(tab) {
+												// updateButtons(tab.pg);
+												// updateButtons(wizard);
+												wizard.update();
+												if (options.OnActivate) {
+													options.OnActivate(wizard)
+												}
+											},
+											OnCreate: function(tab) {
+												if (tab.id > 1) {
+													// updateButtons(tab.pg);
+													// updateButtons(wizard);
+													wizard.update();
+												};
+												
+												options.OnCreate(wizard, tab.container);
+												if (options.OnActivate) {
+													options.OnActivate(wizard)
+												}
+											}
+										})
+									}, 
+									subTitle: function(text) {
+										subTitle.html(text);
+									}
+								};
+								
+								params.prepare(wizard);
+							}
+						});
+					});
+				},
+				OnRenderFooter: function(dialog, container) {
+					btns.back = CreateButton({
+						container: container,
+						caption: "Back",
+						style: "green",
+						click: function(button) {
+							// console.log(button)
+							if (button.enabled == "enabled") {
+								pg.tabs[pg.activeTab.id - 1 -1].show();
+							}
+							// dialog.Hide();
+							// params.confirm(dialog.toolbarButton);
+						}
+					});
+					
+					btns.next = CreateButton({
+						container: container,
+						caption: "Next",
+						style: "green",
+						click: function(button) {
+							if (button.enabled == "enabled") {
+								pg.tabs[pg.activeTab.id + 1 - 1].show();
+							}
+							
+							// dialog.Hide();
+							// params.confirm(dialog.toolbarButton);
+						}
+					});
+					
+					btns.finish = CreateButton({
+						container: container,
+						caption: "Finish",
+						style: "green",
+						click: function(button) {
+							if (button.enabled == "enabled") {
+								params.finish(wizard);
+								dialog.Hide();
+							}
+							// params.confirm(dialog.toolbarButton);
+						}
+					});
+						
+					CreateButton({
+						container: container,
+						caption: "Close",
+						enabled: true,
+						style: "text",
+						click: function(button) {
+							dialog.Hide();
+						}
+					});			
+				}
+			}
+		});
+		
+		pg.showTabs(false);
+		// updateButtons(pg);
+		// updateButtons(wizard);
+		wizard.update();
+		dialog.toolbarButton = item;
+	};
+	
+	return this.NewItem(params);
+};
+
 JToolbar.prototype.NewDropDownConfirmItem = function(params) {
 	var item = this.NewDropdownItem({
 		id: params.id,
@@ -134,6 +343,7 @@ JToolbar.prototype.NewDropDownConfirmItem = function(params) {
 		noIndicator: params.noIndicator,
 		hint: params.title,
 		align: params.align || "left",
+		permission: params.permission,
 		painter: {
 			footer: function(dialog, container) {
 				CreateButton({
@@ -178,13 +388,15 @@ JToolbar.prototype.NewDropDownConfirmItem = function(params) {
 };
 
 JToolbar.prototype.NewDropDownViewItem = function(params) {
-	return this.NewDropdownItem({
+	var self = this;
+	var btn = this.NewDropdownItem({
 		id: params.id,
 		icon: params.icon,
 		iconColor: params.color,
 		color: params.color,
 		hint: params.title,
 		align: params.align || "left",
+		permission: params.permission,
 		painter: {
 			footer: function(dialog, container) {
 				CreateButton({
@@ -213,16 +425,23 @@ JToolbar.prototype.NewDropDownViewItem = function(params) {
 						.css("border", "1px solid " + params.color);
 						
 					if(params.view) {
-						params.view($.extend(params.viewParams, {container:view, select:function(code) {
+						params.view($.extend(params.viewParams, {container:view, select:function(id) {
 							dialog.Hide();
 							desktop.HideHints();
-							params.select(code);
+							if (params.select2) {
+								// params.select2(btn, id);
+								params.select2(self.getItem(params.id), id);
+							} else {
+								params.select(id);
+							}
 						}}));						
 					};
 				});
 			}
 		}
 	});
+	
+	return btn;
 };
 
 //**************************************************************************************************
@@ -251,7 +470,11 @@ JToolbarButton.prototype.Initialize = function(params) {
     this.dropdown = defaultValue(params.dropdown, false);
     this.noIndicator = defaultValue(params.noIndicator, false);
     this.container = params.toolbar.Painter.buttonContainer;
-    this.click = params.click;
+	// this.permission = $.extend(params.permission, {
+		// canView:true
+	// });
+	
+	this.click = params.click;
 	
     this.dataBind = params.dataBind;
     this.dataEvent = params.dataEvent;

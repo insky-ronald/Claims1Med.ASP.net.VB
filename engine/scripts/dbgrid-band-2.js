@@ -50,6 +50,12 @@ jGridBand.prototype.newBand = function(params, callback) {
 }
 
 jGridBand.prototype.newColumn = function(params) {
+	if (params.permission) {
+		if (!this.grid.crud[params.permission]) {
+			return null;
+		}
+	}
+	
 	params.owner = this.grid
 	params.band = this
 	

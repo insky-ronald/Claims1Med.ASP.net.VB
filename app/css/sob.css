@@ -1,3 +1,43 @@
+body > .moving{
+	cursor: move;
+	cursor: -webkit-grabbing !important; /* Chrome 1-21, Safari 4+ */
+    cursor:    -moz-grabbing !important; /* Firefox 1.5-26 */
+    cursor:         grabbing !important; /* W3C standards syntax, should come least */
+}
+
+body > .move-hint {
+	position: absolute;	
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 9pt;
+	border: 1px solid #B0CEE3;
+	background: #D2E3EF;
+	cursor: -webkit-grabbing !important; /* Chrome 1-21, Safari 4+ */
+    cursor:    -moz-grabbing !important; /* Firefox 1.5-26 */
+    cursor:         grabbing !important; /* W3C standards syntax, should come least */
+	box-shadow: rgba(0,0,0,0.3) 1px 1px 1px;
+	pointer-events: none;
+}
+
+body > .move-hint[x-mode="move"] {
+	background: #9CCC9D !important;
+	border-color: forestgreen !important;
+}
+
+body > .move-hint[x-allow="0"] {
+	background: #ff8080 !important;
+	border-color: firebrick !important;
+}
+
+.grid3.sob {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
 .grid3.sob .row[x-top="1"] {
 	font-size: 110%;
 	font-weight: bold;
@@ -5,6 +45,34 @@
 
 .grid3.sob .row[x-limit="1"] {
 	color: forestgreen;
+}
+
+.xgrid3.sob .cell div[tree-sec="icon"][icon-name="move"] {
+	cursor: move;
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="move"] svg {
+	fill: silver !important;
+	pointer-events: none;
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="move"],
+.grid3.sob .cell div[tree-sec="icon"][icon-name="position"] {
+	cursor: -webkit-grab; /* Chrome 1-21, Safari 4+ */
+    cursor:    -moz-grab; /* Firefox 1.5-26 */
+    cursor:         grab; /* W3C standards syntax, should come least */
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="move"][moving="1"],
+.grid3.sob .cell div[tree-sec="icon"][icon-name="position"][moving="1"] {
+	cursor: -webkit-grabbing; /* Chrome 1-21, Safari 4+ */
+    cursor:    -moz-grabbing; /* Firefox 1.5-26 */
+    cursor:         grabbing; /* W3C standards syntax, should come least */
+}
+
+.grid3.sob .cell div[tree-sec="icon"][icon-name="position"] svg {
+	fill: silver !important;
+	pointer-events: none;
 }
 
 .grid3.sob .cell div[tree-sec="icon"][icon-name="limit"] svg {

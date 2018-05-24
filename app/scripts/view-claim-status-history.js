@@ -105,59 +105,54 @@ function ClaimStatusHistoryView(params) {
 					// grid.NewColumn({fname: "diagnosis_code", width: 150, fixedWidth:true, allowSort: true});
 				});
 				
-				grid.Events.OnInitToolbar.add(function(view, toolbar) {
+				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
+
 					var status = desktop.dbClaim.get("status_code");
-					if (status === "O" || status === "N") {
-						toolbar.NewDropDownConfirmItem({
-							id: "close",
-							icon: "claim-close",
-							color: "black",
-							hint: "Close Claim",
-							title: "Close Claim",
-							subTitle: "Please confirm to close claim.",
-							// dataBind: desktop.dbClaim,
-							// dataEvent: function(dataset, button) {
-								// button.show(!dataset.editing);
-							// },
-							confirm: function() {
-								ChangeStatus("C");
-							}
-						});
 					
-						toolbar.NewDropDownConfirmItem({
-							id: "decline",
-							icon: "claim-decline",
-							color: "firebrick",
-							hint: "Decline Claim",
-							title: "Decline Claim",
-							subTitle: "Please confirm to decline claim.",
-							// dataBind: desktop.dbClaim,
-							// dataEvent: function(dataset, button) {
-								// button.show(!dataset.editing);
-							// },
-							confirm: function() {
-								ChangeStatus("D");
-							}
-						});
-					}
-					
-					if (status != "O" && status != "N") {
-						toolbar.NewDropDownConfirmItem({
-							id: "open",
-							icon: "claim-open",
-							color: "#1AB394",
-							hint: "Re-Open Claim",
-							title: "Re-Open Claim",
-							subTitle: "Please confirm to re-open claim.",
-							// dataBind: desktop.dbClaim,
-							// dataEvent: function(dataset, button) {
-								// button.show(!dataset.editing);
-							// },
-							confirm: function() {
-								ChangeStatus("O");
-							}
-						});
-					}
+					toolbar.NewDropDownConfirmItem({
+						id: "close",
+						icon: "claim-close",
+						color: "black",
+						hint: "Close Claim",
+						title: "Close Claim",
+						subTitle: "Please confirm to close claim.",
+						permission: {
+							view: grid.crud.close && (status === "O" || status === "N")
+						},
+						confirm: function() {
+							ChangeStatus("C");
+						}
+					});
+				
+					toolbar.NewDropDownConfirmItem({
+						id: "decline",
+						icon: "claim-decline",
+						color: "firebrick",
+						hint: "Decline Claim",
+						title: "Decline Claim",
+						subTitle: "Please confirm to decline claim.",
+						permission: {
+							view: grid.crud.decline && (status === "O" || status === "N")
+						},
+						confirm: function() {
+							ChangeStatus("D");
+						}
+					});
+
+					toolbar.NewDropDownConfirmItem({
+						id: "open",
+						icon: "claim-open",
+						color: "#1AB394",
+						hint: "Re-Open Claim",
+						title: "Re-Open Claim",
+						subTitle: "Please confirm to re-open claim.",
+						permission: {
+							view: grid.crud.open && (status != "O" && status != "N")
+						},
+						confirm: function() {
+							ChangeStatus("O");
+						}
+					});
 				});
 			});
 		}

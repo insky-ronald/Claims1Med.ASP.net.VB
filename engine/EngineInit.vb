@@ -10,7 +10,7 @@ Databases.SetValue("DefaultConnection", "DBSecure")
 
 Databases.SetValue("DBSecure", "CNSecure")
 Databases.SetValue("DBSecureCodeFile", "SecureCodeFile")
-Databases.SetValue("CNSecure", "data source=DBSERVER01;initial catalog=DBAPPS02;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;") 
+Databases.SetValue("CNSecure", "data source=DBSERVER01\ISOSDB01;initial catalog=MEDICS52SYS;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;") 
 Databases.SetValue("SecureCodeFile", "C:\inetpub\wwwroot\Claim1MED.NET\engine\DatabaseInit.vb")
 
 Paths.SetValue("EngineTexts", "D:\WebAppSource\EngineV4\engine\texts")

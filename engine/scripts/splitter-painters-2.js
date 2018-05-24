@@ -111,6 +111,7 @@ jSplitterPainter.prototype.paint = function(container) {
 	});
 	
 	
+	this.control.events.OnPaintSizer.trigger(this.sizer);
 	this.control.events.OnPaintPane1.trigger(this.pane1);
 	this.control.events.OnPaintPane2.trigger(this.pane2);
 };

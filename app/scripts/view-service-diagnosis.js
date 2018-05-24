@@ -15,7 +15,7 @@ function ServiceDiagnosisView(params){
 		init: function(grid, callback) {
 			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = url;
-				// grid.options.horzScroll = true;
+				grid.options.action = params.action;
 				grid.options.allowSort = false;
 				grid.options.showPager = false;
 				grid.options.showBand = false;
@@ -44,6 +44,18 @@ function ServiceDiagnosisView(params){
 							}
 						})
 				});
+
+				grid.methods.add("canAdd", function(grid) {
+					return false;
+				});
+
+				grid.methods.add("canEdit", function(grid) {
+					return false;
+				});
+
+				grid.methods.add("canDelete", function(grid) {
+					return false;
+				});
 		
 				grid.methods.add("getCommandHeaderIcon", function(grid, column, defaultValue) {
 					if(column.command === "default")
@@ -71,7 +83,7 @@ function ServiceDiagnosisView(params){
 						return "group"
 					else
 						return defaultValue
-				});
+				}); 
 				
 				grid.methods.add("getCommandHint", function(grid, column, defaultValue) {
 					if(column.command === "default")
@@ -94,7 +106,7 @@ function ServiceDiagnosisView(params){
 					else if(column.command === "deletex")
 						return grid.dataset.get("parent_id") != 0 && desktop.canEditDiagnosis
 					else if(column.command === "add")
-						return grid.dataset.get("parent_id") == 0
+						return grid.dataset.get("parent_id") == 0 && desktop.canEditDiagnosis
 					else if(column.command === "editx")
 						return grid.dataset.get("parent_id") != 0
 					else if(column.command === "group")
@@ -110,61 +122,50 @@ function ServiceDiagnosisView(params){
 							icon: "new",
 							color: "dodgerblue",
 							title: "Add Diagnosis",
-							// subTitle: "...",
 							width: 600,
 							height: 300,
 							view: DiagnosisView,
 							select: function(code) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/add-claim-diagnosis",
-									{
+								desktop.serverPost({
+									url: "/app/get/add-claim-diagnosis/"+url,
+									params: {
 										service_id: desktop.dbService.get("id"),
 										claim_id: desktop.dbService.get("claim_id"),
 										diagnosis_group: grid.dataset.get("diagnosis_group"),
 										diagnosis_code: code
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: column.element,
-												title: "Error adding diagnosis",
-												message: result.message
-											});
-										}
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "adding diagnosis"
 									}
-								)
+								});
 							}
 						});
 					};
 					
 					if(column.command === "deletex") {
 						ConfirmDialog({
-							color: "forestgreen",
+							color: "firebrick",
 							target: column.element,
 							title: "Delete Diagnosis",
 							message: "Please confirm to delete diagnosis.",
 							callback: function(dialog) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/delete-claim-diagnosis",
-									{
+								desktop.serverPost({
+									url: "/app/get/delete-claim-diagnosis/"+url,
+									params: {
 										id: grid.dataset.getKey()
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: column.element,
-												title: "Error deleting diagnosis",
-												message: result.message
-											});
-										}
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "deleting diagnosis"
 									}
-								)
+								});
 							}
 						});
 					};
@@ -175,27 +176,22 @@ function ServiceDiagnosisView(params){
 							title: "Set Default",
 							message: "Please confirm to set diagnosis as default.",
 							callback: function(dialog) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/edit-claim-diagnosis",
-									{
+								desktop.serverPost({
+									url: "/app/get/edit-claim-diagnosis/"+url,
+									params: {
 										id: grid.dataset.getKey(),
 										diagnosis_group: grid.dataset.get("diagnosis_group"),
 										diagnosis_code: grid.dataset.get("diagnosis_code"),
 										is_default: true
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: column.element,
-												title: "Error setting default",
-												message: result.message
-											});
-										}
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "setting default diagnosis"
 									}
-								)
+								});
 							}
 						});
 					}	
@@ -211,27 +207,22 @@ function ServiceDiagnosisView(params){
 							height: 300,
 							view: DiagnosisView,
 							select: function(code) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/edit-claim-diagnosis",
-									{
+								desktop.serverPost({
+									url: "/app/get/edit-claim-diagnosis/"+url,
+									params: {
 										id: grid.dataset.getKey(),
 										diagnosis_group: grid.dataset.get("diagnosis_group"),
 										diagnosis_code: code,
 										is_default: false
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: column.element,
-												title: "Error changing diagnosis",
-												message: result.message
-											});
-										}
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "updating diagnosis"
 									}
-								)
+								});
 							}
 						});
 					};
@@ -242,7 +233,6 @@ function ServiceDiagnosisView(params){
 							icon: "group",
 							color: "forestgreen",
 							title: "Change Diagnosis Group",
-							// subTitle: "...",
 							width: 600,
 							height: 200,
 							view: DiagnosisGroupView,
@@ -250,27 +240,22 @@ function ServiceDiagnosisView(params){
 								dataParams.set("id", desktop.dbService.get("id"));
 							},
 							select: function(code) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/edit-claim-diagnosis",
-									{
+								desktop.serverPost({
+									url: "/app/get/edit-claim-diagnosis/"+url,
+									params: {
 										id: grid.dataset.getKey(),
 										diagnosis_group: code,
 										diagnosis_code: grid.dataset.get("diagnosis_code"),
 										is_default: false
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: column.element,
-												title: "Error changing diagnosis group",
-												message: result.message
-											});
-										}
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "changing diagnosis group"
 									}
-								)
+								});
 							}
 						});
 					};
@@ -290,56 +275,46 @@ function ServiceDiagnosisView(params){
 				
 				grid.Events.OnInitColumns.add(function(grid) {
 					grid.NewBand({caption: "...", fixed:"left"}, function(band) {					
-						band.NewCommand({command:"add"});
-						band.NewCommand({command:"default"});
-						band.NewCommand({command:"deletex"});
-						band.NewCommand({command:"editx"});
-						band.NewCommand({command:"group"});
+						band.NewCommand({command:"add", permission:"add"});
+						band.NewCommand({command:"default", permission:"edit"});
+						band.NewCommand({command:"deletex", permission:"delete"});
+						band.NewCommand({command:"editx", permission:"edit"});
+						band.NewCommand({command:"group", permission:"edit"});
 					});
 					grid.NewColumn({fname: "display", width: 575, fixedWidth:false});
-					
-					// grid.NewBand({caption: "Details"}, function(band) {
-						// band.NewColumn({fname: "diagnosis_code", width: 50, fixedWidth:true});
-					// });
 				});
 
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
-					if (desktop.canEditDiagnosis) {
-						var item = toolbar.NewDropDownViewItem({
-							id: "new-diagnosis",
-							icon: "new",
-							color: "#1CA8DD",
-							// color: "dodgerblue",
-							title: "Add Diagnosis Group",
-							height: 300,
-							width: 600,
-							// subTitle: "Choose the diagnosis to add",
-							view: DiagnosisView,
-							select: function(code) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/add-claim-diagnosis",
-									{
-										service_id: desktop.dbService.get("id"),
-										claim_id: desktop.dbService.get("claim_id"),
-										diagnosis_group: code,
-										diagnosis_code: code
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: item.elementContainer,
-												title: "Error adding diagnosis",
-												message: result.message
-											});
-										}
-									}
-								)
-							}
-						});
-					}
+					toolbar.NewDropDownViewItem({
+						id: "new-diagnosis",
+						icon: "new",
+						color: "#1CA8DD",
+						title: "Add Diagnosis Group",
+						height: 300,
+						width: 600,
+						view: DiagnosisView,
+						permission: {
+							view: desktop.canEditDiagnosis && grid.crud.add
+						},
+						select2: function(btn, code) {
+							desktop.serverPost({
+								url: "/app/get/add-claim-diagnosis/"+url,
+								params: {
+									service_id: desktop.dbService.get("id"),
+									claim_id: desktop.dbService.get("claim_id"),
+									diagnosis_group: code,
+									diagnosis_code: code
+								},
+								success: function(data) {
+									grid.refresh();
+								},
+								error: {
+									target: btn.element(),
+									title: "adding diagnosis"
+								}
+							});
+						}
+					});
 				});
 			});
 		}

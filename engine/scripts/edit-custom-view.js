@@ -183,9 +183,9 @@ function CustomEditView(params, init) {
 			// }
 		// });
 
-		toolbar.SetVisible("refresh", !view.dataset.editing);
-		toolbar.SetVisible("cancel", view.dataset.editing);
-		toolbar.SetVisible("save", view.dataset.editing);
+		// toolbar.SetVisible("refresh", !view.dataset.editing);
+		// toolbar.SetVisible("cancel", view.dataset.editing);
+		// toolbar.SetVisible("save", view.dataset.editing);
 	});
 
 	init(this);

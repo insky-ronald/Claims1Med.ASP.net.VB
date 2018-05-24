@@ -55,6 +55,17 @@ With DBConnection.NewCommand("GetScheduleExclusions", "GetScheduleExclusions", C
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
 
+With DBConnection.NewCommand("MoveScheduleItem", "MoveScheduleItem", CommandType.StoredProcedure)
+    .AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("target_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("position", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("parent_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+End With 
+
 With DBConnection.NewCommand("lookup_plans", "GetPlans", CommandType.StoredProcedure)
     .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 1)
     .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")

@@ -16,6 +16,7 @@ MainPage.prototype.AfterPaint = function() {
 	desktop.dbMedicalNotes.Columns.setprops("id", {numeric:true, key: true});
 		
 	desktop.dbMember = new Dataset(desktop.customData.data);
+	desktop.dbMember.readonly = !desktop.customData.crud.edit;
 	desktop.dbMember.Columns
 		.setprops("id", {label:"ID", numeric:true, key: true})
 		.setprops("certificate_no", {label:"Certificate No.", required:true})

@@ -27,7 +27,8 @@ Public Class Content
 			End if
 		End if
 	
-		If DatabaseUtils.AllowAction(Request.Params("pid")) Or Session("ConnectionID") Is Nothing
+		' If DatabaseUtils.AllowAction(Request.Params("pid")) Or Session("ConnectionID") Is Nothing
+		' If Session("ConnectionID") IsNot Nothing
 			Dim MasterPageStyle As String = AppUtils.Styles.AsString(Request.Params("pid"))
 			
 			Dim Path As String = "engine"
@@ -42,14 +43,9 @@ Public Class Content
 			End if
 			
 			MasterPageFile = String.Format("/{0}/master-{1}.master", Path, Style)
-			' If MasterPageStyle = ""
-				' MasterPageFile = "master-design-1.master"
-			' Else 
-				' MasterPageFile = String.Format("master-{0}.master", MasterPageStyle)
-			' End if
-		Else
-			MasterPageFile = "master-design-0.master"
-		End if
+		' Else
+			' MasterPageFile = "master-design-0.master"
+		' End if
 	End Sub
 
 End Class

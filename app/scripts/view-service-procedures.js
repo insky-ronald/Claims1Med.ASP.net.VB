@@ -15,20 +15,31 @@ function ServiceProceduresView(params){
 		init: function(grid, callback) {
 			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = url;
-				// grid.options.horzScroll = true;
+				grid.options.action = params.action;
 				grid.options.allowSort = false;
 				grid.options.showPager = false;
 				grid.options.showBand = false;
 
-				grid.options.viewType = "treeview";
-				grid.options.treeViewSettings.keyColumnName = "id"
-				grid.options.treeViewSettings.parentColumnName = "parent_id";
-				// grid.options.treeViewSettings.columnName = "diagnosis";
-				grid.options.treeViewSettings.columnName = "display";
+				// grid.options.viewType = "treeview";
+				// grid.options.treeViewSettings.keyColumnName = "id"
+				// grid.options.treeViewSettings.parentColumnName = "parent_id";
+				// grid.options.treeViewSettings.columnName = "display";
 
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
 						.addColumn("id", serviceId, {numeric:true})
+				});
+
+				grid.methods.add("canAdd", function(grid) {
+					return false;
+				});
+
+				grid.methods.add("canEdit", function(grid) {
+					return false;
+				});
+
+				grid.methods.add("canDelete", function(grid) {
+					return false;
 				});
 				
 				grid.Events.OnInitData.add(function(grid, data) {
@@ -38,23 +49,6 @@ function ServiceProceduresView(params){
 						.setprops("cpt", {label:"Procedure"})
 						.setprops("diagnosis_code", {label:"Diagnosis"})
 						.setprops("procedure_type_name", {label:"Type"})
-						// .setprops("display", {label:"Diagnosis",
-							// getText: function(column, value) {
-								// return ("{1}: {0}").format(column.dataset.get("diagnosis"), column.dataset.get("diagnosis_code"))
-							// }
-						// })
-						// .setprops("CRCY_CODE", {label:"Ccy"})
-						// .setprops("LIMIT", {label:"Max Amount", numeric:true, type:"money", format:"00"})
-						// .setprops("MAX_UNITS", {label:"Max Units", numeric:true, type:"money", format:"0"})
-						// .setprops("CLM_AMOUNT", {label:"Actual", numeric:true, type:"money", format:"00"})
-						// .setprops("APP_AMOUNT", {label:"Approved", numeric:true, type:"money", format:"00"})
-						// .setprops("APP_UNITS", {label:"Units", numeric:true, type:"money", format:"0"})
-						// .setprops("units", {label:"Units", numeric:true, type:"money", format:"0"})
-						// .setprops("unit_name", {label:"Unit Name",
-							// getText: function(column, value) {
-								// return column.dataset.get("units_required") ? value: ""
-							// }
-						// })
 				});
 		
 				grid.methods.add("getCommandHeaderIcon", function(grid, column, defaultValue) {
@@ -111,29 +105,24 @@ function ServiceProceduresView(params){
 					
 					if(column.command === "deletex") {
 						ConfirmDialog({
-							color: "forestgreen",
+							color: "firebrick",
 							target: column.element,
 							title: "Delete Procedure",
 							message: "Please confirm to delete procedure.",
 							callback: function(dialog) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/delete-claim-procedure",
-									{
+								desktop.serverPost({
+									url: "/app/get/delete-claim-procedure/" + url,
+									params: {
 										id: grid.dataset.getKey()
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: column.element,
-												title: "Error deleting procedure",
-												message: result.message
-											});
-										}
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "deleting procedure"
 									}
-								)
+								});
 							}
 						});
 					};
@@ -143,33 +132,26 @@ function ServiceProceduresView(params){
 							container: column.element,
 							icon: "db-edit",
 							color: "dodgerblue",
-							title: "Edit Diagnosis",
-							// subTitle: "...",
+							title: "Edit Procedure",
 							width: 600,
 							height: 300,
-							view: DiagnosisView,
+							view: ProceduresView,
 							select: function(code) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/edit-claim-diagnosis",
-									{
+								desktop.serverPost({
+									url: "/app/get/edit-claim-procedure/"+url,
+									params: {
 										id: grid.dataset.getKey(),
-										diagnosis_group: grid.dataset.get("diagnosis_group"),
-										diagnosis_code: code,
-										is_default: false
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: column.element,
-												title: "Error changing diagnosis",
-												message: result.message
-											});
-										}
+										code: code,
+										diagnosis_code: grid.dataset.get("diagnosis_code")
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "updating procedure"
 									}
-								)
+								});
 							}
 						});
 					};
@@ -180,7 +162,6 @@ function ServiceProceduresView(params){
 							icon: "group",
 							color: "forestgreen",
 							title: "Assign to Diagnosis",
-							// subTitle: "...",
 							width: 600,
 							height: 200,
 							view: DiagnosisGroupView,
@@ -188,48 +169,31 @@ function ServiceProceduresView(params){
 								dataParams.set("id", desktop.dbService.get("id"));
 							},
 							select: function(diagnosisCode) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/edit-claim-procedure",
-									{
+								desktop.serverPost({
+									url: "/app/get/edit-claim-procedure/"+url,
+									params: {
 										id: grid.dataset.getKey(),
 										code: grid.dataset.get("code"),
 										diagnosis_code: diagnosisCode
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: column.element,
-												title: "Error changing procedure",
-												message: result.message
-											});
-										}
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "assigning diagnosis to procedure"
 									}
-								)
+								});
 							}
 						});
 					};
 				});
-			
-				// grid.Events.OnInitRow.add(function(grid, row) {					
-					// if (grid.dataset.get("parent_id") == 0) {
-						// row.attr("x-main", 1)
-					// } else {
-						// row.attr("x-main", 0)
-					// }
-					
-					// if (grid.dataset.get("is_default")) {
-						// row.attr("x-default", 1);
-					// };					
-				// });
 				
 				grid.Events.OnInitColumns.add(function(grid) {
 					grid.NewBand({caption: "...", fixed:"left"}, function(band) {					
-						band.NewCommand({command:"deletex"});
-						band.NewCommand({command:"editx"});
-						band.NewCommand({command:"diagnosis"});
+						band.NewCommand({command:"deletex", permission:"delete"});
+						band.NewCommand({command:"editx", permission:"edit"});
+						band.NewCommand({command:"diagnosis", permission:"edit"});
 					});
 					grid.NewColumn({fname: "code", width: 75, fixedWidth:false});
 					grid.NewColumn({fname: "cpt", width: 400, fixedWidth:false});
@@ -238,42 +202,36 @@ function ServiceProceduresView(params){
 				});
 
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
-					if (desktop.canEdit) {
-						var item = toolbar.NewDropDownViewItem({
-							id: "new-diagnosis",
-							icon: "new",
-							color: "#1CA8DD",
-							// color: "dodgerblue",
-							title: "Add Procedure",
-							height: 300,
-							width: 600,
-							// subTitle: "Choose the diagnosis to add",
-							view: ProceduresView,
-							select: function(code) {
-								desktop.Ajax(
-									self, 
-									"/app/api/command/add-claim-procedure",
-									{
-										service_id: desktop.dbService.get("id"),
-										claim_id: desktop.dbService.get("claim_id"),
-										code: code,
-										diagnosis_code: ""
-									}, 
-									function(result) {
-										if (result.status == 0) {
-											grid.refresh();
-										} else {
-											ErrorDialog({
-												target: item.elementContainer,
-												title: "Error adding procedure",
-												message: result.message
-											});
-										}
-									}
-								)
-							}
-						});
-					}
+					toolbar.NewDropDownViewItem({
+						id: "new-diagnosis",
+						icon: "new",
+						color: "#1CA8DD",
+						title: "Add Procedure",
+						height: 300,
+						width: 600,
+						view: ProceduresView,
+						permission: {
+							view: desktop.canEdit && grid.crud.add
+						},
+						select2: function(btn, code) {
+							desktop.serverPost({
+								url: "/app/get/add-claim-procedure/" + url,
+								params: {
+									service_id: desktop.dbService.get("id"),
+									claim_id: desktop.dbService.get("claim_id"),
+									code: code,
+									diagnosis_code: ""
+								},
+								success: function(data) {
+									grid.refresh();
+								},
+								error: {
+									target: btn.element(),
+									title: "adding procedure"
+								}
+							});
+						}
+					});
 				});
 			});
 		}

@@ -153,7 +153,33 @@ MainPage.prototype.InitializeSession = function(data) {
 			});
 		};
 	});
-
+	
+	this.Events.OnDeveloperMenuPageControl.add(function(desktop, pg) {		
+		// var parts = window.location.pathname.split("/");
+		// var name = "home";
+		
+		// if (parts[2] != "") {
+			// name = parts[2];
+		// }
+		
+		// pg.addTab({caption: name,
+			// icon: {
+				// name: "notes"
+			// },
+			// OnCreate: function(tab) {
+			// }
+		// });
+		
+		// pg.addTab({caption:"notes",
+			// icon: {
+				// name: "notes"
+			// },
+			// OnCreate: function(tab) {
+				// tab.container.html('<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRvHRwmmbQ1MV1AQvBUtnTUrCSdwLEr004iO5UzYsmwu-6zssGIh75S7ytgMaoPdCPMA0jcrwNtgO3H/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>');
+			// }
+		// });
+	});
+	
 	this.Events.OnSideMenuPageControl.add(function(desktop, pg) {
 		pg.addTab({caption:"Tasks",
 			icon: {

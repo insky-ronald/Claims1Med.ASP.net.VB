@@ -23,10 +23,23 @@ function FamilyMembersView(viewParams){
 				grid.options.showBand = false;
 				grid.options.showSummary = false;
 				grid.options.showPager = false;
+				// grid.options.overrideCrudAdd = true;
 				// grid.options.showMasterDetail = true;
 				
 				grid.search.visible = false;
 				grid.exportData.allow = false;
+				
+				grid.methods.add("canAdd", function(grid) {
+					return false
+				})
+				
+				grid.methods.add("canEdit", function(grid) {
+					return false
+				})
+				
+				grid.methods.add("canDelete", function(grid) {
+					return false
+				})
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
@@ -74,7 +87,7 @@ function FamilyMembersView(viewParams){
 				});
 				
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
-					if (!viewParams.requestParams.new_member) {
+					if (!viewParams.requestParams.new_member && grid.crud.add) {
 						toolbar.NewDropDownViewItem({
 							id: "new-member",
 							icon: "new",

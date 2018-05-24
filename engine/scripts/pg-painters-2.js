@@ -179,6 +179,11 @@ jPageTabPainter.prototype.setVisible = function(visible) {
 			this.tabContent.css("pointer-events", "none");
 		};
 	};
+	
+	// console.log(this.control.params)
+	if(this.control.params.OnVisibility) {
+		this.control.params.OnVisibility(this.control, visible);
+	}
 };
 
 jPageTabPainter.prototype.hide = function() {

@@ -172,6 +172,15 @@ With DBConnection.NewCommand("GetActions", "GetActions", CommandType.StoredProce
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
 
+With DBConnection.NewCommand("MoveActionItem", "MoveActionItem", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+	.AddParameter("target_id", SqlDbType.Int, ParameterDirection.Input, 0, 0)
+    .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+    .AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+End With 
+
 '====================================================================================================
 '	RIGHTS
 '====================================================================================================

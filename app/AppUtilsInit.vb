@@ -25,23 +25,6 @@ REM Databases.SetValue("DatabaseConnections", "DBSecure,DBClaims,DBSystem,DBMedi
 Databases.SetValue("DatabaseConnections", "DBSecure,DBReporting,DBMedics")
 Databases.SetValue("DefaultConnection", "DBSecure")
 
-Databases.SetValue("DBReporting", "CNReporting")
-Databases.SetValue("DBReportingCodeFile", "ReportingCodeFile")
-Databases.SetValue("CNReporting", "data source=DBSERVER01\ISOSDB01;initial catalog=MEDICS52;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
-Databases.SetValue("ReportingCodeFile", "C:\inetpub\wwwroot\Claim1MED.NET\engine\DatabaseInitReporting.vb")
-
-REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBSecure
-REM Databases.SetValue("DBSecure", "CNSecure")
-REM Databases.SetValue("DBSecureCodeFile", "SecureCodeFile")
-REM Databases.SetValue("CNSecure", "data source=DBSERVER01;initial catalog=CLAIMS1MED03;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;") 
-REM Databases.SetValue("SecureCodeFile", "C:\inetpub\wwwroot\IHMS\app\DatabaseInit.vb")
-
-REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBSystem
-Databases.SetValue("DBSystem", "CNSystem")
-Databases.SetValue("DBSystemCodeFile", "SystemCodeFile")
-Databases.SetValue("CNSystem", "data source=DBSERVER01;initial catalog=INSKY01;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;") 
-Databases.SetValue("SystemCodeFile", "C:\inetpub\wwwroot\IHMS\app\DatabaseSystem.vb")
-
 REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBMedics
 Databases.SetValue("DBMedics", "CNMedics")
 Databases.SetValue("DBMedicsCodeFile", "MedicsCodeFile")
@@ -51,29 +34,10 @@ Databases.SetValue("CNMedics", "data source=DBSERVER01\ISOSDB01;initial catalog=
 Databases.SetValue("MedicsCodeFile", "C:\inetpub\wwwroot\Claim1MED.NET\app\DatabaseInitMedics.vb")
 Databases.SetValue("MedicsCodeFile2", "C:\inetpub\wwwroot\Claim1MED.NET\app\datasources")
 
-REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBClaims
-Databases.SetValue("DBClaims", "CNClaims")
-Databases.SetValue("DBClaimsCodeFile", "ClaimsCodeFile")
-Databases.SetValue("CNClaims", "data source=DBSERVER01;initial catalog=CLAIMS1MED03;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
-Databases.SetValue("ClaimsCodeFile", "C:\inetpub\wwwroot\IHMS\app\DatabaseInitClaims.vb")
-
-REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBVoters
-Databases.SetValue("DBVoters", "CNVoters")
-Databases.SetValue("DBVotersCodeFile", "VotersCodeFile")
-Databases.SetValue("CNVoters", "data source=DBSERVER01;initial catalog=VotersData;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
-Databases.SetValue("VotersCodeFile", "C:\inetpub\wwwroot\ALZ\app\DatabaseInitVoters.vb")
-
-REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBClinic
-Databases.SetValue("DBClinic", "CNClinic")
-Databases.SetValue("DBClinicCodeFile", "ClinicCodeFile")
-Databases.SetValue("CNClinic", "data source=DBSERVER01;initial catalog=CLINIC02;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
-Databases.SetValue("ClinicCodeFile", "C:\inetpub\wwwroot\Sample.EngineV4\app\DatabaseInitClinic.vb")
-
-REM http://medics5.insky-inc.com/api/tools/dbinit?name=DBMoney
-Databases.SetValue("DBMoney", "CNMoney")
-Databases.SetValue("DBMoneyCodeFile", "MoneyCodeFile")
-Databases.SetValue("CNMoney", "data source=DBSERVER01;initial catalog=MYMONEY;user=sa;password=Trueasgold;")
-Databases.SetValue("MoneyCodeFile", "C:\inetpub\wwwroot\Financial\app\DatabaseInitMoney.vb")
+Databases.SetValue("DBReporting", "CNReporting")
+Databases.SetValue("DBReportingCodeFile", "ReportingCodeFile")
+Databases.SetValue("CNReporting", "data source=DBSERVER01\ISOSDB01;initial catalog=MEDICS52;user=sa;password=Trueasgold;Connection Timeout=120;context connection=false;")
+Databases.SetValue("ReportingCodeFile", "C:\inetpub\wwwroot\Claim1MED.NET\engine\DatabaseInitReporting.vb")
 
 Paths.SetValue("UploadPath", "C:\WebAppDocs\Temp")
 Paths.SetValue("DocumentPath", "C:\WebAppDocs\Insky")

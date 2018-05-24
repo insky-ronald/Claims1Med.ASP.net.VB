@@ -7,3 +7,17 @@ With DBConnection.NewCommand("GetClaimNotes", "GetClaimNotes", CommandType.Store
 	.AddParameter("order", SqlDbType.char, ParameterDirection.Input, 100, "")
 	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
+
+With DBConnection.NewCommand("AddClaimNote", "AddClaimNote", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)	
+	.AddParameter("claim_id", SqlDbType.int, ParameterDirection.Input, 0, 0)	
+	.AddParameter("service_id", SqlDbType.int, ParameterDirection.Input, 0, 0)	
+	.AddParameter("note_type", SqlDbType.char, ParameterDirection.Input, 3, "")
+	.AddParameter("note_sub_type", SqlDbType.char, ParameterDirection.Input, 3, "")
+	.AddParameter("notes", SqlDbType.varchar, ParameterDirection.Input, -1, "")
+	.AddParameter("is_new", SqlDbType.bit, ParameterDirection.Input, 0, False)
+	.AddParameter("action", SqlDbType.tinyint, ParameterDirection.Input, 0, 10)
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.varchar, ParameterDirection.InputOutput, 200, "")
+End With 

@@ -2,62 +2,47 @@
 
 Public Class DataProvider
 	Inherits DataHandler.DataProvider
-
-	REM this is called from api_getdata.aspx
-	REM find Api.BaseDataApi in Api.vb
 	
 	Protected Overrides Function ListDataSource As String
 		Return "DBMedics.GetClaimDiagnosis"
 	End Function
 	
-	' Protected Overrides Function ReadDataSource As String
-		' Return "DBMedics.GetClaimDiagnosisEdit"
-	' End Function
-
-	REM Protected Overrides Function UpdateDataSource As String
-		REM Return "DBClaims.AddMasterPolicy"
-	REM End Function
-		
-	' Protected Overrides Sub InitParams(ByVal Cmd As String, ByVal DataParams As List(Of String), ByVal DataValues As List(Of Object))
-		' MyBase.InitParams(Cmd, DataParams, DataValues)
-		' If Cmd = "list"
-			' DataParams.Add("visit_id")
-			' DataValues.Add(Session("VisitorID"))
-		' Else If Cmd = "edit"
-			' DataParams.Add("id")
-			' DataParams.Add("visit_id")
-			' DataValues.Add(Request.Params("id"))
-			' DataValues.Add(Session("VisitorID"))
-		' Else If Cmd = "new"
-			' DataParams.Add("visit_id")
-			' DataValues.Add(Session("VisitorID"))
-		' End if
-	' End Sub
-		
-	Protected Overrides Sub NewRecord(Row As System.Data.DataRow)
-		MyBase.NewRecord(Row)
-		REM Row.Item("id") = 1
-	End Sub		
-	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
-		If Cmd = "list"
-			' Crud.AsBoolean("add") = True
-			' Crud.AsBoolean("edit") = True
-			' Crud.AsBoolean("delete") = True
-			Crud.AsBoolean("add") = False
-			Crud.AsBoolean("edit") = False
-			Crud.AsBoolean("delete") = False
-		Else If Cmd = "edit"
-			Crud.AsBoolean("add") = True
-			Crud.AsBoolean("edit") = False
-			Crud.AsBoolean("delete") = False
-		Else If Cmd = "delete"
-			REM UpdateData = New UpdateDataRecord(UpdateDataSource(), UpdateEncodedFields(), UpdateResultFields(), VisitorID)
-			REM Dim UpdateData As New ServerUpdate.UpdateDataRecord(UpdateDataSource(), UpdateEncodedFields(), UpdateResultFields(), Session("VisitorID"))
-			REM AddHandler UpdateData.AfterUpdate, AddressOf AfterUpdate
-			
-			REM UpdateData.Update(Request.Params("data"), Request.Params("mode"), Output)			
+
+		If Cmd = "add-claim-diagnosis" or Cmd = "edit-claim-diagnosis" or Cmd = "delete-claim-diagnosis"
+			Using Command = DBConnections("DBMedics").PrepareCommand("AddClaimDiagnosis")
+				If Cmd = "add-claim-diagnosis"
+					Command.SetParameter("id", 0)
+					Command.SetParameter("claim_id", Request.Params("claim_id"))
+					Command.SetParameter("service_id", Request.Params("service_id"))
+					Command.SetParameter("diagnosis_group", Request.Params("diagnosis_group"))
+					Command.SetParameter("diagnosis_code", Request.Params("diagnosis_code"))
+					Command.SetParameter("type", "I")
+					Command.SetParameter("action", 20)
+				End if
+				
+				If Cmd = "edit-claim-diagnosis"
+					Command.SetParameter("id", Request.Params("id"))
+					Command.SetParameter("diagnosis_group", Request.Params("diagnosis_group"))
+					Command.SetParameter("diagnosis_code", Request.Params("diagnosis_code"))
+					Command.SetParameter("is_default", Request.Params("is_default"))
+					Command.SetParameter("type", "I")
+					Command.SetParameter("action", 10)
+				End if
+				
+				If Cmd = "delete-claim-diagnosis"
+					Command.SetParameter("id", Request.Params("id"))
+					Command.SetParameter("type", "I")
+					Command.SetParameter("action", 0)
+				End if
+				
+				Command.SetParameter("visit_id", VisitorID)
+				Command.Execute
+				
+				Output.AsJson("status") = Command.GetParameter("action_status_id").Value
+				Output.AsString("message") = Command.GetParameter("action_msg").Value
+			End Using
 		End if
 	End Sub
 End Class

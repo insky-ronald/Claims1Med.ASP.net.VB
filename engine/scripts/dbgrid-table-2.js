@@ -869,7 +869,7 @@ jTableContentPainter.prototype.drawCell = function(cell, column) {
 						var eventParams = {
 							container: container,
 							addIcon: function(params) {
-								CreateElementEx("div", this.container, function(btn) {
+								return CreateElementEx("div", this.container, function(btn) {
 									btn
 										.attr("tree-sec", "icon")
 										.attr("icon-name", params.name)
@@ -878,7 +878,7 @@ jTableContentPainter.prototype.drawCell = function(cell, column) {
 								})
 							},
 							addCommand: function(params) {
-								CreateElementEx("div", this.container, function(btn) {
+								return CreateElementEx("div", this.container, function(btn) {
 									btn
 										.attr("tree-sec", "command")
 										.attr("command-name", params.name)

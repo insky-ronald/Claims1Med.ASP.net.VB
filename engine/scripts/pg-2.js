@@ -44,6 +44,12 @@ jPageControl.prototype.showTabs = function(visible) {
 };
 
 jPageControl.prototype.addTab = function(params) {
+	if (params.permission != undefined) {
+		if (!params.permission.view) {
+			return undefined;
+		}
+	};
+	
 	var tab = new jPageTab($.extend(params, {
 		creator: this,
 		id: defaultValue(params.id, this.tabs.length+1)
@@ -102,9 +108,9 @@ jPageTab.prototype.activate = function() {
 	this.painter.activate();
 };
 
-jPageTab.prototype.activate = function() {
-	this.painter.activate();
-};
+// jPageTab.prototype.activate = function() {
+	// this.painter.activate();
+// };
 
 jPageTab.prototype.show = function() {
 	this.painter.show();

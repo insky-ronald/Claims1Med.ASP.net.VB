@@ -30,6 +30,10 @@ Namespace DataHandler
 		Protected Overridable Function CheckAuthorization As Boolean
 			Return True
 		End Function
+			
+		Protected Overridable Function ActionCode As String
+			Return Request.Params("pid")
+		End Function
 
 		Protected Overridable Sub InitHandler(ByVal Context As HttpContext)		
 			Dim Allow As Boolean = True
@@ -214,6 +218,14 @@ Namespace DataHandler
 			Response.Write(Output.JsonString(True))
 		End Sub
 
+		Protected Overridable Function PermissionID As String
+			If Request.Params("action") Is Nothing
+				Return Request.Params("pid")
+			Else
+				Return Request.Params("action")
+			End if
+		End Function
+
 		Protected Overridable Function ListDataSource As String
 			Return ""
 		End Function
@@ -304,7 +316,9 @@ Namespace DataHandler
 			
 			Output.AsJson("status") = 0
 
-			DatabaseUtils.GetActionPermission(Request.Params("pid"), Crud)
+			' Crud.AsString("action") = PermissionID
+			DatabaseUtils.GetActionPermission(PermissionID, Crud)
+			' DatabaseUtils.GetActionPermission(Request.Params("pid"), Crud)
 			REM Crud.AsBoolean("add") = True
 			REM Crud.AsBoolean("edit") = True
 			REM Crud.AsBoolean("delete") = True
@@ -710,6 +724,14 @@ Namespace DataHandler
 		
 		Protected MenuItems As Navigator.MenuItems
 		Protected CustomData As EasyStringDictionary
+
+		' Protected Overridable Function  MinimizeJson As Boolean
+			' Return False
+		' End Function
+
+		Protected Overridable Function ReturnLinkItems As Boolean
+			Return False
+		End Function
 		
 		Protected Overrides Sub InitHandler(ByVal Context As HttpContext)
 			MyBase.InitHandler(Context)
@@ -724,6 +746,13 @@ Namespace DataHandler
 			Dim Output As New EasyStringDictionary("")
 			Output.AsJson("status") = 0
 			Output.AsString("message") = ""
+
+			If Not DatabaseUtils.AllowAction(ActionCode)
+				Output.AsJson("status") = -1
+				Output.AsString("message") = "No Access"
+				Response.Write(Output.JsonString())
+				Response.End
+			End if
 			
 			REM MenuItems = New Navigator.MenuItems(VisitorID)
 			CustomData = New EasyStringDictionary("")
@@ -738,7 +767,9 @@ Namespace DataHandler
 				REM InitCallback(Request.Params("action").ToLower, Output)
 				
 				Output.AsJson("menu_items") = MenuItems.Json()
-				Output.AsJson("link_items") = AppUtils.MenuItems.Json()
+				If ReturnLinkItems
+					Output.AsJson("link_items") = AppUtils.MenuItems.Json()
+				End if
 				Output.AsJson("custom_data") = CustomData.JsonString()
 			End if
 			

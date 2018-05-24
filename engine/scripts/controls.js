@@ -59,6 +59,11 @@ JControl.prototype.DefaultPainter = function() {
     return undefined;
 };
 
+JControl.prototype.element = function() {
+    // return $("#" + this.ID);
+   return this.elementContainer;
+};
+
 JControl.prototype.Element = function() {
     // return $("#" + this.ID);
    return this.elementContainer;
