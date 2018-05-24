@@ -26,7 +26,10 @@ function BudgetEdit(params){
 					.setprops("user_name", {label:"User Name", required:true, readonly:false})
 					.setprops("last_name", {label:"Last Name", required:true})
 					.setprops("middle_name", {label:"Middle Name", required:false})
-					.setprops("first_name", {label:"FirstName", required:false})
+					.setprops("first_name", {label:"First Name", required:false})
+					.setprops("designation", {label:"Designation", required:false})
+					.setprops("email", {label:"Email", required:false})
+					.setprops("phone_no", {label:"Phone No.", required:false})
 				}
 			);
 			
@@ -35,12 +38,18 @@ function BudgetEdit(params){
 					editor.AddGroup("Login", function(editor) {
 						editor.AddEdit({ID: "id"});
 						editor.AddEdit({ID: "user_name"}, {readonly:editor.Dataset.get("id") > 0});
+						editor.AddEdit({ID: "designation"});
 					});
 					
 					editor.AddGroup("Name", function(editor) {
 						editor.AddEdit({ID: "last_name"});
 						editor.AddEdit({ID: "middle_name"});
 						editor.AddEdit({ID: "first_name"});
+					});
+					
+					editor.AddGroup("COntacts", function(editor) {
+						editor.AddEdit({ID: "email"});
+						editor.AddEdit({ID: "phone_no"});
 					});
 					
 					editor.AddGroup("Options", function(editor) {

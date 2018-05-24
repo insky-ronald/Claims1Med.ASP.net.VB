@@ -82,46 +82,55 @@ Public Class DataProvider
 			CustomData.AsJson("medical_notes") = DBMedicalNotes.AsJson()
 		End Using
 
-		If Action = "navigator"
-			If MemberID = 0
-				If CertificateID = 0
-					Output.AsString("page_title") = "New Member"
-				Else
-					Output.AsString("page_title") = "New Dependent"
-				End if
-				
-				Output.AsString("window_title") = Output.AsString("page_title")
+		If MemberID = 0
+			If CertificateID = 0
+				Output.AsString("page_title") = "New Member"
 			Else
-				If DBMember.Eval("@dependent_code") = 0
-					Output.AsString("page_title") = DBMember.Eval("Member: @name")
-				Else
-					Output.AsString("page_title") = DBMember.Eval("Dependent: @name")
-				End if
-				Output.AsString("window_title") = DBMember.Eval("@name")
+				Output.AsString("page_title") = "New Dependent"
 			End if
-
-			CustomData.AsJson("member_id") = MemberID
-			' CustomData.AsJson("certificate_id") = DBMember.Eval("@certificate_id")
-			CustomData.AsJson("data") = DBMember.AsJson()
-
-			Using DBProduct = DBConnections("DBMedics").OpenData("GetProducts", {"code","action","visit_id"}, {DBMember.Eval("@product_code"), 10, Session("VisitorID")}, "")
-				CustomData.AsJson("product") = DBProduct.AsJson()
-			End Using
-
-			Using DBCountries = DBConnections("DBMedics").OpenData("GetCountries", {"action","visit_id"}, {1, Session("VisitorID")}, "")
-				DBCountries.Columns.Remove("row_no")
-				CustomData.AsJson("countries") = DBCountries.AsJson()
-			End Using
-
-			Using DBRelationships = DBConnections("DBMedics").OpenData("GetRelationships", {"action","visit_id"}, {1, Session("VisitorID")}, "")
-				DBRelationships.Columns.Remove("row_no")
-				CustomData.AsJson("relationships") = DBRelationships.AsJson()
-			End Using
 			
-			REM CustomData.AsString("claim_type") = DBMember.Eval("@claim_type")
-		Else If Action = "refresh"
-			Output.AsJson("data") = DBMember.AsJson()
+			Output.AsString("window_title") = Output.AsString("page_title")
+		Else
+			If DBMember.Eval("@dependent_code") = 0
+				Output.AsString("page_title") = DBMember.Eval("Member: @name")
+			Else
+				Output.AsString("page_title") = DBMember.Eval("Dependent: @name")
+			End if
+			Output.AsString("window_title") = DBMember.Eval("@name")
 		End if
+
+		CustomData.AsJson("member_id") = MemberID
+		' CustomData.AsJson("certificate_id") = DBMember.Eval("@certificate_id")
+		CustomData.AsJson("data") = DBMember.AsJson()
+
+		Using DBProduct = DBConnections("DBMedics").OpenData("GetProducts", {"code","action","visit_id"}, {DBMember.Eval("@product_code"), 10, Session("VisitorID")}, "")
+			CustomData.AsJson("product") = DBProduct.AsJson()
+		End Using
+
+		Using DBCountries = DBConnections("DBMedics").OpenData("GetCountries", {"action","visit_id"}, {1, Session("VisitorID")}, "")
+			DBCountries.Columns.Remove("row_no")
+			CustomData.AsJson("countries") = DBCountries.AsJson()
+		End Using
+
+		Using DBRelationships = DBConnections("DBMedics").OpenData("GetRelationships", {"action","visit_id"}, {1, Session("VisitorID")}, "")
+			DBRelationships.Columns.Remove("row_no")
+			CustomData.AsJson("relationships") = DBRelationships.AsJson()
+		End Using
+		
+		CustomData.AsJson("crud") = DatabaseUtils.GetActionPermission("member").JsonString()
+
+		Dim Permissions As New EasyStringDictionary("")
+		' Permissions.AsBoolean("address") = DatabaseUtils.AllowAction("member-address")
+		' Permissions.AsBoolean("contact") = DatabaseUtils.AllowAction("member-contact")
+		' Permissions.AsBoolean("plan_history") = DatabaseUtils.AllowAction("member-planhist")
+		
+		' Permissions.AsBoolean("medical_notes") = DatabaseUtils.AllowAction("member-medical-notes")
+		Permissions.AsJson("address") = DatabaseUtils.GetActionPermission("member-address").JsonString()
+		Permissions.AsJson("contact") = DatabaseUtils.GetActionPermission("member-contact").JsonString()
+		Permissions.AsJson("plan_history") = DatabaseUtils.GetActionPermission("member-planhist").JsonString()
+		Permissions.AsJson("medical_notes") = DatabaseUtils.GetActionPermission("member-medical-notes").JsonString()
+		
+		CustomData.AsJson("permissions") = Permissions.JsonString()
 	End Sub
 
 	Protected Overrides Sub UnloadHandler(ByVal Context As HttpContext)
@@ -140,7 +149,7 @@ Public Class DataProvider
 				.ID = "details"
 				.Title = "Details"
 				.Icon = "table-edit"
-				.Action = "admin"
+				.Action = "member"
 				.URL = "app/member"
 				.Css = "*"
 				.Run = "MemberView"
@@ -155,7 +164,7 @@ Public Class DataProvider
 				.ID = "claims"
 				.Title = "Claims Entry"
 				.Icon = "claims"
-				.Action = "admin"
+				.Action = "claim"
 				.Css = "*"
 				.Run = "MemberClaimsView"
 				' .URL = "app/member-case-history"
@@ -166,7 +175,7 @@ Public Class DataProvider
 				.ID = "history"
 				.Title = "Case History"
 				.Icon = "history"
-				.Action = "admin"				
+				.Action = "member"				
 				.URL = "app/member-case-history"
 				' .Params.AsInteger("member_id") = MemberID
 			End with
@@ -175,7 +184,7 @@ Public Class DataProvider
 				.ID = "benefit-utilisation"
 				.Title = "Benefit Utilisation"
 				.Icon = "benefit"
-				.Action = "admin"				
+				.Action = "benefit-uilisation"				
 				.URL = "app/benefit-utilisation"
 				' .Params.AsInteger("member_id") = MemberID
 			End with
@@ -184,7 +193,7 @@ Public Class DataProvider
 				.ID = "call-log"
 				.Title = "Call Log"
 				.Icon = "call-log"
-				.Action = "admin"				
+				.Action = "member"				
 				' .URL = "app/member-case-history"
 				' .Params.AsInteger("member_id") = MemberID
 			End with

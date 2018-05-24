@@ -36,16 +36,6 @@ Public Class DataProvider
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
-		If Cmd = "edit"
-			Crud.AsBoolean("add") = True
-			Crud.AsBoolean("edit") = True
-			Crud.AsBoolean("delete") = False
-		Else If Cmd = "delete"
-			REM UpdateData = New UpdateDataRecord(UpdateDataSource(), UpdateEncodedFields(), UpdateResultFields(), VisitorID)
-			REM Dim UpdateData As New ServerUpdate.UpdateDataRecord(UpdateDataSource(), UpdateEncodedFields(), UpdateResultFields(), Session("VisitorID"))
-			REM AddHandler UpdateData.AfterUpdate, AddressOf AfterUpdate
-			
-			REM UpdateData.Update(Request.Params("data"), Request.Params("mode"), Output)			
-		End if
+		DatabaseUtils.GetActionPermission("member", Crud)
 	End Sub
 End Class

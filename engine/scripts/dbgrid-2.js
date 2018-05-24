@@ -48,7 +48,9 @@ jGrid.prototype.initialize = function(params) {
 		showSelection: false,
 		showPreviewRow: false,
 		showColumnHeader: true,
-		showPager: true
+		showPager: true,
+		action: ""
+		// overrideCrudAdd: false
 	}, params.options)
 	
 	// this.options.editNewPage = defaultValue(this.options.editNewPage, false)
@@ -63,6 +65,7 @@ jGrid.prototype.initialize = function(params) {
 	// this.options.autoScroll = defaultValue(this.options.autoScroll, true) // if true, this will add a last column filler, otherwise, the last column will be set to width 100%
 	
 	this.options.toolbar = $.extend({}, {
+		visible: true,
 		size: 24,
 		theme: "svg"
 	}, params.paintParams.toolbar)
@@ -138,7 +141,7 @@ jGrid.prototype.initialize = function(params) {
 			});
 		};
 		
-		if(grid.crud.add) {
+		if(grid.crud.add && grid.methods.call("canAdd")) {
 			toolbar.NewItem({
 				id: "new",
 				icon: "new",
@@ -186,13 +189,24 @@ jGrid.prototype.initialize = function(params) {
 	this.events.OnInitRow = new EventHandler(this)
 	this.events.OnInitColumns = new EventHandler(this)
 	this.events.OnInitColumns.add(function(grid) {
-		if(grid.crud.edit || grid.crud["delete"] || grid.options.showSelection || grid.options.showMenuButton) 
+		// if(grid.crud.edit || grid.crud["delete"] || grid.options.showSelection || grid.options.showMenuButton) 
+			// grid.NewBand({id:"db-control", caption: "", fixed:"left"}, function(band) {
+				// if(grid.options.showSelection) band.NewCommand({command:"select", internal: true})
+				// if(grid.options.showMenuButton) band.NewCommand({command:"menu", internal: true})
+				// if(grid.crud.edit && !grid.options.editNewPage) band.NewCommand({command:"edit", internal: true})
+				// if(grid.crud["delete"]) band.NewCommand({command:"delete", internal: true})
+				// if(grid.crud.edit && grid.options.editNewPage) band.NewCommand({command:"open", internal: true})
+			// })
+		var canEdit = grid.methods.call("canEdit");
+		var canDelete = grid.methods.call("canDelete");
+		
+		if(canEdit || canDelete || grid.options.showSelection || grid.options.showMenuButton) 
 			grid.NewBand({id:"db-control", caption: "", fixed:"left"}, function(band) {
 				if(grid.options.showSelection) band.NewCommand({command:"select", internal: true})
 				if(grid.options.showMenuButton) band.NewCommand({command:"menu", internal: true})
-				if(grid.crud.edit && !grid.options.editNewPage) band.NewCommand({command:"edit", internal: true})
-				if(grid.crud["delete"]) band.NewCommand({command:"delete", internal: true})
-				if(grid.crud.edit && grid.options.editNewPage) band.NewCommand({command:"open", internal: true})
+				if(canEdit && !grid.options.editNewPage) band.NewCommand({command:"edit", internal: true})
+				if(canDelete) band.NewCommand({command:"delete", internal: true})
+				if(canEdit && grid.options.editNewPage) band.NewCommand({command:"open", internal: true})
 			})
 		
 		if(grid.options.showMasterDetail) 
@@ -449,7 +463,7 @@ jGrid.prototype.fetchData = function(mode, callback) {
 	// return this.bands.getByIndex(0)
 // }
 
-jGrid.prototype.refresh = function(keepData) {	
+jGrid.prototype.refresh = function(keepData, callback) {	
 	var self = this
 	
 	if(!this.dataset.empty())
@@ -462,8 +476,11 @@ jGrid.prototype.refresh = function(keepData) {
 				self.events.OnInitSubData.trigger({rawData:data["data_"+i], index:i})
 			}
 			
-			self.painter.update()
-			self.events.OnAfterPaint.trigger()
+			self.painter.update();
+			self.events.OnAfterPaint.trigger();
+			if (callback) {
+				callback();
+			}
 		})
 	} else {
 			// self.dataset.resetData(self.dataset.);
@@ -543,7 +560,8 @@ jGrid.prototype.getData = function(mode, init, callback) {
 		})
 	}
 	
-	if(init) init(params)
+	if(init) init(params);
+	if(this.options.action) params.action = this.options.action;
 	
 	var src, path = "app"
 	var values = this.optionsData.url.split("/")

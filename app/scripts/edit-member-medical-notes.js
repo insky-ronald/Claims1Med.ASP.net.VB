@@ -3,11 +3,12 @@
 	Last modified on
 	02-OCT-2017
 	
-	Called from claim-details.js
+	Called from claim-details.js and member.js
 ******************************************************************************************************/
 function MemberMedicalNotesEdit(viewParams) {
 	var self = this;
 	this.dataset = viewParams.dataset;
+	this.readonly = viewParams.requestParams.readonly;
 	
 	viewParams.container.addClass("member-medical-notes");
 	CreateElementEx("div", viewParams.container, function(container) {
@@ -30,7 +31,7 @@ function MemberMedicalNotesEdit(viewParams) {
 			},
 			click: function(item) {
 				var params = {
-					id: self.dataset.getKey(), 
+					member_id: self.dataset.getKey(), 
 					claim_id: self.dataset.get("claim_id")
 				};
 				
@@ -90,8 +91,7 @@ function MemberMedicalNotesEdit(viewParams) {
 	this.notes = CreateElementEx("pre", viewParams.container, function(notes) {		
 		notes.addClass("medical-notes");
 		notes.attr("spellcheck", false);
-		notes.attr("contenteditable", true);
-		// notes.html(desktop.dbMedicalNotes.get("medical_history_notes"));
+		notes.attr("contenteditable", !self.readonly);
 		notes.html(self.dataset.get("medical_history_notes"));
 		notes.on("input", function() {
 			if(!self.dataset.editing) {

@@ -2,37 +2,72 @@
 /* Last modified on */
 /* 04-OCT-2017 */
 /*****************************************************************************************************/
-.grid3.notes .header-cell.command-cell[command="master-detail"] svg {
-	fill: forestgreen !important;
+.dialog div[dlg-sec="content"] .dialog-sub-title span[x-sec="main"] {
+	font-size: 130%;
+	font-weight: bold;
 }
 
-.grid3.notes .master-detail-main {
+.dialog div[dlg-sec="content"] .dialog-sub-title span[x-sec="sub"] {
+	font-size: 120%;
+	/* font-weight: bold; */
+}
+
+.dialog div[dlg-sec="content"] .dialog-sub-title span[x-sec="sub"]::before {
+	content: "»";
+    font-size: 120%;
+    color: goldenrod;
+    margin: 0 4px 0 4px;
+}
+
+.grid3.claim-notes .header-cell.command-cell[command="master-detail"] svg {
+	fill: orange !important;
+}
+
+.grid3.claim-notes .header-cell.command-cell[command="deletex"] svg,
+.grid3.claim-notes .cell.command-cell[command="deletex"] svg {
+	fill: firebrick !important;
+}
+
+.grid3.claim-notes .header-cell.command-cell[command="editx"] svg,
+.grid3.claim-notes .cell.command-cell[command="editx"] svg {
+	fill: dodgerblue !important;
+}
+
+.grid3.claim-notes .master-detail-main {
 	width: 100%;
 }
 
-.grid3.notes .master-detail-container {
+.grid3.claim-notes .master-detail-container {
 	font: 10pt Consolas;
 	background: lightyellow;
-	padding: 6px;
+	/* padding: 6px; */
 	width: 100% !important;
 	border: 2px solid orange;
 	tab-size: 4;
 	overflow: auto;
 }
 
-.grid3.notes .master-detail-container pre {
+.grid3.claim-notes .master-detail-container pre {
 	margin: 0;
 }
 
-.grid3.notes .row[notes="d"] {
+.grid3.claim-notes .row[deleted="1"] {
+	color: firebrick !important;
+}
+
+.grid3.claim-notes .row[new="1"] {
+	color: dodgerblue;
+}
+
+.grid3.claim-notes .row[notes="d"] {
 	color: red;
 }
 
-.grid3.notes .row[notes="s"] {
+.grid3.claim-notes .row[notes="s"] {
 	color: blue;
 }
 
-.grid3.notes .row[notes="p"] {
+.grid3.claim-notes .row[notes="p"] {
 	color: green;
 }
 

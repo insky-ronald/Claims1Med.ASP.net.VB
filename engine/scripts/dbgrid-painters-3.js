@@ -320,7 +320,9 @@ jGridPainter3.prototype.paintHeader = function() {
 					grid.events.OnDrawCustomHeader.trigger(customHeader);
 				})
 				
-		self.paintToolbar(h1);
+		if(grid.options.toolbar.visible) {
+			self.paintToolbar(h1);
+		}
 		
 		if(!grid.options.hideHeader) {
 			self.sections.header.container = CreateElementEx("div", h1, function(h2) {

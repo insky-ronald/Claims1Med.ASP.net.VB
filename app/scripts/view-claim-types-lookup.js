@@ -20,6 +20,7 @@ function ClaimTypesLookup(viewParams){
 				grid.options.editNewPage = false;
 				grid.options.showSelection = false;
 				grid.options.showPager = false;
+				grid.options.toolbar.visible = false;
 				
 				grid.search.visible = false;
 				

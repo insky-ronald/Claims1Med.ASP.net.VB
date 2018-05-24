@@ -1,0 +1,15 @@
+.grid3.note-types {
+	user-select: none;
+}
+
+.grid3.note-types .cell div[tree-sec="icon"][icon-name="note"] svg {
+	fill: orange !important;
+}
+
+.grid3.note-types .row[x-parent="0"] {
+	cursor: pointer;
+}
+
+.grid3.note-types .row[x-parent="1"] {
+	font-weight: bold;
+}

@@ -21,13 +21,13 @@ MainPage.prototype.AfterPaint = function() {
 		desktop.invoiceReceived = desktop.status == "S" && desktop.subStatus == "S03";
 	} else if (desktop.serviceType == "INV") {
 		desktop.canEdit = desktop.status == "N" || desktop.status == "P";
-		desktop.canEditDiagnosis = false;
+		desktop.canEditDiagnosis = desktop.canEdit;
 		desktop.posted = desktop.status == "S";
 		desktop.inpatient = desktop.serviceSubType == "M003" || desktop.serviceSubType == "M004" || desktop.serviceSubType == "M005" || desktop.serviceSubType == "M006";
 	}
 	
 	desktop.dbService = new Dataset(desktop.customData.data);
-	desktop.dbService.readonly = !desktop.canEdit;
+	desktop.dbService.readonly = !(desktop.canEdit && desktop.customData.permissions.service.edit);
 	desktop.dbService.Columns
 		.setprops("id", {label:"ID", numeric:true, key: true, readonly:true})
 		.setprops("claim_no", {label:"Claim No.", readonly:true})

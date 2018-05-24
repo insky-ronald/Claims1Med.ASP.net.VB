@@ -123,7 +123,8 @@ function MemberView(params) {
 										},
 										container: container,
 										init: function(pg) {
-											pg.addTab({caption:"Family Members",
+											pg.addTab({
+												caption:"Family Members",
 												icon: {
 													name: "users",
 													color: "dodgerblue"
@@ -138,15 +139,18 @@ function MemberView(params) {
 														}
 													})
 												}
-											})
+											});
 											
-											pg.addTab({caption:"Address",
+											pg.addTab({
+												caption:"Address",
 												icon: {
 													name: "addresses",
 													color: "forestgreen"
 												},
+												permission: desktop.customData.permissions.address,
 												OnCreate: function(tab) {
 													AddressesView({
+														action: "member-address",
 														getMasterID: function() {
 															return desktop.dbMember.get("name_id")
 														},
@@ -154,13 +158,17 @@ function MemberView(params) {
 													});
 												}
 											});
-											pg.addTab({caption:"Contacts",
+											
+											pg.addTab({
+												caption:"Contacts",
 												icon: {
 													name: "contacts",
 													color: "forestgreen"
 												},
+												permission: desktop.customData.permissions.contact,
 												OnCreate: function(tab) {
 													ContactsView({
+														action: "member-contact",
 														getMasterID: function() {
 															return desktop.dbMember.get("name_id")
 														},
@@ -189,8 +197,14 @@ function MemberView(params) {
 													name: "history",
 													color: "forestgreen"
 												},
+												permission: desktop.customData.permissions.plan_history,
 												OnCreate: function(tab) {
-													MemberPlanHistoryView({container:tab.container, requestParams: {member_id:desktop.dbMember.get("id")}});
+													new MemberPlanHistoryView({
+														container:tab.container, 
+														requestParams: {
+															member_id: desktop.dbMember.get("id")
+														}
+													});
 												}
 											});
 											
@@ -199,8 +213,15 @@ function MemberView(params) {
 													name: "notes",
 													color: "orange"
 												},
+												permission: desktop.customData.permissions.medical_notes,
 												OnCreate: function(tab) {
-													new MemberMedicalNotesEdit({container:tab.container, dataset:desktop.dbMedicalNotes})
+													new MemberMedicalNotesEdit({
+														container:tab.container, 
+														dataset: desktop.dbMedicalNotes,
+														requestParams: {
+															readonly: !desktop.customData.permissions.medical_notes.edit
+														}
+													})
 												}
 											});
 											
@@ -234,8 +255,10 @@ function MemberView(params) {
 				subTitle: "Please confirm to delete member.",
 				dataBind: desktop.dbMember,
 				dataEvent: function(dataset, button) {
+					// button.show(!dataset.editing && desktop.customData.crud["delete"]);
 					button.show(!dataset.editing);
 				},
+				permission: {view:desktop.customData.crud["delete"]},
 				confirm: function(button) {
 					desktop.Ajax(null, "/app/get/delete/member", {
 							mode: "delete",
@@ -258,7 +281,8 @@ function MemberView(params) {
 				}
 			});
 			
-			toolbar.SetVisible("delete", !desktop.dbMember.editing);
+			// toolbar.SetVisible("delete", !desktop.dbMember.editing && desktop.customData.crud["delete"]);
+			// toolbar.SetVisible("delete", !desktop.dbMember.editing);
 		});
 		
 	});

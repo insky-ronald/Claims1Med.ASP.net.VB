@@ -38,7 +38,7 @@ Public Class DataProvider
 			' .Title = "Schedule"
 			.Title = DBData.Eval("@plan_code")
 			.Icon = "table-edit"
-			.Action = "admin"
+			.Action = "sob"
 			.URL = "app/sob"
 			.Css = "*"
 			.Run = "SobView"

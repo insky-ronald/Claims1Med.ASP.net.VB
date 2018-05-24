@@ -50,9 +50,9 @@ Public Class DataProvider
 
 			With Main.SubItems.Add
 				.ID = "claims-processing"
-				.Action = "admin"				
-				' .Title = "Members"
+				.Action = "member"
 				.Title = "Claims Processing"
+				.Description = "Members Search"
 				.Icon = "users"
 				.URL = "app/claims-entry"
 			End with
@@ -75,7 +75,7 @@ Public Class DataProvider
 			
 			With Main.SubItems.Add
 				.ID = "payment-processing"
-				.Action = "admin"				
+				.Action = "payment"				
 				.Title = "Payment Processing"
 				.Icon = "table"
 				.URL = "app/payment-processing"
@@ -85,7 +85,7 @@ Public Class DataProvider
 
 			With Main.SubItems.Add
 				.ID = "task-manager"
-				.Action = "admin"				
+				.Action = "task"				
 				.Title = "Task Manager"
 				.Icon = "timetable"
 				.URL = "app/task-manager"
@@ -102,7 +102,7 @@ Public Class DataProvider
 		
 			With Main.SubItems.Add
 				.ID = "reports"
-				.Action = "admin"				
+				.Action = "report"				
 				.Title = "Reports"
 				.Icon = "table"
 				.URL = "engine/sys-reports"
@@ -125,7 +125,7 @@ Public Class DataProvider
 			
 			With Main.SubItems.Add
 				.ID = "clients"
-				.Action = "admin"				
+				.Action = "client"				
 				.Title = "Clients"
 				.Icon = "users"
 				.URL = "app/clients"
@@ -133,7 +133,7 @@ Public Class DataProvider
 
 			With Main.SubItems.Add
 				.ID = "medical"
-				.Action = "admin"				
+				.Action = "provider"				
 				.Title = "Medical Providers"
 				.Icon = "hospital"
 				.URL = "app/medical-providers"
@@ -191,13 +191,13 @@ Public Class DataProvider
 				.Params.AsInteger("app_only") = 1
 			End with
 			
-			With Main.SubItems.Add
-				.ID = "permissions"
-				.Action = "sys-permissions"
-				.Title = "Set Permissions"
-				.Icon = "security"
-				.URL = "engine/sys-roles"
-			End with
+			' With Main.SubItems.Add
+				' .ID = "permissions"
+				' .Action = "sys-permissions"
+				' .Title = "Set Permissions"
+				' .Icon = "security"
+				' .URL = "engine/sys-roles"
+			' End with
 		End if
 			
 	End Sub

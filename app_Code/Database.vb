@@ -314,6 +314,7 @@ Public Module DatabaseUtils
 
 				Using Data As DataTable = .OpenData()
 					If Data.Rows.Count > 0 
+						Permission.AsString("action") = ActionCode
 						For Each Row in Data.Rows
 							Permission.AsBoolean(Row.Item("code")) = Row.Item("value")
 						Next
@@ -322,6 +323,27 @@ Public Module DatabaseUtils
 			End With
 		End Using
 	End Sub
+
+	Public Function GetActionPermission(ActionCode As String) As EasyStringDictionary
+		Dim Permission As New EasyStringDictionary("")
+		
+		Using Command = DefaultConnection().PrepareCommand("GetMyPermission")
+			With Command
+				.SetParameter("action_code", ActionCode)
+				.SetParameter("visit_id", HttpContext.Current.Session("VisitorID"))
+
+				Using Data As DataTable = .OpenData()
+					If Data.Rows.Count > 0 
+						For Each Row in Data.Rows
+							Permission.AsBoolean(Row.Item("code")) = Row.Item("value")
+						Next
+					End if
+				End Using
+			End With
+		End Using
+		
+		Return Permission
+	End Function
 	
 	Public Function AllowAction(Action As String) As Boolean
 		Using Command = DefaultConnection().PrepareCommand("GetAllowAction")

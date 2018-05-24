@@ -30,6 +30,7 @@ function AddressesView(params){
 		init: function(grid) {
 			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = "addresses";
+				grid.options.action = params.action;
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
 				grid.options.showPager = false;
@@ -82,6 +83,14 @@ function AddressesView(params){
 					else
 						return defaultValue
 				});
+				
+				grid.methods.add("canAdd", function(grid) {
+					return grid.crud.edit;
+				});
+				
+				grid.methods.add("canDelete", function(grid) {
+					return grid.crud.edit;
+				});
 
 				grid.Events.OnCommand.add(function(grid, column) {
 					if(column.command === "default") {
@@ -117,9 +126,11 @@ function AddressesView(params){
 				});
 
 				grid.Events.OnInitColumns.add(function(grid) {
-					grid.NewBand({caption: "...", fixed:"left"} , function(band) {
-						band.NewCommand({command:"default"});
-					});
+					if (grid.crud.edit) {
+						grid.NewBand({caption: "...", fixed:"left"} , function(band) {
+							band.NewCommand({command:"default"});
+						});
+					};
 					
 					grid.NewColumn({fname: "address_type_name", width: 150, allowSort: true, fixedWidth:true});
 					grid.NewColumn({fname: "street", width: 250, allowSort: true, fixedWidth:true});

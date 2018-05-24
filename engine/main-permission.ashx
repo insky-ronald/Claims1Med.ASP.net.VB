@@ -30,7 +30,7 @@ Public Class DataProvider
 		
 			With Main.SubItems.Add
 				.ID = "permissions"
-				.Action = "permissions"				
+				.Action = "sys-permissions"				
 				.Title = "Permissions"
 				.Icon = "security"
 				.URL = "engine/sys-permissions"

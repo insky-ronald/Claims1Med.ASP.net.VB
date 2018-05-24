@@ -26,28 +26,29 @@ Public Class DataProvider
 			DataValues.Add(Session("VisitorID"))
 			If Request.Params("lookup") IsNot Nothing
 				DataParams.Add("action_id")
-				DataValues.Add(Request.Params("id"))
+				DataValues.Add(Request.Params("action_id"))
 			Else
-				DataParams.Add("role_id")
-				DataValues.Add(Request.Params("role_id"))
+				' DataParams.Add("role_id")
+				' DataValues.Add(Request.Params("role_id"))
 			End if
-		Else If Cmd = "edit"
-			DataParams.Add("role_id")
-			DataValues.Add(Request.Params("role_id"))
-			DataParams.Add("action_id")
-			DataValues.Add(Request.Params("id"))
-			DataParams.Add("visit_id")
-			DataValues.Add(Session("VisitorID"))
+		' Else If Cmd = "edit"
+			' DataParams.Add("role_id")
+			' DataValues.Add(Request.Params("role_id"))
+			' DataParams.Add("action_id")
+			' DataValues.Add(Request.Params("action_id"))
+			' DataParams.Add("visit_id")
+			' DataValues.Add(Session("VisitorID"))
 		End if
 	End Sub
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
-		If Cmd = "list" and Request.Params("lookup") IsNot Nothing
-			Crud.AsBoolean("view") = True
+		If Cmd = "list"
 			Crud.AsBoolean("add") = False
 			Crud.AsBoolean("edit") = False
 			Crud.AsBoolean("delete") = False
+		Else If Cmd = "update-permissions"
+			DatabaseUtils.UpdateMultiRecords("DBSecure.AddPermission", "", "", Request.Params("updateData"), "edit", Session("VisitorID"), Output)
 		End if
 	End Sub
 End Class

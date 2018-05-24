@@ -1,9 +1,11 @@
 ##includetemplate=app\app-medics-3
 ##include=app\main-service
 ##include=engine\edit-custom-view
+##include=engine\simple-note-editor
 ##include=app\service-status-code-lookup
 
 // ##if(keyid=gop)
+	##include=app\service-init-gop
 	##include=app\service-details-gop
 	##include=app\edit-service-gop
 	##include=app\edit-service-custom-gop
@@ -30,3 +32,7 @@
 ##include=app\view-procedures
 ##include=app\view-service-sub--types-lookup
 ##include=app\view-service-templates-lookup
+
+// Notes
+##include=app\view-claim-notes
+##include=app\view-notes-lookup

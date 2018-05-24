@@ -48,6 +48,45 @@ Desktop.prototype.Ajax = function(caller, url, params, callback) {
 	});
 };
 
+Desktop.prototype.serverPost = function(options) {
+	this.ajax({
+		type: "post",
+		url: options.url,
+		global: false,
+		cache: true,
+		dataType: "json",
+		data: options.params
+	}).done(function(data) {
+		if(data.status == -101 || data.status == -102) {
+			// desktop.Login(data.status == -101 ? "timeout":"logout", function() {
+				// window.location.reload();
+			// });
+		} else if(data.status >= 0 && options.success) {
+			data.sender = options.sender;
+			options.success(data);
+		} else if(data.status < 0) {
+			// console.log(typeof options.error)
+			if (typeof options.error === "function") {
+				options.error(data)
+			} else if (typeof options.error === "object") {
+				ErrorDialog({
+					target: options.error.target,
+					title: options.error.title ? "Error " + options.error.title : "Server Error: " + data.status,
+					message: data.message
+				});
+			}
+		}
+	}).fail(function() {
+		if (typeof options.error === "Object") {
+			ErrorDialog({
+				target: error,
+				title: "Server error",
+				message: result.message
+			});
+		}
+	});
+};
+
 Desktop.prototype.GetSvg = function(e, svg, size, settings) {
 	return this.svg.draw(e, svg, size);
 };

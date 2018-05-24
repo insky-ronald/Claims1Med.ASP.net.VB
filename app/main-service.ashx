@@ -1,20 +1,34 @@
 ﻿<%@ WebHandler Language="VB" Class="DataProvider" %>
-	
+
 Public Class DataProvider
 	Inherits DataHandler.BaseNavigator
-	
+	' Inherits BaseNavigator
+
 	Private ServiceID As Integer
 	Private ServiceType As String = ""
 	Private ServiceSubType As String = ""
 	Private ServiceSubTypeName As String = ""
-	
+
 	Private DBService As System.Data.DataTable
 	Private DBClaim As System.Data.DataTable
 	Private DBMember As System.Data.DataTable
 	' Private DBServiceSubType As System.Data.DataTable
 	Private DBGopCalculationDates As System.Data.DataTable
 	Private DBGopEstimates As System.Data.DataTable
-	
+
+	Protected Overrides Function CheckAuthorization As Boolean
+		Return False
+	End Function
+
+	Protected Overrides Function ActionCode As String
+		Dim Action As String = Request.Params("keyid").ToLower
+		If Action = "inv"
+			Return "invoice"
+		Else
+			Return Action
+		End if
+	End Function
+
 	Private Sub NewEstimate(ByVal sender As Object, ByVal e As System.Data.DataTableNewRowEventArgs)
 		With e.Row
 			.Item("id") = ServiceID
@@ -26,7 +40,7 @@ Public Class DataProvider
 			' .Item("estimated_provider_los") = 0
 		End With
 	End Sub
-	
+
 	Private Sub NewCalculation(ByVal sender As Object, ByVal e As System.Data.DataTableNewRowEventArgs)
 		With e.Row
 			.Item("id") = ServiceID
@@ -38,10 +52,10 @@ Public Class DataProvider
 			' .Item("estimated_provider_los") = 0
 		End With
 	End Sub
-	
+
 	Private Sub NewRowRecord(ByVal sender As Object, ByVal e As System.Data.DataTableNewRowEventArgs)
 		Dim Row As System.Data.DataRow = e.Row
-		
+
 		Row.Item("id") = 0
 		Row.Item("claim_id") = DBClaim.Eval("@id")
 		Row.Item("claim_no") = DBClaim.Eval("@claim_no")
@@ -61,7 +75,7 @@ Public Class DataProvider
 		Row.Item("discount_type") = 0
 		Row.Item("discount_percent") = 0
 		Row.Item("discount_amount") = 0
-		
+
 		If ServiceType = "GOP"
 			Row.Item("service_date") = Date.Today
 			Row.Item("status_code") = "N"
@@ -79,7 +93,7 @@ Public Class DataProvider
 			Row.Item("medical_type") = "0"
 			Row.Item("treatment_country_code") = "AGO"
 		End if
-			
+
 		' "service_no": null,
 		' "service_date": null,
 		' "document_type": null,
@@ -103,28 +117,28 @@ Public Class DataProvider
 		' "diagnosis_notes": null,
 		' "notes": null,
 	End Sub
-	
+
 	Protected Overrides Sub InitCallback(ByVal Action As String, ByVal Output As EasyStringDictionary)
 		MyBase.InitCallback(Action, Output)
-		
+
 		ServiceType = Request.Params("keyid").ToUpper
 		If Request.Params("keyid2") = "new"
 			ServiceID = 0
 		Else
 			ServiceID = Request.Params("keyid2")
 		End if
-		
+
 		CustomData.AsString("module_type") = ServiceType
 		CustomData.AsInteger("newRecord") = iif(ServiceID = 0, 1,  0)
 		CustomData.AsInteger("service_id") = ServiceID
-		
+
 		DBService = DBConnections("DBMedics").OpenData("GetService", {"id","service_type","visit_id"}, {ServiceID, ServiceType, Session("VisitorID")}, "")
-		
+
 		If ServiceID = 0
 			ServiceSubType = Request.Params("type")
 			DBClaim = DBConnections("DBMedics").OpenData("GetClaim", {"id","visit_id"}, {Request.Params("claim"), Session("VisitorID")}, "")
 			DBMember = DBConnections("DBMedics").OpenData("GetClaimMemberInfo", {"claim_id","member_id","visit_id"}, {Request.Params("claim"),DBClaim.Eval("@member_id"), Session("VisitorID")}, "")
-			
+
 			AddHandler DBService.TableNewRow, AddressOf NewRowRecord
 			DBService.Rows.Add(DBService.NewRow())
 		Else
@@ -143,64 +157,76 @@ Public Class DataProvider
 			AddHandler DBGopEstimates.TableNewRow, AddressOf NewEstimate
 			DBGopEstimates.Rows.Add(DBGopEstimates.NewRow())
 		End if
-		
+
 		Using DBServiceType = DBConnections("DBMedics").OpenData("lookup_service_type_name", {"module","code"}, {ServiceType, ServiceSubType}, "")
 			ServiceSubTypeName = DBServiceType.Eval("@display_name")
 		End Using
-		
-		CustomData.AsString("service_type_name") = ServiceSubTypeName
-		If Action = "navigator"
-			If ServiceID > 0
-				Output.AsString("page_title") = DBService.Eval("@service_no")
-				Output.AsString("window_title") = DBService.Eval("@service_no")
-				ServiceSubType = Request.Params("type")
-			Else
-				If ServiceType = "INV"
-					Output.AsString("page_title") = "New Invoice"
-				Else If ServiceType = "GOP"
-					Output.AsString("page_title") = "New Guarantee of Payment"
-				' Else If ServiceType = "noc"
-					' Description = "Notification of Claim"
-				' Else If ServiceType = "cas"
-					' Description = "Case Fee"
-				' Else If ServiceType = "rec"
-					' Description = "Recovery"
-				' Else If ServiceType = "cos"
-					' Description = "Cost Containment"
-				' Else If ServiceType = "flg"
-					' Description = "Flag"
-				' Else
-					' Description = ServiceType
-				End if
 
-				Output.AsString("window_title") = Output.AsString("page_title")
-				ServiceSubType = DBService.Eval("@service_sub_type")
+		CustomData.AsString("service_type_name") = ServiceSubTypeName
+		If ServiceID > 0
+			Output.AsString("page_title") = DBService.Eval("@service_no")
+			Output.AsString("window_title") = DBService.Eval("@service_no")
+			ServiceSubType = Request.Params("type")
+		Else
+			If ServiceType = "INV"
+				Output.AsString("page_title") = "New Invoice"
+			Else If ServiceType = "GOP"
+				Output.AsString("page_title") = "New Guarantee of Payment"
+			' Else If ServiceType = "noc"
+				' Description = "Notification of Claim"
+			' Else If ServiceType = "cas"
+				' Description = "Case Fee"
+			' Else If ServiceType = "rec"
+				' Description = "Recovery"
+			' Else If ServiceType = "cos"
+				' Description = "Cost Containment"
+			' Else If ServiceType = "flg"
+				' Description = "Flag"
+			' Else
+				' Description = ServiceType
 			End if
 
-			CustomData.AsJson("data") = DBService.AsJson()
-			' CustomData.AsJson("sub_type_data") = DBServiceSubType.AsJson()
-			CustomData.AsJson("estimates") = DBGopEstimates.AsJson()
-			CustomData.AsJson("calculation_dates") = DBGopCalculationDates.AsJson()
-			
-			Using DBCountries = DBConnections("DBMedics").OpenData("GetCountries", {"action","visit_id"}, {1, Session("VisitorID")}, "")
-				DBCountries.Columns.Remove("row_no")
-				CustomData.AsJson("countries") = DBCountries.AsJson()
-			End Using
-			
-			Using DBCurrencies = DBConnections("DBMedics").OpenData("GetCurrencies", {"action","visit_id"}, {1, Session("VisitorID")}, "")
-				DBCurrencies.Columns.Remove("row_no")
-				CustomData.AsJson("currencies") = DBCurrencies.AsJson()
-			End Using
-			
-		Else If Action = "refresh"
-			Output.AsJson("data") = DBService.AsJson()
-			' Output.AsJson("sub_type_data") = DBServiceSubType.AsJson()
+			Output.AsString("window_title") = Output.AsString("page_title")
+			ServiceSubType = DBService.Eval("@service_sub_type")
 		End if
+
+		CustomData.AsJson("data") = DBService.AsJson()
+		' CustomData.AsJson("sub_type_data") = DBServiceSubType.AsJson()
+		CustomData.AsJson("estimates") = DBGopEstimates.AsJson()
+		CustomData.AsJson("calculation_dates") = DBGopCalculationDates.AsJson()
+
+		Using DBCountries = DBConnections("DBMedics").OpenData("GetCountries", {"action","visit_id"}, {1, Session("VisitorID")}, "")
+			DBCountries.Columns.Remove("row_no")
+			CustomData.AsJson("countries") = DBCountries.AsJson()
+		End Using
+
+		Using DBCurrencies = DBConnections("DBMedics").OpenData("GetCurrencies", {"action","visit_id"}, {1, Session("VisitorID")}, "")
+			DBCurrencies.Columns.Remove("row_no")
+			CustomData.AsJson("currencies") = DBCurrencies.AsJson()
+		End Using
+
+		Dim Permissions As New EasyStringDictionary("")
+		
+		If ServiceType = "INV"
+			Permissions.AsJson("service") = DatabaseUtils.GetActionPermission("invoice").JsonString()
+		Else
+			Permissions.AsJson("service") = DatabaseUtils.GetActionPermission(ServiceType.ToLower).JsonString()
+		End if
+		Permissions.AsJson("notes") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-note").JsonString()
+		Permissions.AsJson("diagnosis") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-diagnosis").JsonString()
+		Permissions.AsJson("procedure") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-procedure").JsonString()
+		Permissions.AsJson("status") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-status").JsonString()
+		' Permissions.AsJson("contact") = DatabaseUtils.GetActionPermission("member-contact").JsonString()
+		' Permissions.AsJson("status") = DatabaseUtils.GetActionPermission("claim-status").JsonString()
+		' Permissions.AsJson("plan_history") = DatabaseUtils.GetActionPermission("member-planhist").JsonString()
+		' Permissions.AsJson("medical_notes") = DatabaseUtils.GetActionPermission("member-medical-notes").JsonString()
+
+		CustomData.AsJson("permissions") = Permissions.JsonString()
 	End Sub
 
 	Protected Overrides Sub UnloadHandler(ByVal Context As HttpContext)
 		MyBase.UnloadHandler(Context)
-		DBService.Dispose		
+		DBService.Dispose
 		DBGopEstimates.Dispose
 		DBGopCalculationDates.Dispose
 		If ServiceID = 0
@@ -208,40 +234,44 @@ Public Class DataProvider
 			DBMember.Dispose
 		End if
 	End Sub
-	
+
 	Protected Overrides Sub InitMenuItems(ByVal MenuItems As Navigator.MenuItems)
 		MyBase.InitMenuItems(MenuItems)
-		
-		' Dim Main As Navigator.MenuItem		
+
+		' Dim Main As Navigator.MenuItem
 		Dim Run As String = ""
 		Dim Description As String = ""
+		Dim Action As String = ""
 		
 		If ServiceType = "INV"
 			Description = "Invoice"
 			Run = "InvoiceView"
+			Action = "invoice"
 		Else If ServiceType = "GOP"
 			Description = "Guarantee of Payment"
 			Run = "GopView"
+			Action = "gop"
 		Else If ServiceType = "noc"
 			Description = "Notification of Claim"
-		Else If ServiceType = "cas"
-			Description = "Case Fee"
-		Else If ServiceType = "rec"
-			Description = "Recovery"
-		Else If ServiceType = "cos"
-			Description = "Cost Containment"
-		Else If ServiceType = "flg"
-			Description = "Flag"
-		Else
+			Action = "noc"
+		' Else If ServiceType = "cas"
+			' Description = "Case Fee"
+		' Else If ServiceType = "rec"
+			' Description = "Recovery"
+		' Else If ServiceType = "cos"
+			' Description = "Cost Containment"
+		' Else If ServiceType = "flg"
+			' Description = "Flag"
+		' Else
 			Description = ServiceType
 		End if
-		
+
 		' Description = ServiceSubTypeName
 		Dim Main As Navigator.MenuItem = MenuItems.AddMain(ServiceType, Description)
-		
+
 		With Main.SubItems.Add
 			.ID = "details"
-			.Action = "admin"				
+			.Action = Action
 			.Title = "Details"
 			' .Description = Description
 			.Description = ServiceSubTypeName
@@ -249,58 +279,57 @@ Public Class DataProvider
 			.Css = "*"
 			.Run = Run
 			REM .URL = "app/service-" & ServiceType
-		End with		
-		
+		End with
+
 		If ServiceType = "INV" or ServiceType = "GOP"
 			With Main.SubItems.Add
 				.ID = "breakdown"
-				.Action = "admin"				
+				.Action = Action
 				.Title = "Breakdown"
 				.Icon = "service-breakdown"
 				.URL = "app/service-breakdown"
 				.Params.AsString("service_id") = ServiceID
 			End with
 		End if
-		
+
 		If ServiceType = "GOP"
 			With Main.SubItems.Add
 				.ID = "template"
-				.Action = "admin"				
+				.Action = Action
 				.Title = "Template"
 				.Icon = "document-template"
 				.URL = "app/document-template"
 				.Params.AsString("service_id") = ServiceID
 			End with
 		End if
-			
+
 		With Main.SubItems.Add
 			.ID = "documents"
 			.Title = "Documents"
 			.Icon = "documents"
-			.Action = "admin"
+			.Action = "claim-document"
 			.URL = "app/claim-documents"
 			.Params.AsString("claim_id") = 0
 			.Params.AsString("service_id") = ServiceID
 		End with
-		
-		With Main.SubItems.Add
-			.ID = "notes"
-			.Title = "Notes"
-			.Icon = "notes"
-			.Action = "admin"				
-			.URL = "app/claim-notes"
-			' .Params.AsString("module") = "clm"
-			.Params.AsString("type") = "S"
-			.Params.AsString("claim_id") = 0
-			.Params.AsString("service_id") = ServiceID
-		End with
-		
+
+		' With Main.SubItems.Add
+			' .ID = "notes"
+			' .Title = "Notes"
+			' .Icon = "notes"
+			' .Action = "claim-note"
+			' .URL = "app/claim-notes"
+			' .Params.AsString("type") = "S"
+			' .Params.AsString("claim_id") = 0
+			' .Params.AsString("service_id") = ServiceID
+		' End with
+
 		With Main.SubItems.Add
 			.ID = "audit"
-			.Action = "admin"				
+			.Action = "admin"
 			.Title = "Audit Log"
 			.Icon = "timetable"
-			.Action = "admin"				
+			.Action = "claim-audit-log"
 			.URL = "app/claim-audit-logs"
 			.Params.AsString("claim_id") = 0
 			.Params.AsString("service_id") = ServiceID

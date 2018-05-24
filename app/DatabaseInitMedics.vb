@@ -1005,6 +1005,10 @@ With DBConnection.NewCommand("GetNoteSubTypes", "GetNoteSubTypes", CommandType.S
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With 
 
+With DBConnection.NewCommand("lookup_notes", "GetNoteTypesTree", CommandType.StoredProcedure)
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+End With 
+
 ' With DBConnection.NewCommand("GetMemberClaims", "GetMemberClaims", CommandType.StoredProcedure)
     ' .AddParameter("member_id", SqlDbType.int, ParameterDirection.Input, 0, 0)
     ' .AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 0)

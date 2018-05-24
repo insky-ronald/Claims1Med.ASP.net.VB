@@ -19,8 +19,9 @@ Public Class DataProvider
 		MyBase.InitParams(Cmd, DataParams, DataValues)
 		If Cmd = "edit"
 			DataParams.Add("service_type")
-			DataValues.Add("gop")
 			DataParams.Add("id")
+
+			DataValues.Add("gop")
 			DataValues.Add(Request.Params("id"))
 		End if
 	End Sub

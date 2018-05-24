@@ -97,7 +97,12 @@ HtmlEditor.prototype.Edit = function() {
 
 	// this.quill = new Quill('#html-editor', {
 	this.quill = new Quill(this.htmlContainer[0], {
-		theme: 'snow'
+		theme: 'snow',
+		modules: {
+			toolbar: {
+				
+			}
+		}
 	  });
 	  
 	this.quill.editor.enable(true);

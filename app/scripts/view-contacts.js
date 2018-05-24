@@ -34,6 +34,7 @@ function ContactsView(params){
 		init: function(grid) {				
 			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = "contacts";
+				grid.options.action = params.action;
 				grid.options.horzScroll = true;
 				grid.options.allowSort = true;
 				grid.options.showPager = false;
@@ -90,6 +91,14 @@ function ContactsView(params){
 						return grid.dataset.get("is_default") === 0
 					else
 						return defaultValue
+				});
+				
+				grid.methods.add("canAdd", function(grid) {
+					return grid.crud.edit;
+				});
+				
+				grid.methods.add("canDelete", function(grid) {
+					return grid.crud.edit;
 				});
 
 				grid.Events.OnCommand.add(function(grid, column) {

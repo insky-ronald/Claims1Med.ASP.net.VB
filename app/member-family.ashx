@@ -17,10 +17,8 @@ Public Class DataProvider
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
-		If Cmd = "list"
-			Crud.AsBoolean("add") = False
-			Crud.AsBoolean("edit") = False
-			Crud.AsBoolean("delete") = False
-		End if
+		DatabaseUtils.GetActionPermission("member", Crud)
+		' Crud.AsBoolean("edit") = False
+		' Crud.AsBoolean("delete") = False
 	End Sub
 End Class

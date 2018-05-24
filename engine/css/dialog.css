@@ -223,6 +223,7 @@
 	box-sizing: border-box;
 	background: white;
 	pointer-events: auto;
+	user-select: none;
 }
 
 .dialog[dlg-snap="top"] div[dlg-sec="tab-container"],

@@ -110,6 +110,21 @@ DesktopPainter5.prototype.paintHeader = function(container, data) {
 					buttonSize: 24
 			});
 			
+			// toolbar.NewDropDownContainer({
+				// id: "menu2",
+				// icon: "menu",
+				// iconColor: "slategray",
+				// color: "firebrick",
+				// noIndicator: true,
+				// align: "right",
+				// hint: "Logout",
+				// title: "Logout",
+				// subTitle: "Are you sure you want to log out?",
+				// s: true,
+				// confirm: function() {
+				// }
+			// });
+			
 			toolbar.NewItem({
 				id: "menu",
 				icon: "menu",
@@ -117,8 +132,9 @@ DesktopPainter5.prototype.paintHeader = function(container, data) {
 				align: "right",
 				click: function() {
 					if(!self.userMenu)
-						self.userMenu = new jSideMenu({
-							container: self.rightPanel,
+						// self.userMenu = new jSideMenu({
+						self.userMenu = new jDesktopOverlay({
+							container: self.rightPanel,							
 							headerContainer: self.headerContainer,
 							initPageControl: desktop.Events.OnSideMenuPageControl
 						})
@@ -140,7 +156,8 @@ DesktopPainter5.prototype.paintHeader = function(container, data) {
 				align: "right",
 				click: function() {
 					if(!self.developerMenu)
-						self.developerMenu = new jSideMenu({
+						// self.developerMenu = new jSideMenu({
+						self.developerMenu = new jDesktopOverlay({
 							container: self.rightPanel,
 							headerContainer: self.headerContainer,
 							initPageControl: desktop.Events.OnDeveloperMenuPageControl
@@ -523,6 +540,131 @@ jSideMenu.prototype.show = function() {
 				self.initPageControl.trigger(pg);
 			}
 		});
+		
+		self.toggle();
+	});
+};
+
+// *************************************************************************************************
+// jDesktopOverlay
+// *************************************************************************************************
+function jDesktopOverlay(params) {
+	
+	this.parentContainer = params.container; // this.rightPanel
+	this.snapHeaderContainer = params.headerContainer; // this.headerContainer
+	this.initPageControl = params.initPageControl; // this.headerContainer
+	this.iconSize = defaultValue(params.iconSize, 24);
+	this.iconColor = defaultValue(params.iconColor, "#1AB394");
+	this.theme = defaultValue(params.theme, "side-menu");
+	this.created = false;
+	this.visible = false;
+	
+	this.show();
+};
+
+jDesktopOverlay.prototype.toggle = function() {
+	var self = this;
+	$("body").on("mousedown", function(e) {	
+		var dialog = $(e.target).closest("div[control-type='dlg']");
+		var targetIndex = defaultValue(dialog.css("z-index"), 0);
+		if(targetIndex != desktop.GetTopMostDialogIndex()) // BUT! if there is a dialog box on top of this then do not hide
+			self.show();
+	});
+};
+
+jDesktopOverlay.prototype.show = function() {
+	var self = this;
+	
+	if(this.created) {
+		this.sideMenuContainer.css("display", this.visible ? "none" : "block");
+		this.visible = !this.visible;
+		if(!this.visible)
+			$("body").off("mousedown")
+		else {
+			this.sideMenuContainer.css("z-index", ++desktop.zIndex);
+			this.toggle();
+		};
+		
+		return;
+	};
+	
+	this.sideMenuContainer = CreateElementEx("div", this.parentContainer, function(sideMenuContainer) {
+		var header = self.snapHeaderContainer.find(".page-header");
+		
+		sideMenuContainer.addClass("side-panel");
+		sideMenuContainer.attr("control-type", "dlg");
+		
+		sideMenuContainer.css({
+			"top": header.outerHeight(),
+			"width": "100%",
+			"height": "Calc(100% - " +header.outerHeight()+"px)",
+			"z-index": ++desktop.zIndex,
+			"background": "transparent",
+			"pointer-events": "none"
+		});
+		
+		self.created = true;
+		self.visible = true;
+		
+		new jSplitContainer($.extend({}, {
+			paintParams: {
+				theme: "white-green-dark",
+				css: "main-desktop-split"
+			},
+			container: sideMenuContainer,
+			orientation: "vert",
+			size: 50,
+			usePercent: true,
+			noBorder: true,
+			init: function(splitter) {
+				splitter.events.OnPaintPane1.add(function(splitter, container) {
+					container.parent().css({
+						"background": "transparent",
+						"pointer-events": "none"
+					});
+					container.css({
+						"background": "transparent",
+						"pointer-events": "none"
+					});
+				});
+				
+				splitter.events.OnPaintPane2.add(function(splitter, container) {
+					container.css({
+						"background": "white",
+						"pointer-events": "painted"
+					});
+					
+					new jPageControl({
+						paintParams: {
+							theme: self.theme,
+							leftBorder: true,
+							icon: {
+								size: self.iconSize,
+								position: "left",
+								color: self.iconColor
+							}
+						},
+						indent: 0,
+						// container: sideMenuContainer,
+						container: container,
+						init: function(pg) {
+							self.initPageControl.trigger(pg);
+						}
+					});
+					
+					// self.toggle();
+					
+				});
+				
+				splitter.events.OnPaintSizer.add(function(splitter, container) {
+					container.css({
+						"background": "rgba(0,0,0,0.1)",
+						"pointer-events": "painted",
+						"border-style": "none"
+					});
+				});
+			}
+		});	
 		
 		self.toggle();
 	});

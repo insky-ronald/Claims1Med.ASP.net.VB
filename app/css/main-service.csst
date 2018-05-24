@@ -13,6 +13,9 @@
 	font=10pt Arial
 ##endtemplate=engine\pg-theme-2
 
+##template	
+##endtemplate=engine\simple-note-editor
+
 ##template
 ##endtemplate=app\service-details
 
@@ -30,3 +33,10 @@
 
 ##template
 ##endtemplate=app\service-procedures
+
+// Notes
+##template
+##endtemplate=app\claim-notes
+
+##template
+##endtemplate=app\view-notes-lookup

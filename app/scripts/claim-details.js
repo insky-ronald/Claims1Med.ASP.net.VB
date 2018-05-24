@@ -52,18 +52,17 @@ function ClaimDetailsView(params) {
 									}
 								});
 								
-								if(!desktop.customData.newRecord) {
-									pg.addTab({caption:"Diagnosis",
-										icon: {
-											name: "diagnosis",
-											// name: "stethoscope",
-											color: "firebrick"
-										},
-										OnCreate: function(tab) {
-											ClaimDiagnosisSummaryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
-										}
-									})
-								}
+								pg.addTab({caption:"Diagnosis",
+									icon: {
+										name: "diagnosis",
+										// name: "stethoscope",
+										color: "firebrick"
+									},
+									permission: $.extend(desktop.customData.permissions.diagnosis, {view: !desktop.customData.newRecord}),
+									OnCreate: function(tab) {
+										ClaimDiagnosisSummaryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
+									}
+								})
 							}
 						});
 					});
@@ -81,19 +80,6 @@ function ClaimDetailsView(params) {
 							showScrollButtons:true,
 							container: container,							
 							init: function(pg) {
-								// pg.addTab({caption:"Test",
-									// icon: {
-										// name: "user",
-										// color: "dodgerblue"
-									// },
-									// OnCreate: function(tab) {
-										// tab.container.addClass("test-scroll")
-										// CreateElement("div", tab.container).addClass("test-scroll-content");
-										// new jScroller({
-											// target:tab.container
-										// })
-									// }
-								// });
 								pg.addTab({caption:"Member",
 									icon: {
 										name: "user",
@@ -102,8 +88,6 @@ function ClaimDetailsView(params) {
 									OnCreate: function(tab) {
 										new jSplitContainer({
 											paintParams: {
-												// css: "claim-details"
-												// css: "sp-claim2",
 												theme: "white-green-dark"
 											},
 											container: tab.container,
@@ -113,11 +97,6 @@ function ClaimDetailsView(params) {
 											noBorder: true,
 											init: function(splitter) {
 												splitter.events.OnPaintPane1.add(function(splitter, container) {
-													// container.addClass("bordered-content");
-													// container.addClass("content-scrollable");
-													// container.css("border-width", "inherit");
-													// container.css("border-color", "inherit");
-													// container.css("border-style", "none none solid none");
 													MemberInfoView({container: container});
 												});
 												
@@ -131,30 +110,36 @@ function ClaimDetailsView(params) {
 																position: "left"
 															}
 														},
-														// showScrollButtons:true,
 														container: container,
 														init: function(pg) {
-															// Hide for now as not needed by LDA
-															// pg.addTab({caption:"Member's Policy Information",
-																// icon: {
-																	// name: "info",
-																	// color: "dodgerblue"
-																// },
-																// OnCreate: function(tab) {
-																	// CreateElementEx("pre", tab.container, function(notes) {
-																		// notes.addClass("notes");
-																		// notes.html(desktop.dbMember.get("notes"));
-																	// });
-																// }
-															// });
+															pg.addTab({caption:"Member's Policy Information",
+																icon: {
+																	name: "info",
+																	color: "dodgerblue"
+																},
+																permission: {
+																	view: false // Hide for now as not needed by LDA
+																},
+																OnCreate: function(tab) {
+																	CreateElementEx("pre", tab.container, function(notes) {
+																		notes.addClass("notes");
+																		notes.html(desktop.dbMember.get("notes"));
+																	});
+																}
+															});
 															pg.addTab({caption:"Plan History",
 																icon: {
 																	name: "history",
 																	color: "forestgreen"
 																},
+																permission: desktop.customData.permissions.plan_history,
 																OnCreate: function(tab) {
-																	// console.log(desktop.dbMember.get("id"))
-																	MemberPlanHistoryView({container:tab.container, requestParams: {member_id:desktop.dbMember.get("member_id")}});
+																	new MemberPlanHistoryView({
+																		container:tab.container, 
+																		requestParams: {
+																			member_id:desktop.dbMember.get("member_id")
+																		}
+																	});
 																}
 															});
 															pg.addTab({caption:"Medical Notes",
@@ -162,9 +147,15 @@ function ClaimDetailsView(params) {
 																	name: "notes",
 																	color: "darkgoldenrod"
 																},
+																permission: desktop.customData.permissions.medical_notes,
 																OnCreate: function(tab) {
-																	// MemberMedicalNotesEdit: refer to edit-member-medical-notes.js
-																	new MemberMedicalNotesEdit({container:tab.container, dataset:desktop.dbMedicalNotes})																	
+																	new MemberMedicalNotesEdit({
+																		container:tab.container, 
+																		dataset:desktop.dbMedicalNotes,
+																		requestParams: {
+																			readonly: !desktop.customData.permissions.medical_notes.edit
+																		}
+																	})
 																}
 															});
 															pg.addTab({caption:"Address",
@@ -172,8 +163,10 @@ function ClaimDetailsView(params) {
 																	name: "addresses",
 																	color: "forestgreen"
 																},
+																permission: desktop.customData.permissions.address,
 																OnCreate: function(tab) {
 																	AddressesView({
+																		action: "member-address",
 																		getMasterID: function() {
 																			return desktop.dbMember.get("name_id")
 																		},
@@ -186,8 +179,10 @@ function ClaimDetailsView(params) {
 																	name: "contacts",
 																	color: "forestgreen"
 																},
+																permission: desktop.customData.permissions.contact,
 																OnCreate: function(tab) {
 																	ContactsView({
+																		action: "member-contact",
 																		getMasterID: function() {
 																			return desktop.dbMember.get("name_id")
 																		},
@@ -230,54 +225,21 @@ function ClaimDetailsView(params) {
 									}
 								});
 								
-								if(!desktop.customData.newRecord) {
-									pg.addTab({caption:"Status History",
-										icon: {
-											name: "claim-status",
-											color: "firebrick"
-										},
-										OnCreate: function(tab) {
-											ClaimStatusHistoryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
-										}
-									});
-									// pg.addTab({caption:"Diagnosis Summary",
-										// icon: {
-											// name: "view-list",
-											// color: "forestgreen"
-										// },
-										// OnCreate: function(tab) {
-											
-										// }
-									// });
-									// pg.addTab({caption:"Benefit Utilisation",
-										// icon: {
-											// name: "view-list",
-											// color: "forestgreen"
-										// },
-										// OnCreate: function(tab) {
-											
-										// }
-									// });
-								}
+								pg.addTab({caption:"Status History",
+									icon: {
+										name: "claim-status",
+										color: "firebrick"
+									},
+									permission: $.extend(desktop.customData.permissions.status, {view: !desktop.customData.newRecord}),
+									OnCreate: function(tab) {
+										ClaimStatusHistoryView({container:tab.container, claim_id:desktop.dbClaim.get("id")})
+									}
+								});
 							}
 						});
 					});
 				}
 			}));
-			
-			// var left = CreateElement("div", container).attr("x-sec", "content-left");
-				// ClaimDetailsEdit({
-					// claim_id: parseInt(params.requestParams.claim_id),
-					// dataset: params.dataset,
-					// container: left
-				// })
-			
-			// var right = CreateElement("div", container).attr("x-sec", "content-right");
-				// MemberInfoEdit({
-					// claim_id: parseInt(params.requestParams.claim_id),
-					// dataset: memberData,
-					// container: right
-				// })
 		});
 		
 		view.Events.OnInitToolbar.add(function(view, toolbar) {
@@ -292,6 +254,7 @@ function ClaimDetailsView(params) {
 				dataEvent: function(dataset, button) {
 					button.show(!dataset.editing);
 				},
+				permission: {view:desktop.customData.crud["delete"]},
 				confirm: function(button) {
 					desktop.Ajax(null, "/app/get/delete/claim", {
 							mode: "delete",
@@ -314,7 +277,7 @@ function ClaimDetailsView(params) {
 				}
 			});
 			
-			toolbar.SetVisible("delete", !desktop.dbClaim.editing);
+			// toolbar.SetVisible("delete", !desktop.dbClaim.editing);
 		});
 	});
 };
