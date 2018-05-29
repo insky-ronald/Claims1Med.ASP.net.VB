@@ -307,23 +307,16 @@ function ClaimNotesView(viewParams){
 				});
 
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
-					// toolbar.NewDropDownViewItem({
-					var btn = toolbar.NewDropDownWizard({
+					var btn = toolbar.NewDropDownWizard2({
 						id: "new-note",
 						icon: "new",
-						// color: "#1CA8DD",
-						// color: "#6DB2E3",
 						color: "dodgerblue",
-						// color: "orange",
 						title: "New Note",
 						width: 500,
-						height: 300,
+						height: 400,
 						permission: {
 							view: grid.crud.add
 						},
-						subTitle: "Choose the type of claim to create",
-						// view: NotesLookup,
-						// viewParams: {module:"INV", mode:1},
 						permission: {
 							view: grid.crud.add
 						},
@@ -337,16 +330,42 @@ function ClaimNotesView(viewParams){
 								notes: "",
 								is_new: true
 							}]);
+							
+							wizard.events.OnFinish.add(function(wizard) {
+								wizard.dataset.set("note_type", wizard.lookup.dataset.get("parent_code"));
+								wizard.dataset.set("note_sub_type", wizard.lookup.dataset.get("code"));
+								wizard.dataset.set("notes", wizard.notes.notes.html());
 								
-							wizard.canNext2 = function() {
-								if (this.lookup.dataset.data.length > 0) {
-									return this.lookup.dataset.get("parent_id") > 0
-								} else {
-									return false
-								}
-							};
+								desktop.Ajax(
+									self, 
+									"/app/get/update/claim-notes",
+									{
+										mode: "new",
+										data: JSON.stringify(wizard.dataset.data),
+									}, 
+									function(result) {
+										if (result.status == 0) {
+											wizard.close();
+											newNotes.push(parseInt(result.result.id));
+											grid.refresh();
+										} else {
+											ErrorDialog({
+												target: btn.elementContainer,
+												title: "Error adding note",
+												message: result.message
+											});
+										}
+									}
+								)
+							});
 							
 							wizard.add({
+								OnNext: function(wizard) {
+									return wizard.lookup.dataset.data.length > 0 && wizard.lookup.dataset.get("parent_id") > 0
+								},
+								OnSubTitle: function(wizard, container) {
+									container.html("Select the type of note to add.")
+								},
 								OnCreate: function(wizard, container) {
 									container.css({
 										border: "2px solid #6DB2E3"
@@ -361,16 +380,26 @@ function ClaimNotesView(viewParams){
 											});
 										}
 									});
-								},
-								OnActivate: function(wizard) {
-									wizard.subTitle("Select the type of note to add.");
 								}
 							});
 							
 							wizard.add({
+								OnFinish: function(wizard) {
+									return wizard.notes.notes.html() !== "";
+								},
+								OnSubTitle: function(wizard, container) {
+									var sub = wizard.lookup.dataset.get("description");
+									var main = wizard.lookup.dataset.lookup(wizard.lookup.dataset.get("parent_id"), "description");
+									
+									container.html(("<span x-sec='main'>{0}</span><span x-sec='sub'>{1}</span>").format(main, sub));
+								},
 								OnCreate: function(wizard, container) {
 									container.css({
 										border: "2px solid orange"
+									});
+									
+									wizard.dataset.Events.OnEditState.add(function(dataset, editing) {
+										wizard.update();
 									});
 									
 									wizard.notes = new SimpleNotesEditor({
@@ -383,42 +412,10 @@ function ClaimNotesView(viewParams){
 										}
 									})
 								},
-								OnActivate: function(wizard) {
-									var sub = wizard.lookup.dataset.get("description");
-									var main = wizard.lookup.dataset.lookup(wizard.lookup.dataset.get("parent_id"), "description");
-									
-									wizard.subTitle(("<span x-sec='main'>{0}</span><span x-sec='sub'>{1}</span>").format(main, sub))
-								},
 								OnVisibility: function(wizard, visible) {
 									wizard.notes.notes.focus();
 								}
 							});
-						},
-						finish: function(wizard) {
-							wizard.dataset.set("note_type", wizard.lookup.dataset.get("parent_code"));
-							wizard.dataset.set("note_sub_type", wizard.lookup.dataset.get("code"));
-							wizard.dataset.set("notes", wizard.notes.notes.html());
-							
-							desktop.Ajax(
-								self, 
-								"/app/get/update/claim-notes",
-								{
-									mode: "new",
-									data: JSON.stringify(wizard.dataset.data),
-								}, 
-								function(result) {
-									if (result.status == 0) {										
-										newNotes.push(parseInt(result.result.id));
-										grid.refresh();
-									} else {
-										ErrorDialog({
-											target: btn.elementContainer,
-											title: "Error adding note",
-											message: result.message
-										});
-									}
-								}
-							)
 						}
 					});
 				});

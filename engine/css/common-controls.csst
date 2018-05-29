@@ -357,6 +357,9 @@
 ##endtemplate=engine\splitter-theme-2
 
 ##template
+##endtemplate=engine\wizard
+
+##template
 	theme=white-green-dark
 	
 	sizer-border-width=1px

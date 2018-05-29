@@ -20,7 +20,7 @@ JEditor.prototype.Initialize = function(Params) {
     // this.EditorsByID = [];
     // this.CategoriesCount = 0;
 	if(!this.PaintParams) this.PaintParams = {};
-	this.PaintParams.showCategory = defaultValue(this.PaintParams.showCategory, true);
+	this.PaintParams.showCategory = defaultValue(this.PaintParams.showCategory, defaultValue(Params.ShowCategory, true));
 	this.PaintParams.labelWidth = Params.LabelWidth;
 	this.YesNo = [
 		{id:true, value:"Yes"},

@@ -19,19 +19,26 @@
 // ##endif
 
 ##include=app\view-service-status-history
-##include=app\view-service-actions
-##include=app\providers-lookup
-##include=app\hospital-doctors-lookup
-##include=app\countries-lookup
-##include=app\currencies-lookup
-##include=app\gop-contacts-lookup
 ##include=app\view-service-diagnosis
 ##include=app\view-service-procedures
 ##include=app\view-diagnosis
 ##include=app\view-diagnosis-group
 ##include=app\view-procedures
+
+// Other Lookups
+##include=app\providers-lookup
+##include=app\hospital-doctors-lookup
+##include=app\view-users-lookup
 ##include=app\view-service-sub--types-lookup
 ##include=app\view-service-templates-lookup
+##include=app\countries-lookup
+##include=app\currencies-lookup
+##include=app\gop-contacts-lookup
+
+// Actions
+##include=app\view-service-actions
+##include=app\edit-service-action
+##include=app\view-actions-lookup
 
 // Notes
 ##include=app\view-claim-notes

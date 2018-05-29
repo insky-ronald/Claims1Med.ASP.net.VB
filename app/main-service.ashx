@@ -212,14 +212,12 @@ Public Class DataProvider
 		Else
 			Permissions.AsJson("service") = DatabaseUtils.GetActionPermission(ServiceType.ToLower).JsonString()
 		End if
-		Permissions.AsJson("notes") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-note").JsonString()
+		
 		Permissions.AsJson("diagnosis") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-diagnosis").JsonString()
 		Permissions.AsJson("procedure") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-procedure").JsonString()
+		Permissions.AsJson("notes") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-note").JsonString()
 		Permissions.AsJson("status") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-status").JsonString()
-		' Permissions.AsJson("contact") = DatabaseUtils.GetActionPermission("member-contact").JsonString()
-		' Permissions.AsJson("status") = DatabaseUtils.GetActionPermission("claim-status").JsonString()
-		' Permissions.AsJson("plan_history") = DatabaseUtils.GetActionPermission("member-planhist").JsonString()
-		' Permissions.AsJson("medical_notes") = DatabaseUtils.GetActionPermission("member-medical-notes").JsonString()
+		Permissions.AsJson("action") = DatabaseUtils.GetActionPermission(ServiceType.ToLower+"-action").JsonString()
 
 		CustomData.AsJson("permissions") = Permissions.JsonString()
 	End Sub

@@ -12,18 +12,32 @@ function ServiceActionsView(viewParams){
 			toolbar: {theme: "svg"}
 		},
 		editForm: function(id, container, dialog) {
+			ServiceActionEdit({
+				url: ("?id={0}").format(id),
+				container: container,
+				containerPadding: 0,				
+				showToolbar: false,
+				pageControlTheme: "data-entry",
+				fillContainer: true,
+				dialog: dialog
+				// customData: {
+					// owner_id: requestParams.owner_id
+				// }
+			})
 		},
 		init: function(grid, callback) {			
 			grid.Events.OnInit.add(function(grid) {
 				grid.optionsData.url = "app/service-actions";
 				
-				grid.options.viewType = "cardview";
+				// grid.options.viewType = "cardview";
+				grid.options.action = viewParams.action;
 				grid.options.horzScroll = true;
 				grid.options.allowSort = false;
 				grid.options.editNewPage = false;
 				grid.options.showBand = false;
 				grid.options.showSummary = false;
 				grid.options.showPager = false;
+				grid.options.showMasterDetail = true;
 				// grid.options.showPager = true;
 				// grid.options.hideHeader = true;
 				
@@ -32,9 +46,22 @@ function ServiceActionsView(viewParams){
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
-						.addColumn("id", viewParams.requestParams.service_id, {numeric:true})
+						.addColumn("id", 0, {numeric:true})
+						.addColumn("service_id", viewParams.requestParams.service_id, {numeric:true})
 						.addColumn("sort", "due_date")
 						.addColumn("order", "desc")
+				});
+
+				grid.methods.add("canAdd", function(grid) {
+					return false;
+				});
+
+				grid.methods.add("canEdit", function(grid) {
+					return false;
+				});
+
+				grid.methods.add("canDelete", function(grid) {
+					return false;
 				});
 				
 				grid.Events.OnInitData.add(function(grid, data) {
@@ -53,206 +80,294 @@ function ServiceActionsView(viewParams){
 								}
 							}
 						})
-						.setprops("action_type", {label:"Class", 
-							getText: function(column, value) {
-								return value.toLowerCase()
-							}
-						})
-						.setprops("action", {label:"Action"})
+						.setprops("action_type", {label:"Class"})
+							// getText: function(column, value) {
+								// return value.toLowerCase()
+							// }
+						// })
+						.setprops("action_name", {label:"Action"})
 						.setprops("due_date", {label:"Due Date", type:"date"})
-						.setprops("action_owner", {label:"Owner"})
+						.setprops("action_owner_name", {label:"Owner"})
 						.setprops("completion_date", {label:"Date Completed", type:"date", format:"datetime"})
-						.setprops("completion_user", {label:"Completed By"})
+						.setprops("completion_user_name", {label:"Completed By"})
 						.setprops("create_date", {label:"Date Created", type:"date", format:"datetime"})
+						.setprops("create_user_name", {label:"Created by"})
 						.setprops("update_date", {label:"Last Updated", type:"date", format:"datetime"})
+						.setprops("update_user_name", {label:"Updated by"})
 						.setprops("due_date", {label:"Due Date", type:"date", format:"datetime"})
 				});
 
-				// grid.Events.OnInitRow.add(function(grid, row) {	
-					// row.attr("service-status", grid.dataset.get("status_code").toLowerCase())
-				// });	
-				
-				if(grid.options.viewType === "cardview") {
-					grid.Events.OnInitColumns.add(function(grid) {
-						grid.NewColumn({fname: "action", width: 100, allowSort: true, fixedWidth:true});
-						grid.NewColumn({fname: "action_type", width: 100, allowSort: true, fixedWidth:true});
-						grid.NewColumn({fname: "due_date", width: 100, allowSort: true, fixedWidth:true});
-						grid.NewColumn({fname: "action_owner", width: 100, allowSort: true});
-						grid.NewColumn({fname: "completion_date", width: 125, allowSort: true});
-						grid.NewColumn({fname: "completion_user", width: 125, allowSort: true});
-					})
-				} else {
-					grid.Events.OnInitColumns.add(function(grid) {
-						grid.NewColumn({fname: "action_type", width: 200, allowSort: true, fixedWidth:true});
-						grid.NewColumn({fname: "action", width: 200, allowSort: true, fixedWidth:true});
-						grid.NewColumn({fname: "due_date", width: 150, allowSort: true, fixedWidth:true});
-						// grid.NewColumn({fname: "due_date", width: 100, allowSort: true, fixedWidth:true});
-						// grid.NewColumn({fname: "action_owner", width: 100, allowSort: true});
-						// grid.NewColumn({fname: "completion_date", width: 125, allowSort: true});
-						// grid.NewColumn({fname: "completion_user", width: 125, allowSort: true});
-					})
-				}
-				
-				grid.Events.OnInitCard.add(function(grid, card) {
-					grid.dataset.gotoKey(parseInt(card.attr("row-id")));
-					card.attr("x-status", grid.dataset.raw("is_done"));
-					
-					CreateElementEx("div", card, function(container) {						
-						CreateElement("div", container).addClass("status").html(grid.dataset.text("is_done"));
-						CreateElementEx("div", container, function(container) {
-							CreateElement("span", container).addClass("type").html(grid.dataset.text("action_type"));
-							CreateElement("span", container).addClass("sub-type").html(grid.dataset.text("action"));
-						}, "task")
-					}, "action-section action");
-						
-					if(grid.dataset.text("notes")) {
-						CreateElementEx("pre", card, function(container) {
-							container.html(grid.dataset.text("notes"))
-						}, "action-section action-notes")
-					}
-					
-					CreateElementEx("div", card, function(container) {
-						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Owner");
-							CreateElement("div", container).html(grid.dataset.text("action_owner_name"));
-						}, "user");
-						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Due Date");
-							CreateElement("div", container).html(grid.dataset.formatDateTime("due_date", "MMMM d, yyyy"));
-						}, "user");
-						
-					}, "action-section other");
-					
-					CreateElementEx("div", card, function(container) {
-						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Created by");
-							CreateElement("div", container).html(grid.dataset.text("create_user_name"));
-						}, "user");
-						CreateElementEx("div", container, function(container) {
-							CreateElement("div", container).html("Created on");
-							CreateElement("div", container).html(grid.dataset.formatDateTime("create_date", "MMMM d, yyyy"));
-						}, "user");
-					}, "action-section other");
-
-					if(grid.dataset.raw("is_done") === "D") {
-						CreateElementEx("div", card, function(container) {
-							// CreateElement("div", container).addClass("close-user").html(grid.dataset.text("complete_user_name"))
-							CreateElementEx("div", container, function(container) {
-								CreateElement("div", container).html("Closed by");
-								CreateElement("div", container).html(grid.dataset.text("complete_user_name"));
-							}, "user");
-							CreateElementEx("div", container, function(container) {
-								CreateElement("div", container).html("Closed on");
-								CreateElement("div", container).html(grid.dataset.formatDateTime("completion_date", "MMMM d, yyyy"));
-							}, "user");
-						}, "action-section other close");
-					}
-
-					if(grid.dataset.raw("is_done") === "X") {
-						CreateElementEx("div", card, function(container) {
-							// CreateElement("div", container).addClass("cancel-user").html(grid.dataset.text("update_user_name"))
-							CreateElementEx("div", container, function(container) {
-								CreateElement("div", container).html("Canceled by");
-								CreateElement("div", container).html(grid.dataset.text("update_user_name"));
-							}, "user");
-							CreateElementEx("div", container, function(container) {
-								CreateElement("div", container).html("Canceled on");
-								CreateElement("div", container).html(grid.dataset.formatDateTime("update_date", "MMMM d, yyyy"));
-							}, "user");
-							// CreateElement("div", container).addClass("cancel-date").html(grid.dataset.formatDateTime("update_date", "MMMM d, yyyy"))
-						}, "action-section other cancel");
+				grid.Events.OnInitRow.add(function(grid, row) {	
+					row.attr("x-status", grid.dataset.raw("is_done"))
+				});	
+		
+				grid.methods.add("getCommandHeaderIcon", function(grid, column, defaultValue) {
+					if(column.command === "master-detail")
+						return "notes"
+					// else if(column.command === "deletex")
+						// return "db-delete"
+					// else if(column.command === "editx")
+						// return "db-edit"
+					else
+						return defaultValue
+				});
+		
+				grid.methods.add("getCommandHint", function(grid, column, defaultValue) {
+					if(column.command === "master-detail") {
+						return "View notes"
+					// } else if(column.command === "deletex") {
+						// return "Delete note"
+					// } else {
+						return defaultValue
 					}
 				});
 				
+				grid.Events.OnMasterDetail.add(function(grid, params) {
+					params.setHeight(250);
+					
+					var dataset = new Dataset([{
+							id: grid.dataset.raw("id"),
+							notes: grid.dataset.raw("notes")
+						}]);
+					
+					new SimpleNotesEditor({
+						container: params.container, 
+						dataset: dataset,
+						columnName: "notes",
+						requestParams: {
+							showToolbar: false,
+							readonly: true
+						// },
+						// update: function(editor) {
+						}
+					})
+				});
+				
+				grid.Events.OnInitColumns.add(function(grid) {
+					grid.NewColumn({fname: "action_type", width: 200, allowSort: true, fixedWidth:true});
+					grid.NewColumn({fname: "action_name", width: 200, allowSort: true, fixedWidth:true});
+					grid.NewColumn({fname: "due_date", width: 150, allowSort: true, fixedWidth:true});
+					grid.NewColumn({fname: "action_owner_name", width: 150, allowSort: true});
+					grid.NewColumn({fname: "create_date", width: 150, allowSort: true});
+					grid.NewColumn({fname: "create_user_name", width: 150, allowSort: true});
+					grid.NewColumn({fname: "update_date", width: 150, allowSort: true});
+					grid.NewColumn({fname: "create_user_name", width: 150, allowSort: true});
+					grid.NewColumn({fname: "completion_date", width: 150, allowSort: true});
+					grid.NewColumn({fname: "completion_user_name", width: 150, allowSort: true});
+				})
+							
 				grid.Events.OnInitToolbar.add(function(grid, toolbar) {
-					// console.log(viewParams);
-					// console.log(desktop);
-					var module = desktop.customData.module_type;
-					var status = desktop.dbService.get("status_code") ;
-					
-					return;
-					if((module === "inv" && status === "P") || (module === "gop" && (status === "N" || status === "P")) ) {
-						toolbar.NewDropDownViewItem({
-							id: "change-status",
-							icon: "status-change-pending",
-							color: "forestgreen",
-							title: "Change Pending Status",
-							subTitle: "Choose the type of pending status to change to.",
-							view: ServiceStatusLookup,
-							viewParams: {module:module, status:"P"},
-							select: function(code) {
-								// window.open(__invoice(("new?claim_id={0}&claim_type={1}&service_type={2}").format(desktop.dbClaim.get("id"), desktop.dbClaim.get("claim_type"), code), true), "");
-							}
-						});
-						
-						if(module === "gop") {
-							toolbar.NewDropDownViewItem({
-								id: "cancel-gop",
-								icon: "status-cancel",
-								color: "firebrick",
-								title: "Cancel Guarantee",
-								subTitle: "Choose the type of cancelation.",
-								view: ServiceStatusLookup,
-								viewParams: {module:module, status:"D"},
-								select: function(code) {
-									// window.open(__invoice(("new?claim_id={0}&claim_type={1}&service_type={2}").format(desktop.dbClaim.get("id"), desktop.dbClaim.get("claim_type"), code), true), "");
-								}
+					var btn = toolbar.NewDropDownWizard2({
+						id: "new-action",
+						icon: "new",
+						color: "dodgerblue",
+						title: "New Action",
+						width: 500,
+						height: 400,
+						permission: {
+							view: grid.crud.add
+						},
+						prepare: function(wizard) {
+							wizard.dataset = new Dataset([{
+								id: 0,
+								// claim_id: parseInt(viewParams.requestParams.claim_id),
+								service_id: parseInt(viewParams.requestParams.service_id),
+								action_type_code: "",
+								action_code: "",
+								action_owner: "",
+								notes: ""
+							}]);
+								
+							wizard.events.OnFinish.add(function(wizard) {
+								// wizard.dataset.set("action_type_code", wizard.actionsLookup.dataset.get("action_type_code"));
+								// wizard.dataset.set("action_code", wizard.lookup.dataset.get("action_code"));
+								wizard.dataset.set("notes", wizard.notes.notes.html());
+								
+								desktop.Ajax(
+									self, 
+									"/app/get/update/service-actions",
+									{
+										mode: "new",
+										data: JSON.stringify(wizard.dataset.data),
+									}, 
+									function(result) {
+										if (result.status == 0) {
+											wizard.close();
+											// newNotes.push(parseInt(result.result.id));
+											grid.refresh();
+										} else {
+											ErrorDialog({
+												target: btn.elementContainer,
+												title: "Error adding note",
+												message: result.message
+											});
+										}
+									}
+								)
 							});
-						};
-						
-						if(module === "inv") {
-							toolbar.NewDropDownViewItem({
-								id: "decline",
-								icon: "status-decline",
-								title: "Decline Invoice",
-								subTitle: "Choose the type of decline.",
-								color: "firebrick",
-								view: ServiceStatusLookup,
-								viewParams: {module:module, status:"D"},
-								select: function(code) {
-									// window.open(__invoice(("new?claim_id={0}&claim_type={1}&service_type={2}").format(desktop.dbClaim.get("id"), desktop.dbClaim.get("claim_type"), code), true), "");
+								
+							wizard.events.OnDrawHeader.add(function(wizard, container) {
+								wizard.editor = new SimpleEditor({
+									id: "new-action",
+									container: container,
+									theme: "default",
+									css: "editor", 
+									labelWidth: 100,
+									resize: false,
+									showCategory: false,
+									dataset: wizard.dataset,
+									initData: function(editor, dataset) {
+										dataset.Events.OnChanged.add(function(dataset, columnName) {
+											var index = wizard.activeTabIndex();
+											editor.SetVisible("action_type_code", index >= 2);
+											editor.SetVisible("action_code", index >= 2);
+											editor.SetVisible("action_owner", index >= 3);
+											// editor.SetVisible("action_owner_full_name", index >= 3);
+										});
+										
+										dataset.Columns
+											.setprops("id", {numeric:true, key: true})
+											.setprops("action_type_code", {label:"Type", readonly:true,
+												getText: function(col) {
+													if (wizard.actionsLookup.dataset.data.length > 0) {
+														return wizard.actionsLookup.dataset.lookup(wizard.actionsLookup.dataset.get("parent_id"), "description")
+													} else {
+														return ""
+													}
+												}
+											})
+											.setprops("action_code", {label:"Action", readonly:true,
+												getText: function(col) {
+													if (wizard.actionsLookup.dataset.data.length > 0) {
+														return wizard.actionsLookup.dataset.get("description")
+													} else {
+														return ""
+													}
+												}
+											})
+											.setprops("action_owner", {label:"Assigned to", readonly:true,
+												getText: function(col) {
+													if (wizard.usersLookup && wizard.usersLookup.dataset.data.length > 0) {
+														return wizard.usersLookup.dataset.get("full_name")
+													} else {
+														return ""
+													}
+												}
+											})
+											.setprops("due_date", {label:"Due Date", type:"date", format:"datetime", readonly:false})
+									},
+									initEditor: function(editor) {
+										editor.AddText("action_type_code");
+										editor.AddText("action_code");
+										editor.AddText("action_owner");
+										editor.AddDate("due_date");
+									}
+								});	          
+							});
+							
+							wizard.add({
+								OnNext: function(wizard) {
+									return wizard.actionsLookup.dataset.data.length > 0 && wizard.actionsLookup.dataset.get("parent_id") > 0
+								},
+								OnSubTitle: function(wizard, container) {
+									wizard.dataset.set("action_type_code", "");
+									wizard.dataset.set("action_code", "");
+								},
+								OnCreate: function(wizard, container) {
+									container.attr("x-sec", "actions");
+									
+									wizard.actionsLookup = ActionsLookup({
+										container: container,
+										hideSelection: true,
+										initData: function(grid) {
+											grid.dataset.Events.OnMoveRecord.add(function(dataset) {
+												wizard.update();
+											});
+										}
+									});
 								}
 							});
 							
-							toolbar.NewDropDownConfirmItem({
-								id: "approve",
-								icon: "status-approve",
-								color: "dodgerblue",
-								title: "Approve for Payment",
-								subTitle: "Please confirm to approve this invoice for payment.",
-								confirm: function() {
-									console.log("confirm")
-									// window.open(__invoice(("new?claim_id={0}&claim_type={1}&service_type={2}").format(desktop.dbClaim.get("id"), desktop.dbClaim.get("claim_type"), code), true), "");
+							wizard.add({
+								OnSubTitle: function(wizard, container) {
+									wizard.dataset.set("action_owner", "");
+									// wizard.dataset.set("action_owner_full_name", "");
+									wizard.dataset.set("action_type_code", wizard.actionsLookup.dataset.get("parent_code"));
+									wizard.dataset.set("action_code", wizard.actionsLookup.dataset.get("code"));
+									// wizard.dataset.set("action_type", wizard.actionsLookup.dataset.lookup(wizard.actionsLookup.dataset.get("parent_id"), "description"));
+									// wizard.dataset.set("action_name", wizard.actionsLookup.dataset.get("description"));
+								},
+								OnCreate: function(wizard, container) {
+									container.attr("x-sec", "users");
+									
+									wizard.usersLookup = UsersLookup({
+										container: container,
+										hideSelection: true,
+										initData: function(grid) {
+											grid.dataset.Events.OnMoveRecord.add(function(dataset) {
+												wizard.update();
+											});
+										}
+									});
 								}
 							});
 							
-							toolbar.NewDropDownConfirmItem({
-								id: "settle",
-								icon: "status-settle",
-								color: "orangered",
-								title: "Settle (Cash Paid)",
-								subTitle: "Please confirm this invoice as paid by cash.",
-								confirm: function() {
-									console.log("bucket")
-									// window.open(__invoice(("new?claim_id={0}&claim_type={1}&service_type={2}").format(desktop.dbClaim.get("id"), desktop.dbClaim.get("claim_type"), code), true), "");
+							wizard.add({
+								OnSubTitle: function(wizard, container) {
+									wizard.dataset.set("action_owner", wizard.usersLookup.dataset.get("user_name"));
+									// wizard.dataset.set("action_owner_full_name", wizard.usersLookup.dataset.get("full_name"));
+								},
+								OnCreate: function(wizard, container) {
+									container.attr("x-sec", "notes");
+									
+									wizard.notes = new SimpleNotesEditor({
+										container: container, 
+										dataset: wizard.dataset,
+										columnName: "notes",
+										requestParams: {
+											showToolbar: false,
+											readonly: false
+										}
+									})
+								},
+								OnActivate: function(wizard) {
+									var name = wizard.usersLookup.dataset.get("full_name");
+									// var main = wizard.actionsLookup.dataset.lookup(wizard.actionsLookup.dataset.get("parent_id"), "description");
+									wizard.setSubTitle($(("<div x-sec='note-tab'><span x-sec='main'>{0}</span><span x-sec='sub'>{1}</span></div>").format("Assign to", name)));
+								},
+								OnVisibility: function(wizard, visible) {
+									wizard.notes.notes.focus();
 								}
 							});
+						},
+						finish: function(wizard) {
+							wizard.dataset.set("note_type", wizard.lookup.dataset.get("parent_code"));
+							wizard.dataset.set("note_sub_type", wizard.lookup.dataset.get("code"));
+							wizard.dataset.set("notes", wizard.notes.notes.html());
 							
-							toolbar.NewDropDownConfirmItem({
-								id: "bucket",
-								icon: "status-bucket",
-								color: "slateblue",
-								title: "Bucket Invoice",
-								subTitle: "Please confirm to bucket this invoice.",
-								confirm: function() {
-									console.log("bucket")
-									// window.open(__invoice(("new?claim_id={0}&claim_type={1}&service_type={2}").format(desktop.dbClaim.get("id"), desktop.dbClaim.get("claim_type"), code), true), "");
+							desktop.Ajax(
+								self, 
+								"/app/get/update/claim-notes",
+								{
+									mode: "new",
+									data: JSON.stringify(wizard.dataset.data),
+								}, 
+								function(result) {
+									if (result.status == 0) {										
+										newNotes.push(parseInt(result.result.id));
+										grid.refresh();
+									} else {
+										ErrorDialog({
+											target: btn.elementContainer,
+											title: "Error adding note",
+											message: result.message
+										});
+									}
 								}
-							});
-						};
-					}
-				});
-				
+							)
+						}
+					});
+				});				
 			});
 		}
 	}));
