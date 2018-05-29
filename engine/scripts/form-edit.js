@@ -706,7 +706,9 @@ function SimpleEditor(params) {
 		Container: params.container,
 		Theme: params.theme,
 		Css: "editor",
-		LabelWidth: params.labelWidth
+		LabelWidth: params.labelWidth,
+		Resize: params.resize,
+		ShowCategory: params.showCategory
 	});	      
 	
 	params.initData(editor, editor.Dataset = params.dataset);

@@ -173,35 +173,43 @@ function GopView(viewParams) {
 									}
 								});
 
-								if (!desktop.customData.newRecord) {
-									pg.addTab({caption:"Status History",
-										icon: {
-											name: "claim-status",
-											color: "firebrick"
-										},
-										permission: {
-											view: desktop.customData.permissions.status.view && !desktop.customData.newRecord
-										},
-										OnCreate: function(tab) {
-											ServiceStatusView({
-												action: desktop.serviceType + "-status",
-												container:tab.container,
-												requestParams:{
-													service_id: desktop.dbService.get("id")
-												}
-											})
-										}
-									});
-									pg.addTab({caption:"Actions",
-										icon: {
-											name: "calendar-blank",
-											color: "forestgreen"
-										},
-										OnCreate: function(tab) {
-											ServiceActionsView({container:tab.container, requestParams:{service_id:desktop.dbService.get("id")}})
-										}
-									});
-								}
+								pg.addTab({caption:"Status History",
+									icon: {
+										name: "claim-status",
+										color: "firebrick"
+									},
+									permission: {
+										view: desktop.customData.permissions.status.view && !desktop.customData.newRecord
+									},
+									OnCreate: function(tab) {
+										ServiceStatusView({
+											action: "gop-status",
+											container:tab.container,
+											requestParams:{
+												service_id: desktop.dbService.get("id")
+											}
+										})
+									}
+								});
+								
+								pg.addTab({caption:"Actions",
+									icon: {
+										name: "calendar-blank",
+										color: "forestgreen"
+									},
+									permission: {
+										view: desktop.customData.permissions.action.view && !desktop.customData.newRecord
+									},
+									OnCreate: function(tab) {
+										ServiceActionsView({
+											action: "gop-action",
+											container:tab.container, 
+											requestParams:{
+												service_id: desktop.dbService.get("id")
+											}
+										})
+									}
+								});
 							}
 						});
 					});
@@ -228,119 +236,6 @@ function GopView(viewParams) {
 
 				}
 			});
-
-			// if (desktop.canEdit) {
-			// var btnSendOutbox = toolbar.NewDropDownConfirmItem({
-				// id: "send-outbox",
-				// icon: "send-to-outbox",
-				// color: "dodgerblue",
-				// hint: "Send to outbox",
-				// title: "Send to Outbox",
-				// subTitle: "Please confirm to send guarantee of payment to outbox for authorisation.",
-				// dataBind: desktop.dbService,
-				// dataEvent: function(dataset, button) {
-					// button.show(!dataset.editing);
-				// },
-				// permission: {
-					// view: desktop.canEdit && desktop.customData.permissions.service.post
-				// },
-				// confirm: function() {
-					// desktop.Ajax(
-						// null,
-						// "/app/api/command/send-to-outbox",
-						// {
-							// id: desktop.dbService.getKey()
-						// },
-						// function(result) {
-							// if (result.status == 0) {
-								// location.reload();
-							// } else {
-								// ErrorDialog({
-									// target: btnSendOutbox.elementContainer,
-									// title: "Error",
-									// message: result.message
-								// });
-							// }
-						// }
-					// )
-				// }
-			// });
-
-			// toolbar.SetVisible("send-outbox", !desktop.dbService.editing);
-			// }
-
-			if (desktop.status == "S" && desktop.subStatus == "S08") {
-				// var btnReceived = toolbar.NewDropDownViewItem({
-					// id: "invoice-received",
-					// icon: "invoice-received",
-					// color: "dodgerblue",
-					// hint: "Invoice received",
-					// title: "Invoice Received",
-					// subTitle: "Please confirm to send guarantee of payment to outbox for authorisation.",
-					// view: ServiceSubTypesLookup,
-					// viewParams: {serviceType:"INV"},
-					// select: function(code) {
-						// desktop.Ajax(
-							// null,
-							// "/app/api/command/invoice-received",
-							// {
-								// id: desktop.dbService.getKey(),
-								// type: code
-							// },
-							// function(result) {
-								// if (result.status == 0) {
-									// location.href = __service(result.id, "inv", true);
-								// } else {
-									// ErrorDialog({
-										// target: btnReceived.elementContainer,
-										// title: "Error",
-										// message: result.message
-									// });
-								// }
-							// }
-						// )
-					// }
-				// });
-
-				// toolbar.SetVisible("invoice-received", !desktop.dbService.editing);
-			}
-
-			// if (desktop.status == "S" && desktop.subStatus != "S02" && desktop.subStatus != "S03") {
-				// var btnSupercede = toolbar.NewDropDownConfirmItem({
-					// id: "supercede",
-					// icon: "supercede-gop",
-					// color: "forestgreen",
-					// hint: "Supercede guarantee of payment",
-					// title: "Supercede",
-					// subTitle: "Please confirm to supercede guarantee of payment.",
-					// dataBind: desktop.dbService,
-					// dataEvent: function(dataset, button) {
-						// button.show(!dataset.editing);
-					// },
-					// confirm: function() {
-						// desktop.Ajax(
-							// null,
-							// "/app/api/command/gop-supercede",
-							// {
-								// id: desktop.dbService.getKey()
-							// },
-							// function(result) {
-								// if (result.status == 0) {
-									// location.href = __service(result.id, "gop", true);
-								// } else {
-									// ErrorDialog({
-										// target: btnSupercede.elementContainer,
-										// title: "Error",
-										// message: result.message
-									// });
-								// }
-							// }
-						// )
-					// }
-				// });
-
-				// toolbar.SetVisible("supercede", !desktop.dbService.editing);
-			// }
 		});
 	});
 };
