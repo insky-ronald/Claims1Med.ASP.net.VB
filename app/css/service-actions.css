@@ -11,213 +11,64 @@
 	open-color=slategray
 ##endconst
 
-.grid3.cardview.service-actions .content {
-	display: flex;
-	flex-flow: column;
-	box-sizing: border-box;
-	overflow-y: auto;
-	overflow-x: hidden;
+.grid3.service-actions .row[x-status="D"] {
+	color: forestgreen;
 }
 
-.grid3.cardview.service-actions .card {
-	padding: 6px;
-	/* border: 1px gainsboro; */
-	/* border-style: none none solid none; */
-	background: white;
-	box-sizing: border-box;
-	border-width: 1px;
+.grid3.service-actions .row[x-status="X"] {
+	color: firebrick;
 }
 
-.grid3.cardview.service-actions .card:hover {
-	background: #FAFAFA;
-}
-
-.grid3.cardview.service-actions .card .card-content {
-	display: flex;
-	flex-flow: row;
-	box-sizing: border-box;
-}
-
-.grid3.cardview.service-actions .card[x-status="X"] {
-	color: [cancel-background];
-	border-color: [cancel-color];
-	border-color: [cancel-color];
-}
-
-.grid3.cardview.service-actions .card[x-status="D"] {
-	color: [complete-background];
-	border-color: [complete-color];
-}
-
-.grid3.cardview.service-actions .card[x-status="N"] {
-	color: [open-background];
-	border-color: [open-color];
-}
-
-.grid3.cardview.service-actions .card > .action-section > div {
-	/* width: 50%; */
-	padding: 4px;
-	/* color: inherit; */
-	/* border-width: 1px; */
-	/* border-color: inherit; */
-}
-
-.grid3.cardview.service-actions .card > .action {
-	color: inherit;
-	border-color: inherit;
-	box-sizing: border-box;
-}
-
-.grid3.cardview.service-actions .card > .other {
-	display: flex;
-	flex-flow: row;
-	/* color: inherit; */
-	color: black;
-	border-color: inherit;
-	border-width: 1px;
-	border-style: none solid solid solid;
-	box-sizing: border-box;
-}
-
-.grid3.cardview.service-actions .card > .other > div:before {
-	margin-right: 2px;
-	color: slategray;
-	text-transform: lowercase;
-	width: 75px;
-}
-
-/* .grid3.cardview.service-actions .card > .other > .owner, */
-/* .grid3.cardview.service-actions .card > .other > .due-date { */
-.grid3.cardview.service-actions .card > .other > div {
-	width: 50%;
-	padding: 4px;
-	/* color: black; */
-	border-width: 1px;
-	border-color: inherit;
-}
-
-.grid3.cardview.service-actions .card > .other.close {
-	color: [complete-background];
-}
-
-.grid3.cardview.service-actions .card > .other.cancel {
-	color: [cancel-background];
-}
-
-.grid3.cardview.service-actions .card > .action-notes {
-	color: black;
-    margin: 0;
-    padding: 4px;
-    border-width: 1px;
-    border-color: inherit;
-    border-style: none solid solid solid;
+.grid3.service-actions .master-detail-container {
+	font: 10pt Consolas;
 	background: lightyellow;
+	/* padding: 6px; */
+	/* width: 100% !important; */
+	width: 600px !important;
+	border: 2px solid orange;
+	tab-size: 4;
+	overflow: auto;
 }
 
-.grid3.cardview.service-actions .card > .other > .due-date:before {
-	content: "Due on:";
+.wizard.new-action .grid3.users .content .data-table .row {
+	cursor: pointer;
 }
 
-.grid3.cardview.service-actions .card > .other > .owner:before {
-	content: "Owned by:";
+.wizard.new-action div[x-sec="header"] {
+    padding: 0;
 }
 
-.grid3.cardview.service-actions .card > .other > .create-user:before {
-	content: "Created by:";
+.wizard.new-action div[x-sec="header"] div[x-sec="sub-text"] {
+	padding: 20px 0 0 0;
 }
 
-.grid3.cardview.service-actions .card > .other > .create-date:before {
-	content: "Created on:";
+.wizard.new-action div[x-sec="header"] div[x-sec="sub-title"] table {
+	/* width: 100%; */
+    /* table-layout: fixed; */
+	border: 2px #6DB2E3;
+	border-style: solid solid none solid;
+	margin-top: 10px;
 }
 
-.grid3.cardview.service-actions .card > .other > .close-user:before {
-	content: "Closed by:";
+.wizard.new-action div[x-sec="header"] div[x-sec="sub-title"][x-tab="3"] table {
+	border-color: orange;
 }
 
-.grid3.cardview.service-actions .card > .other > .close-date:before {
-	content: "Closed on:";
+.wizard.new-action div[x-sec="header"] div[x-sec="sub-title"] table tr:last-child td {
+	border-bottom-style: none;
 }
 
-.grid3.cardview.service-actions .card > .other > .cancel-user:before {
-	content: "Canceled by:";
+.wizard .pg2 .tab-content[x-sec="actions"] {
+	border: 2px solid #6DB2E3;
+	border-top-width: 1px;
 }
 
-.grid3.cardview.service-actions .card > .other > .cancel-date:before {
-	content: "Canceled on:";
+.wizard .pg2 .tab-content[x-sec="users"] {
+	border: 2px solid #6DB2E3;
+	border-top-width: 1px;
 }
 
-.grid3.cardview.service-actions .card > .action {
-	display: flex;
-	flex-flow: row;
-	border: 1px solid;
+.wizard .pg2 .tab-content[x-sec="notes"] {
+	border: 2px solid orange;
+	border-top-width: 1px;
 }
-
-.grid3.cardview.service-actions .card > .action-section > .task {
-	width: 100%;
-}
-
-.grid3.cardview.service-actions .card > .action-section > .task > .type {
-	font-weight: bold;
-}
-
-.grid3.cardview.service-actions .card > .action-section > .task > .sub-type:before {
-	content: "/";
-	margin: 0 3px 0 3px;
-	color: black;
-}
-
-.grid3.cardview.service-actions .card > .action-section > .status {
-	width: 100px;
-	color: white;
-}
-
-.grid3.cardview.service-actions .card > .action-section > div:first-child {
-	border-style: none solid none none;
-}
-
-.grid3.cardview.service-actions .card > .action > div {
-}
-
-.grid3.cardview.service-actions .card > .action > .code {
-	width: 32px;
-	font-weight: bold;
-	border-style: none solid none none;
-}
-
-.grid3.cardview.service-actions .card > .action > .task {
-	color: inherit;
-	text-transform: capitalize;
-}
-
-.grid3.cardview.service-actions .card[x-status="D"] > .action-section > .status {
-	background: [complete-background];
-}
-
-.grid3.cardview.service-actions .card[x-status="X"] > .action-section > .status {
-	background: [cancel-background];
-}
-
-.grid3.cardview.service-actions .card[x-status="N"] > .action-section > .status {
-	background: [open-background];
-}
-
-.grid3.cardview.service-actions .card > .other > .user {
-	display: flex;
-	flex-flow: row;
-}
-
-.grid3.cardview.service-actions .card > .other > .user > div:first-child {
-	width: 110px;
-	color: slategray;
-	text-align: right;
-	padding-right: 4px;
-}
-
-.grid3.cardview.service-actions .card > .other > .user > div:first-child:after {
-	content:":";
-}
-
-.grid3.cardview.service-actions .card > .other > .user > div:last-child {
-	width: 100%;
-}
-

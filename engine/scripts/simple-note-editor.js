@@ -100,6 +100,8 @@ function SimpleNotesEditor(viewParams) {
 		notes.on("input", function() {
 			if(!self.dataset.editing) {
 				self.dataset.edit();
+			} else {
+				self.dataset.Events.OnEditState.trigger(self.dataset.editing);
 			}
 		});
 		

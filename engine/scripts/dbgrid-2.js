@@ -709,7 +709,7 @@ jGrid.prototype.editRecord = function(id, target) {
 	else
 		this.dataEdit.mode = "edit";
 	
-	if (!this.options.editNewPage && this.dataEdit.mode == "edit" && !this.crud.edit) {
+	if (!this.options.editNewPage && this.dataEdit.mode == "edit" && (!this.crud.edit || !this.methods.call("canEdit"))) {
 		return;
 	}
 	

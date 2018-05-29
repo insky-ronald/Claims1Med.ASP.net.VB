@@ -15,6 +15,7 @@ PopupBasePainter.prototype.canCustomizeHeader = true;
 PopupBasePainter.prototype.Paint = function() {
     PopupBasePainter.prototype.parent.prototype.Paint.call(this);
 
+	this.css = this.GetParam("css", "");
 	this.snap = this.GetParam("snap", "bottom");
 	this.align = this.GetParam("align", "left");
 	this.inset = this.GetParam("inset", false);
@@ -284,6 +285,7 @@ PopupBasePainter.prototype.InitializeDialog = function() {
 };
 
 PopupBasePainter.prototype.AfterInitializeDialog = function() {		
+	this.container.addClass(this.css);
 };
 
 //**************************************************************************************************

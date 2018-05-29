@@ -1,0 +1,22 @@
+﻿##const   
+##endconst
+
+.wizard {
+	height: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+.wizard div[x-sec="header"] {
+	padding: 0 0 10px 0;
+}
+
+.wizard div[x-sec="header"] div[x-sec="title"]{
+	font-family: Calibri;
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+.wizard div[x-sec="footer"] {
+	padding-top: 10px;
+}

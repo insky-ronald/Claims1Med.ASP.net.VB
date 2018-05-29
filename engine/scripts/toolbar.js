@@ -138,7 +138,6 @@ JToolbar.prototype.NewDropdownConfirm = function(params) {
 	return this.NewDropdownItem(params);
 };
 
-// JToolbar.prototype.NewDropDownContainer = function(params) {
 JToolbar.prototype.NewDropDownWizard = function(params) {
 	
 	params = $.extend({
@@ -148,8 +147,10 @@ JToolbar.prototype.NewDropDownWizard = function(params) {
 		width: "auto",
 		align: "left",
 		color: "dimgray"
+		// css: ""
 	}, params, {
 		id: params.id,
+		// css: defaultValue(params.css, params.id),
 		// align: params.align || "left",
 		align: params.align,
 		color: params.color,
@@ -163,7 +164,7 @@ JToolbar.prototype.NewDropDownWizard = function(params) {
 	});
 	
 	params.click = function(item) {
-		var pg, btns = {}, tabIndex = 0, subTitle = "", wizard;
+		var pg, btns = {}, tabIndex = 0, subTitle = "", wizard, subTitleContainer;
 		
 		// var updateButtons = function(wizard) {
 			// btns.back.SetEnabled(wizard.pg.activeTab.id > 1);
@@ -179,18 +180,25 @@ JToolbar.prototype.NewDropDownWizard = function(params) {
 				painterClass: PopupOverlayPainter,
 				color: params.color,
 				snap: "bottom",
+				css: defaultValue(params.css, params.id),
 				// align: defaultValue(params.dlgAlign, params.align),
 				align: params.align,
 				noIndicator: params.noIndicator,
 				OnRenderContent: function(dialog, container) {
 					// console.log(params.title)
+					container.css("width", params.width);
+					
 					CreateElementEx("div", container, function(header) {
 						CreateElement("h2", header).css("color", params.color).html(params.title).css("margin", 0);
-						subTitle = CreateElement("p", header).addClass("dialog-sub-title").html(params.subTitle);
+						// subTitle = CreateElement("p", header).addClass("dialog-sub-title").html(params.subTitle);
+						subTitleContainer = CreateElementEx("div", container, function(title) {
+							// subTitle = CreateElement("p", title).addClass("dialog-sub-title").html(params.subTitle);
+							subTitle = CreateElement("p", title).html(params.subTitle);
+						}).addClass("dialog-sub-title");
 					});
 					
 					CreateElementEx("div", container, function(content) {
-						content.css("width", params.width);
+						// content.css("width", params.width);
 						content.css("height", params.height);
 						pg = new jPageControl({
 							paintParams: {
@@ -259,6 +267,15 @@ JToolbar.prototype.NewDropDownWizard = function(params) {
 									}, 
 									subTitle: function(text) {
 										subTitle.html(text);
+									},
+									resize: function(height) {
+										// subTitle.html(text);
+										content.css("height", height);
+									},
+									setSubTitle: function(content) {
+										subTitleContainer.html("");
+										subTitleContainer.append(content);
+										// subTitle.html(text);
 									}
 								};
 								
@@ -326,6 +343,85 @@ JToolbar.prototype.NewDropDownWizard = function(params) {
 		// updateButtons(pg);
 		// updateButtons(wizard);
 		wizard.update();
+		dialog.toolbarButton = item;
+	};
+	
+	return this.NewItem(params);
+};
+
+JToolbar.prototype.NewDropDownWizard2 = function(params) {
+	
+	params = $.extend({
+		dropdown: true,
+		noIndicator: false,
+		height: "auto",
+		width: "auto",
+		align: "left",
+		color: "dimgray"
+		// css: ""
+	}, params, {
+		id: params.id,
+		// css: defaultValue(params.css, params.id),
+		// align: params.align || "left",
+		align: params.align,
+		color: params.color,
+		icon: params.icon,
+		iconColor: defaultValue(params.iconColor, params.color),
+		noIndicator: params.noIndicator,
+		hint: params.title,
+		dataBind: params.dataBind,
+		dataEvent: params.dataEvent,
+		permission: params.permission
+	});
+	
+	params.click = function(item) {
+		var pg, btns = {}, tabIndex = 0, subTitle = "", wizard, subTitleContainer;
+		
+		// var updateButtons = function(wizard) {
+			// btns.back.SetEnabled(wizard.pg.activeTab.id > 1);
+			// btns.next.SetEnabled(wizard.pg.activeTab.id < wizard.pg.tabs.length);
+			// btns.finish.SetEnabled(wizard.pg.activeTab.id == wizard.pg.tabs.length);
+		// };
+		
+		var dialog = new JPopupDialog({
+			Target: item.Element(),				
+			Modal: false,
+			onClose: params.onClose,
+			Painter: {
+				painterClass: PopupOverlayPainter,
+				color: params.color,
+				snap: "bottom",
+				css: defaultValue(params.css, params.id),
+				// align: defaultValue(params.dlgAlign, params.align),
+				align: params.align,
+				noIndicator: params.noIndicator,
+				showFooter: false,
+				OnRenderContent: function(dialog, container) {
+					container.css({
+						width: params.width,
+						height: params.height
+					})
+					
+					var wizard = new jWizard({
+						container: container,
+						title: params.title,
+						color: params.color,
+						css: params.css || params.id,
+						prepare: function(wizard) {							
+							wizard.events.OnClose.add(function(wizard) {
+								dialog.Hide();
+							});
+							params.prepare(wizard);
+						}
+					})
+				}
+			}
+		});
+		
+		// pg.showTabs(false);
+		// updateButtons(pg);
+		// updateButtons(wizard);
+		// wizard.update();
 		dialog.toolbarButton = item;
 	};
 	
