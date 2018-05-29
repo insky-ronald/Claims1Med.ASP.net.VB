@@ -79,3 +79,31 @@ With DBConnection.NewCommand("lookup_doctor_ids", "GetDoctorIds", CommandType.St
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
 End With
+
+With DBConnection.NewCommand("lookup_customer_service_type_code", "GetCustomerServiceTypeCodes", CommandType.StoredProcedure)
+	.AddParameter("code", SqlDbType.varchar, ParameterDirection.Input, 4, "")
+	.AddParameter("codes", SqlDbType.varchar, ParameterDirection.Input, 500, "")
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+End With
+
+With DBConnection.NewCommand("lookup_customer_service_sub_status", "GetCustomerServiceSubStatus", CommandType.StoredProcedure)
+	.AddParameter("sub_status_code", SqlDbType.varchar, ParameterDirection.Input, 3, "")
+	.AddParameter("sub_status_codes", SqlDbType.varchar, ParameterDirection.Input, 500, "")
+    .AddParameter("filter", SqlDbType.varchar, ParameterDirection.Input, 100, "")
+	.AddParameter("action", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+    .AddParameter("page", SqlDbType.int, ParameterDirection.Input, 0, 1)
+    .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
+    .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
+    .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+End With
