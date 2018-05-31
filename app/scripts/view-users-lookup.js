@@ -13,7 +13,6 @@ function UsersLookup(viewParams){
 		},
 		init: function(grid, callback) {
 			grid.Events.OnInit.add(function(grid) {
-				// grid.optionsData.url = "lookup?name=lookup_actions";
 				grid.optionsData.url = "engine/sys-users";
 
 				grid.options.horzScroll = false;
@@ -23,10 +22,6 @@ function UsersLookup(viewParams){
 				grid.options.showSelection = false;
 				grid.options.showPager = true;
 				grid.options.toolbar.visible = true;
-				// grid.options.viewType = "treeview";
-				// grid.options.treeViewSettings.keyColumnName = "id";
-				// grid.options.treeViewSettings.parentColumnName = "parent_id";
-				// grid.options.treeViewSettings.columnName = "description";
 
 				grid.search.visible = true;
 				grid.search.mode = "simple";
@@ -73,31 +68,7 @@ function UsersLookup(viewParams){
 				});
 
 				grid.Events.OnCommand.add(function(grid, column) {
-					viewParams.select({
-						parentCode: grid.dataset.get("parent_code"),
-						code: grid.dataset.get("code")
-					});
-				});
-
-				grid.methods.add("allowCommand", function(grid, column, defaultValue) {
-					if(column.command === "select")
-						return grid.dataset.get("parent_id") > 0
-					else
-						return true
-				});
-
-				grid.Events.OnInitRow.add(function(grid, row) {
-					if (grid.dataset.get("parent_id") == 0) {
-						row.attr("x-parent", "1")
-					} else {
-						row.attr("x-parent", "0")
-					}
-				});
-
-				grid.Events.OnTreeViewButtons.add(function(grid, params) {
-					if(grid.dataset.get("parent_id") > 0 {
-						params.addIcon({icon:"notes", name:"note"});
-					}
+					viewParams.select(grid.dataset.get("user_name"));
 				});
 
 				grid.Events.OnInitColumns.add(function(grid) {
@@ -106,9 +77,6 @@ function UsersLookup(viewParams){
 					}
 
 					grid.NewColumn({fname: "full_name", width: 400, fixedWidth:false});
-					// grid.NewColumn({fname: "plan_name", width: 250, allowSort: true});
-					// grid.NewColumn({fname: "product_name", width: 250, allowSort: true});
-					// grid.NewColumn({fname: "client_name", width: 250, allowSort: true});
 				});
 
 			});

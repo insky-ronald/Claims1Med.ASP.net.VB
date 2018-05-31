@@ -64,6 +64,11 @@ function ServiceActionsView(viewParams){
 					return false;
 				});
 				
+				grid.Methods.add("deleteConfirm", function(grid, id) {
+					// return {title: "Cancel Action", message: ("Please confirm to cancel action <b>{0} > {1}</b>.").format(grid.dataset.get("note_type_name"), grid.dataset.get("note_sub_type_name"))};
+					return {title: "Cancel Action", message: "Please confirm to cancel action."};
+				});
+				
 				grid.Events.OnInitData.add(function(grid, data) {
 					data.Columns
 						.setprops("id", {label:"ID", numeric:true, key: true})
@@ -104,10 +109,23 @@ function ServiceActionsView(viewParams){
 				grid.methods.add("getCommandHeaderIcon", function(grid, column, defaultValue) {
 					if(column.command === "master-detail")
 						return "notes"
-					// else if(column.command === "deletex")
-						// return "db-delete"
-					// else if(column.command === "editx")
-						// return "db-edit"
+					else if(column.command === "deletex")
+						return "close-circle-outline"
+					else if(column.command === "done")
+						return "check-circle-outline"
+					else if(column.command === "assign")
+						return "user"
+					else
+						return defaultValue
+				});
+		
+				grid.methods.add("getCommandIcon", function(grid, column, defaultValue) {
+					if(column.command === "deletex")
+						return "close-circle-outline"
+					else if(column.command === "done")
+						return "check-circle-outline"
+					else if(column.command === "assign")
+						return "user"
 					else
 						return defaultValue
 				});
@@ -115,11 +133,26 @@ function ServiceActionsView(viewParams){
 				grid.methods.add("getCommandHint", function(grid, column, defaultValue) {
 					if(column.command === "master-detail") {
 						return "View notes"
-					// } else if(column.command === "deletex") {
-						// return "Delete note"
-					// } else {
+					} else if(column.command === "deletex") {
+						return "Cancel action"
+					} else if(column.command === "done") {
+						return "Set action as completed"
+					} else if(column.command === "assign") {
+						return "Change action owner"
+					} else {
 						return defaultValue
 					}
+				});
+		
+				grid.methods.add("allowCommand", function(grid, column, defaultValue) {
+					if(column.command === "deletex")
+						return grid.dataset.raw("is_done") == "N"
+					else if(column.command === "done")
+						return grid.dataset.raw("is_done") == "N"
+					else if(column.command === "assign")
+						return grid.dataset.raw("is_done") == "N"
+					else
+						return true
 				});
 				
 				grid.Events.OnMasterDetail.add(function(grid, params) {
@@ -143,11 +176,109 @@ function ServiceActionsView(viewParams){
 					})
 				});
 				
+				grid.Events.OnCommand.add(function(grid, column) {
+					if(column.command === "assign") {
+						column.column.openDropDown({
+							container: column.element,
+							icon: "user",
+							color: "dodgerblue",
+							title: "Change Action Owner",
+							width: 500,
+							height: 300,
+							containerOnly: true,
+							// view: UsersLookup,
+							view: ChangeActionOwner,
+							initView: function(wizard) {
+								wizard.dataset.set("id", grid.dataset.getKey();
+								wizard.dataset.set("notes", grid.dataset.get("notes");
+							},
+							select: function(wizard) {
+								// console.log("here")
+								desktop.serverPost({
+									url: "/app/get/change-owner/service-actions",
+									params: {
+										id: wizard.dataset.get("id"),
+										user_name: wizard.dataset.get("action_owner"),
+										notes: wizard.dataset.get("notes")
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "changing action owner"
+									}
+								});
+							}
+						});
+					}
+					
+					if(column.command === "deletex") {
+						var confirm = grid.methods.call("deleteConfirm", grid.dataset.getKey());
+						
+						ConfirmDialog({
+							color: "firebrick",
+							target: column.element,
+							title: confirm.title,
+							message: confirm.message,
+							callback: function(dialog) {
+								var data = {
+									id: grid.dataset.getKey()
+								};
+								desktop.serverPost({
+									url: "/app/get/delete/service-actions",
+									params: {
+										mode: "delete",
+										data: JSON.stringify([data]),
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "cancelling action"
+									}
+								});
+							}
+						});
+					};
+					
+					if(column.command === "done") {
+						ConfirmDialog({
+							color: "firebrick",
+							target: column.element,
+							title: "Complete Action",
+							message: "Please confirm to set action as completed.",
+							callback: function(dialog) {
+								desktop.serverPost({
+									url: "/app/get/complete/service-actions",
+									params: {
+										id: grid.dataset.getKey()
+									},
+									success: function(data) {
+										grid.refresh();
+									},
+									error: {
+										target: column.element,
+										title: "completing action"
+									}
+								});
+							}
+						});
+					};
+				});
+				
 				grid.Events.OnInitColumns.add(function(grid) {
+					grid.NewBand({caption: "...", fixed:"left"}, function(band) {					
+						band.NewCommand({command:"assign", permission:"edit"});
+						band.NewCommand({command:"deletex", permission:"delete"});
+						band.NewCommand({command:"done", permission:"edit"});
+					});
+					
 					grid.NewColumn({fname: "action_type", width: 200, allowSort: true, fixedWidth:true});
 					grid.NewColumn({fname: "action_name", width: 200, allowSort: true, fixedWidth:true});
-					grid.NewColumn({fname: "due_date", width: 150, allowSort: true, fixedWidth:true});
 					grid.NewColumn({fname: "action_owner_name", width: 150, allowSort: true});
+					grid.NewColumn({fname: "due_date", width: 150, allowSort: true, fixedWidth:true});
 					grid.NewColumn({fname: "create_date", width: 150, allowSort: true});
 					grid.NewColumn({fname: "create_user_name", width: 150, allowSort: true});
 					grid.NewColumn({fname: "update_date", width: 150, allowSort: true});
@@ -354,7 +485,7 @@ function ServiceActionsView(viewParams){
 								}, 
 								function(result) {
 									if (result.status == 0) {										
-										newNotes.push(parseInt(result.result.id));
+										// newNotes.push(parseInt(result.result.id));
 										grid.refresh();
 									} else {
 										ErrorDialog({

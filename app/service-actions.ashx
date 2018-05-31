@@ -25,5 +25,31 @@ Public Class DataProvider
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
+		
+		If Cmd = "complete"
+			Using Command = DBConnections("DBMedics").PrepareCommand("AddServiceAction")
+				Command.SetParameter("id", Request.Params("id"))
+				Command.SetParameter("action", 100)
+				Command.SetParameter("visit_id", VisitorID)
+				Command.Execute
+				
+				Output.AsJson("status") = Command.GetParameter("action_status_id").Value
+				Output.AsString("message") = Command.GetParameter("action_msg").Value
+			End Using			
+		End if
+		
+		If Cmd = "change-owner"
+			Using Command = DBConnections("DBMedics").PrepareCommand("AddServiceAction")
+				Command.SetParameter("id", Request.Params("id"))
+				Command.SetParameter("action_owner", Request.Params("user_name"))
+				Command.SetParameter("notes", Request.Params("notes"))
+				Command.SetParameter("action", 101)
+				Command.SetParameter("visit_id", VisitorID)
+				Command.Execute
+				
+				Output.AsJson("status") = Command.GetParameter("action_status_id").Value
+				Output.AsString("message") = Command.GetParameter("action_msg").Value
+			End Using			
+		End if
 	End Sub
 End Class

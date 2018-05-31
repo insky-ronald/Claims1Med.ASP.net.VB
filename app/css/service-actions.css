@@ -19,6 +19,21 @@
 	color: firebrick;
 }
 
+.grid3.service-actions .header-cell.command-cell[command="deletex"] svg,
+.grid3.service-actions .cell.command-cell[command="deletex"] svg {
+	fill: firebrick !important;
+}
+
+.grid3.service-actions .header-cell.command-cell[command="done"] svg,
+.grid3.service-actions .cell.command-cell[command="done"] svg {
+	fill: forestgreen !important;
+}
+
+.grid3.service-actions .header-cell.command-cell[command="assign"] svg,
+.grid3.service-actions .cell.command-cell[command="assign"] svg {
+	fill: dodgerblue !important;
+}
+
 .grid3.service-actions .master-detail-container {
 	font: 10pt Consolas;
 	background: lightyellow;
@@ -58,17 +73,44 @@
 	border-bottom-style: none;
 }
 
-.wizard .pg2 .tab-content[x-sec="actions"] {
+.wizard.new-action .pg2 .tab-content[x-sec="actions"] {
 	border: 2px solid #6DB2E3;
 	border-top-width: 1px;
 }
 
-.wizard .pg2 .tab-content[x-sec="users"] {
+.wizard.new-action .pg2 .tab-content[x-sec="users"] {
 	border: 2px solid #6DB2E3;
 	border-top-width: 1px;
 }
 
-.wizard .pg2 .tab-content[x-sec="notes"] {
+.wizard.new-action .pg2 .tab-content[x-sec="notes"] {
 	border: 2px solid orange;
 	border-top-width: 1px;
 }
+
+.wizard.change-owner .pg2 .tab-content[x-sec="users"] {
+	border: 2px solid #6DB2E3;
+	/* border-top-width: 1px; */
+}
+
+.wizard.change-owner .pg2 .tab-content[x-sec="notes"] {
+	border: 2px solid orange;
+	/* border-top-width: 1px; */
+}
+
+.wizard.change-owner div[x-sec="header"] div[x-sec="sub-title"][x-tab="2"] span[x-sec="main"] {
+	font-size: 130%;
+	font-weight: bold;
+}
+
+.wizard.change-owner div[x-sec="header"] div[x-sec="sub-title"][x-tab="2"] span[x-sec="sub"] {
+	font-size: 120%;
+}
+
+.wizard.change-owner div[x-sec="header"] div[x-sec="sub-title"][x-tab="2"] span[x-sec="sub"]:before {
+	content: "»";
+    font-size: 120%;
+    color: goldenrod;
+    margin: 0 4px 0 4px;
+}
+
