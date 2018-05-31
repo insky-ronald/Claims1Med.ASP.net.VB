@@ -57,6 +57,8 @@ TabularReportView.prototype.OnInitDataRequest = function(dataset) {
 		dataset.set("call_date_end", "")
 		//Note
 		dataset.set("note_category", "")
+		dataset.set("note_code", "")
+		dataset.set("note_sub_category", "")
 		//Creation
 		dataset.set("note_insert_date_start", "")
 		dataset.set("note_insert_date_end", "")
@@ -80,6 +82,8 @@ TabularReportView.prototype.OnInitSearchData = function(dataset) {
 		.setprops("call_date_end", {label:"End", type:"date"})
 		//Note
 		.setprops("note_category", {label:"Category"})
+		.setprops("note_code", {label:"Code"})
+		.setprops("note_sub_category", {label:"Sub-Category"})
 		//Creation
 		.setprops("note_insert_date_start", {label:"Start", type:"date"})
 		.setprops("note_insert_date_end", {label:"End", type:"date"})
@@ -102,21 +106,34 @@ TabularReportView.prototype.OnInitSearchEditor = function(editor) {
 		});
 		
 		editor.AddGroup("Note", function(editor) {
-			editor.AddDropDown("note_category", {width:400, height:350, disableEdit:true, init:NoteTypesLookup, 
+			editor.AddDropDown("note_category", {width:425, height:350, disableEdit:false, init:NoteTypesLookup, 
 				lookup: function(grid) {
-					grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
-						dataParams.set("code", editor.dataset.get("note_code"));
-						
-						dataParams.Events.OnResetSearch.add(function(dataset) {
-							dataset.set("code", editor.dataset.get("note_code"));
-						});
-					});
-					
 					grid.Events.OnSelectLookup.add(function(grid, key) {
-						editor.dataset.set("note_code", grid.dataset.lookup(key, "code"));
+						//for TabularReportView, use Dataset instead of dataset
+						editor.Dataset.set("note_category", grid.dataset.lookup(key, "note_type"));
+						editor.Dataset.set("note_code", grid.dataset.lookup(key, "code"));
 					});
 				}
 			});
+			
+			editor.AddDropDown("note_sub_category", {width:425, height:350, disableEdit:false, init:NoteSubTypesLookup, 
+				lookup: function(grid) {
+					grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
+						if (editor.Dataset.raw("note_category") === "") {
+							dataParams.set("note_type", "");
+						} else {
+														//for TabularReportView, use Dataset instead of dataset
+							dataParams.set("note_type", editor.Dataset.raw("note_code"));
+						};
+					});
+					
+					grid.Events.OnSelectLookup.add(function(grid, key) {
+						//for TabularReportView, use Dataset instead of dataset
+						editor.Dataset.set("note_sub_category", grid.dataset.lookup(key, "note_sub_type"));
+					});
+				}
+			});
+			// console.log(editor.Dataset.raw("note_category"));
 		});
 		
 		editor.AddGroup("Creation", function(editor) {
@@ -205,6 +222,8 @@ TabularReportView.prototype.OnDrawCustomHeader = function(container) {
 	this.addFilterDisplay({name:"client_ids", caption:"Client ID", operator:"is"});
 	this.addFilterDisplay({name:"service_types", caption:"Service Type", operator:"is"});
 	this.addFilterDisplay({name:"sub_status_codes", caption:"Status", operator:"is"});
+	this.addFilterDisplay({name:"note_category", caption:"Category", operator:"is"});
+	this.addFilterDisplay({name:"note_sub_category", caption:"Sub-Category", operator:"is"});
 	this.addFilterDisplay({name:"member_name", caption:"Member's Name", operator:"like"});
 };
 

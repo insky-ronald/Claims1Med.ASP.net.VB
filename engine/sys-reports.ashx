@@ -26,6 +26,6 @@ Public Class DataProvider
 	
 	Protected Overrides Sub ProcessOutput(ByVal Cmd As String, ByVal Output As EasyStringDictionary)
 		MyBase.ProcessOutput(Cmd, Output)
-		DatabaseUtils.GetActionPermission("reports", Crud)
+		DatabaseUtils.GetActionPermission("report", Crud)
 	End Sub
 End Class

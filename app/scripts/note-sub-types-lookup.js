@@ -1,4 +1,4 @@
-var NoteTypesLookup = function(edit, grid) {
+var NoteSubTypesLookup = function(edit, grid) {
 	grid.Events.OnInit.add(function(grid) {
 		grid.optionsData.cache = false;
 		grid.options.horzScroll = true;
@@ -8,11 +8,24 @@ var NoteTypesLookup = function(edit, grid) {
 		grid.search.mode = "simple";
 		grid.search.columnName = "filter";
 		// grid.search.searchWidth = 450;
-		grid.optionsData.url = "note-types";
+		grid.optionsData.url = "note-sub-types";
+		
+		grid.methods.add("canAdd", function(grid) {
+			return false;
+		});
+
+		grid.methods.add("canEdit", function(grid) {
+			return false;
+		});
+
+		grid.methods.add("canDelete", function(grid) {
+			return false;
+		});
 	});
 	
 	grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 		dataParams
+			.addColumn("note_type", "")
 			.addColumn("code", "")
 			.addColumn("action", 1, {numeric:true})
 			.addColumn("filter", "")
@@ -77,11 +90,11 @@ var NoteTypesLookup = function(edit, grid) {
 		
 		data.Columns
 			.setprops("code", {label:"Code", key: true})
-			.setprops("note_type", {label:"Type"})
+			.setprops("note_sub_type", {label:"Type"})
 	});
 	
 	grid.Events.OnInitColumns.add(function(grid) {
-		grid.NewColumn({fname: "note_type", width: 250, allowSort: true});
+		grid.NewColumn({fname: "note_sub_type", width: 250, allowSort: true});
 		grid.NewColumn({fname: "code", width: 100, allowSort: true, fixedWidth:true});
 	});
 };
