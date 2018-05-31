@@ -83,15 +83,18 @@ jGridColumn.prototype.openDropDown = function(params) {
 				});			
 				
 				CreateElementEx("div", container, function(view) {
-					view.parent()
-						.css("width", params.width || 600)
+					view.parent().css("width", params.width || 600)
 						
-					view
-						.css("height", params.height || 300)
-						.css("border", "1px solid " + params.color);
+					view.css("height", params.height || 300)
+					
+					if (!params.containerOnly) {						
+						view.css("border", "1px solid " + params.color);
+					}
 						
 					if(params.view) {
-						params.view($.extend({}, {container:view, 
+						params.view($.extend({}, {container:view,
+							dialog: dialog,
+							initView: params.initView,
 							initParams:function(dataParams) {
 								// console.log("here")
 								if (params.initParams) {
@@ -108,14 +111,18 @@ jGridColumn.prototype.openDropDown = function(params) {
 				});
 			},
 			OnRenderFooter: function(dialog, container) {
-				CreateButton({
-					container: container,
-					caption: "Close",
-					style: "green",
-					click: function(button) {
-						dialog.Hide();
-					}
-				});
+				if (params.containerOnly) {
+					container.remove()
+				} else {
+					CreateButton({
+						container: container,
+						caption: "Close",
+						style: "green",
+						click: function(button) {
+							dialog.Hide();
+						}
+					});
+				}
 			}
 		}
 	});
