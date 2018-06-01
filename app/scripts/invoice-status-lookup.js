@@ -43,16 +43,18 @@ var InvoiceSubStatusLookup = function(edit, grid) {
 		grid.search.columnName = "filter";
 		// grid.search.searchWidth = 450;
 		grid.optionsData.url = "lookup?name=lookup_invoice_sub_status";
+		// grid.optionsData.url = "service-status-details";
 	});
 	
 	grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 		dataParams
 			.addColumn("service_type", "INV")
 			.addColumn("status_code", "")
-			.addColumn("code", "")
-			.addColumn("filter", "")
-			.addColumn("sort", "sub_status_code")
+			.addColumn("page", 1, {numeric:true})
+			.addColumn("pagesize", 50, {numeric:true})
+			.addColumn("sort", "code")
 			.addColumn("order", "asc")
+			.addColumn("filter", "")
 	});
 	
 	grid.Events.OnInitData.add(function(grid, data) {		

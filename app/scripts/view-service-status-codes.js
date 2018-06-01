@@ -108,7 +108,7 @@ function ListServiceStatusCodes(params){
 						.addColumn("service_type", statusCode)
 						.addColumn("page", 1, {numeric:true})
 						.addColumn("pagesize", 50, {numeric:true})
-						.addColumn("sort", "code")
+						.addColumn("sort", "sub_status_code")
 						.addColumn("order", "asc")
 						.addColumn("filter", "")
 				});
