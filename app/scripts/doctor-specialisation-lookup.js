@@ -7,7 +7,7 @@ var DoctorSpecialisationLookup = function(edit, grid) {
 	grid.Events.OnInitGrid.add(function(grid) {
 		grid.options.simpleSearch = true;
 		grid.options.simpleSearchField = "filter";
-		grid.optionsData.url = "specialisation";
+		grid.optionsData.url = "doctor-specialisation";
 	});
 	
 	grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
