@@ -138,6 +138,80 @@ JToolbar.prototype.NewDropdownConfirm = function(params) {
 	return this.NewDropdownItem(params);
 };
 
+JToolbar.prototype.NewDropDownUpload = function(params) {
+	var self = this;
+	var item = this.NewDropdownItem({
+		id: params.id,
+		dataBind: params.dataBind,
+		dataEvent: params.dataEvent,
+		icon: params.icon,
+		iconColor: defaultValue(params.iconColor, params.color),
+		color: params.color,
+		noIndicator: params.noIndicator,
+		hint: params.title,
+		align: params.align || "left",
+		permission: params.permission,
+		painter: {
+			footer: function(dialog, container) {
+				CreateButton({
+					container: container,
+					caption: "Add Files",
+					style: "green",
+					click: function(button) {
+						self.uploadFiles.addFiles();
+						// dialog.Hide();
+						// params.confirm(dialog.toolbarButton);
+					}
+				});
+				
+				CreateButton({
+					container: container,
+					caption: "Upload",
+					style: "green",
+					click: function(button) {
+						dialog.Hide();
+						params.confirm(dialog.toolbarButton);
+					}
+				});
+					
+				CreateButton({
+					container: container,
+					caption: "Close",
+					enabled: true,
+					style: "text",
+					click: function(button) {
+						dialog.Hide();
+					}
+				});			
+			},
+			content: function(dialog, container) {
+				
+				CreateElementEx("div", container, function(header) {
+					// CreateElement("h2", header).html(params.title).css("margin", 0);
+					// CreateElement("p", header).html(params.subTitle);
+				});
+				
+				CreateElementEx("div", container, function(view) {
+					self.uploadFiles = new jUploadFiles({
+						container: view
+					});
+					
+					view.parent()
+						.css("width", params.width || 500)
+						
+					view
+						.css("height", params.height || 300)
+						.css("border", "1px solid " + params.color)
+						.css("overflow-x", "hidden")
+						.css("overflow-y", "auto")
+				});
+			}
+		}
+	});
+	
+	return item;
+};
+
 JToolbar.prototype.NewDropDownWizard = function(params) {
 	
 	params = $.extend({

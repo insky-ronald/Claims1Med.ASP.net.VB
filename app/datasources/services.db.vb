@@ -241,3 +241,11 @@ With DBConnection.NewCommand("ValidateService", "ValidateService", CommandType.S
 	.AddParameter("action_status_id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
 	.AddParameter("action_msg", SqlDbType.VarChar, ParameterDirection.InputOutput, 200, "")
 End With
+
+With DBConnection.NewCommand("SetServiceDocumentTemplate", "SetServiceDocumentTemplate", CommandType.StoredProcedure)
+	.AddParameter("id", SqlDbType.int, ParameterDirection.Input, 0, 0)
+	.AddParameter("document_type", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
+	.AddParameter("action_status_id", SqlDbType.Int, ParameterDirection.InputOutput, 0, 0)
+	.AddParameter("action_msg", SqlDbType.VarChar, ParameterDirection.InputOutput, 200, "")
+End With

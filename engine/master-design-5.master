@@ -55,6 +55,9 @@
 <% If IsLoggedIn and Libraries.Contains("html-editor") %>
 	<script src="https://cdn.quilljs.com/1.0.2/quill.js"></script>
 <% End if %>
+<% If IsLoggedIn and Libraries.Contains("msoffice.api") %>
+	<script src="https://appsforoffice.microsoft.com/lib/1/hosted/Office.js" type="text/javascript"></script>
+<% End if %>
 <% If ScriptName <> "" %>
 	<script type="text/javascript" charset="utf-8" src="<% =ScriptName %>"></script>
 <% End if %>

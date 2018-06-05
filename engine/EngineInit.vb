@@ -24,20 +24,20 @@ Styles.SetValue("report", "design-5")
 
 ScriptLibraries.SetValue("system", "html-editor")
 
-Dim System As Navigator.MenuItem = MenuItems.AddMain("system", "System", True)
+' Dim System As Navigator.MenuItem = MenuItems.AddMain("system", "System", True)
 
-	With System.SubItems.Add
-		.ID = "security"
-		.Action = "security"				
-		.Title = "Security"
-		.Icon = "security"	
-		.URL = "sys/security"		
-	End with
+	' With System.SubItems.Add
+		' .ID = "security"
+		' .Action = "security"				
+		' .Title = "Security"
+		' .Icon = "security"	
+		' .URL = "sys/security"		
+	' End with
 	
-	With System.SubItems.Add
-		.ID = "system"
-		.Action = "system"				
-		.Title = "System"
-		.Icon = "settings"
-		.Url = "sys/system"
-	End with
+	' With System.SubItems.Add
+		' .ID = "system"
+		' .Action = "system"				
+		' .Title = "System"
+		' .Icon = "settings"
+		' .Url = "sys/system"
+	' End with
