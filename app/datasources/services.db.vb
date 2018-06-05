@@ -15,7 +15,7 @@ With DBConnection.NewCommand("GetServiceStatusCodes", "GetServiceStatusCodes", C
     .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "module")
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "sub_status_code")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
@@ -30,7 +30,7 @@ With DBConnection.NewCommand("lookup_service_status_codes", "GetServiceStatusCod
     .AddParameter("pagesize", SqlDbType.int, ParameterDirection.Input, 0, 0)
     .AddParameter("row_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
-    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "module")
+    .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "sub_status_code")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "asc")
     .AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With

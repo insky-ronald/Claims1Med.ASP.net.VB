@@ -28,11 +28,11 @@ function ServiceStatusCodesView(params){
 				
 				grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
 					dataParams
-						.addColumn("page", 1, {numeric:true})
-						.addColumn("pagesize", 25, {numeric:true})
-						.addColumn("sort", "code")
-						.addColumn("order", "asc")
-						.addColumn("filter", "")
+						// .addColumn("page", 1, {numeric:true})
+						// .addColumn("pagesize", 25, {numeric:true})
+						// .addColumn("sort", "code")
+						// .addColumn("order", "asc")
+						// .addColumn("filter", "")
 				});
 				
 				grid.Events.OnInitData.add(function(grid, data) {
@@ -108,7 +108,7 @@ function ListServiceStatusCodes(params){
 						.addColumn("service_type", statusCode)
 						.addColumn("page", 1, {numeric:true})
 						.addColumn("pagesize", 50, {numeric:true})
-						.addColumn("sort", "code")
+						.addColumn("sort", "sub_status_code")
 						.addColumn("order", "asc")
 						.addColumn("filter", "")
 				});

@@ -9,6 +9,7 @@ With DBConnection.NewCommand("lookup_invoice_status", "GetInvoiceStatuses", Comm
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
 With DBConnection.NewCommand("lookup_invoice_sub_status", "GetServiceStatusCodes", CommandType.StoredProcedure)
@@ -24,6 +25,7 @@ With DBConnection.NewCommand("lookup_invoice_sub_status", "GetServiceStatusCodes
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
 With DBConnection.NewCommand("lookup_all_service_types", "GetAllServiceTypes", CommandType.StoredProcedure)
@@ -37,6 +39,7 @@ With DBConnection.NewCommand("lookup_all_service_types", "GetAllServiceTypes", C
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
 With DBConnection.NewCommand("lookup_claim_type_codes", "GetClaimTypeCodes", CommandType.StoredProcedure)
@@ -51,6 +54,7 @@ With DBConnection.NewCommand("lookup_claim_type_codes", "GetClaimTypeCodes", Com
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
 With DBConnection.NewCommand("lookup_policy_no", "GetPolicyNumbers", CommandType.StoredProcedure)
@@ -79,6 +83,7 @@ With DBConnection.NewCommand("lookup_provider_ids", "GetProviderIds", CommandTyp
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
 With DBConnection.NewCommand("lookup_doctor_ids", "GetDoctorIds", CommandType.StoredProcedure)
@@ -93,6 +98,7 @@ With DBConnection.NewCommand("lookup_doctor_ids", "GetDoctorIds", CommandType.St
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
 With DBConnection.NewCommand("lookup_customer_service_type_code", "GetCustomerServiceTypeCodes", CommandType.StoredProcedure)
@@ -107,6 +113,7 @@ With DBConnection.NewCommand("lookup_customer_service_type_code", "GetCustomerSe
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
 With DBConnection.NewCommand("lookup_customer_service_sub_status", "GetCustomerServiceSubStatus", CommandType.StoredProcedure)
@@ -121,6 +128,7 @@ With DBConnection.NewCommand("lookup_customer_service_sub_status", "GetCustomerS
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
 
 With DBConnection.NewCommand("lookup_user_names", "GetUserNames", CommandType.StoredProcedure)
@@ -135,4 +143,5 @@ With DBConnection.NewCommand("lookup_user_names", "GetUserNames", CommandType.St
     .AddParameter("page_count", SqlDbType.int, ParameterDirection.InputOutput, 0, 0)
     .AddParameter("sort", SqlDbType.varchar, ParameterDirection.Input, 200, "")
     .AddParameter("order", SqlDbType.varchar, ParameterDirection.Input, 10, "")
+	.AddParameter("visit_id", SqlDbType.bigint, ParameterDirection.Input, 0, 0)
 End With
