@@ -30,6 +30,7 @@ TabularReportView.prototype.initialize = function(params) {
 
 TabularReportView.prototype.OnInitGrid = function(grid) {
 	TabularReportView.prototype.parent.prototype.OnInitGrid.call(this, grid);
+	grid.options.allowSort = false;
 	grid.options.showSummary = false;
 	grid.options.editNewPage = true;
 	grid.options.showBand = false;
@@ -44,7 +45,7 @@ TabularReportView.prototype.OnInitDataRequest = function(dataset) {
 		.addColumn("loaded", 0, {numeric:true})
 		.addColumn("page", 1, {numeric:true})
 		.addColumn("pagesize", 25, {numeric:true})
-		.addColumn("sort", "policy_name")
+		.addColumn("sort", "service_no")
 		.addColumn("order", "asc")
 
 	dataset.Events.OnResetSearch.add(function(dataset, grid) {
@@ -217,20 +218,20 @@ TabularReportView.prototype.OnInitColumns = function(grid) {
 	TabularReportView.prototype.parent.prototype.OnInitColumns.call(this, grid);
 
 	// grid.NewColumn({fname: "policy_name", width: 150, allowSort: true, linkField:"policy_name"});
-	grid.NewColumn({fname: "policy_name", width: 150, allowSort: true});
+	grid.NewColumn({fname: "policy_name", width: 150});
 	grid.NewColumn({fname: "policy_no", width: 100, allowSort: true});
 	// grid.NewColumn({fname: "claim_no", width: 100, allowSort: true, linkField:"claim_no"});
 	grid.NewColumn({fname: "claim_no", width: 100, allowSort: true});
 	grid.NewColumn({fname: "patient", width: 250, allowSort: true});
 	grid.NewColumn({fname: "service_no", width: 150, allowSort: true});
 	grid.NewColumn({fname: "treatment_date", width: 125, allowSort: true});
-	grid.NewColumn({fname: "icd_code", width: 100, allowSort: true});
-	grid.NewColumn({fname: "diagnosis", width: 250, allowSort: true});
+	grid.NewColumn({fname: "icd_code", width: 100});
+	grid.NewColumn({fname: "diagnosis", width: 250});
 	grid.NewColumn({fname: "provider_name", width: 250, allowSort: true});
 	grid.NewColumn({fname: "physician", width: 150, allowSort: true});
-	grid.NewColumn({fname: "length_of_stay", width: 150, allowSort: true});
+	grid.NewColumn({fname: "length_of_stay", width: 150});
 	grid.NewColumn({fname: "claim_type", width: 250, allowSort: true});
-	grid.NewColumn({fname: "age", width: 50, allowSort: true});
+	grid.NewColumn({fname: "age", width: 50});
 	grid.NewColumn({fname: "age_band", width: 100, allowSort: true});
 	grid.NewColumn({fname: "status_description", width: 150, allowSort: true});
 };

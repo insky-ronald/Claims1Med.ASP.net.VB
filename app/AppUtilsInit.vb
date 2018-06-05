@@ -70,6 +70,7 @@ Styles.SetValue("hospital", "design-5")
 Styles.SetValue("clinic", "design-5")
 Styles.SetValue("sob", "design-5")
 
+' ScriptLibraries.SetValue("service", "msoffice.api")
 REM Styles.SetValue("demo", "design-5")
 REM Styles.SetValue("masterpolicy", "design-5")
 REM Styles.SetValue("tables", "design-5")
@@ -78,29 +79,29 @@ REM Styles.SetValue("alz", "design-5")
 REM Styles.SetValue("financial", "design-5")
 
 REM http://medics5.insky-inc.com/api/tools/appinit
-Dim Main As Navigator.MenuItem = MenuItems.AddMain("links", "Links", True)
-	With Main.SubItems.Add
-		.ID = "admin"
-		.Action = "admin"				
-		.Title = "Admin"
-		.Icon = "settings"
-	End with
-	With Main.SubItems.Add
-		.ID = "providers"
-		.Action = "admin"				
-		.Title = "Providers"
-		.Icon = "hospital"
-	End with
-	With Main.SubItems.Add
-		.ID = "system-tables"
-		.Action = "admin"				
-		.Title = "System Tables"
-		.Icon = "table"
-	End with
-	With Main.SubItems.Add
-		.ID = "claim-tables"
-		.Action = "admin"				
-		.Title = "Claim Tables"
-		.Icon = "table"
-	End with
+' Dim Main As Navigator.MenuItem = MenuItems.AddMain("links", "Links", True)
+	' With Main.SubItems.Add
+		' .ID = "admin"
+		' .Action = "admin"				
+		' .Title = "Admin"
+		' .Icon = "settings"
+	' End with
+	' With Main.SubItems.Add
+		' .ID = "providers"
+		' .Action = "admin"				
+		' .Title = "Providers"
+		' .Icon = "hospital"
+	' End with
+	' With Main.SubItems.Add
+		' .ID = "system-tables"
+		' .Action = "admin"				
+		' .Title = "System Tables"
+		' .Icon = "table"
+	' End with
+	' With Main.SubItems.Add
+		' .ID = "claim-tables"
+		' .Action = "admin"				
+		' .Title = "Claim Tables"
+		' .Icon = "table"
+	' End with
 

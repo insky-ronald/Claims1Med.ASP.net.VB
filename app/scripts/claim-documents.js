@@ -9,13 +9,22 @@ function ClaimDocumentsView(viewParams){
 		},
 		container: viewParams.container,
 		init: function(pg) {
-			pg.addTab({caption:"Inbox (Attachments)",
+			// pg.addTab({caption:"Inbox (Attachments)",
+			pg.addTab({caption:"Documents",
+				icon: {
+					name: "inbox",
+					color: "forestgreen"
+				},
+				OnCreate: function(tab) {
+					DocumentsView($.extend(viewParams, {container:tab.container}))
+				}
+			});
+			pg.addTab({caption:"Attachments",
 				icon: {
 					name: "inbox",
 					color: "dodgerblue"
 				},
 				OnCreate: function(tab) {
-					// ClaimDocumentsInView({container:tab.container, requestParams:$.extend(viewParams.requestParams, {source:"I"})});
 					ClaimDocumentsInView($.extend(viewParams, {container:tab.container}))
 				}
 			});
@@ -25,7 +34,7 @@ function ClaimDocumentsView(viewParams){
 					color: "firebrick"
 				},
 				OnCreate: function(tab) {
-					// new UpdateBreakdownView({container:tab.container, serviceID:viewParams.requestParams.service_id, section:1});
+					ClaimDocumentsOutView($.extend(viewParams, {container:tab.container}))
 				}
 			});
 		}

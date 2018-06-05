@@ -401,30 +401,58 @@ jGrid.prototype.initialize = function(params) {
 	
 	this.params.delayPainting = function(grid) {
 		grid.painter.prePaint();
-		grid.fetchData("init", function(grid, data) {
-			grid.prepareFetchData(data, function(grid) {
-				grid.events.OnInitColumns.trigger()
-				
-				// always add a filler at the end - NO!
-				// add a filles if options.autoScroll == true
-				// if(grid.options.autoScroll)
-				if(grid.options.horzScroll)
-					grid.NewBand({id:"~filler", filler: true}, function(band) {
-						band.NewColumn({allowSort: false, fixedWidth:false});
-					})
-				
-				grid.bands.each(function(i, band) {
-					if(band.fixed === "left") band.grid.hasLeftFixedColumns = true
-					if(band.fixed === "right") band.grid.hasRightFixedColumns = true
-				})
-
-				grid.paint()
-				grid.events.OnAfterPaint.trigger()
-			})
-			if(grid.optionsData.cache)
-				desktop.cacheDataset.add(grid.cacheDatasetName, data)
+		if (grid.optionsData.local) {
+			// console.log("1")
+			grid.dataset = grid.optionsData.dataset;
+			grid.crud = {};
+			grid.crud.edit = false;
+			grid.crud.add = false;
+			grid.crud["delete"] = false;
 			
-		})
+			grid.events.OnInitColumns.trigger();
+			
+			// always add a filler at the end - NO!
+			// add a filles if options.autoScroll == true
+			// if(grid.options.autoScroll)
+			if(grid.options.horzScroll)
+				grid.NewBand({id:"~filler", filler: true}, function(band) {
+					band.NewColumn({allowSort: false, fixedWidth:false});
+				})
+			
+			grid.bands.each(function(i, band) {
+				if(band.fixed === "left") band.grid.hasLeftFixedColumns = true
+				if(band.fixed === "right") band.grid.hasRightFixedColumns = true
+			})
+
+			grid.paint();
+			grid.events.OnAfterPaint.trigger();
+			// console.log("2")
+		} else {
+			grid.fetchData("init", function(grid, data) {
+				grid.prepareFetchData(data, function(grid) {
+					grid.events.OnInitColumns.trigger()
+					
+					// always add a filler at the end - NO!
+					// add a filles if options.autoScroll == true
+					// if(grid.options.autoScroll)
+					if(grid.options.horzScroll)
+						grid.NewBand({id:"~filler", filler: true}, function(band) {
+							band.NewColumn({allowSort: false, fixedWidth:false});
+						})
+					
+					grid.bands.each(function(i, band) {
+						if(band.fixed === "left") band.grid.hasLeftFixedColumns = true
+						if(band.fixed === "right") band.grid.hasRightFixedColumns = true
+					})
+
+					grid.paint()
+					grid.events.OnAfterPaint.trigger()
+				})
+				if(grid.optionsData.cache)
+					desktop.cacheDataset.add(grid.cacheDatasetName, data)
+				
+			})
+		}
 	}
 }
 

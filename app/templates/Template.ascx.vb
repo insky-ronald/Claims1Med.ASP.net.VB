@@ -21,11 +21,22 @@ Public Class Template
 				Template = DBService.Rows(0).Item("document_type")
 			End if
 			
-			Template = "GOP_GM01"
+			' Template = "GOP_GM01"
 			
-			DBData = DBConnections("DBMedics").OpenData("GetTemplate_" & Template, {"claim_id","service_id","visit_id"}, {DBService.Eval("@claim_id"), DBService.Eval("@id"), Session("VisitorID")})
+			DBData = DBConnections("DBMedics").OpenData("GetTemplate_" & "GOP_GM01", {"claim_id","service_id","visit_id"}, {DBService.Eval("@claim_id"), DBService.Eval("@id"), Session("VisitorID")})
 			' DBData = DBConnections("DBMedics").OpenData("GetTemplate_GOP_GM01" & Template, {"claim_id","service_id","visit_id"}, {DBService.Eval("@claim_id"), DBService.Eval("@id"), Session("VisitorID")})
 			Row = DBData.Rows(0)
+			
+			Using Command = DBConnections("DBMedics").PrepareCommand("SetServiceDocumentTemplate")
+				Command.SetParameter("id", ID)
+				Command.SetParameter("document_type", Template)
+				Command.SetParameter("visit_id", Session("VisitorID"))
+				Command.Execute
+				
+				' Output.AsJson("status") = Command.GetParameter("action_status_id").Value
+				' Output.AsString("message") = Command.GetParameter("action_msg").Value
+			End Using
+			
 		End Using
 	End Sub
 	
