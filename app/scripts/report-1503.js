@@ -207,22 +207,22 @@ TabularReportView.prototype.OnDrawCustomHeader = function(container) {
 TabularReportView.prototype.OnInitColumns = function(grid) {
 	TabularReportView.prototype.parent.prototype.OnInitColumns.call(this, grid);
 
-	grid.NewColumn({fname: "scheme_code", width: 75, allowSort: true});
-	grid.NewColumn({fname: "scheme", width: 100, allowSort: true});
+	grid.NewColumn({fname: "scheme_code", width: 75, allowSort: false});
+	grid.NewColumn({fname: "scheme", width: 100, allowSort: false});
 	grid.NewColumn({fname: "certificate_id", width: 100, allowSort: true});
-	grid.NewColumn({fname: "policy_purchased_date", width: 125, allowSort: true});
-	grid.NewColumn({fname: "policy_start_date", width: 125, allowSort: true});
-	grid.NewColumn({fname: "policy_expiry_date", width: 100, allowSort: true});
-	grid.NewColumn({fname: "last_name", width: 150, allowSort: true});
-	grid.NewColumn({fname: "first_name", width: 200, allowSort: true});
+	grid.NewColumn({fname: "policy_purchased_date", width: 125, allowSort: false});
+	grid.NewColumn({fname: "policy_start_date", width: 125, allowSort: false});
+	grid.NewColumn({fname: "policy_expiry_date", width: 100, allowSort: false});
+	grid.NewColumn({fname: "last_name", width: 150, allowSort: false});
+	grid.NewColumn({fname: "first_name", width: 200, allowSort: false});
 	grid.NewColumn({fname: "gender", width: 50, allowSort: false});
-	grid.NewColumn({fname: "dob", width: 100, allowSort: true});
-	grid.NewColumn({fname: "claim_no", width: 125, allowSort: true});
+	grid.NewColumn({fname: "dob", width: 100, allowSort: false});
+	grid.NewColumn({fname: "claim_no", width: 125, allowSort: false});
 	grid.NewColumn({fname: "incident_date", width: 125, allowSort: true});
 	grid.NewColumn({fname: "notification_date", width: 125, allowSort: true});
-	grid.NewColumn({fname: "service_type", width: 185, allowSort: true});
-	grid.NewColumn({fname: "invoice_currency", width: 100, allowSort: true});
-	grid.NewColumn({fname: "claimed_amount", width: 100, allowSort: true});
+	grid.NewColumn({fname: "service_type", width: 185, allowSort: false});
+	grid.NewColumn({fname: "invoice_currency", width: 100, allowSort: false});
+	grid.NewColumn({fname: "claimed_amount", width: 100, allowSort: false});
 	grid.NewColumn({fname: "invoice_sub_status_code", width: 75, allowSort: true});
 	grid.NewColumn({fname: "status_date", width: 100, allowSort: true});
 };
