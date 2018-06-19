@@ -136,7 +136,7 @@ TabularReportView.prototype.OnInitData = function(dataset) {
 		// .setprops("client_name", {label:"Client Name"})
 		// .setprops("product_code", {label:"Product Code"})
 		// .setprops("product_name", {label:"Product Name"})
-		.setprops("invoice_id", {label:"Invoice ID", numeric:true, key: true})
+		.setprops("id", {label:"Invoice ID", numeric:true, key: true})
 		.setprops("scheme_code", {label:"Scheme Code"})
 		.setprops("scheme", {label:"Scheme"})
 		.setprops("certificate_id", {label:"Certificate ID"})
