@@ -50,7 +50,11 @@ TabularReportView.prototype.OnInitDataRequest = function(dataset) {
 		//General
 		dataset.set("user_names", "")
 		//Client
-		dataset.set("client_ids", "");
+		dataset.set("client_ids", "")
+		//Case Fee Status
+		dataset.set("case_fee_status", "")
+		dataset.set("case_fee_status_code", "")
+		dataset.set("case_fee_sub_status", "")
 		//Dates
 		dataset.set("status_date", "")
 		dataset.set("incident_date", "")
@@ -65,6 +69,10 @@ TabularReportView.prototype.OnInitSearchData = function(dataset) {
 		
 		.setprops("client_ids", {label:"Client ID"})
 		
+		.setprops("case_fee_status", {label:"Status"})
+		.setprops("case_fee_status_code", {label:"Status Code"})
+		.setprops("case_fee_sub_status", {label:"Sub-Status"})
+		
 		.setprops("status_date", {label:"Status Date", type:"date"})
 		.setprops("incident_date", {label:"Incident Date", type:"date"})
 		.setprops("notification_date", {label:"Notification Date", type:"date"})
@@ -76,6 +84,36 @@ TabularReportView.prototype.OnInitSearchEditor = function(editor) {
 	editor.NewGroupEdit({caption:"Report"}, function(editor, tab) {
 		tab.container.css("border", "1px silver");
 		tab.container.css("border-style", "solid solid none solid");
+		
+		editor.AddGroup("Case Fee Status", function(editor) {
+			editor.AddDropDown("case_fee_status", {width:425, height:350, disableEdit:false, init:CaseFeeStatusLookup, 
+				lookup: function(grid) {
+					grid.Events.OnSelectLookup.add(function(grid, key) {
+						//for TabularReportView, use Dataset instead of dataset
+						editor.Dataset.set("case_fee_status", grid.dataset.lookup(key, "status"));
+						editor.Dataset.set("case_fee_status_code", grid.dataset.lookup(key, "status_code"));
+					});
+				}
+			});
+			
+			editor.AddDropDown("case_fee_sub_status", {width:425, height:350, disableEdit:false, init:CaseFeeSubStatusLookup, 
+				lookup: function(grid) {
+					grid.Events.OnInitDataRequest.add(function(grid, dataParams) {
+						if (editor.Dataset.raw("case_fee_status") === "") {
+							dataParams.set("status_code", "");
+						} else {
+														//for TabularReportView, use Dataset instead of dataset
+							dataParams.set("status_code", editor.Dataset.raw("case_fee_status_code"));
+						};
+					});
+					
+					grid.Events.OnSelectLookup.add(function(grid, key) {
+						//for TabularReportView, use Dataset instead of dataset
+						editor.Dataset.set("case_fee_sub_status", grid.dataset.lookup(key, "sub_status_code"));
+					});
+				}
+			});
+		});
 		
 		editor.AddGroup("Dates", function(editor) {
 			editor.AddDate("status_date");
@@ -158,6 +196,9 @@ TabularReportView.prototype.OnDrawCustomHeader = function(container) {
 
 	this.addFilterDisplay({name:"user_names", caption:"User", operator:"is"});
 	this.addFilterDisplay({name:"client_ids", caption:"Client ID", operator:"is"});
+	this.addFilterDisplay({name:"case_fee_status", caption:"Case Fee Status", operator:"is"});
+	this.addFilterDisplay({name:"case_fee_status_code", caption:"Case Fee Status Code", operator:"is"});
+	this.addFilterDisplay({name:"case_fee_sub_status", caption:"Case Fee Sub-Status", operator:"is"});
 	this.addFilterDisplay({name:"status_date", caption:"Status Date", operator:"is"});
 	this.addFilterDisplay({name:"incident_date", caption:"Incident Date", operator:"is"});
 	this.addFilterDisplay({name:"notification_date", caption:"Notification Date", operator:"is"});

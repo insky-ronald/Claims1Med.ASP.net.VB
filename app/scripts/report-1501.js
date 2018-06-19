@@ -50,7 +50,7 @@ TabularReportView.prototype.OnInitDataRequest = function(dataset) {
 		//General
 		dataset.set("user_names", "")
 		//Client
-		dataset.set("client_ids", "");
+		dataset.set("client_ids", "")
 		//Invoice Status
 		dataset.set("invoice_status", "")
 		dataset.set("invoice_status_code", "")
@@ -109,7 +109,7 @@ TabularReportView.prototype.OnInitSearchEditor = function(editor) {
 					
 					grid.Events.OnSelectLookup.add(function(grid, key) {
 						//for TabularReportView, use Dataset instead of dataset
-						editor.Dataset.set("invoice_status_code", grid.dataset.lookup(key, "sub_status_code"));
+						editor.Dataset.set("invoice_sub_status", grid.dataset.lookup(key, "sub_status_code"));
 					});
 				}
 			});
@@ -212,6 +212,7 @@ TabularReportView.prototype.OnDrawCustomHeader = function(container) {
 	this.addFilterDisplay({name:"user_names", caption:"User", operator:"is"});
 	this.addFilterDisplay({name:"client_ids", caption:"Client ID", operator:"is"});
 	this.addFilterDisplay({name:"invoice_status", caption:"Invoice Status", operator:"is"});
+	this.addFilterDisplay({name:"invoice_status_code", caption:"Invoice Status Code", operator:"is"});
 	this.addFilterDisplay({name:"invoice_sub_status", caption:"Invoice Sub-Status", operator:"is"});
 	this.addFilterDisplay({name:"status_date", caption:"Status Date", operator:"is"});
 	this.addFilterDisplay({name:"incident_date", caption:"Incident Date", operator:"is"});

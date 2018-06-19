@@ -55,6 +55,9 @@ BEGIN
 	EXEC RunDynamicQueryBuilder2 @id=@id, @type='c', @operator='in', @name='user_names', @column_name='user_name', @where = @where OUTPUT, @parameters = @parameters OUTPUT, @values = @values OUTPUT
 	--Client
 	EXEC RunDynamicQueryBuilder2 @id=@id, @type='n', @operator='in', @name='client_ids', @column_name='client_id', @where = @where OUTPUT, @parameters = @parameters OUTPUT, @values = @values OUTPUT
+	--Invoice Status
+	EXEC RunDynamicQueryBuilder2 @id=@id, @type='c', @operator='=', @name='invoice_status_code', @column_name='invoice_status_code', @where = @where OUTPUT, @parameters = @parameters OUTPUT, @values = @values OUTPUT
+	EXEC RunDynamicQueryBuilder2 @id=@id, @type='c', @operator='=', @name='invoice_sub_status', @column_name='invoice_sub_status_code', @where = @where OUTPUT, @parameters = @parameters OUTPUT, @values = @values OUTPUT
 	--Dates
 	EXEC RunDynamicQueryBuilder2 @id=@id, @type='d', @operator='=', @name='status_date', @column_name='status_date', @where = @where OUTPUT, @parameters = @parameters OUTPUT, @values = @values OUTPUT
 	EXEC RunDynamicQueryBuilder2 @id=@id, @type='d', @operator='=', @name='incident_date', @column_name='incident_date', @where = @where OUTPUT, @parameters = @parameters OUTPUT, @values = @values OUTPUT

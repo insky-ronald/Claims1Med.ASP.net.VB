@@ -9,8 +9,10 @@ select
 	s.id,
 	m.certificate_no as certificate_id,
 	s.status_user as user_name,
+	s.status_code as invoice_status_code,
+	s.sub_status_code as invoice_sub_status_code,
 	c.client_id,
-	s.status_date,
+	status_date = cast(convert(char(11), s.status_date, 100) as datetime),
 	s.service_date as incident_date,
 	s.invoice_received_date as notification_date
 from services s
